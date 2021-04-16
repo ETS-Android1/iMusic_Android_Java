@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorMain1">#FFFFFF</color>
+
+    <color name="btn_loginfb">#1877F2</color>
 
     <color name="lovesong">#FF0000</color>
-    <color name="colorDark_1">#27153E</color>
+    <color name="colorNight1">#27153E</color>
 
 
 </resources>

@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorDark_1"
+    android:background="@color/colorMain1"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
     tools:context=".activities.MainActivity">
 
     <ImageView
@@ -18,16 +20,24 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_foreground" />
 
-    <ImageView
-        android:id="@+id/imvLove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+    <Button
+        android:id="@+id/btnLoginFB"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/btn_loginfb"
+        android:drawableStart="@drawable/logo_facebook"
+        android:drawableLeft="@drawable/logo_facebook"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:text="@string/btnLoginFB"
+        android:textAllCaps="false"
+        android:textColor="@color/colorMain1"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.362"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_love" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

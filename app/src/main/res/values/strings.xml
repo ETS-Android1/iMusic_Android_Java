@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">iMusic</string>
+
+    <string name="facebook_app_id">1179700782483492</string>
+    <string name="fb_login_protocol_scheme">fb1179700782483492</string>
+
+    <!--    Button "Login with Facebook"    -->
+    <string name="btnLoginFB">Login with Facebook</string>
+
 </resources>
