@@ -7,6 +7,6 @@ public class User {
     private String gender;
     private String email;
     private int theme;
-    private String loveSongs;
+    private String loveSong;
     private String playlist;
 }
