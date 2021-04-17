@@ -10,6 +10,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
 import com.thanguit.imusic.R;
 
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+                FacebookSdk.sdkInitialize(MainActivity.this);
+        //        AppEventsLogger.activateApp(this);
 
 //        Get Hash Key
 //        try {
