@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,8 +20,7 @@ import com.thanguit.imusic.models.User;
 
 public class FullActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-
+    private FirebaseAuth firebaseAuth;
     private User user;
 
     private ImageView Avatar;
@@ -28,7 +28,6 @@ public class FullActivity extends AppCompatActivity {
     private TextView Name;
     private TextView Email;
     private Button Signout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +40,20 @@ public class FullActivity extends AppCompatActivity {
         this.Email = findViewById(R.id.tvEmail);
         this.Signout = findViewById(R.id.btnSignout);
 
+        this.firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = this.firebaseAuth.getCurrentUser();
 
-        this.mAuth = FirebaseAuth.getInstance();
-        FirebaseUser mUser = this.mAuth.getCurrentUser();
-
-        if (mUser != null) {
+        if (firebaseUser != null) {
             try {
-                this.user = new User(mUser.getUid(), String.valueOf(mUser.getPhotoUrl()), String.valueOf(mUser.getDisplayName()), "", "", String.valueOf(mUser.getEmail()));
+                String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
+                this.user = new User(firebaseUser.getUid(), AccessToken.getCurrentAccessToken().getToken(), photoUrl, String.valueOf(firebaseUser.getDisplayName()), "", "", String.valueOf(firebaseUser.getEmail()));
 
                 Picasso.get().load(user.getAvatar()).into(this.Avatar);
                 this.ID.setText(user.getId());
                 this.Name.setText(user.getName());
                 this.Email.setText(user.getEmail());
 
-                Log.d("user", user.toString());
+                Log.d("token", user.toString());
             } catch (Exception e) {
                 Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("test", e.getMessage());
@@ -64,7 +63,7 @@ public class FullActivity extends AppCompatActivity {
         Signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
+                firebaseAuth.signOut();
                 LoginManager.getInstance().logOut();
                 finish();
             }

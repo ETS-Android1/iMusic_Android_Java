@@ -2,6 +2,7 @@ package com.thanguit.imusic.models;
 
 public class User {
     private String id;
+    private static String token;
     private String avatar;
     private String name;
     private String gender;
@@ -10,16 +11,12 @@ public class User {
 //    private int theme;
 
     public User() {
-        this.id = "";
-        this.avatar = "";
-        this.name = "";
-        this.gender = "";
-        this.birthday = "";
-        this.email = "";
+
     }
 
-    public User(String id, String avatar, String name, String gender, String birthday, String email) {
+    public User(String id, String token, String avatar, String name, String gender, String birthday, String email) {
         this.id = id;
+        this.token = token;
         this.avatar = avatar;
         this.name = name;
         this.gender = gender;
@@ -33,6 +30,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getAvatar() {
@@ -79,6 +84,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
+                ", token='" + token + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +

@@ -55,9 +55,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 LoginManager.getInstance().logInWithReadPermissions(MainActivity.this, Arrays.asList("public_profile", "email"));
                 LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Log.d(TAG, "facebook: onSuccess:" + loginResult);
+                        Log.d(TAG, "facebook: onSuccess: " + loginResult);
                         handleFacebookAccessToken(loginResult.getAccessToken());
                         Toast.makeText(MainActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
                     }
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(FacebookException error) {
-                        Log.d(TAG, "facebook: onError", error);
+                        Log.d(TAG, "facebook: onError ", error);
                         Toast.makeText(MainActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
                     }
                 });
