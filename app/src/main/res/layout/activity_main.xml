@@ -22,18 +22,12 @@
 
     <Button
         android:id="@+id/btnLoginFB"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        style="@style/btnLogin"
         android:layout_marginTop="100dp"
         android:background="@drawable/btn_loginfb"
         android:drawableStart="@drawable/logo_facebook"
         android:drawableLeft="@drawable/logo_facebook"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
         android:text="@string/btnLoginFB"
-        android:textAllCaps="false"
-        android:textColor="@color/colorMain1"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />

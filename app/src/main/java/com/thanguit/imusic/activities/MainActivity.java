@@ -5,11 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,11 +15,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -33,56 +26,35 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.thanguit.imusic.R;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-
-    private CallbackManager mCallbackManager;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
+    private CallbackManager callbackManager;
 
     private Button btnLoginFB;
 
-
-    final String TAG = "LoginFB";
+    final String TAG = "Login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        FacebookSdk.sdkInitialize(MainActivity.this);
-//        AppEventsLogger.activateApp(this);
+        Login_Facebook();
+    }
 
-//        Get Hash Key
-//        try {
-//            PackageInfo info = getPackageManager().getPackageInfo(
-//                    "com.thanguit.imusic",
-//                    PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        }
-
-
+    private void Login_Facebook() {
         // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        this.firebaseAuth = FirebaseAuth.getInstance();
+        this.btnLoginFB = (Button) findViewById(R.id.btnLoginFB);
+        this.callbackManager = CallbackManager.Factory.create();
 
-        this.btnLoginFB = findViewById(R.id.btnLoginFB);
-
-        mCallbackManager = CallbackManager.Factory.create();
         this.btnLoginFB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginManager.getInstance().logInWithReadPermissions(MainActivity.this, Arrays.asList("public_profile", "email"));
-                LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(TAG, "facebook: onSuccess:" + loginResult);
@@ -106,6 +78,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = this.firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            updateUI(currentUser);
+        }
+    }
+
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             Intent intent = new Intent(MainActivity.this, FullActivity.class);
@@ -115,17 +96,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            updateUI(currentUser);
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -133,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
+        this.firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
