@@ -4,7 +4,15 @@
     <string name="facebook_app_id">1179700782483492</string>
     <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
+    <!-- - - - - - - - - - -     MainActivity - - - - - - - - - - -->
     <!--    Button "Login with Facebook"    -->
     <string name="btnLoginFB">Login with Facebook</string>
+    <string name="toast1">Login successfully!</string>
+    <string name="toast2">Login canceled!</string>
+    <string name="toast3">Login failed!</string>
+    <string name="toast4">Please login to continue!</string>
+    <string name="toast5">Authentication failed.</string>
+
+
 
 </resources>

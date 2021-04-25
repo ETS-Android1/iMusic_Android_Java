@@ -11,7 +11,6 @@ public class User {
 //    private int theme;
 
     public User() {
-
     }
 
     public User(String id, String token, String avatar, String name, String gender, String birthday, String email) {

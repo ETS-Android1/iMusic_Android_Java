@@ -9,9 +9,10 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
-        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/comfortaa</item>
         <item name="android:textColor">@color/colorMain1</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 <!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->

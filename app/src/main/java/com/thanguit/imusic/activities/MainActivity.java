@@ -27,6 +27,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.R;
 
 import java.util.Arrays;
@@ -35,44 +36,47 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private CallbackManager callbackManager;
 
-    private Animation topAnimation;
-    private Animation bottomAnimation;
+    private ScaleAnimation scaleAnimation;
+
+    private Animation topAnimation, bottomAnimation;
 
     private ImageView imvLogo;
     private Button btnLoginFB;
 
-    private final int DELAY = 5000;
-    private final String TAG = "Login with FaceBook";
-
+    private final String TAG = "LOGIN WITH FACEBOOK";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Add_Control();
-        Animation();
+        Mapping();
+        Event();
         Login_Facebook();
     }
 
-    private void Add_Control() {
-        this.imvLogo = (ImageView) findViewById(R.id.imvLogo);
-        this.btnLoginFB = (Button) findViewById(R.id.btnLoginFB);
-    }
-
-    private void Animation() {
-        topAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.top_animation);
-        bottomAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bottom_animation);
-
-        imvLogo.setAnimation(topAnimation);
-        btnLoginFB.setAnimation(bottomAnimation);
-    }
-
-    private void Login_Facebook() {
-        // Initialize Firebase Auth
+    private void Mapping() {
         this.firebaseAuth = FirebaseAuth.getInstance();
         this.callbackManager = CallbackManager.Factory.create();
 
+        this.imvLogo = (ImageView) findViewById(R.id.imvLogo);
+        this.btnLoginFB = (Button) findViewById(R.id.btnLoginFB);
+
+        this.topAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.top_animation);
+        this.bottomAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bottom_animation);
+    }
+
+    private void Event() {
+        this.imvLogo.setAnimation(this.topAnimation);
+        this.btnLoginFB.setAnimation(this.bottomAnimation);
+
+        this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginFB);
+        this.scaleAnimation.Event();
+    }
+
+
+
+    private void Login_Facebook() {
         this.btnLoginFB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,19 +87,19 @@ public class MainActivity extends AppCompatActivity {
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(TAG, "facebook: onSuccess: " + loginResult);
                         handleFacebookAccessToken(loginResult.getAccessToken());
-                        Toast.makeText(MainActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCancel() {
                         Log.d(TAG, "facebook: onCancel");
-                        Toast.makeText(MainActivity.this, "Login canceled!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.toast2, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(FacebookException error) {
                         Log.d(TAG, "facebook: onError ", error);
-                        Toast.makeText(MainActivity.this, "Login failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, FullActivity.class);
             startActivity(intent);
         } else {
-            Toast.makeText(MainActivity.this, "Please login to continue!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.toast4, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, R.string.toast5, Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
                     }

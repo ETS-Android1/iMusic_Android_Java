@@ -19,7 +19,6 @@ import com.thanguit.imusic.R;
 import com.thanguit.imusic.models.User;
 
 public class FullActivity extends AppCompatActivity {
-
     private FirebaseAuth firebaseAuth;
     private User user;
 
@@ -34,6 +33,11 @@ public class FullActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full);
 
+        Mapping();
+        Event();
+    }
+
+    private void Mapping() {
         this.Avatar = findViewById(R.id.imvAvatar);
         this.ID = findViewById(R.id.tvID);
         this.Name = findViewById(R.id.tvName);
@@ -42,7 +46,6 @@ public class FullActivity extends AppCompatActivity {
 
         this.firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = this.firebaseAuth.getCurrentUser();
-
         if (firebaseUser != null) {
             try {
                 String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
@@ -59,7 +62,9 @@ public class FullActivity extends AppCompatActivity {
                 Log.d("test", e.getMessage());
             }
         }
+    }
 
+    private void Event() {
         Signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
