@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imvLogo;
     private Button btnLoginFB;
 
-    final String TAG = "Login";
+    private final int DELAY = 5000;
+    private final String TAG = "Login with FaceBook";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Animation() {
-        this.topAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.top_animation);
-        this.bottomAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bottom_animation);
+        topAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.top_animation);
+        bottomAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bottom_animation);
 
-        this.imvLogo.setAnimation(this.topAnimation);
-        this.btnLoginFB.setAnimation(this.bottomAnimation);
+        imvLogo.setAnimation(topAnimation);
+        btnLoginFB.setAnimation(bottomAnimation);
     }
 
     private void Login_Facebook() {
