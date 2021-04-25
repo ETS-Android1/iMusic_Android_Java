@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -32,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private CallbackManager callbackManager;
 
+    private Animation topAnimation;
+    private Animation bottomAnimation;
+
+    private ImageView imvLogo;
     private Button btnLoginFB;
 
     final String TAG = "Login";
@@ -41,13 +48,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Add_Control();
+        Animation();
         Login_Facebook();
+    }
+
+    private void Add_Control() {
+        this.imvLogo = (ImageView) findViewById(R.id.imvLogo);
+        this.btnLoginFB = (Button) findViewById(R.id.btnLoginFB);
+    }
+
+    private void Animation() {
+        this.topAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.top_animation);
+        this.bottomAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bottom_animation);
+
+        this.imvLogo.setAnimation(this.topAnimation);
+        this.btnLoginFB.setAnimation(this.bottomAnimation);
     }
 
     private void Login_Facebook() {
         // Initialize Firebase Auth
         this.firebaseAuth = FirebaseAuth.getInstance();
-        this.btnLoginFB = (Button) findViewById(R.id.btnLoginFB);
         this.callbackManager = CallbackManager.Factory.create();
 
         this.btnLoginFB.setOnClickListener(new View.OnClickListener() {
