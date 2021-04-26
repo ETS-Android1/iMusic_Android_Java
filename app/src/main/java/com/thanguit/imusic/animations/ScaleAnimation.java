@@ -63,9 +63,9 @@ public class ScaleAnimation {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    button.startAnimation(scaleUpAnimation);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     button.startAnimation(scaleDownAnimation);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    button.startAnimation(scaleUpAnimation);
                 }
                 return false;
             }
