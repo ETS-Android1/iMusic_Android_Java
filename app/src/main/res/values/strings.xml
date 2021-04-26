@@ -13,6 +13,9 @@
     <string name="toast4">Please login to continue!</string>
     <string name="toast5">Authentication failed.</string>
 
+    <!--    Button "Login with Google"    -->
+    <string name="btnLoginGG">Login with Google</string>
+
 
 
 </resources>

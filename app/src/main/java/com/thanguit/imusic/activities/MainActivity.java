@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Animation topAnimation, bottomAnimation;
 
     private ImageView imvLogo;
-    private Button btnLoginFB;
+    private Button btnLoginFB, btnLoginGG;
 
     private final String TAG = "LOGIN WITH FACEBOOK";
 
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.imvLogo = (ImageView) findViewById(R.id.imvLogo);
         this.btnLoginFB = (Button) findViewById(R.id.btnLoginFB);
+        this.btnLoginGG = (Button) findViewById(R.id.btnLoginGG);
 
         this.topAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.top_animation);
         this.bottomAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bottom_animation);
@@ -69,12 +70,13 @@ public class MainActivity extends AppCompatActivity {
     private void Event() {
         this.imvLogo.setAnimation(this.topAnimation);
         this.btnLoginFB.setAnimation(this.bottomAnimation);
+        this.btnLoginGG.setAnimation(this.bottomAnimation);
 
         this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginFB);
         this.scaleAnimation.Event();
+        this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginGG);
+        this.scaleAnimation.Event();
     }
-
-
 
     private void Login_Facebook() {
         this.btnLoginFB.setOnClickListener(new View.OnClickListener() {

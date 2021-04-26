@@ -33,5 +33,17 @@
         app:layout_constraintTop_toBottomOf="@+id/imvLogo"
         app:layout_constraintVertical_bias="0.0" />
 
+    <Button
+        android:id="@+id/btnLoginGG"
+        style="@style/btnLogin"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_logingg"
+        android:drawableStart="@drawable/logo_google"
+        android:drawableLeft="@drawable/logo_google"
+        android:text="@string/btnLoginGG"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLoginFB" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
