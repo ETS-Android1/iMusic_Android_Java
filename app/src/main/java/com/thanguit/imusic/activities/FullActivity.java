@@ -12,14 +12,18 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.models.User;
 
 public class FullActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
+    private GoogleSignInClient googleSignInClient;
+
     private User user;
 
     private ImageView Avatar;
@@ -46,20 +50,45 @@ public class FullActivity extends AppCompatActivity {
 
         this.firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = this.firebaseAuth.getCurrentUser();
+
         if (firebaseUser != null) {
-            try {
-                String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
-                this.user = new User(firebaseUser.getUid(), AccessToken.getCurrentAccessToken().getToken(), photoUrl, String.valueOf(firebaseUser.getDisplayName()), "", "", String.valueOf(firebaseUser.getEmail()));
+            for (UserInfo userInfo : firebaseUser.getProviderData()) {
+                switch (userInfo.getProviderId()) {
+                    case "facebook.com": {
+                        try {
+                            String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
+                            this.user = new User(firebaseUser.getUid(), photoUrl, String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
 
-                Picasso.get().load(user.getAvatar()).into(this.Avatar);
-                this.ID.setText(user.getId());
-                this.Name.setText(user.getName());
-                this.Email.setText(user.getEmail());
+                            Picasso.get().load(user.getAvatar()).into(this.Avatar);
+                            this.ID.setText(user.getId());
+                            this.Name.setText(user.getName());
+                            this.Email.setText(user.getEmail());
 
-                Log.d("token", user.toString());
-            } catch (Exception e) {
-                Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("test", e.getMessage());
+                            Log.d("USER INFO", user.toString());
+                        } catch (Exception e) {
+                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d("FAIL", e.getMessage());
+                        }
+                        break;
+                    }
+
+                    case "google.com": {
+                        try {
+                            this.user = new User(firebaseUser.getUid(), String.valueOf(firebaseUser.getPhotoUrl()), String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
+
+                            Picasso.get().load(user.getAvatar()).into(this.Avatar);
+                            this.ID.setText(user.getId());
+                            this.Name.setText(user.getName());
+                            this.Email.setText(user.getEmail());
+
+                            Log.d("USER INFO", user.toString());
+                        } catch (Exception e) {
+                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d("FAIL", e.getMessage());
+                        }
+                        break;
+                    }
+                }
             }
         }
     }
@@ -68,8 +97,24 @@ public class FullActivity extends AppCompatActivity {
         Signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.signOut();
-                LoginManager.getInstance().logOut();
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+                if (firebaseUser != null) {
+                    for (UserInfo userInfo : firebaseUser.getProviderData()) {
+                        switch (userInfo.getProviderId()) {
+                            case "facebook.com": {
+                                firebaseAuth.signOut();
+                                LoginManager.getInstance().logOut();
+                                break;
+                            }
+                            case "google.com": {
+                                firebaseAuth.signOut();
+                                googleSignInClient.signOut();
+                                break;
+                            }
+                        }
+                    }
+                }
                 finish();
             }
         });
