@@ -21,16 +21,16 @@ import com.thanguit.imusic.R;
 import com.thanguit.imusic.models.User;
 
 public class FullActivity extends AppCompatActivity {
-    private FirebaseAuth firebaseAuth;
-    private GoogleSignInClient googleSignInClient;
-
-    private User user;
-
-    private ImageView Avatar;
-    private TextView ID;
-    private TextView Name;
-    private TextView Email;
-    private Button Signout;
+//    private FirebaseAuth firebaseAuth;
+//    private GoogleSignInClient googleSignInClient;
+//
+//    private User user;
+//
+//    private ImageView Avatar;
+//    private TextView ID;
+//    private TextView Name;
+//    private TextView Email;
+//    private Button Signout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,81 +42,83 @@ public class FullActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        this.Avatar = findViewById(R.id.imvAvatar);
-        this.ID = findViewById(R.id.tvID);
-        this.Name = findViewById(R.id.tvName);
-        this.Email = findViewById(R.id.tvEmail);
-        this.Signout = findViewById(R.id.btnSignout);
 
-        this.firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = this.firebaseAuth.getCurrentUser();
-
-        if (firebaseUser != null) {
-            for (UserInfo userInfo : firebaseUser.getProviderData()) {
-                switch (userInfo.getProviderId()) {
-                    case "facebook.com": {
-                        try {
-                            String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
-                            this.user = new User(firebaseUser.getUid(), photoUrl, String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
-
-                            Picasso.get().load(user.getAvatar()).into(this.Avatar);
-                            this.ID.setText(user.getId());
-                            this.Name.setText(user.getName());
-                            this.Email.setText(user.getEmail());
-
-                            Log.d("USER INFO", user.toString());
-                        } catch (Exception e) {
-                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            Log.d("FAIL", e.getMessage());
-                        }
-                        break;
-                    }
-
-                    case "google.com": {
-                        try {
-                            this.user = new User(firebaseUser.getUid(), String.valueOf(firebaseUser.getPhotoUrl()), String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
-
-                            Picasso.get().load(user.getAvatar()).into(this.Avatar);
-                            this.ID.setText(user.getId());
-                            this.Name.setText(user.getName());
-                            this.Email.setText(user.getEmail());
-
-                            Log.d("USER INFO", user.toString());
-                        } catch (Exception e) {
-                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            Log.d("FAIL", e.getMessage());
-                        }
-                        break;
-                    }
-                }
-            }
-        }
+//        this.Avatar = findViewById(R.id.imvAvatar);
+//        this.ID = findViewById(R.id.tvID);
+//        this.Name = findViewById(R.id.tvName);
+//        this.Email = findViewById(R.id.tvEmail);
+//        this.Signout = findViewById(R.id.btnSignout);
+//
+//        this.firebaseAuth = FirebaseAuth.getInstance();
+//        FirebaseUser firebaseUser = this.firebaseAuth.getCurrentUser();
+//
+//        if (firebaseUser != null) {
+//            for (UserInfo userInfo : firebaseUser.getProviderData()) {
+//                switch (userInfo.getProviderId()) {
+//                    case "facebook.com": {
+//                        try {
+//                            String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
+//                            this.user = new User(firebaseUser.getUid(), photoUrl, String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
+//
+//                            Picasso.get().load(user.getAvatar()).into(this.Avatar);
+//                            this.ID.setText(user.getId());
+//                            this.Name.setText(user.getName());
+//                            this.Email.setText(user.getEmail());
+//
+//                            Log.d("USER INFO", user.toString());
+//                        } catch (Exception e) {
+//                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            Log.d("FAIL", e.getMessage());
+//                        }
+//                        break;
+//                    }
+//
+//                    case "google.com": {
+//                        try {
+//                            this.user = new User(firebaseUser.getUid(), String.valueOf(firebaseUser.getPhotoUrl()), String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
+//
+//                            Picasso.get().load(user.getAvatar()).into(this.Avatar);
+//                            this.ID.setText(user.getId());
+//                            this.Name.setText(user.getName());
+//                            this.Email.setText(user.getEmail());
+//
+//                            Log.d("USER INFO", user.toString());
+//                        } catch (Exception e) {
+//                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            Log.d("FAIL", e.getMessage());
+//                        }
+//                        break;
+//                    }
+//                }
+//            }
+//        }
     }
 
     private void Event() {
-        Signout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-                if (firebaseUser != null) {
-                    for (UserInfo userInfo : firebaseUser.getProviderData()) {
-                        switch (userInfo.getProviderId()) {
-                            case "facebook.com": {
-                                firebaseAuth.signOut();
-                                LoginManager.getInstance().logOut();
-                                break;
-                            }
-                            case "google.com": {
-                                firebaseAuth.signOut();
-                                googleSignInClient.signOut();
-                                break;
-                            }
-                        }
-                    }
-                }
-                finish();
-            }
-        });
+//        Signout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//
+//                if (firebaseUser != null) {
+//                    for (UserInfo userInfo : firebaseUser.getProviderData()) {
+//                        switch (userInfo.getProviderId()) {
+//                            case "facebook.com": {
+//                                firebaseAuth.signOut();
+//                                LoginManager.getInstance().logOut();
+//                                break;
+//                            }
+//                            case "google.com": {
+//                                firebaseAuth.signOut();
+//                                googleSignInClient.signOut();
+//                                break;
+//                            }
+//                        }
+//                    }
+//                }
+//                finish();
+//            }
+//        });
     }
 }
