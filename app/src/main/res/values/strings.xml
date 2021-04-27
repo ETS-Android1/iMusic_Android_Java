@@ -6,16 +6,17 @@
 
     <!-- - - - - - - - - - -     MainActivity - - - - - - - - - - -->
     <!--    Button "Login with Facebook"    -->
-    <string name="btnLoginFB">Login with Facebook</string>
-    <string name="toast1">Login successfully!</string>
-    <string name="toast2">Login canceled!</string>
-    <string name="toast3">Login failed!</string>
-    <string name="toast4">Please login to continue!</string>
-    <string name="toast5">Authentication failed.</string>
+    <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
+    <string name="toast1">Đăng nhập thành công!</string>
+    <string name="toast2">Đã hủy đăng nhập!</string>
+    <string name="toast3">Đăng nhập thất bại!</string>
+    <string name="toast4">Vui lòng đăng nhập để tiếp tục!</string>
+    <string name="toast5">Xác thực thất bại!</string>
 
     <!--    Button "Login with Google"    -->
-    <string name="btnLoginGG">Login with Google</string>
-
+    <string name="btnLoginGG">Đăng nhập bằng Google</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

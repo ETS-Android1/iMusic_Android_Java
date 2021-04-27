@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorMain1">#FFFFFF</color>
+    <color name="colorMain2">#000000</color>
     <color name="red1">#FF0000</color>
 
     <color name="btn_loginfb">#1877F2</color>
     <color name="btn_logingg">#333333</color>
 
+
     <color name="lovesong">#FF0000</color>
-    <color name="colorNight1">#27153E</color>
+
+    <!-- - - - - - - - - - Light Mode - - - - - - - - - -->
+    <color name="colorLight1">#000000</color>
+    <color name="colorLight2">#DFE9F6</color>
+    <color name="colorLight3">#27153E</color>
+    <color name="colorLight4">#FFFFFF</color>
+
+
+    <!-- - - - - - - - - - Night Mode - - - - - - - - - -->
+    <color name="colorNight1">#FFFFFF</color>
+
 
 
 </resources>
