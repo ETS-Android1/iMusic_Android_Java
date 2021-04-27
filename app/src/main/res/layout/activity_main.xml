@@ -13,37 +13,37 @@
         android:id="@+id/imvLogo"
         android:layout_width="207dp"
         android:layout_height="215dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_logo" />
 
-    <Button
-        android:id="@+id/btnLoginFB"
-        style="@style/btnLogin"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/btn_loginfb"
-        android:drawableStart="@drawable/logo_facebook"
-        android:drawableLeft="@drawable/logo_facebook"
-        android:text="@string/btnLoginFB"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvLogo"
-        app:layout_constraintVertical_bias="0.0" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnLoginGG"
-        style="@style/btnLogin"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/btn_logingg"
-        android:drawableStart="@drawable/logo_google"
-        android:drawableLeft="@drawable/logo_google"
-        android:text="@string/btnLoginGG"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLoginFB" />
+        <Button
+            android:id="@+id/btnLoginFB"
+            style="@style/btnLogin"
+            android:layout_above="@id/btnLoginGG"
+            android:background="@drawable/btn_loginfb"
+            android:drawableStart="@drawable/logo_facebook"
+            android:drawableLeft="@drawable/logo_facebook"
+            android:text="@string/btnLoginFB" />
+
+        <Button
+            android:id="@+id/btnLoginGG"
+            style="@style/btnLogin"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/btn_logingg"
+            android:drawableStart="@drawable/logo_google"
+            android:drawableLeft="@drawable/logo_google"
+            android:text="@string/btnLoginGG" />
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
