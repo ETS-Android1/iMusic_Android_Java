@@ -11,10 +11,11 @@
     <color name="lovesong">#FF0000</color>
 
     <!-- - - - - - - - - - Light Mode - - - - - - - - - -->
-    <color name="colorLight1">#000000</color>
-    <color name="colorLight2">#DFE9F6</color>
-    <color name="colorLight3">#27153E</color>
+    <color name="colorLight1">#5C6163</color>
+    <color name="colorLight2">#F4F4F8</color>
+    <color name="colorLight3">#6B3AAA</color>
     <color name="colorLight4">#FFFFFF</color>
+    <color name="colorLight5">#5C6163</color>
 
 
     <!-- - - - - - - - - - Night Mode - - - - - - - - - -->

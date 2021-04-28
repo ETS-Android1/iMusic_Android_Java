@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnLoginFB, btnLoginGG;
 
     private final static int RC_SIGN_IN = 100;
-    private final String TAG = "LOGIN WITH FACEBOOK";
-    private final String TAG1 = "LOGIN WITH GOOGLE";
+    private final String LOG_TAG_1 = "LOGIN WITH FACEBOOK";
+    private final String LOG_TAG_2 = "LOGIN WITH GOOGLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,20 +98,20 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Log.d(TAG, "facebook: onSuccess: " + loginResult);
+                        Log.d(LOG_TAG_1, "facebook: onSuccess: " + loginResult);
                         handleFacebookAccessToken(loginResult.getAccessToken());
                         Toast.makeText(MainActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onCancel() {
-                        Log.d(TAG, "facebook: onCancel");
+                        Log.d(LOG_TAG_1, "facebook: onCancel");
                         Toast.makeText(MainActivity.this, R.string.toast2, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(FacebookException error) {
-                        Log.d(TAG, "facebook: onError ", error);
+                        Log.d(LOG_TAG_1, "facebook: onError ", error);
                         Toast.makeText(MainActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
+        Log.d(LOG_TAG_1, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         this.firebaseAuth.signInWithCredential(credential)
@@ -129,12 +129,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential: success");
+                            Log.d(LOG_TAG_1, "signInWithCredential: success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential: failure", task.getException());
+                            Log.w(LOG_TAG_1, "signInWithCredential: failure", task.getException());
                             Toast.makeText(MainActivity.this, R.string.toast5, Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -167,12 +167,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG1, "signInWithCredential: success");
+                            Log.d(LOG_TAG_2, "signInWithCredential: success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG1, "signInWithCredential: failure", task.getException());
+                            Log.w(LOG_TAG_2, "signInWithCredential: failure", task.getException());
                             updateUI(null);
                         }
                     }
@@ -189,11 +189,11 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d(TAG1, "firebaseAuthWithGoogle: " + account.getId());
+                Log.d(LOG_TAG_2, "firebaseAuthWithGoogle: " + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
-                Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.w(TAG1, "Google sign in failed!", e);
+                Toast.makeText(MainActivity.this, R.string.toast6 + String.valueOf(e.getMessage()), Toast.LENGTH_SHORT).show();
+                Log.w(LOG_TAG_2, "Google sign in failed!", e);
             }
         } else { // Login Facebook
             callbackManager.onActivityResult(requestCode, resultCode, data);

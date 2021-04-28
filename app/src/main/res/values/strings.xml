@@ -4,7 +4,7 @@
     <string name="facebook_app_id">1179700782483492</string>
     <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
-    <!-- - - - - - - - - - -     MainActivity - - - - - - - - - - -->
+    <!-- - - - - - - - - - - MainActivity - - - - - - - - - - -->
     <!--    Button "Login with Facebook"    -->
     <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
     <string name="toast1">Đăng nhập thành công!</string>
@@ -15,8 +15,10 @@
 
     <!--    Button "Login with Google"    -->
     <string name="btnLoginGG">Đăng nhập bằng Google</string>
+    <string name="toast6">Mã lỗi: </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-
+    <!-- - - - - - - - - - - FullActivity - - - - - - - - - - -->
+    <string name="toast7">Nhấn BACK lần nữa để thoát!</string>
 </resources>

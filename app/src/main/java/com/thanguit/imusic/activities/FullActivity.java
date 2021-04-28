@@ -2,12 +2,16 @@ package com.thanguit.imusic.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +23,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
+import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
+import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.fragments.ChartFragment;
@@ -26,6 +33,8 @@ import com.thanguit.imusic.fragments.HomeFragment;
 import com.thanguit.imusic.fragments.RadioFragment;
 import com.thanguit.imusic.fragments.SettingFragment;
 import com.thanguit.imusic.fragments.SingerFragment;
+
+import java.util.Calendar;
 
 public class FullActivity extends AppCompatActivity {
 //    private FirebaseAuth firebaseAuth;
@@ -42,11 +51,18 @@ public class FullActivity extends AppCompatActivity {
     private MeowBottomNavigation meowBottomNavigation;
     private Fragment fragment;
 
+    private FirstBackPressAction firstBackPressAction;
+    private DoubleBackPressAction doubleBackPressAction;
+    private DoubleBackPress doubleBackPress;
+    private final int TIME_DURATION = 2000;
+
     private final int ID_HOME = 1;
     private final int ID_SINGER = 2;
     private final int ID_CHART = 3;
     private final int ID_RADIO = 4;
     private final int ID_SETTING = 5;
+
+    private final String LOG_TAG = "FULL ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +73,7 @@ public class FullActivity extends AppCompatActivity {
         Event();
     }
 
+
     private void Mapping() {
         this.meowBottomNavigation = (MeowBottomNavigation) findViewById(R.id.bottomNavigation);
 
@@ -65,7 +82,6 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_CHART, R.drawable.ic_chart));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_RADIO, R.drawable.ic_radio));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_SETTING, R.drawable.ic_setting));
-
 //        this.Avatar = findViewById(R.id.imvAvatar);
 //        this.ID = findViewById(R.id.tvID);
 //        this.Name = findViewById(R.id.tvName);
@@ -118,10 +134,11 @@ public class FullActivity extends AppCompatActivity {
     }
 
     private void Event() {
+        // Event for Bottom Navigation
         this.meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {
-                Toast.makeText(FullActivity.this, "Fragment: " + item.getId(), Toast.LENGTH_SHORT).show();
+                Log.d(LOG_TAG, "Fragment: " + item.getId());
             }
         });
 
@@ -154,7 +171,38 @@ public class FullActivity extends AppCompatActivity {
                 loadFragment(fragment);
             }
         });
-        this.meowBottomNavigation.show(this.ID_CHART, true);
+
+        this.meowBottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
+            @Override
+            public void onReselectItem(MeowBottomNavigation.Model item) {
+
+            }
+        });
+
+        this.meowBottomNavigation.show(this.ID_CHART, true); // Default tab when open
+
+
+        // Event for Press Back Twice To Exit App
+        this.doubleBackPressAction = new DoubleBackPressAction() {
+            @Override
+            public void actionCall() {
+                finish();
+                moveTaskToBack(true);
+                System.exit(0);
+            }
+        };
+
+        this.firstBackPressAction = new FirstBackPressAction() {
+            @Override
+            public void actionCall() {
+                Toast.makeText(FullActivity.this, R.string.toast7, Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        this.doubleBackPress = new DoubleBackPress()
+                .withDoublePressDuration(this.TIME_DURATION)
+                .withFirstBackPressAction(this.firstBackPressAction)
+                .withDoubleBackPressAction(this.doubleBackPressAction);
 //        Signout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -182,9 +230,13 @@ public class FullActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frameLayout, fragment)
-                .commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        this.doubleBackPress.onBackPressed();
+        Log.d(LOG_TAG, "Back Twice To Exit!");
     }
 }
