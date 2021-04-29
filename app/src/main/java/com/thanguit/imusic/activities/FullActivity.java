@@ -30,9 +30,9 @@ import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.fragments.ChartFragment;
 import com.thanguit.imusic.fragments.HomeFragment;
+import com.thanguit.imusic.fragments.PersonalFragment;
 import com.thanguit.imusic.fragments.RadioFragment;
 import com.thanguit.imusic.fragments.SettingFragment;
-import com.thanguit.imusic.fragments.SingerFragment;
 
 import java.util.Calendar;
 
@@ -56,9 +56,9 @@ public class FullActivity extends AppCompatActivity {
     private DoubleBackPress doubleBackPress;
     private final int TIME_DURATION = 2000;
 
-    private final int ID_HOME = 1;
-    private final int ID_SINGER = 2;
-    private final int ID_CHART = 3;
+    private final int ID_PERSONAL = 1;
+    private final int ID_CHART = 2;
+    private final int ID_HOME = 3;
     private final int ID_RADIO = 4;
     private final int ID_SETTING = 5;
 
@@ -77,9 +77,9 @@ public class FullActivity extends AppCompatActivity {
     private void Mapping() {
         this.meowBottomNavigation = (MeowBottomNavigation) findViewById(R.id.bottomNavigation);
 
-        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_HOME, R.drawable.ic_home));
-        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_SINGER, R.drawable.ic_singer));
+        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_PERSONAL, R.drawable.ic_music_note));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_CHART, R.drawable.ic_chart));
+        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_HOME, R.drawable.ic_home));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_RADIO, R.drawable.ic_radio));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_SETTING, R.drawable.ic_setting));
 //        this.Avatar = findViewById(R.id.imvAvatar);
@@ -148,15 +148,15 @@ public class FullActivity extends AppCompatActivity {
                 fragment = null;
                 switch (item.getId()) {
                     case 1: {
-                        fragment = new HomeFragment();
+                        fragment = new PersonalFragment();
                         break;
                     }
                     case 2: {
-                        fragment = new SingerFragment();
+                        fragment = new ChartFragment();
                         break;
                     }
                     case 3: {
-                        fragment = new ChartFragment();
+                        fragment = new HomeFragment();
                         break;
                     }
                     case 4: {
@@ -179,7 +179,7 @@ public class FullActivity extends AppCompatActivity {
             }
         });
 
-        this.meowBottomNavigation.show(this.ID_CHART, true); // Default tab when open
+        this.meowBottomNavigation.show(this.ID_HOME, true); // Default tab when open
 
 
         // Event for Press Back Twice To Exit App

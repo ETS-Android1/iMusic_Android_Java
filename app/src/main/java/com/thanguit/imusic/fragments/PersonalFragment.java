@@ -12,10 +12,10 @@ import com.thanguit.imusic.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SingerFragment#newInstance} factory method to
+ * Use the {@link PersonalFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SingerFragment extends Fragment {
+public class PersonalFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class SingerFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public SingerFragment() {
+    public PersonalFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class SingerFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SingerFragment.
+     * @return A new instance of fragment PersonalFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SingerFragment newInstance(String param1, String param2) {
-        SingerFragment fragment = new SingerFragment();
+    public static PersonalFragment newInstance(String param1, String param2) {
+        PersonalFragment fragment = new PersonalFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class SingerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_singer, container, false);
+        return inflater.inflate(R.layout.fragment_personal, container, false);
     }
 }

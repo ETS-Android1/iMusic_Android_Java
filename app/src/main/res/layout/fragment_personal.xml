@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SingerFragment">
+    tools:context=".fragments.PersonalFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fontFamily="@font/comfortaa"
-        android:text="Singer"
+        android:text="Personal"
         android:textAlignment="center"
         android:textSize="50dp"
         android:textStyle="bold" />
