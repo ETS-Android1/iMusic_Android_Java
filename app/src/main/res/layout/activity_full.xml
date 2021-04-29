@@ -9,6 +9,48 @@
     android:orientation="vertical"
     tools:context=".activities.FullActivity">
 
+    <TableLayout
+        android:id="@+id/topNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorLight6"
+        android:gravity="center"
+        android:stretchColumns="0, 1, 2">
+
+        <TableRow>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civAvatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_logo" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_text_background"
+                android:drawableEnd="@drawable/ic_search"
+                android:fontFamily="@font/comfortaa"
+                android:hint="@string/etHint1"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:singleLine="true"
+                android:textColor="@color/colorLight9"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/imvBell"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="6dp"
+                app:srcCompat="@drawable/ic_bell" />
+        </TableRow>
+    </TableLayout>
+
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
@@ -26,5 +68,6 @@
         app:mbn_defaultIconColor="@color/colorLight1"
         app:mbn_selectedIconColor="@color/colorLight3"
         app:mbn_shadowColor="@color/colorLight5" />
+
 </LinearLayout>
 

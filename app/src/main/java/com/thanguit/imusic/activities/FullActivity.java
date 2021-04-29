@@ -6,9 +6,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,14 +33,15 @@ import com.thanguit.imusic.fragments.HomeFragment;
 import com.thanguit.imusic.fragments.PersonalFragment;
 import com.thanguit.imusic.fragments.RadioFragment;
 import com.thanguit.imusic.fragments.SettingFragment;
+import com.thanguit.imusic.models.User;
 
-import java.util.Calendar;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FullActivity extends AppCompatActivity {
-//    private FirebaseAuth firebaseAuth;
-//    private GoogleSignInClient googleSignInClient;
-//
-//    private User user;
+    private FirebaseAuth firebaseAuth;
+    private GoogleSignInClient googleSignInClient;
+
+    private User user;
 //
 //    private ImageView Avatar;
 //    private TextView ID;
@@ -56,13 +57,15 @@ public class FullActivity extends AppCompatActivity {
     private DoubleBackPress doubleBackPress;
     private final int TIME_DURATION = 2000;
 
+    private CircleImageView circleImageView;
+
     private final int ID_PERSONAL = 1;
     private final int ID_CHART = 2;
     private final int ID_HOME = 3;
     private final int ID_RADIO = 4;
     private final int ID_SETTING = 5;
 
-    private final String LOG_TAG = "FULL ACTIVITY";
+    private final String LOG_TAG = "FULLACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,7 @@ public class FullActivity extends AppCompatActivity {
 
 
     private void Mapping() {
+        this.firebaseAuth = FirebaseAuth.getInstance();
         this.meowBottomNavigation = (MeowBottomNavigation) findViewById(R.id.bottomNavigation);
 
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_PERSONAL, R.drawable.ic_music_note));
@@ -82,55 +86,9 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_HOME, R.drawable.ic_home));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_RADIO, R.drawable.ic_radio));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_SETTING, R.drawable.ic_setting));
-//        this.Avatar = findViewById(R.id.imvAvatar);
-//        this.ID = findViewById(R.id.tvID);
-//        this.Name = findViewById(R.id.tvName);
-//        this.Email = findViewById(R.id.tvEmail);
-//        this.Signout = findViewById(R.id.btnSignout);
-//
-//        this.firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseUser firebaseUser = this.firebaseAuth.getCurrentUser();
-//
-//        if (firebaseUser != null) {
-//            for (UserInfo userInfo : firebaseUser.getProviderData()) {
-//                switch (userInfo.getProviderId()) {
-//                    case "facebook.com": {
-//                        try {
-//                            String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
-//                            this.user = new User(firebaseUser.getUid(), photoUrl, String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
-//
-//                            Picasso.get().load(user.getAvatar()).into(this.Avatar);
-//                            this.ID.setText(user.getId());
-//                            this.Name.setText(user.getName());
-//                            this.Email.setText(user.getEmail());
-//
-//                            Log.d("USER INFO", user.toString());
-//                        } catch (Exception e) {
-//                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            Log.d("FAIL", e.getMessage());
-//                        }
-//                        break;
-//                    }
-//
-//                    case "google.com": {
-//                        try {
-//                            this.user = new User(firebaseUser.getUid(), String.valueOf(firebaseUser.getPhotoUrl()), String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
-//
-//                            Picasso.get().load(user.getAvatar()).into(this.Avatar);
-//                            this.ID.setText(user.getId());
-//                            this.Name.setText(user.getName());
-//                            this.Email.setText(user.getEmail());
-//
-//                            Log.d("USER INFO", user.toString());
-//                        } catch (Exception e) {
-//                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                            Log.d("FAIL", e.getMessage());
-//                        }
-//                        break;
-//                    }
-//                }
-//            }
-//        }
+
+        this.circleImageView = (CircleImageView) findViewById(R.id.civAvatar);
+
     }
 
     private void Event() {
@@ -180,6 +138,51 @@ public class FullActivity extends AppCompatActivity {
         });
 
         this.meowBottomNavigation.show(this.ID_HOME, true); // Default tab when open
+
+
+        // Event for load Image of User
+        FirebaseUser firebaseUser = this.firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            for (UserInfo userInfo : firebaseUser.getProviderData()) {
+                switch (userInfo.getProviderId()) {
+                    case "facebook.com": {
+                        try {
+                            String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
+                            this.user = new User(firebaseUser.getUid(), photoUrl, String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
+
+                            Picasso.get().load(user.getAvatar()).into(this.circleImageView);
+
+                            Log.d("USER INFO", user.toString());
+                        } catch (Exception e) {
+                            Log.d("FAIL", e.getMessage());
+                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            firebaseAuth.signOut();
+                            LoginManager.getInstance().logOut();
+                            finish();
+
+                        }
+                        break;
+                    }
+
+                    case "google.com": {
+                        try {
+                            this.user = new User(firebaseUser.getUid(), String.valueOf(firebaseUser.getPhotoUrl()), String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
+
+                            Picasso.get().load(user.getAvatar()).into(this.circleImageView);
+
+                            Log.d("USER INFO", user.toString());
+                        } catch (Exception e) {
+                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.d("FAIL", e.getMessage());
+                            firebaseAuth.signOut();
+                            googleSignInClient.signOut();
+                            finish();
+                        }
+                        break;
+                    }
+                }
+            }
+        }
 
 
         // Event for Press Back Twice To Exit App

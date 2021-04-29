@@ -16,9 +16,9 @@
     <!--    Button "Login with Google"    -->
     <string name="btnLoginGG">Đăng nhập bằng Google</string>
     <string name="toast6">Mã lỗi: </string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
     <!-- - - - - - - - - - - FullActivity - - - - - - - - - - -->
     <string name="toast7">Nhấn BACK lần nữa để thoát!</string>
+    <string name="etHint1">Bài hát, nghệ sĩ, ...</string>
 </resources>
