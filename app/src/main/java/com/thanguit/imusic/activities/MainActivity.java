@@ -83,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
         this.btnLoginGG.setAnimation(this.bottomAnimation);
 
         this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginFB);
-        this.scaleAnimation.Event();
+        this.scaleAnimation.Event_Button();
         this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginGG);
-        this.scaleAnimation.Event();
+        this.scaleAnimation.Event_Button();
     }
 
 

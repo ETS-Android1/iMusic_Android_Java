@@ -8,10 +8,11 @@
     <!--    Button "Login with Facebook"    -->
     <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
     <string name="toast1">Đăng nhập thành công!</string>
-    <string name="toast2">Đã hủy đăng nhập!</string>
-    <string name="toast3">Đăng nhập thất bại!</string>
-    <string name="toast4">Vui lòng đăng nhập để tiếp tục!</string>
-    <string name="toast5">Xác thực thất bại!</string>
+    <string name="toast2">Đã hủy đăng nhập</string>
+    <string name="toast3">Đăng nhập thất bại</string>
+    <string name="toast4">Vui lòng đăng nhập để tiếp tục</string>
+    <string name="toast5">Xác thực thất bại</string>
+    <string name="toast8">Đăng nhập lại để tiếp tục</string>
 
     <!--    Button "Login with Google"    -->
     <string name="btnLoginGG">Đăng nhập bằng Google</string>
@@ -19,6 +20,12 @@
 
 
     <!-- - - - - - - - - - - FullActivity - - - - - - - - - - -->
-    <string name="toast7">Nhấn BACK lần nữa để thoát!</string>
+    <string name="toast7">Nhấn BACK lần nữa để thoát</string>
     <string name="etHint1">Bài hát, nghệ sĩ, ...</string>
+
+
+    <!-- - - - - - - - - - - FragmentSetting - - - - - - - - - - -->
+    <string name="tvTheme">Giao diện </string>
+    <string name="tvLanguage">Ngôn ngữ </string>
+
 </resources>

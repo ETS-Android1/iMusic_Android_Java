@@ -2,20 +2,13 @@ package com.thanguit.imusic.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -28,6 +21,7 @@ import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
 import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.fragments.ChartFragment;
 import com.thanguit.imusic.fragments.HomeFragment;
 import com.thanguit.imusic.fragments.PersonalFragment;
@@ -42,12 +36,9 @@ public class FullActivity extends AppCompatActivity {
     private GoogleSignInClient googleSignInClient;
 
     private User user;
-//
-//    private ImageView Avatar;
-//    private TextView ID;
-//    private TextView Name;
-//    private TextView Email;
-//    private Button Signout;
+    private ScaleAnimation scaleAnimation;
+
+    private ImageView ivBell;
 
     private MeowBottomNavigation meowBottomNavigation;
     private Fragment fragment;
@@ -81,6 +72,8 @@ public class FullActivity extends AppCompatActivity {
         this.firebaseAuth = FirebaseAuth.getInstance();
         this.meowBottomNavigation = (MeowBottomNavigation) findViewById(R.id.bottomNavigation);
 
+        this.ivBell = (ImageView) findViewById(R.id.ivBell);
+
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_PERSONAL, R.drawable.ic_music_note));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_CHART, R.drawable.ic_chart));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_HOME, R.drawable.ic_home));
@@ -88,10 +81,12 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_SETTING, R.drawable.ic_setting));
 
         this.circleImageView = (CircleImageView) findViewById(R.id.civAvatar);
-
     }
 
     private void Event() {
+        this.scaleAnimation = new ScaleAnimation(FullActivity.this, this.ivBell);
+        this.scaleAnimation.Event_ImageView();
+
         // Event for Bottom Navigation
         this.meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
@@ -133,7 +128,7 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
             @Override
             public void onReselectItem(MeowBottomNavigation.Model item) {
-
+                // Just code
             }
         });
 
@@ -155,7 +150,7 @@ public class FullActivity extends AppCompatActivity {
                             Log.d("USER INFO", user.toString());
                         } catch (Exception e) {
                             Log.d("FAIL", e.getMessage());
-                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FullActivity.this, R.string.toast8, Toast.LENGTH_SHORT).show();
                             firebaseAuth.signOut();
                             LoginManager.getInstance().logOut();
                             finish();
@@ -171,11 +166,11 @@ public class FullActivity extends AppCompatActivity {
 
                             Log.d("USER INFO", user.toString());
                         } catch (Exception e) {
-                            Toast.makeText(FullActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FullActivity.this, R.string.toast8, Toast.LENGTH_SHORT).show();
                             Log.d("FAIL", e.getMessage());
-                            firebaseAuth.signOut();
-                            googleSignInClient.signOut();
-                            finish();
+//                            firebaseAuth.signOut();
+//                            googleSignInClient.signOut();
+//                            finish();
                         }
                         break;
                     }

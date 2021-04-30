@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     tools:context=".fragments.SettingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+        android:id="@+id/setting"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/comfortaa"
-        android:text="Setting"
-        android:textAlignment="center"
-        android:textSize="50dp"
-        android:textStyle="bold" />
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/tvTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:fontFamily="@font/comfortaa"
+            android:text="@string/tvTheme"
+            android:textColor="@color/colorLight7"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/btnSwitchTheme"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/tvTheme"
+            android:layout_alignBottom="@+id/tvTheme"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            app:lottie_fileName="switch_theme.json" />
+    </RelativeLayout>
 
 </FrameLayout>
