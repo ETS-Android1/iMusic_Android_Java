@@ -15,7 +15,7 @@
         android:layout_height="60dp"
         android:background="@color/colorLight6"
         android:gravity="center"
-        android:stretchColumns="0, 1, 2">
+        android:stretchColumns="*">
 
         <TableRow>
 
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="6dp"
+                android:padding="5dp"
                 app:srcCompat="@drawable/ic_bell" />
         </TableRow>
     </TableLayout>

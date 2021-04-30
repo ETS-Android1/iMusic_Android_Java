@@ -159,7 +159,6 @@ public class FullActivity extends AppCompatActivity {
                             firebaseAuth.signOut();
                             LoginManager.getInstance().logOut();
                             finish();
-
                         }
                         break;
                     }
