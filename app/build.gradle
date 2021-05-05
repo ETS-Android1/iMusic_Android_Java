@@ -40,6 +40,7 @@ dependencies {
     implementation 'com.etebarian:meow-bottom-navigation-java:1.2.0'
     implementation 'com.github.kaushikthedeveloper:double-back-press:0.0.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.github.smarteist:autoimageslider:1.4.0-appcompat'
 
     implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
     implementation platform('com.google.firebase:firebase-bom:27.1.0')

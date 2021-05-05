@@ -145,7 +145,11 @@ public class FullActivity extends AppCompatActivity {
                             String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
                             this.user = new User(firebaseUser.getUid(), photoUrl, String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
 
-                            Picasso.get().load(user.getAvatar()).into(this.circleImageView);
+                            Picasso.get()
+                                    .load(user.getAvatar())
+                                    .placeholder(R.drawable.ic_logo)
+                                    .error(R.drawable.ic_logo)
+                                    .into(this.circleImageView);
 
                             Log.d("USER INFO", user.toString());
                         } catch (Exception e) {
@@ -162,7 +166,11 @@ public class FullActivity extends AppCompatActivity {
                         try {
                             this.user = new User(firebaseUser.getUid(), String.valueOf(firebaseUser.getPhotoUrl()), String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
 
-                            Picasso.get().load(user.getAvatar()).into(this.circleImageView);
+                            Picasso.get()
+                                    .load(user.getAvatar())
+                                    .placeholder(R.drawable.ic_logo)
+                                    .error(R.drawable.ic_logo)
+                                    .into(this.circleImageView);
 
                             Log.d("USER INFO", user.toString());
                         } catch (Exception e) {

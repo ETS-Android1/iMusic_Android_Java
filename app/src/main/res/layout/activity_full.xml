@@ -68,6 +68,5 @@
         app:mbn_defaultIconColor="@color/colorLight1"
         app:mbn_selectedIconColor="@color/colorLight3"
         app:mbn_shadowColor="@color/colorLight5" />
-
 </LinearLayout>
 

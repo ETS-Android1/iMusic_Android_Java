@@ -2,6 +2,7 @@
 <resources>
     <color name="colorMain1">#FFFFFF</color>
     <color name="colorMain2">#000000</color>
+    <color name="colorMain3">#6B3AAA</color>
     <color name="red1">#FF0000</color>
 
     <color name="btn_loginfb">#1877F2</color>
