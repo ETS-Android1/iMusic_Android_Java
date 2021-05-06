@@ -10,11 +10,12 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder> {
 
-    List<Integer> imageSliders;
+    List<Integer> imageSliders = new ArrayList<>();
 
     public SliderAdapter(List<Integer> imageSliders) {
         this.imageSliders = imageSliders;

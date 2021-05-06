@@ -8,33 +8,82 @@
     android:paddingRight="15dp"
     tools:context=".fragments.SettingFragment">
 
-    <RelativeLayout
-        android:id="@+id/setting"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/tvTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:fontFamily="@font/comfortaa"
-            android:text="@string/tvTheme"
-            android:textColor="@color/colorLight7"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/btnSwitchTheme"
-            android:layout_width="60dp"
+        <RelativeLayout
+            android:id="@+id/setting"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignTop="@+id/tvTheme"
-            android:layout_alignBottom="@+id/tvTheme"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            app:lottie_fileName="switch_theme.json" />
-    </RelativeLayout>
+            android:layout_marginTop="20dp">
 
+            <TextView
+                android:id="@+id/tvTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/comfortaa"
+                android:maxLines="1"
+                android:text="@string/tvTheme"
+                android:textColor="@color/colorLight7"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/btnSwitchTheme"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/tvTheme"
+                android:layout_alignBottom="@+id/tvTheme"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                app:lottie_rawRes="@raw/switch_theme" />
+
+            <TextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTheme"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/comfortaa"
+                android:maxLines="1"
+                android:text="@string/tvLanguage"
+                android:textColor="@color/colorLight7"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvEnglish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvLanguage"
+                android:layout_alignBottom="@+id/tvLanguage"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/comfortaa"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/tvEnglish"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvVietNamese"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvLanguage"
+                android:layout_alignBottom="@+id/tvLanguage"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/tvEnglish"
+                android:fontFamily="@font/comfortaa"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/tvVietNamese"
+                android:textColor="@color/colorMain3"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

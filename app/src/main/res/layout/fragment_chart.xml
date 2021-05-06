@@ -12,7 +12,7 @@
         android:fontFamily="@font/comfortaa"
         android:text="Chart"
         android:textAlignment="center"
-        android:textSize="50dp"
+        android:textSize="50sp"
         android:textStyle="bold" />
 
 </FrameLayout>

@@ -13,15 +13,10 @@ import android.view.ViewGroup;
 import com.airbnb.lottie.LottieAnimationView;
 import com.thanguit.imusic.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SettingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SettingFragment extends Fragment {
 
-    private LottieAnimationView lottieAnimationView;
-    private boolean switchButton = false;
+    private LottieAnimationView btnSwitchTheme;
+    private boolean switchTheme = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,23 +38,24 @@ public class SettingFragment extends Fragment {
     }
 
     public void Mapping(View view) {
-        this.lottieAnimationView = (LottieAnimationView) view.findViewById(R.id.btnSwitchTheme);
+        this.btnSwitchTheme = (LottieAnimationView) view.findViewById(R.id.btnSwitchTheme);
     }
 
     private void Event() {
-        this.lottieAnimationView.setOnClickListener(new View.OnClickListener() {
+        this.btnSwitchTheme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (switchButton) {
-                    lottieAnimationView.setMinAndMaxProgress(0.65f, 1.0f);
-                    lottieAnimationView.playAnimation();
-                    switchButton = false;
+                if (switchTheme) {
+                    btnSwitchTheme.setMinAndMaxProgress(0.65f, 1.0f);
+                    btnSwitchTheme.playAnimation();
+                    switchTheme = false;
                 } else {
-                    lottieAnimationView.setMinAndMaxProgress(0.1f, 0.5f);
-                    lottieAnimationView.playAnimation();
-                    switchButton = true;
+                    btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f);
+                    btnSwitchTheme.playAnimation();
+                    switchTheme = true;
                 }
             }
         });
+
     }
 }

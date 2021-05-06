@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imvLogo;
     private Button btnLoginFB, btnLoginGG;
 
-    private final static int RC_SIGN_IN = 100;
-    private final String LOG_TAG_1 = "LOGIN WITH FACEBOOK";
-    private final String LOG_TAG_2 = "LOGIN WITH GOOGLE";
+    private static final int RC_SIGN_IN = 100;
+    private static final String LOG_TAG_1 = "LOGIN WITH FACEBOOK";
+    private static final String LOG_TAG_2 = "LOGIN WITH GOOGLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

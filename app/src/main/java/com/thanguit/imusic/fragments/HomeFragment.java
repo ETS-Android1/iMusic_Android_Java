@@ -1,5 +1,6 @@
 package com.thanguit.imusic.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,23 +10,24 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.adapters.SliderAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+
     private SliderView sliderView;
     private List<Integer> imageSliders = new ArrayList<Integer>();
 
-    public HomeFragment() {
-        // Required empty public constructor
-    }
+    private Button button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class HomeFragment extends Fragment {
 
     private void Mapping(View view) {
         this.sliderView = (SliderView) view.findViewById(R.id.isvSlider);
+        this.button = (Button) view.findViewById(R.id.btnTest);
+
         this.imageSliders.add(R.drawable.slide_1);
         this.imageSliders.add(R.drawable.slide_2);
         this.imageSliders.add(R.drawable.slide_3);
@@ -63,7 +67,13 @@ public class HomeFragment extends Fragment {
     }
 
     private void Event() {
-
+        this.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FullPlayerActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

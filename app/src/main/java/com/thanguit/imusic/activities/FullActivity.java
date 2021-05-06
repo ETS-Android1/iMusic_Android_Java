@@ -46,15 +46,15 @@ public class FullActivity extends AppCompatActivity {
     private FirstBackPressAction firstBackPressAction;
     private DoubleBackPressAction doubleBackPressAction;
     private DoubleBackPress doubleBackPress;
-    private final int TIME_DURATION = 2000;
+    private static final int TIME_DURATION = 2000;
 
     private CircleImageView circleImageView;
 
-    private final int ID_PERSONAL = 1;
-    private final int ID_CHART = 2;
-    private final int ID_HOME = 3;
-    private final int ID_RADIO = 4;
-    private final int ID_SETTING = 5;
+    private static final int ID_PERSONAL = 1;
+    private static final int ID_CHART = 2;
+    private static final int ID_HOME = 3;
+    private static final int ID_RADIO = 4;
+    private static final int ID_SETTING = 5;
 
     private final String LOG_TAG = "FULLACTIVITY";
 

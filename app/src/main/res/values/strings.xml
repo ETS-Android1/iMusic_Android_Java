@@ -23,9 +23,14 @@
     <string name="toast7">Nhấn BACK lần nữa để thoát</string>
     <string name="etHint1">Bài hát, nghệ sĩ, ...</string>
 
+    <!-- - - - - - - - - - - FullPlayerActivity - - - - - - - - - - -->
+    <string name="tvSongName">Tên bài hát</string>
+    <string name="tvArtist">Tên ca sĩ</string>
 
     <!-- - - - - - - - - - - FragmentSetting - - - - - - - - - - -->
     <string name="tvTheme">Giao diện </string>
     <string name="tvLanguage">Ngôn ngữ </string>
+    <string name="tvVietNamese">VietNamese</string>
+    <string name="tvEnglish">English</string>
 
 </resources>
