@@ -1,16 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.FullPlayerFragment">
 
-    <TextView
-        style="@style/tvStyle1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Music"
-        android:textSize="40sp" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/ivCover"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_logo" />
+
+                    <SeekBar
+                        android:id="@+id/sbSong"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/ivCover"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="10dp"
+                        android:indeterminateOnly="false"
+                        android:maxHeight="4dp"
+                        android:minHeight="4dp"
+                        android:padding="2dp"
+                        android:progress="50"
+                        android:progressDrawable="@drawable/custom_seekbar"
+                        android:progressTint="@color/colorLight3"
+                        android:thumb="@drawable/ic_logo_small" />
+
+                    <TextView
+                        android:id="@+id/tvTimeStart"
+                        style="@style/tvStyle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/sbSong"
+
+                        android:layout_alignLeft="@+id/sbSong"
+                        android:gravity="center"
+                        android:text="00:00"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvTimeEnd"
+                        style="@style/tvStyle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/sbSong"
+
+                        android:layout_alignRight="@+id/sbSong"
+                        android:gravity="center"
+                        android:text="04:30"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/ivPlayPause"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_below="@+id/ivFavorite"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        app:srcCompat="@drawable/ic_play" />
+
+
+                    <ImageView
+                        android:id="@+id/ivPrev"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignTop="@+id/ivPlayPause"
+                        android:layout_alignBottom="@+id/ivPlayPause"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_toLeftOf="@+id/ivPlayPause"
+                        app:srcCompat="@drawable/ic_prev" />
+
+                    <ImageView
+                        android:id="@+id/ivNext"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignTop="@+id/ivPlayPause"
+                        android:layout_alignBottom="@+id/ivPlayPause"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@+id/ivPlayPause"
+                        app:srcCompat="@drawable/ic_next" />
+
+                    <ImageView
+                        android:id="@+id/ivFavorite"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_below="@+id/sbSong"
+                        android:layout_alignLeft="@+id/ivPlayPause"
+                        android:layout_alignRight="@+id/ivPlayPause"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        app:srcCompat="@drawable/ic_not_favorite" />
+
+                    <ImageView
+                        android:id="@+id/ivRepeat"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignTop="@+id/ivPlayPause"
+                        android:layout_alignBottom="@+id/ivPlayPause"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@+id/ivNext"
+                        app:srcCompat="@drawable/ic_repeat" />
+
+                    <ImageView
+                        android:id="@+id/ivShuffle"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignTop="@+id/ivPlayPause"
+                        android:layout_alignBottom="@+id/ivPlayPause"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginRight="30dp"
+                        android:layout_toLeftOf="@+id/ivPrev"
+                        app:srcCompat="@drawable/ic_shuffle" />
+
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

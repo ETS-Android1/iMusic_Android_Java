@@ -53,7 +53,7 @@ public class FullPlayerActivity extends AppCompatActivity {
         this.fullPlayerAdapter.Add_Fragment(this.lyricsPlayerFragment); // 2
 
         this.viewpager.setAdapter(this.fullPlayerAdapter);
-        this.viewpager.setCurrentItem(1);
+        this.viewpager.setCurrentItem(1); // Set default Fragment
     }
 
     private void Event() {
