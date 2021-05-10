@@ -1,16 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".fragments.DetailPlayerFragment">
 
-    <TextView
-        style="@style/tvStyle1"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Detail"
-        android:textSize="40sp" />
+        android:layout_marginTop="30dp"
+
+        android:background="@drawable/shape_shadow_1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvTitleComment"
+                style="@style/tvStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/tvTitleComment"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+
+            <LinearLayout
+                android:id="@+id/frameComment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvTitleComment"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/frameComment">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civAvatarComment"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_logo" />
+
+                    <EditText
+                        android:id="@+id/etInputComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignTop="@+id/civAvatarComment"
+                        android:layout_alignBottom="@+id/civAvatarComment"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_toEndOf="@+id/civAvatarComment"
+                        android:background="@drawable/shape_shadow_2"
+                        android:fontFamily="@font/comfortaa"
+                        android:hint="@string/etHintComment"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textColor="@color/colorLight9"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/ivSend"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignTop="@+id/civAvatarComment"
+                        android:layout_alignBottom="@+id/civAvatarComment"
+                        android:layout_alignParentEnd="true"
+                        app:srcCompat="@drawable/ic_send" />
+                </RelativeLayout>
+            </FrameLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
