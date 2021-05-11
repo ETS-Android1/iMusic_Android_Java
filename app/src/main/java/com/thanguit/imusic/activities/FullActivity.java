@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class FullActivity extends AppCompatActivity {
     private static final int TIME_DURATION = 2000;
 
     private CircleImageView circleImageView;
+    private EditText editText;
 
     private static final int ID_PERSONAL = 1;
     private static final int ID_CHART = 2;
@@ -74,13 +77,14 @@ public class FullActivity extends AppCompatActivity {
 
         this.ivBell = (ImageView) findViewById(R.id.ivBell);
 
-        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_PERSONAL, R.drawable.ic_music_note));
-        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_CHART, R.drawable.ic_chart));
-        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_HOME, R.drawable.ic_home));
-        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_RADIO, R.drawable.ic_radio));
-        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(this.ID_SETTING, R.drawable.ic_setting));
+        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_PERSONAL, R.drawable.ic_music_note));
+        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_CHART, R.drawable.ic_chart));
+        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_HOME, R.drawable.ic_home));
+        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_RADIO, R.drawable.ic_radio));
+        this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_SETTING, R.drawable.ic_setting));
 
         this.circleImageView = (CircleImageView) findViewById(R.id.civAvatar);
+        this.editText = (EditText) findViewById(R.id.etSearch);
     }
 
     private void Event() {
@@ -132,7 +136,7 @@ public class FullActivity extends AppCompatActivity {
             }
         });
 
-        this.meowBottomNavigation.show(this.ID_HOME, true); // Default tab when open
+        this.meowBottomNavigation.show(ID_HOME, true); // Default tab when open
 
 
         // Event for load Image of User
@@ -187,6 +191,16 @@ public class FullActivity extends AppCompatActivity {
         }
 
 
+        // Event for Search
+        this.editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FullActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         // Event for Press Back Twice To Exit App
         this.doubleBackPressAction = new DoubleBackPressAction() {
             @Override
@@ -205,7 +219,7 @@ public class FullActivity extends AppCompatActivity {
         };
 
         this.doubleBackPress = new DoubleBackPress()
-                .withDoublePressDuration(this.TIME_DURATION)
+                .withDoublePressDuration(TIME_DURATION)
                 .withFirstBackPressAction(this.firstBackPressAction)
                 .withDoubleBackPressAction(this.doubleBackPressAction);
 //        Signout.setOnClickListener(new View.OnClickListener() {

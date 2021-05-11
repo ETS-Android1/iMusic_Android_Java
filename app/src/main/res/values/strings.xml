@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">iMusic</string>
 
     <string name="facebook_app_id">1179700782483492</string>
@@ -118,5 +118,8 @@
     <string name="tvTimeStart">0:00</string>
     <string name="tvTimeEnd">4:30</string>
 
+
+    <!-- - - - - - - - - - - SearchActivity - - - - - - - - - - -->
+    <string name="tvSearchHint">Kết quả tìm kiếm sẽ hiển thị ở đây.</string>
 
 </resources>

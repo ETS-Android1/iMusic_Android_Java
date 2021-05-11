@@ -74,11 +74,6 @@ public class FullPlayerActivity extends AppCompatActivity {
 
         this.scaleAnimation = new ScaleAnimation(this, this.ivBack);
         this.scaleAnimation.Event_ImageView();
-        this.ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        this.ivBack.setOnClickListener(v -> finish());
     }
 }
