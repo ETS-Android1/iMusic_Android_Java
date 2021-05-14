@@ -6,18 +6,13 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
+import com.facebook.GraphRequest;
 import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
 import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
 import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
@@ -34,9 +29,6 @@ import com.thanguit.imusic.models.User;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FullActivity extends AppCompatActivity {
-    private FirebaseAuth firebaseAuth;
-    private GoogleSignInClient googleSignInClient;
-
     private User user;
     private ScaleAnimation scaleAnimation;
 
@@ -72,7 +64,6 @@ public class FullActivity extends AppCompatActivity {
 
 
     private void Mapping() {
-        this.firebaseAuth = FirebaseAuth.getInstance();
         this.meowBottomNavigation = (MeowBottomNavigation) findViewById(R.id.bottomNavigation);
 
         this.ivBell = (ImageView) findViewById(R.id.ivBell);
@@ -92,161 +83,86 @@ public class FullActivity extends AppCompatActivity {
         this.scaleAnimation.Event_ImageView();
 
         // Event for Bottom Navigation
-        this.meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
-            @Override
-            public void onClickItem(MeowBottomNavigation.Model item) {
-                Log.d(LOG_TAG, "Fragment: " + item.getId());
-            }
-        });
+        this.meowBottomNavigation.setOnClickMenuListener(item -> Log.d(LOG_TAG, "Fragment: " + item.getId()));
 
-        this.meowBottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
-            @Override
-            public void onShowItem(MeowBottomNavigation.Model item) {
-                fragment = null;
-                switch (item.getId()) {
-                    case 1: {
-                        fragment = new PersonalFragment();
-                        break;
-                    }
-                    case 2: {
-                        fragment = new ChartFragment();
-                        break;
-                    }
-                    case 3: {
-                        fragment = new HomeFragment();
-                        break;
-                    }
-                    case 4: {
-                        fragment = new RadioFragment();
-                        break;
-                    }
-                    case 5: {
-                        fragment = new SettingFragment();
-                        break;
-                    }
+        this.meowBottomNavigation.setOnShowListener(item -> {
+            fragment = null;
+            switch (item.getId()) {
+                case 1: {
+                    fragment = new PersonalFragment();
+                    break;
                 }
-                loadFragment(fragment);
+                case 2: {
+                    fragment = new ChartFragment();
+                    break;
+                }
+                case 3: {
+                    fragment = new HomeFragment();
+                    break;
+                }
+                case 4: {
+                    fragment = new RadioFragment();
+                    break;
+                }
+                case 5: {
+                    fragment = new SettingFragment();
+                    break;
+                }
             }
+            loadFragment(fragment);
         });
 
-        this.meowBottomNavigation.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
-            @Override
-            public void onReselectItem(MeowBottomNavigation.Model item) {
-                // Just code
-            }
+        this.meowBottomNavigation.setOnReselectListener(item -> {// I think, I should reload page in here
         });
 
         this.meowBottomNavigation.show(ID_HOME, true); // Default tab when open
 
 
-        // Event for load Image of User
-        FirebaseUser firebaseUser = this.firebaseAuth.getCurrentUser();
-        if (firebaseUser != null) {
-            for (UserInfo userInfo : firebaseUser.getProviderData()) {
-                switch (userInfo.getProviderId()) {
-                    case "facebook.com": {
-                        try {
-                            String photoUrl = firebaseUser.getPhotoUrl() + "?height=1000&access_token=" + AccessToken.getCurrentAccessToken().getToken();
-                            this.user = new User(firebaseUser.getUid(), photoUrl, String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
+        // Event for load info of User
+        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
+            try {
+                String avatar = object.getJSONObject("picture").getJSONObject("data").getString("url");
 
-                            Picasso.get()
-                                    .load(user.getAvatar())
-                                    .placeholder(R.drawable.ic_logo)
-                                    .error(R.drawable.ic_logo)
-                                    .into(this.circleImageView);
+                Picasso.get()
+                        .load(avatar)
+                        .placeholder(R.drawable.ic_logo)
+                        .error(R.drawable.ic_logo)
+                        .into(this.circleImageView);
 
-                            Log.d("USER INFO", user.toString());
-                        } catch (Exception e) {
-                            Log.d("FAIL", e.getMessage());
-                            Toast.makeText(FullActivity.this, R.string.toast8, Toast.LENGTH_SHORT).show();
-                            firebaseAuth.signOut();
-                            LoginManager.getInstance().logOut();
-                            finish();
-                        }
-                        break;
-                    }
-
-                    case "google.com": {
-                        try {
-                            this.user = new User(firebaseUser.getUid(), String.valueOf(firebaseUser.getPhotoUrl()), String.valueOf(firebaseUser.getDisplayName()), String.valueOf(firebaseUser.getEmail()));
-
-                            Picasso.get()
-                                    .load(user.getAvatar())
-                                    .placeholder(R.drawable.ic_logo)
-                                    .error(R.drawable.ic_logo)
-                                    .into(this.circleImageView);
-
-                            Log.d("USER INFO", user.toString());
-                        } catch (Exception e) {
-                            Toast.makeText(FullActivity.this, R.string.toast8, Toast.LENGTH_SHORT).show();
-                            Log.d("FAIL", e.getMessage());
-//                            firebaseAuth.signOut();
-//                            googleSignInClient.signOut();
-//                            finish();
-                        }
-                        break;
-                    }
-                }
+                Log.d(LOG_TAG, String.valueOf(object));
+            } catch (Exception e) {
+                e.printStackTrace();
+//                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }
+        });
+
+        Bundle bundle = new Bundle();
+        bundle.putString("fields", "id, name, picture.width(1000).height(1000), first_name, last_name, gender");
+
+        graphRequest.setParameters(bundle);
+        graphRequest.executeAsync();
 
 
         // Event for Search
-        this.editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FullActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
+        this.editText.setOnClickListener(v -> {
+            Intent intent = new Intent(FullActivity.this, SearchActivity.class);
+            startActivity(intent);
         });
 
 
         // Event for Press Back Twice To Exit App
-        this.doubleBackPressAction = new DoubleBackPressAction() {
-            @Override
-            public void actionCall() {
-                finish();
-                moveTaskToBack(true);
-                System.exit(0);
-            }
+        this.doubleBackPressAction = () -> {
+            finish();
+            moveTaskToBack(true);
+            System.exit(0);
         };
-
-        this.firstBackPressAction = new FirstBackPressAction() {
-            @Override
-            public void actionCall() {
-                Toast.makeText(FullActivity.this, R.string.toast7, Toast.LENGTH_SHORT).show();
-            }
-        };
-
+        this.firstBackPressAction = () -> Toast.makeText(FullActivity.this, R.string.toast7, Toast.LENGTH_SHORT).show();
         this.doubleBackPress = new DoubleBackPress()
                 .withDoublePressDuration(TIME_DURATION)
                 .withFirstBackPressAction(this.firstBackPressAction)
                 .withDoubleBackPressAction(this.doubleBackPressAction);
-//        Signout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-//
-//                if (firebaseUser != null) {
-//                    for (UserInfo userInfo : firebaseUser.getProviderData()) {
-//                        switch (userInfo.getProviderId()) {
-//                            case "facebook.com": {
-//                                firebaseAuth.signOut();
-//                                LoginManager.getInstance().logOut();
-//                                break;
-//                            }
-//                            case "google.com": {
-//                                firebaseAuth.signOut();
-//                                googleSignInClient.signOut();
-//                                break;
-//                            }
-//                        }
-//                    }
-//                }
-//                finish();
-//            }
-//        });
     }
+
 
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();

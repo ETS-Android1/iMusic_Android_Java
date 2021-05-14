@@ -1,6 +1,7 @@
 package com.thanguit.imusic.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +10,16 @@ import android.widget.ImageView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.models.Slider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder> {
 
-    List<Integer> imageSliders = new ArrayList<>();
+    private ArrayList<Slider> imageSliders;
 
-    public SliderAdapter(List<Integer> imageSliders) {
+    public SliderAdapter(ArrayList<Slider> imageSliders) {
         this.imageSliders = imageSliders;
     }
 
@@ -27,13 +29,13 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder>
         return new MyViewHolder(view);
     }
 
-    @SuppressLint("ResourceType")
+
     @Override
     public void onBindViewHolder(MyViewHolder viewHolder, int position) {
         Picasso.get()
-                .load(this.imageSliders.get(position))
-                .placeholder(R.raw.music_loader)
-                .error(R.raw.wifi_error)
+                .load(this.imageSliders.get(position).getImage())
+                .placeholder(R.drawable.ic_logo)
+                .error(R.drawable.ic_logo)
                 .into(viewHolder.imageView);
     }
 
