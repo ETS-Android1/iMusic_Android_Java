@@ -122,4 +122,14 @@
     <!-- - - - - - - - - - - SearchActivity - - - - - - - - - - -->
     <string name="tvSearchHint">Kết quả tìm kiếm sẽ hiển thị ở đây.</string>
 
+    <!-- - - - - - - - - - - FragmentPlaylist - - - - - - - - - - -->
+    <string name="tvPlaylist">Playlist Hot</string>
+
+    <!-- - - - - - - - - - - FragmentTheme - - - - - - - - - - -->
+    <string name="tvThemeFragment">Chủ đề Hot</string>
+
+    <!-- - - - - - - - - - - FragmentAlbum - - - - - - - - - - -->
+    <string name="tvAlbum">Album Hot</string>
+
+
 </resources>

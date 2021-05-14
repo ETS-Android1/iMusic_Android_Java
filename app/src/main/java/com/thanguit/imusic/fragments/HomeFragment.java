@@ -6,12 +6,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -33,8 +35,12 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
+    private FragmentTransaction fragmentTransaction;
+    private FrameLayout flPlaylistFragment, flFragmentTheme;
+
     private SliderView sliderView;
-    private List<Integer> imageSliders = new ArrayList<Integer>();
+    private SliderAdapter sliderAdapter;
+    private ArrayList<Slider> sliderArrayList;
 
     private Button button;
 
@@ -60,11 +66,20 @@ public class HomeFragment extends Fragment {
     }
 
     private void Mapping(View view) {
+
+        this.flPlaylistFragment = (FrameLayout) view.findViewById(R.id.flFragmentPlaylist);
+        this.flFragmentTheme = (FrameLayout) view.findViewById(R.id.flFragmentTheme);
+
+        this.fragmentTransaction = getChildFragmentManager().beginTransaction();
+        this.fragmentTransaction.add(R.id.flFragmentPlaylist, new PlaylistFragment()); // Thêm FragmentPlaylist vào HomeFragment
+        this.fragmentTransaction.add(R.id.flFragmentTheme, new ThemeFragment()); // Thêm FragmentTheme vào HomeFragment
+        this.fragmentTransaction.add(R.id.flFragmentAlbum, new AlbumFragment()); // Thêm AlbumTheme vào HomeFragment
+        this.fragmentTransaction.commit(); // Thực hiện gắn Fragment
+
         this.sliderView = (SliderView) view.findViewById(R.id.isvSlider);
         this.button = (Button) view.findViewById(R.id.btnTest);
 
         Handle_Slider();
-
     }
 
     private void Event() {
@@ -80,23 +95,21 @@ public class HomeFragment extends Fragment {
         callBack.enqueue(new Callback<List<Slider>>() {
             @Override
             public void onResponse(Call<List<Slider>> call, Response<List<Slider>> response) {
-                ArrayList<Slider> sliderArrayList = (ArrayList<Slider>) response.body(); // Lấy dữ liệu về đưa vào Arraylist
+                sliderArrayList = (ArrayList<Slider>) response.body(); // Lấy dữ liệu về đưa vào Arraylist
 
-                SliderAdapter sliderAdapter = new SliderAdapter(sliderArrayList);
-                sliderView.setSliderAdapter(sliderAdapter);
-
+                sliderAdapter = new SliderAdapter(sliderArrayList);
                 sliderView.setSliderTransformAnimation(SliderAnimations.ZOOMOUTTRANSFORMATION);
                 sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+                sliderView.setSliderAdapter(sliderAdapter);
+
                 Log.d(TAG, sliderArrayList.get(0).getImage());
             }
 
             @Override
             public void onFailure(Call<List<Slider>> call, Throwable t) {
                 Log.d(TAG, t.getMessage());
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
 }

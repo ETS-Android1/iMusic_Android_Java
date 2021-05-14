@@ -82,6 +82,10 @@ public class FullActivity extends AppCompatActivity {
         this.scaleAnimation = new ScaleAnimation(FullActivity.this, this.ivBell);
         this.scaleAnimation.Event_ImageView();
 
+        this.scaleAnimation = new ScaleAnimation(FullActivity.this, this.circleImageView);
+        this.scaleAnimation.Event_CircleImageView();
+
+
         // Event for Bottom Navigation
         this.meowBottomNavigation.setOnClickMenuListener(item -> Log.d(LOG_TAG, "Fragment: " + item.getId()));
 
@@ -138,7 +142,6 @@ public class FullActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putString("fields", "id, name, picture.width(1000).height(1000), first_name, last_name, gender");
-
         graphRequest.setParameters(bundle);
         graphRequest.executeAsync();
 

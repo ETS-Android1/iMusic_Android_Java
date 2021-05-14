@@ -3,11 +3,14 @@ package com.thanguit.imusic.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Playlist {
+public class Genre {
 
-    @SerializedName("id")
+    @SerializedName("idGenre")
     @Expose
-    private String id;
+    private String idGenre;
+    @SerializedName("idTheme")
+    @Expose
+    private String idTheme;
     @SerializedName("name")
     @Expose
     private String name;
@@ -15,12 +18,20 @@ public class Playlist {
     @Expose
     private String img;
 
-    public String getId() {
-        return id;
+    public String getIdGenre() {
+        return idGenre;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdGenre(String idGenre) {
+        this.idGenre = idGenre;
+    }
+
+    public String getIdTheme() {
+        return idTheme;
+    }
+
+    public void setIdTheme(String idTheme) {
+        this.idTheme = idTheme;
     }
 
     public String getName() {
@@ -38,5 +49,4 @@ public class Playlist {
     public void setImg(String img) {
         this.img = img;
     }
-
 }

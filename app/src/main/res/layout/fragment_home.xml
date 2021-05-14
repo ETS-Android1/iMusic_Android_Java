@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="50dp">
+                app:cardElevation="30dp">
 
                 <com.smarteist.autoimageslider.SliderView
                     android:id="@+id/isvSlider"
@@ -38,6 +38,25 @@
 
                 </com.smarteist.autoimageslider.SliderView>
             </androidx.cardview.widget.CardView>
+
+
+            <FrameLayout
+                android:id="@+id/flFragmentPlaylist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" />
+
+            <FrameLayout
+                android:id="@+id/flFragmentTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" />
+
+            <FrameLayout
+                android:id="@+id/flFragmentAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" />
 
 
             <Button
