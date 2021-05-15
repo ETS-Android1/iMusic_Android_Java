@@ -15,7 +15,6 @@
         android:layout_alignParentStart="true"
         android:layout_gravity="center"
         android:ellipsize="marquee"
-        android:fontFamily="@font/comfortaa"
         android:marqueeRepeatLimit="marquee_forever"
         android:scrollHorizontally="true"
         android:singleLine="true"
@@ -24,7 +23,7 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/ivAlbum"
+        android:id="@+id/ivAlbumMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tvAlbum"

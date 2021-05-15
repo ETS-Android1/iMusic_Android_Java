@@ -4,11 +4,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.models.Album;
 
@@ -31,7 +33,13 @@ public class AlbumHomeAdapter extends RecyclerView.Adapter<AlbumHomeAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull AlbumHomeAdapter.ViewHolder holder, int position) {
-
+        Picasso.get()
+                .load(this.albumArrayList.get(position).getImg())
+                .placeholder(R.drawable.ic_logo)
+                .error(R.drawable.ic_logo)
+                .into(holder.ivAlbum);
+        holder.tvAlbumName.setText(this.albumArrayList.get(position).getName());
+        holder.tvAlbumSinger.setText(this.albumArrayList.get(position).getSinger());
     }
 
     @Override
@@ -41,13 +49,21 @@ public class AlbumHomeAdapter extends RecyclerView.Adapter<AlbumHomeAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView ivAlbum;
         private CardView cvAlbum;
+        private ImageView ivAlbum;
+        private TextView tvAlbumName, tvAlbumSinger;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            this.cvAlbum = (CardView) itemView.findViewById(R.id.cvAlbum);
+            this.ivAlbum = (ImageView) itemView.findViewById(R.id.ivAlbum);
 
+            this.tvAlbumName = (TextView) itemView.findViewById(R.id.tvAlbumName);
+            this.tvAlbumName.setSelected(true); // Text will be moved
+
+            this.tvAlbumSinger = (TextView) itemView.findViewById(R.id.tvAlbumSinger);
+            this.tvAlbumSinger.setSelected(true); // Text will be moved
         }
     }
 }

@@ -130,6 +130,8 @@
 
     <!-- - - - - - - - - - - FragmentAlbum - - - - - - - - - - -->
     <string name="tvAlbum">Album Hot</string>
+    <string name="tvAlbumName">Tên Album</string>
+    <string name="tvAlbumSinger">Ca sĩ</string>
 
 
 </resources>
