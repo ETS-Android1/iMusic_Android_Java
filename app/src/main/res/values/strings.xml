@@ -133,5 +133,12 @@
     <string name="tvAlbumName">Tên Album</string>
     <string name="tvAlbumSinger">Ca sĩ</string>
 
+    <!-- - - - - - - - - - - FragmentChart - - - - - - - - - - -->
+    <string name="tvChart">Bảng xếp hạng</string>
+    <string name="tvChartNumber">1</string>
+    <string name="tvChartSongName">Tên bài hát</string>
+    <string name="tvChartSongSinger">Tên ca sĩ</string>
+    <string name="tvLikeNumber">100</string>
+
 
 </resources>

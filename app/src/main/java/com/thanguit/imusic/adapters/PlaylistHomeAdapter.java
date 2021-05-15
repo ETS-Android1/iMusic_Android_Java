@@ -1,9 +1,11 @@
 package com.thanguit.imusic.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -11,13 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.activities.SongActivity;
 import com.thanguit.imusic.models.Playlist;
 
 import java.util.ArrayList;
 
 public class PlaylistHomeAdapter extends RecyclerView.Adapter<PlaylistHomeAdapter.ViewHolder> {
 
-    private ArrayList<Playlist> playlistArrayList;
+    private ArrayList<Playlist> playlistArrayList = new ArrayList<>();
+
+    private static final String TAG = "PlaylistHomeAdapter";
 
     public PlaylistHomeAdapter(ArrayList<Playlist> playlistArrayList) {
         this.playlistArrayList = playlistArrayList;
@@ -36,6 +41,12 @@ public class PlaylistHomeAdapter extends RecyclerView.Adapter<PlaylistHomeAdapte
                 .placeholder(R.drawable.ic_logo)
                 .error(R.drawable.ic_logo)
                 .into(holder.ivPlaylist);
+
+        holder.cvPlaylist.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), SongActivity.class);
+            intent.putExtra("PLAYLIST", playlistArrayList.get(position));
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override

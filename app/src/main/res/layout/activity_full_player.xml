@@ -31,22 +31,31 @@
             android:layout_alignTop="@+id/ivBack"
             android:layout_centerInParent="true"
             android:layout_marginStart="10dp"
+            android:ellipsize="marquee"
             android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
             android:text="@string/tvSongName"
             android:textAlignment="center"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvArtist"
-            style="@style/tvStyle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvSongName"
             android:layout_centerInParent="true"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/comfortaa"
             android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
             android:text="@string/tvArtist"
             android:textAlignment="center"
-            android:textSize="16sp" />
+            android:textColor="@color/colorLight9"
+            android:textSize="14sp"
+            android:textStyle="normal" />
 
         <ImageView
             android:id="@+id/ivMore"
@@ -62,7 +71,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="15dp"
         android:gravity="center"
         android:orientation="vertical">
 
