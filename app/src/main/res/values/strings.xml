@@ -35,7 +35,7 @@
 
     <!-- - - - - - - - - - - FragmentLyricsPlayer - - - - - - - - - - -->
     <string name="tvLyrics">
-        Và giờ anh biết\n
+        "Và giờ anh biết\n
         Chuyện tình mình chẳng còn gì\n
         Khi nắng xuân sang\n
         Lời mật ngọt còn thầm thì\n
@@ -106,8 +106,7 @@
         Chuyện tình mình mà là vì\n
         Nước mắt em rơi\n
         Dòng lệ tràn đầy cầu kì\n
-        Vì em vì em\n
-    </string>
+        Vì em vì em\n"</string>
 
 
     <string name="tvTitleComment">Bình luận</string>

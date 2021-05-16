@@ -1,5 +1,6 @@
 package com.thanguit.imusic.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.models.Song;
 
 import java.util.ArrayList;
@@ -42,6 +44,12 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
         holder.tvSongName.setText(this.songArrayList.get(position).getName());
         holder.tvSongSinger.setText(this.songArrayList.get(position).getSinger());
         holder.tvLikeNumber.setText(this.songArrayList.get(position).getLike());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), FullPlayerActivity.class);
+            intent.putExtra("SONGLOVE", songArrayList.get(position));
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override

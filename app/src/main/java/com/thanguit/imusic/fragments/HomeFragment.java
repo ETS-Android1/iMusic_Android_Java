@@ -77,16 +77,11 @@ public class HomeFragment extends Fragment {
         this.fragmentTransaction.commit(); // Thực hiện gắn Fragment
 
         this.sliderView = (SliderView) view.findViewById(R.id.isvSlider);
-        this.button = (Button) view.findViewById(R.id.btnTest);
 
         Handle_Slider();
     }
 
     private void Event() {
-        this.button.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), FullPlayerActivity.class);
-            startActivity(intent);
-        });
     }
 
     private void Handle_Slider() {
@@ -111,5 +106,4 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
 }

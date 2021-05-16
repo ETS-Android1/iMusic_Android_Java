@@ -66,6 +66,7 @@ public class SongActivity extends AppCompatActivity {
         this.collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.ctlImage);
         this.toolbar = (Toolbar) findViewById(R.id.tbListSong);
         this.floatingActionButton = (FloatingActionButton) findViewById(R.id.fabPlay);
+        this.floatingActionButton.setEnabled(false); // Set false để cho nó không hoạt động trước đã, sau khi load xong hết các bài hát thì gọi hàm Play_All_Song();
 
         this.recyclerview = (RecyclerView) findViewById(R.id.rvListSong);
 
@@ -128,6 +129,7 @@ public class SongActivity extends AppCompatActivity {
                 layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                 recyclerview.setLayoutManager(layoutManager);
                 recyclerview.setAdapter(new SongAdapter(songArrayList));
+                Play_All_Song();
 
                 Log.d(TAG, songArrayList.get(0).getName());
             }
@@ -136,6 +138,15 @@ public class SongActivity extends AppCompatActivity {
             public void onFailure(Call<List<Song>> call, Throwable t) {
                 Log.d(TAG, t.getMessage());
             }
+        });
+    }
+
+    private void Play_All_Song() { // Hàm này sẽ đảm bảo khi các bài hát load xong về giao diện thì button này mới hoạt động
+        this.floatingActionButton.setEnabled(true);
+        this.floatingActionButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SongActivity.this, FullPlayerActivity.class);
+            intent.putExtra("SONGALL", songArrayList);
+            startActivity(intent);
         });
     }
 }
