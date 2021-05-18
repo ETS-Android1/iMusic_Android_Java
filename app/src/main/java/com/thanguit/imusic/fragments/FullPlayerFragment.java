@@ -30,8 +30,17 @@ public class FullPlayerFragment extends Fragment {
 
     private MediaPlayer mediaPlayer = new MediaPlayer();
 
-    private ImageView ivCover, ivFavorite, ivDownload, ivShare, ivShuffle, ivPrev, ivPlayPause, ivNext, ivRepeat;
-    private TextView tvTimeStart, tvTimeEnd;
+    private ImageView ivCover;
+    private ImageView ivFavorite;
+    private ImageView ivDownload;
+    private ImageView ivShare;
+    private ImageView ivShuffle;
+    private ImageView ivPrev;
+    private ImageView ivPlayPause;
+    private ImageView ivNext;
+    private ImageView ivRepeat;
+    private TextView tvTimeStart;
+    private TextView tvTimeEnd;
     private SeekBar sbSong;
 
     private static final String TAG = "FullPlayerFragment";
@@ -77,7 +86,6 @@ public class FullPlayerFragment extends Fragment {
 //            FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(0).getSinger());
             new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(0).getLink());
             this.ivPlayPause.setImageResource(R.drawable.ic_pause);
-
         }
     }
 
@@ -90,7 +98,6 @@ public class FullPlayerFragment extends Fragment {
                         .placeholder(R.drawable.ic_logo)
                         .error(R.drawable.ic_logo)
                         .into(this.ivCover);
-
             } else {
                 handler.postDelayed((Runnable) this, 1000);
             }

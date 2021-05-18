@@ -69,16 +69,16 @@
             app:srcCompat="@drawable/ic_menu_dots_vertical" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <com.rd.PageIndicatorView
             android:id="@+id/pageIndicatorView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
             app:piv_animationType="swap"
             app:piv_dynamicCount="true"
             app:piv_interactiveAnimation="true"
@@ -87,17 +87,12 @@
             app:piv_selectedColor="@color/colorMain3"
             app:piv_unselectedColor="@color/colorLight6"
             app:piv_viewPager="@+id/vpFullPlayer" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpFullPlayer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/pageIndicatorView"
+            android:layout_marginTop="5dp" />
+    </RelativeLayout>
 </LinearLayout>

@@ -1,23 +1,50 @@
 package com.thanguit.imusic.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+import com.thanguit.imusic.API.APIService;
+import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.adapters.ChartAdapter;
+import com.thanguit.imusic.adapters.SongAdapter;
 import com.thanguit.imusic.animations.ScaleAnimation;
+import com.thanguit.imusic.models.Song;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private EditText editText;
-    private TextView textView;
+    private EditText etSearchBox;
+    private TextView tvSearchHint;
     private ImageView ivBack;
 
+    private RecyclerView rvSearchResult;
+
     private ScaleAnimation scaleAnimation;
+
+    private ArrayList<Song> songArrayList = new ArrayList<>();
+    private SongAdapter songAdapter;
+
+    private static final String TAG = "SearchActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +56,15 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        this.editText = (EditText) findViewById(R.id.etSearchBox);
-        this.editText.requestFocus(); // When Activity show, Searchbox will be focused
+        this.etSearchBox = (EditText) findViewById(R.id.etSearchBox);
+        this.etSearchBox.requestFocus(); // When Activity show, Searchbox will be focused
 
-        this.textView = (TextView) findViewById(R.id.tvSearchHint);
-        this.textView.setSelected(true); // Text will be moved
+        this.tvSearchHint = (TextView) findViewById(R.id.tvSearchHint);
+        this.tvSearchHint.setSelected(true); // Text will be moved
 
         this.ivBack = (ImageView) findViewById(R.id.ivBack);
 
+        this.rvSearchResult = (RecyclerView) findViewById(R.id.rvSearchResult);
     }
 
     private void Event() {
@@ -44,5 +72,55 @@ public class SearchActivity extends AppCompatActivity {
         this.scaleAnimation.Event_ImageView();
         this.ivBack.setOnClickListener(v -> finish());
 
+        this.etSearchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keyWord = s.toString().toLowerCase().trim(); // Chuyển kí tự về dạng chữ viết thường để tìm kiếm cho nhanh
+
+                Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    if (!keyWord.isEmpty()) {
+                        Handle_Search(keyWord);
+                    }
+                }, 1000);
+            }
+        });
+    }
+
+    private void Handle_Search(String keyword) {
+        DataService dataService = APIService.getService();
+        Call<List<Song>> callBack = dataService.getSongSearch(keyword);
+        callBack.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = (ArrayList<Song>) response.body();
+                if (songArrayList != null && songArrayList.size() > 0) {
+
+                    rvSearchResult.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(SearchActivity.this);
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    rvSearchResult.setLayoutManager(layoutManager);
+                    rvSearchResult.setAdapter(new SongAdapter(songArrayList));
+
+                    tvSearchHint.setVisibility(View.GONE);
+                } else {
+                    rvSearchResult.setAdapter(new SongAdapter(songArrayList));
+                    tvSearchHint.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+                Log.d(TAG, t.getMessage());
+            }
+        });
     }
 }
