@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
@@ -34,10 +35,10 @@ import retrofit2.Response;
 public class SearchActivity extends AppCompatActivity {
 
     private EditText etSearchBox;
-    private TextView tvSearchHint;
     private ImageView ivBack;
 
     private RecyclerView rvSearchResult;
+    private ShimmerFrameLayout sflItemSongSearch;
 
     private ScaleAnimation scaleAnimation;
 
@@ -59,12 +60,10 @@ public class SearchActivity extends AppCompatActivity {
         this.etSearchBox = (EditText) findViewById(R.id.etSearchBox);
         this.etSearchBox.requestFocus(); // When Activity show, Searchbox will be focused
 
-        this.tvSearchHint = (TextView) findViewById(R.id.tvSearchHint);
-        this.tvSearchHint.setSelected(true); // Text will be moved
-
         this.ivBack = (ImageView) findViewById(R.id.ivBack);
 
         this.rvSearchResult = (RecyclerView) findViewById(R.id.rvSearchResult);
+        this.sflItemSongSearch = (ShimmerFrameLayout) findViewById(R.id.sflItemSongSearch);
     }
 
     private void Event() {
@@ -102,18 +101,15 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 songArrayList = (ArrayList<Song>) response.body();
-                if (songArrayList != null && songArrayList.size() > 0) {
 
+                if (songArrayList != null && songArrayList.size() > 0) {
                     rvSearchResult.setHasFixedSize(true);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(SearchActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvSearchResult.setLayoutManager(layoutManager);
                     rvSearchResult.setAdapter(new SongAdapter(songArrayList));
-
-                    tvSearchHint.setVisibility(View.GONE);
                 } else {
                     rvSearchResult.setAdapter(new SongAdapter(songArrayList));
-                    tvSearchHint.setVisibility(View.VISIBLE);
                 }
             }
 

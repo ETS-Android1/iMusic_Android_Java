@@ -31,10 +31,46 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp">
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/sflItemSong"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_shimmer_song" />
+
+                <include layout="@layout/item_shimmer_song" />
+
+                <include layout="@layout/item_shimmer_song" />
+
+                <include layout="@layout/item_shimmer_song" />
+
+                <include layout="@layout/item_shimmer_song" />
+
+                <include layout="@layout/item_shimmer_song" />
+
+                <include layout="@layout/item_shimmer_song" />
+
+                <include layout="@layout/item_shimmer_song" />
+
+                <include layout="@layout/item_shimmer_song" />
+
+                <include layout="@layout/item_shimmer_song" />
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="30dp"
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

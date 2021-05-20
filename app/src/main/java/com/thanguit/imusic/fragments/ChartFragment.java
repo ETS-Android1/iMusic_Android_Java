@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
@@ -30,8 +31,9 @@ import retrofit2.Response;
 public class ChartFragment extends Fragment {
 
     private ArrayList<Song> songArrayList;
-
     private RecyclerView rvChart;
+
+    private ShimmerFrameLayout sflItemSong;
 
     private ScaleAnimation scaleAnimation;
 
@@ -58,6 +60,7 @@ public class ChartFragment extends Fragment {
 
     private void Mapping(View view) {
         this.rvChart = (RecyclerView) view.findViewById(R.id.rvChart);
+        this.sflItemSong = (ShimmerFrameLayout) view.findViewById(R.id.sflItemSong);
     }
 
     private void Event() {
@@ -72,6 +75,9 @@ public class ChartFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 songArrayList = (ArrayList<Song>) response.body();
+
+                sflItemSong.setVisibility(View.GONE); // Load biến mất
+                rvChart.setVisibility(View.VISIBLE); // Hiện thông tin
 
                 rvChart.setHasFixedSize(true);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

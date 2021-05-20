@@ -39,7 +39,6 @@
                 </com.smarteist.autoimageslider.SliderView>
             </androidx.cardview.widget.CardView>
 
-
             <FrameLayout
                 android:id="@+id/flFragmentPlaylist"
                 android:layout_width="match_parent"
@@ -58,14 +57,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp" />
 
-
-            <Button
-                android:id="@+id/btnTest"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/gradient_1"
-                android:text="Test" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>
