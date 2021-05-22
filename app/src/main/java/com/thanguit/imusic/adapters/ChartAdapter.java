@@ -23,6 +23,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
 
     public ChartAdapter(ArrayList<Song> songArrayList) {
         this.songArrayList = songArrayList;
+        notifyDataSetChanged();
     }
 
     @NonNull

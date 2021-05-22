@@ -1,5 +1,6 @@
 package com.thanguit.imusic.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,11 @@ import java.util.Objects;
 public class LyricAdapter extends RecyclerView.Adapter<LyricAdapter.ViewHolder> {
 
     private ArrayList<Song> songArrayList;
+    private static final String TAG = "LyricAdapter";
 
     public LyricAdapter(ArrayList<Song> songArrayList) {
         this.songArrayList = songArrayList;
+        notifyDataSetChanged();
     }
 
     @NonNull

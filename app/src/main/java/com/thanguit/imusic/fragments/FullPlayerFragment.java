@@ -1,5 +1,6 @@
 package com.thanguit.imusic.fragments;
 
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -22,13 +23,14 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.FullPlayerActivity;
+import com.thanguit.imusic.animations.ScaleAnimation;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Random;
 
 public class FullPlayerFragment extends Fragment {
-
-    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private MediaPlayer mediaPlayer;
 
     private ImageView ivCover;
     private ImageView ivFavorite;
@@ -42,6 +44,13 @@ public class FullPlayerFragment extends Fragment {
     private TextView tvTimeStart;
     private TextView tvTimeEnd;
     private SeekBar sbSong;
+
+    private ScaleAnimation scaleAnimation;
+
+    private int position = 0;
+    private boolean repeat = false;
+    private boolean checkRandom = false;
+    private boolean next = false;
 
     private static final String TAG = "FullPlayerFragment";
 
@@ -82,35 +91,211 @@ public class FullPlayerFragment extends Fragment {
         StrictMode.setThreadPolicy(policy);
 
         if (FullPlayerActivity.dataSongArrayList.size() > 0) {
-//            FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(0).getName());
-//            FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(0).getSinger());
+            FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(0).getName());
+            FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(0).getSinger());
             new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(0).getLink());
             this.ivPlayPause.setImageResource(R.drawable.ic_pause);
         }
     }
 
     private void Event() {
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivDownload);
+        this.scaleAnimation.Event_ImageView();
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivFavorite);
+        this.scaleAnimation.Event_ImageView();
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivShare);
+        this.scaleAnimation.Event_ImageView();
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivShuffle);
+        this.scaleAnimation.Event_ImageView();
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivPrev);
+        this.scaleAnimation.Event_ImageView();
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivPlayPause);
+        this.scaleAnimation.Event_ImageView();
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivNext);
+        this.scaleAnimation.Event_ImageView();
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivRepeat);
+        this.scaleAnimation.Event_ImageView();
+
         final Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            if (FullPlayerActivity.dataSongArrayList.size() > 0) {
-                Picasso.get()
-                        .load(FullPlayerActivity.dataSongArrayList.get(0).getImg())
-                        .placeholder(R.drawable.ic_logo)
-                        .error(R.drawable.ic_logo)
-                        .into(this.ivCover);
-            } else {
-                handler.postDelayed((Runnable) this, 1000);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (FullPlayerActivity.dataSongArrayList.size() > 0) {
+                    Picasso.get()
+                            .load(FullPlayerActivity.dataSongArrayList.get(0).getImg())
+                            .placeholder(R.drawable.ic_logo)
+                            .error(R.drawable.ic_logo)
+                            .into(ivCover);
+                } else {
+                    handler.postDelayed(this, 1000);
+                }
             }
         }, 1000);
 
         this.ivPlayPause.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
-                mediaPlayer.pause();
+                this.mediaPlayer.pause();
                 this.ivPlayPause.setImageResource(R.drawable.ic_play);
             } else {
-                mediaPlayer.start();
+                this.mediaPlayer.start();
                 this.ivPlayPause.setImageResource(R.drawable.ic_pause);
             }
+        });
+
+
+        this.ivRepeat.setOnClickListener(v -> {
+            if (repeat == false) {
+                if (checkRandom == true) {
+                    checkRandom = false;
+                    this.ivRepeat.setImageResource(R.drawable.ic_loop_check);
+                    this.ivShuffle.setImageResource(R.drawable.ic_shuffle);
+                } else {
+                    this.ivRepeat.setImageResource(R.drawable.ic_loop_check);
+                    repeat = true;
+                }
+            } else {
+                this.ivRepeat.setImageResource(R.drawable.ic_loop);
+                repeat = false;
+            }
+        });
+
+
+        this.ivShuffle.setOnClickListener(v -> {
+            if (checkRandom == false) {
+                if (repeat == true) {
+                    repeat = false;
+                    this.ivShuffle.setImageResource(R.drawable.ic_shuffle_check);
+                    this.ivRepeat.setImageResource(R.drawable.ic_loop);
+                } else {
+                    this.ivShuffle.setImageResource(R.drawable.ic_shuffle_check);
+                    checkRandom = true;
+                }
+            } else {
+                this.ivShuffle.setImageResource(R.drawable.ic_shuffle);
+                checkRandom = false;
+            }
+        });
+
+
+        this.sbSong.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mediaPlayer.seekTo(seekBar.getProgress());
+            }
+        });
+
+
+        this.ivNext.setOnClickListener(v -> {
+            if (FullPlayerActivity.dataSongArrayList.size() > 0) {
+                if (this.mediaPlayer.isPlaying() || this.mediaPlayer != null) {
+                    this.mediaPlayer.stop();
+                    this.mediaPlayer.release(); // Đồng bộ
+                    this.mediaPlayer = null;
+                }
+                if (this.position < FullPlayerActivity.dataSongArrayList.size()) {
+                    ivPlayPause.setImageResource(R.drawable.ic_pause);
+                    this.position++;
+
+                    if (repeat == true) {
+                        if (this.position == 0) {
+                            this.position = FullPlayerActivity.dataSongArrayList.size();
+                        }
+                        this.position -= 1;
+                    }
+
+                    if (checkRandom == true) {
+                        Random random = new Random();
+                        int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
+                        if (index == this.position) {
+                            this.position = index - 1;
+                        }
+                        this.position = index;
+                    }
+                    if (this.position > FullPlayerActivity.dataSongArrayList.size() - 1) {
+                        this.position = 0;
+                    }
+                }
+                new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(this.position).getLink());
+
+                Picasso.get()
+                        .load(FullPlayerActivity.dataSongArrayList.get(this.position).getImg())
+                        .placeholder(R.drawable.ic_logo)
+                        .error(R.drawable.ic_logo)
+                        .into(this.ivCover);
+
+                FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getName());
+                FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getSinger());
+                LyricsPlayerFragment.position = this.position;
+                UpdateTimeSong();
+            }
+            this.ivNext.setClickable(false);
+            this.ivPrev.setClickable(false);
+
+            new Handler().postDelayed(() -> {
+                this.ivNext.setClickable(true);
+                this.ivPrev.setClickable(true);
+            }, 2000);
+        });
+
+
+        this.ivPrev.setOnClickListener(v -> {
+            if (FullPlayerActivity.dataSongArrayList.size() > 0) {
+                if (this.mediaPlayer.isPlaying() || this.mediaPlayer != null) {
+                    this.mediaPlayer.stop();
+                    this.mediaPlayer.release(); // Đồng bộ
+                    this.mediaPlayer = null;
+                }
+                if (this.position < FullPlayerActivity.dataSongArrayList.size()) {
+                    ivPlayPause.setImageResource(R.drawable.ic_pause);
+                    this.position--;
+
+                    if (this.position < 0) {
+                        this.position = FullPlayerActivity.dataSongArrayList.size() - 1;
+                    }
+
+                    if (repeat == true) {
+                        this.position += 1;
+                    }
+
+                    if (checkRandom == true) {
+                        Random random = new Random();
+                        int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
+                        if (index == this.position) {
+                            this.position = index - 1;
+                        }
+                        this.position = index;
+                    }
+                }
+                new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(this.position).getLink());
+
+                Picasso.get()
+                        .load(FullPlayerActivity.dataSongArrayList.get(this.position).getImg())
+                        .placeholder(R.drawable.ic_logo)
+                        .error(R.drawable.ic_logo)
+                        .into(this.ivCover);
+
+                FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getName());
+                FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getSinger());
+                LyricsPlayerFragment.position = this.position;
+                UpdateTimeSong();
+            }
+            this.ivNext.setClickable(false);
+            this.ivPrev.setClickable(false);
+
+            new Handler().postDelayed(() -> {
+                this.ivNext.setClickable(true);
+                this.ivPrev.setClickable(true);
+            }, 2000);
         });
     }
 
@@ -125,7 +310,9 @@ public class FullPlayerFragment extends Fragment {
         protected void onPostExecute(String song) {
             super.onPostExecute(song);
             try {
+                mediaPlayer = new MediaPlayer();
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
                 mediaPlayer.setOnCompletionListener(mp -> {
                     mediaPlayer.stop();
                     mediaPlayer.reset();
@@ -140,12 +327,96 @@ public class FullPlayerFragment extends Fragment {
             }
             mediaPlayer.start();
             TimeSong();
+            UpdateTimeSong();
         }
     }
 
     private void TimeSong() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+
         this.tvTimeEnd.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
         this.sbSong.setMax(mediaPlayer.getDuration());
+    }
+
+    private void UpdateTimeSong() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mediaPlayer != null) {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+
+                    tvTimeStart.setText(simpleDateFormat.format(mediaPlayer.getCurrentPosition()));
+                    sbSong.setProgress(mediaPlayer.getCurrentPosition());
+                    handler.postDelayed(this, 1000);
+
+                    mediaPlayer.setOnCompletionListener(mp -> {
+                        next = true;
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+            }
+        }, 1000);
+
+
+        Handler handler_1 = new Handler();
+        handler_1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (next == true) {
+                    if (position < FullPlayerActivity.dataSongArrayList.size()) {
+                        ivPlayPause.setImageResource(R.drawable.ic_pause);
+                        position++;
+
+                        if (repeat == true) {
+                            if (position == 0) {
+                                position = FullPlayerActivity.dataSongArrayList.size();
+                            }
+                            position -= 1;
+                        }
+
+                        if (checkRandom == true) {
+                            Random random = new Random();
+                            int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
+                            if (index == position) {
+                                position = index - 1;
+                            }
+                            position = index;
+                        }
+                        if (position > FullPlayerActivity.dataSongArrayList.size() - 1) {
+                            position = 0;
+                        }
+                    }
+                    new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(position).getLink());
+
+                    Picasso.get()
+                            .load(FullPlayerActivity.dataSongArrayList.get(position).getImg())
+                            .placeholder(R.drawable.ic_logo)
+                            .error(R.drawable.ic_logo)
+                            .into(ivCover);
+
+                    FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(position).getName());
+                    FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(position).getSinger());
+                    LyricsPlayerFragment.position = position;
+
+                    ivNext.setClickable(false);
+                    ivPrev.setClickable(false);
+
+                    new Handler().postDelayed(() -> {
+                        ivNext.setClickable(true);
+                        ivPrev.setClickable(true);
+                    }, 2000);
+
+                    next = false;
+                    handler_1.removeCallbacks(this); // Lưu ý khúc này
+                } else {
+                    handler_1.postDelayed(this, 1000);
+                }
+            }
+        }, 1000);
     }
 }

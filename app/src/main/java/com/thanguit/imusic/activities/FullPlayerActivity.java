@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,10 +38,11 @@ public class FullPlayerActivity extends AppCompatActivity {
     private Song song;
     private ArrayList<Song> songArrayList = new ArrayList<>();
 
-    public static ArrayList<Song> dataSongArrayList = new ArrayList<>(); // mảng này để hiển thị danh sách bài hát cho DetailPlayerFragment
+    public static ArrayList<Song> dataSongArrayList = new ArrayList<>(); // Mảng này để hiển thị danh sách bài hát cho DetailPlayerFragment
 
     private ImageView ivBack;
-    public static TextView tvSongName, tvArtist;
+    public static TextView tvSongName;
+    public static TextView tvArtist;
 
     private static final String TAG = "FullPlayerActivity";
 
@@ -58,8 +61,11 @@ public class FullPlayerActivity extends AppCompatActivity {
         fullPlayerAdapter = new FullPlayerAdapter(getSupportFragmentManager(), 1);
         this.pageIndicatorView = (PageIndicatorView) findViewById(R.id.pageIndicatorView);
         this.ivBack = (ImageView) findViewById(R.id.ivBack);
+
         tvSongName = (TextView) findViewById(R.id.tvSongName);
+        tvSongName.setSelected(true); // Text will be moved
         tvArtist = (TextView) findViewById(R.id.tvArtist);
+        tvArtist.setSelected(true); // Text will be moved
 
         this.fullPlayerFragment = new FullPlayerFragment();
         this.detailPlayerFragment = new DetailPlayerFragment();

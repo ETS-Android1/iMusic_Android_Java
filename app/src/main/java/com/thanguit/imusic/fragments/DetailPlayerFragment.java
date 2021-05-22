@@ -20,7 +20,6 @@ import com.thanguit.imusic.adapters.ListSongAdapter;
 import com.thanguit.imusic.adapters.ThemeHomeAdapter;
 
 public class DetailPlayerFragment extends Fragment {
-
     private RecyclerView rvDataListSong;
 
     private static final String TAG = "DetailPlayerFragment";
@@ -59,7 +58,7 @@ public class DetailPlayerFragment extends Fragment {
 
             Log.d(TAG, FullPlayerActivity.dataSongArrayList.get(0).getName());
         } else {
-            Log.d(TAG, "No data");
+            Log.d(TAG, "Lỗi! Không có dữ liệu");
         }
     }
 

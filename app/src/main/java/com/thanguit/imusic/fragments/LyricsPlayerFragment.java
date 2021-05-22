@@ -8,19 +8,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.adapters.ChartAdapter;
+import com.thanguit.imusic.adapters.ListSongAdapter;
 import com.thanguit.imusic.adapters.LyricAdapter;
 
-public class LyricsPlayerFragment extends Fragment {
+import java.util.Objects;
 
-    private RecyclerView rvLyric;
+public class LyricsPlayerFragment extends Fragment {
+    private TextView tvLyric;
+
+    public static int position = 0;
 
     private static final String TAG = "LyricsPlayerFragment";
 
@@ -43,19 +49,18 @@ public class LyricsPlayerFragment extends Fragment {
     }
 
     private void Mapping(View view) {
-        this.rvLyric = (RecyclerView) view.findViewById(R.id.rvLyric);
+        this.tvLyric = (TextView) view.findViewById(R.id.tvLyric);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         if (FullPlayerActivity.dataSongArrayList.size() > 0) {
-            this.rvLyric.setHasFixedSize(true);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-            layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
-            this.rvLyric.setLayoutManager(layoutManager);
+            String lyric = FullPlayerActivity.dataSongArrayList.get(position).getLyric().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator")));
+            this.tvLyric.setText(lyric);
 
-            this.rvLyric.setAdapter(new LyricAdapter(FullPlayerActivity.dataSongArrayList));
-
-            Log.d(TAG, FullPlayerActivity.dataSongArrayList.get(0).getLyric());
+            Log.d(TAG, lyric);
         } else {
-            Log.d(TAG, "No data");
+            Log.d(TAG, "Lỗi! Không có dữ liệu");
         }
     }
 }
