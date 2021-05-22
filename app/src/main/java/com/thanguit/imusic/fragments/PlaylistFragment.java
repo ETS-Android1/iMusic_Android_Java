@@ -61,7 +61,7 @@ public class PlaylistFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Mapping(view);
-        Event();
+        Handle_Playlist();
     }
 
     private void Mapping(View view) {
@@ -73,11 +73,6 @@ public class PlaylistFragment extends Fragment {
 
         this.tvPlaylist = (TextView) view.findViewById(R.id.tvPlaylist);
         this.tvPlaylist.setSelected(true); // Text will be moved
-    }
-
-    private void Event() {
-
-        Handle_Playlist();
     }
 
     private void Handle_Playlist() {

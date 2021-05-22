@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Mapping(view);
-        Event();
+        Handle_Slider();
     }
 
     private void Mapping(View view) {
@@ -78,10 +78,7 @@ public class HomeFragment extends Fragment {
 
         this.sliderView = (SliderView) view.findViewById(R.id.isvSlider);
 
-        Handle_Slider();
-    }
 
-    private void Event() {
     }
 
     private void Handle_Slider() {

@@ -55,17 +55,12 @@ public class ChartFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Mapping(view);
-        Event();
+        Handle_SongChart();
     }
 
     private void Mapping(View view) {
         this.rvChart = (RecyclerView) view.findViewById(R.id.rvChart);
         this.sflItemSong = (ShimmerFrameLayout) view.findViewById(R.id.sflItemSong);
-    }
-
-    private void Event() {
-
-        Handle_SongChart();
     }
 
     private void Handle_SongChart() {

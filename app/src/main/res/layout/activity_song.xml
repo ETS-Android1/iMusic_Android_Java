@@ -53,9 +53,51 @@
         android:padding="15dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvListSong"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/sflItemSong"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/item_shimmer_song" />
+
+                    <include layout="@layout/item_shimmer_song" />
+
+                    <include layout="@layout/item_shimmer_song" />
+
+                    <include layout="@layout/item_shimmer_song" />
+
+                    <include layout="@layout/item_shimmer_song" />
+
+                    <include layout="@layout/item_shimmer_song" />
+
+                    <include layout="@layout/item_shimmer_song" />
+
+                    <include layout="@layout/item_shimmer_song" />
+
+                    <include layout="@layout/item_shimmer_song" />
+
+                    <include layout="@layout/item_shimmer_song" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvListSong"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

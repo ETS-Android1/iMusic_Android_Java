@@ -36,9 +36,9 @@ public class SearchActivity extends AppCompatActivity {
 
     private EditText etSearchBox;
     private ImageView ivBack;
+    private TextView tvSearchHint;
 
     private RecyclerView rvSearchResult;
-    private ShimmerFrameLayout sflItemSongSearch;
 
     private ScaleAnimation scaleAnimation;
 
@@ -62,8 +62,10 @@ public class SearchActivity extends AppCompatActivity {
 
         this.ivBack = (ImageView) findViewById(R.id.ivBack);
 
+        this.tvSearchHint = (TextView) findViewById(R.id.tvSearchHint);
+        this.tvSearchHint.setSelected(true); // Text will be moved
+
         this.rvSearchResult = (RecyclerView) findViewById(R.id.rvSearchResult);
-        this.sflItemSongSearch = (ShimmerFrameLayout) findViewById(R.id.sflItemSongSearch);
     }
 
     private void Event() {
@@ -103,6 +105,8 @@ public class SearchActivity extends AppCompatActivity {
                 songArrayList = (ArrayList<Song>) response.body();
 
                 if (songArrayList != null && songArrayList.size() > 0) {
+                    tvSearchHint.setVisibility(View.GONE);
+
                     rvSearchResult.setHasFixedSize(true);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(SearchActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc

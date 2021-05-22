@@ -61,7 +61,7 @@ public class AlbumFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Mapping(view);
-        Event();
+        Handle_Album();
     }
 
     private void Mapping(View view) {
@@ -74,11 +74,6 @@ public class AlbumFragment extends Fragment {
         this.tvAlbum = (TextView) view.findViewById(R.id.tvAlbum);
         this.tvAlbum.setSelected(true); // Text will be moved
 
-    }
-
-    private void Event() {
-
-        Handle_Album();
     }
 
     private void Handle_Album() {

@@ -59,7 +59,7 @@ public class ThemeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Mapping(view);
-        Event();
+        Handle_Theme();
     }
 
     private void Mapping(View view) {
@@ -72,11 +72,6 @@ public class ThemeFragment extends Fragment {
         this.tvTheme1 = (TextView) view.findViewById(R.id.tvTheme1);
         this.tvTheme1.setSelected(true); // Text will be moved
 
-    }
-
-    private void Event() {
-
-        Handle_Theme();
     }
 
     private void Handle_Theme() {

@@ -46,6 +46,7 @@ public class SongActivity extends AppCompatActivity {
     private FloatingActionButton floatingActionButton;
 
     private RecyclerView recyclerview;
+    private ShimmerFrameLayout sflItemSong;
 
     private ArrayList<Song> songArrayList;
     private Playlist playlist;
@@ -70,6 +71,7 @@ public class SongActivity extends AppCompatActivity {
         this.floatingActionButton.setEnabled(false); // Set false để cho nó không hoạt động trước đã, sau khi load xong hết các bài hát thì gọi hàm Play_All_Song();
 
         this.recyclerview = (RecyclerView) findViewById(R.id.rvListSong);
+        this.sflItemSong = (ShimmerFrameLayout) findViewById(R.id.sflItemSong);
 
         this.playlist = new Playlist();
 
@@ -124,6 +126,9 @@ public class SongActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 songArrayList = (ArrayList<Song>) response.body();
+
+                sflItemSong.setVisibility(View.GONE); // Load biến mất
+                recyclerview.setVisibility(View.VISIBLE); // Hiện thông tin
 
                 recyclerview.setHasFixedSize(true);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(SongActivity.this);
