@@ -4,31 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:paddingTop="10dp"
     tools:context=".fragments.LyricsPlayerFragment">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvLyric"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:fontFamily="@font/comfortaa"
                 android:gravity="center"
                 android:lineSpacingExtra="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/tvLyrics"
                 android:textAlignment="center"
                 android:textColor="@color/colorLight9"
                 android:textSize="16sp" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </LinearLayout>

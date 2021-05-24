@@ -29,5 +29,6 @@ public class FullPlayerAdapter extends FragmentStatePagerAdapter {
 
     public void Add_Fragment(Fragment fragment) {
         this.fragmentList.add(fragment);
+        notifyDataSetChanged();
     }
 }

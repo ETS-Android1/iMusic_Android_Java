@@ -54,6 +54,24 @@ public class FullPlayerFragment extends Fragment {
 
     private static final String TAG = "FullPlayerFragment";
 
+    private ISendPositionListener iSendPositionListener;
+
+    public interface ISendPositionListener {
+        void Send_Position(int index);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ISendPositionListener) {
+            iSendPositionListener = (ISendPositionListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + "Can phai implement");
+        }
+//        iSendPositionListener = (ISendPositionListener) getActivity(); // Khở tạo Interface khi Fragment gắn vào Activity
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,18 +92,18 @@ public class FullPlayerFragment extends Fragment {
     }
 
     private void Mapping(View view) {
-        this.ivCover = (ImageView) view.findViewById(R.id.ivCover);
-        this.ivDownload = (ImageView) view.findViewById(R.id.ivDownload);
-        this.ivFavorite = (ImageView) view.findViewById(R.id.ivFavorite);
-        this.ivShare = (ImageView) view.findViewById(R.id.ivShare);
-        this.ivShuffle = (ImageView) view.findViewById(R.id.ivShuffle);
-        this.ivPrev = (ImageView) view.findViewById(R.id.ivPrev);
-        this.ivPlayPause = (ImageView) view.findViewById(R.id.ivPlayPause);
-        this.ivNext = (ImageView) view.findViewById(R.id.ivNext);
-        this.ivRepeat = (ImageView) view.findViewById(R.id.ivRepeat);
-        this.tvTimeStart = (TextView) view.findViewById(R.id.tvTimeStart);
-        this.tvTimeEnd = (TextView) view.findViewById(R.id.tvTimeEnd);
-        this.sbSong = (SeekBar) view.findViewById(R.id.sbSong);
+        this.ivCover = view.findViewById(R.id.ivCover);
+        this.ivDownload = view.findViewById(R.id.ivDownload);
+        this.ivFavorite = view.findViewById(R.id.ivFavorite);
+        this.ivShare = view.findViewById(R.id.ivShare);
+        this.ivShuffle = view.findViewById(R.id.ivShuffle);
+        this.ivPrev = view.findViewById(R.id.ivPrev);
+        this.ivPlayPause = view.findViewById(R.id.ivPlayPause);
+        this.ivNext = view.findViewById(R.id.ivNext);
+        this.ivRepeat = view.findViewById(R.id.ivRepeat);
+        this.tvTimeStart = view.findViewById(R.id.tvTimeStart);
+        this.tvTimeEnd = view.findViewById(R.id.tvTimeEnd);
+        this.sbSong = view.findViewById(R.id.sbSong);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -116,6 +134,7 @@ public class FullPlayerFragment extends Fragment {
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivRepeat);
         this.scaleAnimation.Event_ImageView();
 
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -132,6 +151,7 @@ public class FullPlayerFragment extends Fragment {
             }
         }, 1000);
 
+
         this.ivPlayPause.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
                 this.mediaPlayer.pause();
@@ -144,8 +164,8 @@ public class FullPlayerFragment extends Fragment {
 
 
         this.ivRepeat.setOnClickListener(v -> {
-            if (repeat == false) {
-                if (checkRandom == true) {
+            if (!repeat) {
+                if (checkRandom) {
                     checkRandom = false;
                     this.ivRepeat.setImageResource(R.drawable.ic_loop_check);
                     this.ivShuffle.setImageResource(R.drawable.ic_shuffle);
@@ -161,8 +181,8 @@ public class FullPlayerFragment extends Fragment {
 
 
         this.ivShuffle.setOnClickListener(v -> {
-            if (checkRandom == false) {
-                if (repeat == true) {
+            if (!checkRandom) {
+                if (repeat) {
                     repeat = false;
                     this.ivShuffle.setImageResource(R.drawable.ic_shuffle_check);
                     this.ivRepeat.setImageResource(R.drawable.ic_loop);
@@ -180,12 +200,10 @@ public class FullPlayerFragment extends Fragment {
         this.sbSong.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
@@ -206,14 +224,14 @@ public class FullPlayerFragment extends Fragment {
                     ivPlayPause.setImageResource(R.drawable.ic_pause);
                     this.position++;
 
-                    if (repeat == true) {
+                    if (repeat) {
                         if (this.position == 0) {
                             this.position = FullPlayerActivity.dataSongArrayList.size();
                         }
                         this.position -= 1;
                     }
 
-                    if (checkRandom == true) {
+                    if (checkRandom) {
                         Random random = new Random();
                         int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
                         if (index == this.position) {
@@ -235,7 +253,7 @@ public class FullPlayerFragment extends Fragment {
 
                 FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getName());
                 FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getSinger());
-                LyricsPlayerFragment.position = this.position;
+                iSendPositionListener.Send_Position(this.position); // Chú ý
                 UpdateTimeSong();
             }
             this.ivNext.setClickable(false);
@@ -263,11 +281,11 @@ public class FullPlayerFragment extends Fragment {
                         this.position = FullPlayerActivity.dataSongArrayList.size() - 1;
                     }
 
-                    if (repeat == true) {
+                    if (repeat) {
                         this.position += 1;
                     }
 
-                    if (checkRandom == true) {
+                    if (checkRandom) {
                         Random random = new Random();
                         int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
                         if (index == this.position) {
@@ -286,7 +304,7 @@ public class FullPlayerFragment extends Fragment {
 
                 FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getName());
                 FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getSinger());
-                LyricsPlayerFragment.position = this.position;
+                iSendPositionListener.Send_Position(this.position); // Chú ý
                 UpdateTimeSong();
             }
             this.ivNext.setClickable(false);
@@ -321,7 +339,7 @@ public class FullPlayerFragment extends Fragment {
                 mediaPlayer.setDataSource(song);
                 mediaPlayer.prepare();
             } catch (IOException e) {
-                Toast.makeText(getActivity(), "Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Lỗi. Vui lòng thử lại", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, e.getMessage());
                 e.printStackTrace();
             }
@@ -348,8 +366,8 @@ public class FullPlayerFragment extends Fragment {
 
                     tvTimeStart.setText(simpleDateFormat.format(mediaPlayer.getCurrentPosition()));
                     sbSong.setProgress(mediaPlayer.getCurrentPosition());
-                    handler.postDelayed(this, 1000);
 
+                    handler.postDelayed(this, 1000); // Gọi lại ham này thực thi 1s mỗi lần
                     mediaPlayer.setOnCompletionListener(mp -> {
                         next = true;
                         try {
@@ -363,23 +381,23 @@ public class FullPlayerFragment extends Fragment {
         }, 1000);
 
 
-        Handler handler_1 = new Handler();
+        Handler handler_1 = new Handler(); // Lằng nghe khi chuyển bài hát
         handler_1.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (next == true) {
+                if (next) {
                     if (position < FullPlayerActivity.dataSongArrayList.size()) {
                         ivPlayPause.setImageResource(R.drawable.ic_pause);
                         position++;
 
-                        if (repeat == true) {
+                        if (repeat) {
                             if (position == 0) {
                                 position = FullPlayerActivity.dataSongArrayList.size();
                             }
                             position -= 1;
                         }
 
-                        if (checkRandom == true) {
+                        if (checkRandom) {
                             Random random = new Random();
                             int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
                             if (index == position) {
@@ -401,12 +419,11 @@ public class FullPlayerFragment extends Fragment {
 
                     FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(position).getName());
                     FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(position).getSinger());
-                    LyricsPlayerFragment.position = position;
-
+                    iSendPositionListener.Send_Position(position); // Chú ý
                     ivNext.setClickable(false);
                     ivPrev.setClickable(false);
 
-                    new Handler().postDelayed(() -> {
+                    new Handler().postDelayed(() -> { // Sau khi người dùng nhấn Next hoặc Prev thì cho dừng khoảng 2s sau mới cho tác động lại nút
                         ivNext.setClickable(true);
                         ivPrev.setClickable(true);
                     }, 2000);

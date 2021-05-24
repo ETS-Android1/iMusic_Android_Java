@@ -26,7 +26,7 @@ import java.util.Objects;
 public class LyricsPlayerFragment extends Fragment {
     private TextView tvLyric;
 
-    public static int position = 0;
+    private int position = 0;
 
     private static final String TAG = "LyricsPlayerFragment";
 
@@ -49,7 +49,7 @@ public class LyricsPlayerFragment extends Fragment {
     }
 
     private void Mapping(View view) {
-        this.tvLyric = (TextView) view.findViewById(R.id.tvLyric);
+        this.tvLyric = view.findViewById(R.id.tvLyric);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -62,5 +62,9 @@ public class LyricsPlayerFragment extends Fragment {
         } else {
             Log.d(TAG, "Lỗi! Không có dữ liệu");
         }
+    }
+
+    public void Get_Position(int index) {
+        this.position = index;
     }
 }

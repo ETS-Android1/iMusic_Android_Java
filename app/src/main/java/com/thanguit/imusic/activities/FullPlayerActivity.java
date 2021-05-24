@@ -23,7 +23,7 @@ import com.thanguit.imusic.models.Song;
 
 import java.util.ArrayList;
 
-public class FullPlayerActivity extends AppCompatActivity {
+public class FullPlayerActivity extends AppCompatActivity implements FullPlayerFragment.ISendPositionListener {
 
     private ViewPager viewpager;
     public static FullPlayerAdapter fullPlayerAdapter;
@@ -57,14 +57,14 @@ public class FullPlayerActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        this.viewpager = (ViewPager) findViewById(R.id.vpFullPlayer);
+        this.viewpager = findViewById(R.id.vpFullPlayer);
         fullPlayerAdapter = new FullPlayerAdapter(getSupportFragmentManager(), 1);
-        this.pageIndicatorView = (PageIndicatorView) findViewById(R.id.pageIndicatorView);
-        this.ivBack = (ImageView) findViewById(R.id.ivBack);
+        this.pageIndicatorView = findViewById(R.id.pageIndicatorView);
+        this.ivBack = findViewById(R.id.ivBack);
 
-        tvSongName = (TextView) findViewById(R.id.tvSongName);
+        tvSongName = findViewById(R.id.tvSongName);
         tvSongName.setSelected(true); // Text will be moved
-        tvArtist = (TextView) findViewById(R.id.tvArtist);
+        tvArtist = findViewById(R.id.tvArtist);
         tvArtist.setSelected(true); // Text will be moved
 
         this.fullPlayerFragment = new FullPlayerFragment();
@@ -133,5 +133,10 @@ public class FullPlayerActivity extends AppCompatActivity {
         } else {
             Toast.makeText(FullPlayerActivity.this, "Không có dữ liệu!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void Send_Position(int position) {
+        lyricsPlayerFragment.Get_Position(position);
     }
 }
