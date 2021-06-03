@@ -7,6 +7,10 @@
     <string name="facebook_app_id">1179700782483492</string>
     <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
+    <string name="zalo_app_id">270380721011787967</string>
+
+
+
     <!-- - - - - - - - - - - MainActivity - - - - - - - - - - -->
     <!--    Button "Login with Facebook"    -->
     <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
@@ -17,10 +21,9 @@
     <string name="toast5">Xác thực thất bại</string>
     <string name="toast8">Đăng nhập lại để tiếp tục</string>
 
-    <!--    Button "Login with Google"    -->
-    <string name="btnLoginGG">Đăng nhập bằng Google</string>
+    <!--    Button "Login with Zalo"    -->
+    <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
     <string name="toast6">Mã lỗi: </string>
-
 
     <!-- - - - - - - - - - - FullActivity - - - - - - - - - - -->
     <string name="toast7">Nhấn BACK lần nữa để thoát</string>
@@ -39,16 +42,12 @@
     <!-- - - - - - - - - - - FragmentLyricsPlayer - - - - - - - - - - -->
     <string name="tvLyrics">Và giờ anh biết\nChuyện tình mình chẳng còn gì\nKhi nắng xuân sang\nLời mật ngọt còn thầm thì\nEm bước sang ngang\nĐợi chờ một điều diệu kì\nNhư lúc ban đầu\nVà giờ em khóc\nThì cũng chẳng để làm gì\nĐâu phải cho anh\nChuyện tình mình mà là vì\nEm đã trao ai\nDòng lệ tràn đầy cầu kì\nNhững năm tháng phai nhòa\nNếu...\nTrái tim mình nói không nên lời\nĐắng cay từng tiếng yêu xa vời\nThế là...\nVà hôm nay em đến\nNhưng nắng đâu còn thiết tha gọi mời\nGió âm thầm lướt qua muôn đời\nVì ai vì ai\nVì giờ anh biết\nChuyện tình mình chẳng còn gì\nKhi nắng xuân sang\nLời mật ngọt còn thầm thì\nEm bước sang ngang\nĐợi chờ một điều diệu kì\nNhư lúc ban đầu\nVà giờ em khóc\nThì cũng chẳng để làm gì\nĐâu phải cho anh\nChuyện tình mình mà là vì\nEm đã trao ai\nDòng lệ tràn đầy cầu kì\nNhững năm tháng phai nhòa\nNếu...\nĐóa hoa hồng trước kia trở về\nNhánh hương tình thoảng trên câu thề\nAnh ước rằng...\nRằng một mai anh đến\nAnh đón em vào sớm mai trong lành\nNhưng đó mãi là giấc mơ không thành\nVì ai vì ai\nVà giờ anh biết\nChuyện tình mình chẳng còn gì\nKhi nắng xuân sang\nLời mật ngọt còn thầm thì\nEm bước sang ngang\nĐợi chờ một điều diệu kì\nNhư lúc ban đầu\nVà giờ em khóc\nThì cũng chẳng để làm gì\nĐâu phải cho anh\nChuyện tình mình mà là vì\nEm đã trao ai\nDòng lệ tràn đầy cầu kì\nNhững năm tháng phai nhòa\nVì giờ anh biết\nChuyện tình mình chẳng còn gì\nKhi nắng xuân sang\nLời mật ngọt còn thầm thì\nEm bước sang ngang\nĐợi chờ một điều diệu kì\nNhư lúc ban đầu\nVà giờ em khóc\nThì cũng chẳng để làm gì\nĐâu phải cho anh\nChuyện tình mình mà là vì\nNước mắt em rơi\nDòng lệ tràn đầy cầu kì\nVì em vì em\n</string>
 
-
-
     <string name="tvTitleComment">Bình luận</string>
     <string name="etHintComment">Nhập bình luận</string>
 
-
     <!-- - - - - - - - - - - FragmentFullPlayer - - - - - - - - - - -->
     <string name="tvTimeStart">0:00</string>
-    <string name="tvTimeEnd">4:30</string>
-
+    <string name="tvTimeEnd">0:00</string>
 
     <!-- - - - - - - - - - - SearchActivity - - - - - - - - - - -->
     <string name="tvSearchHint">Kết quả tìm kiếm sẽ hiển thị ở đây.</string>
@@ -71,5 +70,12 @@
     <string name="tvChartSongSinger">Tên ca sĩ</string>
     <string name="tvLikeNumber">100</string>
 
+    <!-- - - - - - - - - - - PersonalActivity - - - - - - - - - - -->
+    <string name="tvPersonalTitle">Thông tin cá nhân</string>
+    <string name="tvPersonalName">Tên người dùng</string>
+    <string name="tvInfoName">Tên</string>
+    <string name="tvInfoGender">Giới tính</string>
+    <string name="tvInfoEmail">Email</string>
+    <string name="btnLogout">Đăng xuất</string>
 
 </resources>

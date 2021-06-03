@@ -73,7 +73,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        app:srcCompat="@drawable/ic_play" />
+        app:srcCompat="@drawable/ic_play_1" />
 
     <ImageView
         android:id="@+id/ivPrev"

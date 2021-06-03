@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorMain1"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_play"
+        android:src="@drawable/ic_play_1"
         app:fabSize="normal"
         app:layout_anchor="@+id/ablImage"
         app:layout_anchorGravity="bottom|center"

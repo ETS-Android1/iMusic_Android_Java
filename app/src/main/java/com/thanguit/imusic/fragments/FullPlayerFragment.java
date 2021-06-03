@@ -155,7 +155,7 @@ public class FullPlayerFragment extends Fragment {
         this.ivPlayPause.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
                 this.mediaPlayer.pause();
-                this.ivPlayPause.setImageResource(R.drawable.ic_play);
+                this.ivPlayPause.setImageResource(R.drawable.ic_play_1);
             } else {
                 this.mediaPlayer.start();
                 this.ivPlayPause.setImageResource(R.drawable.ic_pause);

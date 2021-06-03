@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.os.Build;
 
 import com.thanguit.imusic.R;
+import com.zing.zalo.zalosdk.oauth.ZaloSDKApplication;
 
 public class MyApplication extends Application {
     public static final String CHANNEL_ID = "CHANNEL iMusic MEDIA";
@@ -13,7 +14,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        ZaloSDKApplication.wrap(this);
         createNotificationChannel();
     }
 

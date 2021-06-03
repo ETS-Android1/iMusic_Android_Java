@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
+import com.facebook.login.LoginManager;
 import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
 import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
 import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
@@ -21,10 +23,15 @@ import com.thanguit.imusic.R;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.fragments.ChartFragment;
 import com.thanguit.imusic.fragments.HomeFragment;
-import com.thanguit.imusic.fragments.PersonalFragment;
+import com.thanguit.imusic.fragments.PersonalPlaylistFragment;
 import com.thanguit.imusic.fragments.RadioFragment;
 import com.thanguit.imusic.fragments.SettingFragment;
 import com.thanguit.imusic.models.User;
+import com.zing.zalo.zalosdk.oauth.ValidateOAuthCodeCallback;
+import com.zing.zalo.zalosdk.oauth.ZaloOpenAPICallback;
+import com.zing.zalo.zalosdk.oauth.ZaloSDK;
+
+import org.json.JSONObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -62,11 +69,30 @@ public class FullActivity extends AppCompatActivity {
         Event();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (AccessToken.getCurrentAccessToken() != null) {
+            LoginManager.getInstance().logOut();
+            finish();
+        }
+
+        ZaloSDK.Instance.isAuthenticate(new ValidateOAuthCodeCallback() {
+            @Override
+            public void onValidateComplete(boolean validated, int i, long l, String s) {
+                if (!validated) {
+                    ZaloSDK.Instance.unauthenticate();
+                    finish();
+                }
+            }
+        });
+    }
 
     private void Mapping() {
-        this.meowBottomNavigation = (MeowBottomNavigation) findViewById(R.id.bottomNavigation);
+        this.meowBottomNavigation = findViewById(R.id.bottomNavigation);
 
-        this.ivBell = (ImageView) findViewById(R.id.ivBell);
+        this.ivBell = findViewById(R.id.ivBell);
 
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_PERSONAL, R.drawable.ic_music_note));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_CHART, R.drawable.ic_chart));
@@ -74,8 +100,8 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_RADIO, R.drawable.ic_radio));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_SETTING, R.drawable.ic_setting));
 
-        this.circleImageView = (CircleImageView) findViewById(R.id.civAvatar);
-        this.editText = (EditText) findViewById(R.id.etSearch);
+        this.circleImageView = findViewById(R.id.civAvatar);
+        this.editText = findViewById(R.id.etSearch);
     }
 
     private void Event() {
@@ -86,6 +112,12 @@ public class FullActivity extends AppCompatActivity {
         this.scaleAnimation.Event_CircleImageView();
 
 
+        this.circleImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(FullActivity.this, PersonalPageActivity.class);
+            startActivity(intent);
+        });
+
+
         // Event for Bottom Navigation
         this.meowBottomNavigation.setOnClickMenuListener(item -> Log.d(LOG_TAG, "Fragment: " + item.getId()));
 
@@ -93,7 +125,7 @@ public class FullActivity extends AppCompatActivity {
             fragment = null;
             switch (item.getId()) {
                 case 1: {
-                    fragment = new PersonalFragment();
+                    fragment = new PersonalPlaylistFragment();
                     break;
                 }
                 case 2: {
@@ -122,28 +154,49 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation.show(ID_HOME, true); // Default tab when open
 
 
-        // Event for load info of User
-        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
-            try {
-                String avatar = object.getJSONObject("picture").getJSONObject("data").getString("url");
+        // Event for load info of User with Facebook
+        if (AccessToken.getCurrentAccessToken() != null) {
+            GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
+                try {
+                    String avatar = object.getJSONObject("picture").getJSONObject("data").getString("url");
 
-                Picasso.get()
-                        .load(avatar)
-                        .placeholder(R.drawable.ic_logo)
-                        .error(R.drawable.ic_logo)
-                        .into(this.circleImageView);
+                    Picasso.get()
+                            .load(avatar)
+                            .placeholder(R.drawable.ic_logo)
+                            .error(R.drawable.ic_logo)
+                            .into(this.circleImageView);
 
-                Log.d(LOG_TAG, String.valueOf(object));
-            } catch (Exception e) {
-                e.printStackTrace();
+                    Log.d(LOG_TAG, String.valueOf(object));
+                } catch (Exception e) {
+                    e.printStackTrace();
 //                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                }
+            });
+            Bundle bundle = new Bundle();
+            bundle.putString("fields", "id, name, picture.width(1000).height(1000), first_name, last_name, gender");
+            graphRequest.setParameters(bundle);
+            graphRequest.executeAsync();
+        }
 
-        Bundle bundle = new Bundle();
-        bundle.putString("fields", "id, name, picture.width(1000).height(1000), first_name, last_name, gender");
-        graphRequest.setParameters(bundle);
-        graphRequest.executeAsync();
+
+        // Event for load info of User with Zalo
+        if (!ZaloSDK.Instance.getOAuthCode().isEmpty()) {
+            ZaloOpenAPICallback callBack = new ZaloOpenAPICallback() {
+                @Override
+                public void onResult(JSONObject jsonObject) {
+                    String avatar = jsonObject.optJSONObject("picture").optJSONObject("data").optString("url");
+                    Picasso.get()
+                            .load(avatar)
+                            .placeholder(R.drawable.ic_logo)
+                            .error(R.drawable.ic_logo)
+                            .into(circleImageView);
+
+                    Log.d(LOG_TAG, String.valueOf(jsonObject));
+                }
+            };
+            String[] getData = {"id", "name", "picture"};
+            ZaloSDK.Instance.getProfile(this, callBack, getData);
+        }
 
 
         // Event for Search

@@ -22,20 +22,18 @@
     <Button
         android:id="@+id/btnLoginFB"
         style="@style/btnLogin"
-        android:layout_above="@id/btnLoginGG"
+        android:layout_above="@+id/btnLoginZL"
         android:background="@drawable/btn_loginfb"
         android:drawableStart="@drawable/logo_facebook"
-        android:drawableLeft="@drawable/logo_facebook"
         android:text="@string/btnLoginFB" />
 
     <Button
-        android:id="@+id/btnLoginGG"
+        android:id="@+id/btnLoginZL"
         style="@style/btnLogin"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/btn_logingg"
-        android:drawableStart="@drawable/logo_google"
-        android:drawableLeft="@drawable/logo_google"
-        android:text="@string/btnLoginGG" />
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/btn_loginzl"
+        android:drawableStart="@drawable/logo_zalo"
+        android:text="@string/btnLoginZL" />
 </RelativeLayout>

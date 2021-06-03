@@ -71,9 +71,9 @@ public class HomeFragment extends Fragment {
         this.flFragmentTheme = (FrameLayout) view.findViewById(R.id.flFragmentTheme);
 
         this.fragmentTransaction = getChildFragmentManager().beginTransaction();
+        this.fragmentTransaction.add(R.id.flFragmentAlbum, new AlbumFragment()); // Thêm AlbumTheme vào HomeFragment
         this.fragmentTransaction.add(R.id.flFragmentPlaylist, new PlaylistFragment()); // Thêm FragmentPlaylist vào HomeFragment
         this.fragmentTransaction.add(R.id.flFragmentTheme, new ThemeFragment()); // Thêm FragmentTheme vào HomeFragment
-        this.fragmentTransaction.add(R.id.flFragmentAlbum, new AlbumFragment()); // Thêm AlbumTheme vào HomeFragment
         this.fragmentTransaction.commit(); // Thực hiện gắn Fragment
 
         this.sliderView = (SliderView) view.findViewById(R.id.isvSlider);

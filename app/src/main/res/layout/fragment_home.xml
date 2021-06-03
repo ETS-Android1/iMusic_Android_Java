@@ -40,6 +40,12 @@
             </androidx.cardview.widget.CardView>
 
             <FrameLayout
+                android:id="@+id/flFragmentAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp" />
+
+            <FrameLayout
                 android:id="@+id/flFragmentPlaylist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,12 +53,6 @@
 
             <FrameLayout
                 android:id="@+id/flFragmentTheme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp" />
-
-            <FrameLayout
-                android:id="@+id/flFragmentAlbum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp" />
