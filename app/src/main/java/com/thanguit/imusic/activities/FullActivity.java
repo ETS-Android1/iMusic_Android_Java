@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,17 +25,10 @@ import com.thanguit.imusic.fragments.HomeFragment;
 import com.thanguit.imusic.fragments.PersonalPlaylistFragment;
 import com.thanguit.imusic.fragments.RadioFragment;
 import com.thanguit.imusic.fragments.SettingFragment;
-import com.thanguit.imusic.models.User;
-import com.zing.zalo.zalosdk.oauth.ValidateOAuthCodeCallback;
-import com.zing.zalo.zalosdk.oauth.ZaloOpenAPICallback;
-import com.zing.zalo.zalosdk.oauth.ZaloSDK;
-
-import org.json.JSONObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FullActivity extends AppCompatActivity {
-    private User user;
     private ScaleAnimation scaleAnimation;
 
     private ImageView ivBell;
@@ -58,7 +50,7 @@ public class FullActivity extends AppCompatActivity {
     private static final int ID_RADIO = 4;
     private static final int ID_SETTING = 5;
 
-    private final String LOG_TAG = "FULLACTIVITY";
+    private final String LOG_TAG = "FullActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,20 +65,22 @@ public class FullActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (AccessToken.getCurrentAccessToken() != null) {
+        if (AccessToken.getCurrentAccessToken() == null) {
             LoginManager.getInstance().logOut();
             finish();
+            Intent intent = new Intent(FullActivity.this, MainActivity.class);
+            startActivity(intent);
         }
-
-        ZaloSDK.Instance.isAuthenticate(new ValidateOAuthCodeCallback() {
-            @Override
-            public void onValidateComplete(boolean validated, int i, long l, String s) {
-                if (!validated) {
-                    ZaloSDK.Instance.unauthenticate();
-                    finish();
-                }
-            }
-        });
+//        ZaloSDK.Instance.isAuthenticate(new ValidateOAuthCodeCallback() {
+//            @Override
+//            public void onValidateComplete(boolean validated, int i, long l, String s) {
+//                if (validated) {
+//                    ZaloSDK.Instance.unauthenticate();
+//                    Intent intent = new Intent(FullActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
     }
 
     private void Mapping() {
@@ -155,18 +149,18 @@ public class FullActivity extends AppCompatActivity {
 
 
         // Event for load info of User with Facebook
-        if (AccessToken.getCurrentAccessToken() != null) {
+        if (AccessToken.getCurrentAccessToken().getToken() != null) {
             GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
                 try {
-                    String avatar = object.getJSONObject("picture").getJSONObject("data").getString("url");
+                    String avatarFacebook = object.getJSONObject("picture").getJSONObject("data").getString("url");
 
                     Picasso.get()
-                            .load(avatar)
+                            .load(avatarFacebook)
                             .placeholder(R.drawable.ic_logo)
                             .error(R.drawable.ic_logo)
                             .into(this.circleImageView);
 
-                    Log.d(LOG_TAG, String.valueOf(object));
+                    Log.d(LOG_TAG, "User information (FACEBOOK): " + String.valueOf(object));
                 } catch (Exception e) {
                     e.printStackTrace();
 //                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -178,31 +172,29 @@ public class FullActivity extends AppCompatActivity {
             graphRequest.executeAsync();
         }
 
-
         // Event for load info of User with Zalo
-        if (!ZaloSDK.Instance.getOAuthCode().isEmpty()) {
-            ZaloOpenAPICallback callBack = new ZaloOpenAPICallback() {
-                @Override
-                public void onResult(JSONObject jsonObject) {
-                    String avatar = jsonObject.optJSONObject("picture").optJSONObject("data").optString("url");
-                    Picasso.get()
-                            .load(avatar)
-                            .placeholder(R.drawable.ic_logo)
-                            .error(R.drawable.ic_logo)
-                            .into(circleImageView);
-
-                    Log.d(LOG_TAG, String.valueOf(jsonObject));
-                }
-            };
-            String[] getData = {"id", "name", "picture"};
-            ZaloSDK.Instance.getProfile(this, callBack, getData);
-        }
+//        String[] getData = {"id", "name", "picture"};
+//        ZaloSDK.Instance.getProfile(this, new ZaloOpenAPICallback() {
+//            @Override
+//            public void onResult(JSONObject jsonObject) {
+//                String avatarZalo = jsonObject.optJSONObject("picture").optJSONObject("data").optString("url");
+//                Picasso.get()
+//                        .load(avatarZalo)
+//                        .placeholder(R.drawable.ic_logo)
+//                        .error(R.drawable.ic_logo)
+//                        .into(circleImageView);
+//
+//                LOGIN_TYPE = 2;
+//
+//                Log.d(LOG_TAG, "User information (ZALO): " + String.valueOf(jsonObject));
+//            }
+//        }, getData);
 
 
         // Event for Search
         this.editText.setOnClickListener(v -> {
-            Intent intent = new Intent(FullActivity.this, SearchActivity.class);
-            startActivity(intent);
+            Intent intent_1 = new Intent(FullActivity.this, SearchActivity.class);
+            startActivity(intent_1);
         });
 
 
@@ -218,7 +210,6 @@ public class FullActivity extends AppCompatActivity {
                 .withFirstBackPressAction(this.firstBackPressAction)
                 .withDoubleBackPressAction(this.doubleBackPressAction);
     }
-
 
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commitAllowingStateLoss();

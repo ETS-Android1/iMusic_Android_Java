@@ -8,6 +8,11 @@
     <color name="btn_loginfb">#1877F2</color>
     <color name="btn_loginzl">#333333</color>
 
+    <color name="colorGradient1">#F5576C</color>
+    <color name="colorGradient2">#F093FB</color>
+    <color name="colorGradient3">#CFD9DF</color>
+    <color name="colorGradient4">#E2EBF0</color>
+
     <!-- - - - - - - - - - Light Mode - - - - - - - - - -->
     <color name="colorLight1">#5C6163</color>
     <color name="colorLight2">#F4F4F8</color>

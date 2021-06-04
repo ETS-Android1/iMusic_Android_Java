@@ -20,6 +20,7 @@
     <string name="toast4">Vui lòng đăng nhập để tiếp tục</string>
     <string name="toast5">Xác thực thất bại</string>
     <string name="toast8">Đăng nhập lại để tiếp tục</string>
+    <string name="toast9">Đăng xuất thành công!</string>
 
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
@@ -77,5 +78,12 @@
     <string name="tvInfoGender">Giới tính</string>
     <string name="tvInfoEmail">Email</string>
     <string name="btnLogout">Đăng xuất</string>
+
+    <!-- - - - - - - - - - - LayoutDialogSignout - - - - - - - - - - -->
+    <string name="tvDialogTitle">Đăng xuất</string>
+    <string name="tvDialogContent">Bạn có muốn đăng xuất?</string>
+    <string name="btnDialog1">Hủy</string>
+    <string name="btnDialog2">Đăng xuất</string>
+
 
 </resources>
