@@ -5,6 +5,7 @@ import com.thanguit.imusic.models.Playlist;
 import com.thanguit.imusic.models.Slider;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.Theme;
+import com.thanguit.imusic.models.User;
 
 import java.util.List;
 
@@ -38,4 +39,8 @@ public interface DataService {
     @FormUrlEncoded
     @POST("searchsong.php")
     Call<List<Song>> getSongSearch(@Field("keyword") String keyword);
+
+    @FormUrlEncoded
+    @POST("addnewuser.php")
+    Call<List<User>> addNewUser(@Field("id") String id, @Field("name") String name, @Field("email") String email, @Field("img") String img, @Field("isDark") String isDark, @Field("isEnglish") String isEnglish);
 }

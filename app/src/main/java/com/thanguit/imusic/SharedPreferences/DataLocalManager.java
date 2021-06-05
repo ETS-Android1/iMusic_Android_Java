@@ -6,7 +6,7 @@ public class DataLocalManager {
     private static DataLocalManager instance;
     private SharedPreferencesManager sharedPreferencesManager;
 
-    private static final String IS_LOGIN = "IS_LOGIN";
+    private static final String USER_ID = "USER_ID";
 
     public static void init(Context context) {
         instance = new DataLocalManager();
@@ -20,11 +20,15 @@ public class DataLocalManager {
         return instance;
     }
 
-    public static void setLogin(boolean isLogin) {
-        DataLocalManager.getInstance().sharedPreferencesManager.putBooleanValue(IS_LOGIN, isLogin);
+    public static void deleteAllData(){
+        DataLocalManager.getInstance().sharedPreferencesManager.deleteAllData();
     }
 
-    public static boolean getLogin() {
-        return DataLocalManager.getInstance().sharedPreferencesManager.getBooleanValue(IS_LOGIN);
+    public static void setUserID(String userID) {
+        DataLocalManager.getInstance().sharedPreferencesManager.putStringValue(USER_ID, userID);
+    }
+
+    public static String getUserID() {
+        return DataLocalManager.getInstance().sharedPreferencesManager.getStringValue(USER_ID);
     }
 }

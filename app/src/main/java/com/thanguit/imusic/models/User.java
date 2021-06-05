@@ -1,19 +1,30 @@
 package com.thanguit.imusic.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class User {
+
+    @SerializedName("id")
+    @Expose
     private String id;
-    private String avatar;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("img")
+    @Expose
+    private String img;
+    @SerializedName("isDark")
+    @Expose
+    private String isDark;
+    @SerializedName("isEnglish")
+    @Expose
+    private String isEnglish;
 
     public User() {
-    }
-
-    public User(String id, String avatar, String name, String email) {
-        this.id = id;
-        this.avatar = avatar;
-        this.name = name;
-        this.email = email;
     }
 
     public String getId() {
@@ -22,14 +33,6 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public String getName() {
@@ -48,13 +51,27 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getIsDark() {
+        return isDark;
+    }
+
+    public void setIsDark(String isDark) {
+        this.isDark = isDark;
+    }
+
+    public String getIsEnglish() {
+        return isEnglish;
+    }
+
+    public void setIsEnglish(String isEnglish) {
+        this.isEnglish = isEnglish;
     }
 }

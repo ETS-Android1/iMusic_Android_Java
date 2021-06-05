@@ -14,16 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IMusic">
-        <activity android:name=".activities.PersonalPageActivity"></activity>
+        <activity
+            android:name=".activities.PersonalPageActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SongActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SearchActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FullPlayerActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FullActivity"
             android:screenOrientation="portrait" />
@@ -64,9 +66,8 @@
         </activity>
 
         <!-- Zalo -->
-        <meta-data
-            android:name="com.zing.zalo.zalosdk.appID"
-            android:value="@string/zalo_app_id" />
+        <!--        <meta-data-->
+        <!--            android:name="com.zing.zalo.zalosdk.appID"-->
+        <!--            android:value="@string/zalo_app_id" />-->
     </application>
-
 </manifest>

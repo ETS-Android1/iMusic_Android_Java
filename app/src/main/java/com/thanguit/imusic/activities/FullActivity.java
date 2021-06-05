@@ -2,6 +2,8 @@ package com.thanguit.imusic.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,15 +20,28 @@ import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
 import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
 import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
 import com.squareup.picasso.Picasso;
+import com.thanguit.imusic.API.APIService;
+import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.SharedPreferences.DataLocalManager;
+import com.thanguit.imusic.adapters.AlbumHomeAdapter;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.fragments.ChartFragment;
 import com.thanguit.imusic.fragments.HomeFragment;
 import com.thanguit.imusic.fragments.PersonalPlaylistFragment;
 import com.thanguit.imusic.fragments.RadioFragment;
 import com.thanguit.imusic.fragments.SettingFragment;
+import com.thanguit.imusic.models.Album;
+import com.thanguit.imusic.models.Song;
+import com.thanguit.imusic.models.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FullActivity extends AppCompatActivity {
     private ScaleAnimation scaleAnimation;
@@ -50,12 +65,15 @@ public class FullActivity extends AppCompatActivity {
     private static final int ID_RADIO = 4;
     private static final int ID_SETTING = 5;
 
-    private final String LOG_TAG = "FullActivity";
+    private final String TAG = "FullActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full);
+
+        DataLocalManager.init(this);
+//        Toast.makeText(this, "User_ID: " + DataLocalManager.getUserID(), Toast.LENGTH_SHORT).show();
 
         Mapping();
         Event();
@@ -67,6 +85,7 @@ public class FullActivity extends AppCompatActivity {
 
         if (AccessToken.getCurrentAccessToken() == null) {
             LoginManager.getInstance().logOut();
+            DataLocalManager.deleteAllData();
             finish();
             Intent intent = new Intent(FullActivity.this, MainActivity.class);
             startActivity(intent);
@@ -113,7 +132,7 @@ public class FullActivity extends AppCompatActivity {
 
 
         // Event for Bottom Navigation
-        this.meowBottomNavigation.setOnClickMenuListener(item -> Log.d(LOG_TAG, "Fragment: " + item.getId()));
+        this.meowBottomNavigation.setOnClickMenuListener(item -> Log.d(TAG, "Fragment: " + item.getId()));
 
         this.meowBottomNavigation.setOnShowListener(item -> {
             fragment = null;
@@ -153,21 +172,20 @@ public class FullActivity extends AppCompatActivity {
             GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
                 try {
                     String avatarFacebook = object.getJSONObject("picture").getJSONObject("data").getString("url");
-
                     Picasso.get()
                             .load(avatarFacebook)
                             .placeholder(R.drawable.ic_logo)
                             .error(R.drawable.ic_logo)
                             .into(this.circleImageView);
 
-                    Log.d(LOG_TAG, "User information (FACEBOOK): " + String.valueOf(object));
+                    Log.d(TAG, "User information (FACEBOOK): " + String.valueOf(object));
                 } catch (Exception e) {
                     e.printStackTrace();
 //                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
             Bundle bundle = new Bundle();
-            bundle.putString("fields", "id, name, picture.width(1000).height(1000), first_name, last_name, gender");
+            bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
             graphRequest.setParameters(bundle);
             graphRequest.executeAsync();
         }
@@ -219,6 +237,6 @@ public class FullActivity extends AppCompatActivity {
     public void onBackPressed() {
 //        super.onBackPressed();
         this.doubleBackPress.onBackPressed();
-        Log.d(LOG_TAG, "Back Twice To Exit!");
+        Log.d(TAG, "Back Twice To Exit!");
     }
 }

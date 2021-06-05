@@ -7,7 +7,7 @@
     <string name="facebook_app_id">1179700782483492</string>
     <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
-    <string name="zalo_app_id">270380721011787967</string>
+<!--    <string name="zalo_app_id">270380721011787967</string>-->
 
 
 
@@ -84,6 +84,5 @@
     <string name="tvDialogContent">Bạn có muốn đăng xuất?</string>
     <string name="btnDialog1">Hủy</string>
     <string name="btnDialog2">Đăng xuất</string>
-
 
 </resources>

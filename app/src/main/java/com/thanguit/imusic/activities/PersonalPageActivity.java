@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.animations.ScaleAnimation;
 
 public class PersonalPageActivity extends AppCompatActivity {
@@ -29,6 +30,8 @@ public class PersonalPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_page);
+
+        DataLocalManager.init(this);
 
         Mapping();
         Event();
@@ -81,7 +84,9 @@ public class PersonalPageActivity extends AppCompatActivity {
         this.scaleAnimation = new ScaleAnimation(PersonalPageActivity.this, btnDialog2);
         this.scaleAnimation.Event_Button();
         btnDialog2.setOnClickListener(v -> {
+            dialog.dismiss();
             LoginManager.getInstance().logOut();
+            DataLocalManager.deleteAllData();
             finish();
             moveTaskToBack(true);
 
