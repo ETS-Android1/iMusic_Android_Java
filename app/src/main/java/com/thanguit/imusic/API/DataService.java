@@ -41,6 +41,10 @@ public interface DataService {
     Call<List<Song>> getSongSearch(@Field("keyword") String keyword);
 
     @FormUrlEncoded
+    @POST("getuserfromid.php")
+    Call<List<User>> getUserFromID(@Field("id") String id);
+
+    @FormUrlEncoded
     @POST("addnewuser.php")
     Call<List<User>> addNewUser(@Field("id") String id, @Field("name") String name, @Field("email") String email, @Field("img") String img, @Field("isDark") String isDark, @Field("isEnglish") String isEnglish);
 }

@@ -4,8 +4,7 @@
     android:height="20dp"
     android:viewportWidth="1000"
     android:viewportHeight="1000">
-    <path
-        android:pathData="M0,0h1000v1000h-1000z" />
+    <path android:pathData="M0,0h1000v1000h-1000z" />
     <group>
         <path android:pathData="M499.8,527.1m-345.5,0a345.5,345.5 0,1 1,691 0a345.5,345.5 0,1 1,-691 0">
             <aapt:attr name="android:fillColor">

@@ -74,9 +74,11 @@
     <!-- - - - - - - - - - - PersonalActivity - - - - - - - - - - -->
     <string name="tvPersonalTitle">Thông tin cá nhân</string>
     <string name="tvPersonalName">Tên người dùng</string>
-    <string name="tvInfoName">Tên</string>
+    <string name="tvInfoName">Tên hiển thị: </string>
+    <string name="tvYourInfoName">Tên người dùng</string>
     <string name="tvInfoGender">Giới tính</string>
-    <string name="tvInfoEmail">Email</string>
+    <string name="tvInfoEmail">Email: </string>
+    <string name="tvYourInfoEmail">Email người dùng</string>
     <string name="btnLogout">Đăng xuất</string>
 
     <!-- - - - - - - - - - - LayoutDialogSignout - - - - - - - - - - -->

@@ -144,10 +144,6 @@ public class MainActivity extends AppCompatActivity {
 
                                 Handle_User(id, name, email, img, isDark, isEnglish);
 
-                                Intent intent = new Intent(MainActivity.this, FullActivity.class);
-                                startActivity(intent);
-
-                                Toast.makeText(MainActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "User information (FACEBOOK): " + String.valueOf(object));
                             } catch (Exception e) {
                                 Log.d(LOG_TAG_1, e.getMessage());
@@ -222,7 +218,12 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 userArrayList = (ArrayList<User>) response.body();
                 if (userArrayList != null) {
-                    DataLocalManager.setUserID(userArrayList.get(0).getId());
+                    DataLocalManager.setUserID(userArrayList.get(0).getId()); // Lưu ID người dùng vào SharedPreferences
+
+                    Intent intent = new Intent(MainActivity.this, FullActivity.class);
+                    startActivity(intent);
+
+                    Toast.makeText(MainActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
 
                     Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());
                 } else {
