@@ -8,14 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -23,13 +18,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
-import com.thanguit.imusic.adapters.ChartAdapter;
 import com.thanguit.imusic.adapters.SongAdapter;
 import com.thanguit.imusic.models.Playlist;
 import com.thanguit.imusic.models.Song;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -64,14 +56,14 @@ public class SongActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        this.coordinatorlayout = (CoordinatorLayout) findViewById(R.id.cdlListSong);
-        this.collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.ctlImage);
-        this.toolbar = (Toolbar) findViewById(R.id.tbListSong);
-        this.floatingActionButton = (FloatingActionButton) findViewById(R.id.fabPlay);
+        this.coordinatorlayout = findViewById(R.id.cdlListSong);
+        this.collapsingToolbarLayout = findViewById(R.id.ctlImage);
+        this.toolbar = findViewById(R.id.tbListSong);
+        this.floatingActionButton = findViewById(R.id.fabPlay);
         this.floatingActionButton.setEnabled(false); // Set false để cho nó không hoạt động trước đã, sau khi load xong hết các bài hát thì gọi hàm Play_All_Song();
 
-        this.recyclerview = (RecyclerView) findViewById(R.id.rvListSong);
-        this.sflItemSong = (ShimmerFrameLayout) findViewById(R.id.sflItemSong);
+        this.recyclerview = findViewById(R.id.rvListSong);
+        this.sflItemSong = findViewById(R.id.sflItemSong);
 
         this.playlist = new Playlist();
 
@@ -98,25 +90,11 @@ public class SongActivity extends AppCompatActivity {
                 if (this.playlist != null) {
                     Log.d(TAG, this.playlist.getName());
 
-                    Set_View_Background(this.playlist.getName(), this.playlist.getImg());
+                    this.collapsingToolbarLayout.setTitle(this.playlist.getName());
                     Display_Song_Playlist(this.playlist.getId());
                 }
             }
         }
-    }
-
-    private void Set_View_Background(String name, String image) {
-        this.collapsingToolbarLayout.setTitle(name);
-//        try {
-//            URL url = new URL(image);
-//            Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//            BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-//            this.collapsingToolbarLayout.setBackground(bitmapDrawable);
-//
-//            Log.d(TAG, bitmapDrawable.toString());
-//        } catch (Exception e) {
-//            Log.d(TAG, e.getMessage());
-//        }
     }
 
     private void Display_Song_Playlist(String id) {

@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IMusic">
+        <activity android:name=".activities.PersonalPlaylistActivity"></activity>
         <activity
             android:name=".activities.PersonalPageActivity"
             android:screenOrientation="portrait" />
@@ -37,10 +38,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-
-        <!-- Facebook -->
+        </activity> <!-- Facebook -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -64,10 +62,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
-        <!-- Zalo -->
-        <!--        <meta-data-->
-        <!--            android:name="com.zing.zalo.zalosdk.appID"-->
-        <!--            android:value="@string/zalo_app_id" />-->
     </application>
+
 </manifest>

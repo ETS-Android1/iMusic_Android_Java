@@ -336,7 +336,7 @@ public class FullPlayerFragment extends Fragment {
                     mediaPlayer.reset();
                 });
 
-                mediaPlayer.setDataSource(song);
+                mediaPlayer.setDataSource(song); // Cái này quan trọng nè Thắng
                 mediaPlayer.prepare();
             } catch (IOException e) {
                 Toast.makeText(getActivity(), "Lỗi. Vui lòng thử lại", Toast.LENGTH_SHORT).show();

@@ -5,8 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.StrictMode;
 import android.util.Log;
@@ -17,9 +15,6 @@ import android.widget.TextView;
 
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.FullPlayerActivity;
-import com.thanguit.imusic.adapters.ChartAdapter;
-import com.thanguit.imusic.adapters.ListSongAdapter;
-import com.thanguit.imusic.adapters.LyricAdapter;
 
 import java.util.Objects;
 

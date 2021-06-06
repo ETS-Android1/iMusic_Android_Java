@@ -24,7 +24,6 @@ import com.thanguit.imusic.models.Song;
 import java.util.ArrayList;
 
 public class FullPlayerActivity extends AppCompatActivity implements FullPlayerFragment.ISendPositionListener {
-
     private ViewPager viewpager;
     public static FullPlayerAdapter fullPlayerAdapter;
     private PageIndicatorView pageIndicatorView;
@@ -113,8 +112,8 @@ public class FullPlayerActivity extends AppCompatActivity implements FullPlayerF
 
                     Log.d(TAG, this.song.getName());
                 }
-            } else if (intent.hasExtra("SONGLOVE")) {
-                this.song = (Song) intent.getParcelableExtra("SONGLOVE");
+            } else if (intent.hasExtra("SONGCHART")) {
+                this.song = (Song) intent.getParcelableExtra("SONGCHART");
                 if (this.song != null) {
                     dataSongArrayList.add(this.song);
 

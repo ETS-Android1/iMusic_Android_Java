@@ -19,7 +19,6 @@ import com.thanguit.imusic.models.Song;
 import java.util.ArrayList;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
-
     private ArrayList<Song> songArrayList;
 
     public SongAdapter(ArrayList<Song> songArrayList) {
@@ -65,21 +64,23 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private ImageView ivItemSong, ivItemSongLove, ivItemSongMore;
-        private TextView tvItemSongName, tvItemSongSinger;
+        private ImageView ivItemSong;
+        private ImageView ivItemSongLove;
+        private ImageView ivItemSongMore;
+        private TextView tvItemSongName;
+        private TextView tvItemSongSinger;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.ivItemSong = (ImageView) itemView.findViewById(R.id.ivItemSong);
-            this.ivItemSongLove = (ImageView) itemView.findViewById(R.id.ivItemSongLove);
-            this.ivItemSongMore = (ImageView) itemView.findViewById(R.id.ivItemSongMore);
+            this.ivItemSong = itemView.findViewById(R.id.ivItemSong);
+            this.ivItemSongLove = itemView.findViewById(R.id.ivItemSongLove);
+            this.ivItemSongMore = itemView.findViewById(R.id.ivItemSongMore);
 
-            this.tvItemSongName = (TextView) itemView.findViewById(R.id.tvItemSongName);
+            this.tvItemSongName = itemView.findViewById(R.id.tvItemSongName);
             this.tvItemSongName.setSelected(true); // Text will be moved
 
-            this.tvItemSongSinger = (TextView) itemView.findViewById(R.id.tvItemSongSinger);
+            this.tvItemSongSinger = itemView.findViewById(R.id.tvItemSongSinger);
             this.tvItemSongSinger.setSelected(true); // Text will be moved
         }
     }

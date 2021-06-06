@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.PersonalPlaylistActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlTopFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gradient">
+
+        <ImageView
+            android:id="@+id/ivPersonalPlaylistBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_angle_left" />
+
+        <TextView
+            android:id="@+id/tvPersonalPlaylistTitle"
+            style="@style/tvStyle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ivPersonalPlaylistBack"
+            android:layout_alignBottom="@+id/ivPersonalPlaylistBack"
+            android:layout_centerInParent="true"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxWidth="200dp"
+            android:scrollHorizontally="true"
+            android:text="@string/tvPersonalPlaylistTitle"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnPersonalPlayAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPersonalPlaylistTitle"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_corner_10dp"
+            android:drawableStart="@drawable/ic_play_2_pink"
+            android:fontFamily="@font/comfortaa"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/btnPersonalPlayAll"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorMain3"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivPersonalPlaylistMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_menu_dots_vertical" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btnPersonalPlayAll"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/shape_corner_white_20dp_topleft_topright"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rlPersonalPlaylist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="25dp" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

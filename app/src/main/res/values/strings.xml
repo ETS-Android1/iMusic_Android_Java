@@ -7,8 +7,7 @@
     <string name="facebook_app_id">1179700782483492</string>
     <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
-<!--    <string name="zalo_app_id">270380721011787967</string>-->
-
+    <!--    <string name="zalo_app_id">270380721011787967</string>-->
 
 
     <!-- - - - - - - - - - - MainActivity - - - - - - - - - - -->
@@ -86,5 +85,24 @@
     <string name="tvDialogContent">Bạn có muốn đăng xuất?</string>
     <string name="btnDialog1">Hủy</string>
     <string name="btnDialog2">Đăng xuất</string>
+
+    <!-- - - - - - - - - - - PersonalPlaylistFragment - - - - - - - - - - -->
+    <string name="tvYourPlaylist">Playlist: </string>
+    <string name="tvNumberPlaylist">0</string>
+    <string name="tvTitleLoveSong">Bài hát yêu thích</string>
+    <string name="tvNumberSongLove">0</string>
+
+    <!-- - - - - - - - - - - ItemUserPlaylist - - - - - - - - - - -->
+    <string name="tvPlaylistName">Tên Playlist</string>
+
+    <!-- - - - - - - - - - - layout_dialog_add_playlist - - - - - - - - - - -->
+    <string name="tvDialogTitlePlaylist">Tạo Playlist</string>
+    <string name="etDialogContent">Tên playlist</string>
+    <string name="btnDialogCancel">Hủy</string>
+    <string name="btnDialogCreate">Tạo playlist</string>
+
+    <!-- - - - - - - - - - - PersonalPlaylistActivity - - - - - - - - - - -->
+    <string name="tvPersonalPlaylistTitle">Your Playlist</string>
+    <string name="btnPersonalPlayAll">Phát tất cả</string>
 
 </resources>

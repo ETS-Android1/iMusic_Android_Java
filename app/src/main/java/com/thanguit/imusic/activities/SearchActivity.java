@@ -56,15 +56,15 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        this.etSearchBox = (EditText) findViewById(R.id.etSearchBox);
+        this.etSearchBox = findViewById(R.id.etSearchBox);
         this.etSearchBox.requestFocus(); // When Activity show, Searchbox will be focused
 
-        this.ivBack = (ImageView) findViewById(R.id.ivBack);
+        this.ivBack = findViewById(R.id.ivBack);
 
-        this.tvSearchHint = (TextView) findViewById(R.id.tvSearchHint);
+        this.tvSearchHint = findViewById(R.id.tvSearchHint);
         this.tvSearchHint.setSelected(true); // Text will be moved
 
-        this.rvSearchResult = (RecyclerView) findViewById(R.id.rvSearchResult);
+        this.rvSearchResult = findViewById(R.id.rvSearchResult);
     }
 
     private void Event() {

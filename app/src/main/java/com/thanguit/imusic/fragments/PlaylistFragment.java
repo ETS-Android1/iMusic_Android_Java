@@ -65,13 +65,13 @@ public class PlaylistFragment extends Fragment {
     }
 
     private void Mapping(View view) {
-        this.rvPlaylist = (RecyclerView) view.findViewById(R.id.rvPlaylist);
+        this.rvPlaylist = view.findViewById(R.id.rvPlaylist);
 
-        this.ivPlaylistMore = (ImageView) view.findViewById(R.id.ivPlaylistMore);
+        this.ivPlaylistMore = view.findViewById(R.id.ivPlaylistMore);
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivPlaylistMore);
         this.scaleAnimation.Event_ImageView();
 
-        this.tvPlaylist = (TextView) view.findViewById(R.id.tvPlaylist);
+        this.tvPlaylist = view.findViewById(R.id.tvPlaylist);
         this.tvPlaylist.setSelected(true); // Text will be moved
     }
 

@@ -25,38 +25,125 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="Playlist: "
+                android:text="@string/tvYourPlaylist"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/tvNumberPlaylist"
+                style="@style/tvStyle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvYourPlaylist"
+                android:layout_alignBottom="@+id/tvYourPlaylist"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/tvYourPlaylist"
+                android:gravity="center"
+                android:text="@string/tvNumberPlaylist"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <ImageView
+                android:id="@+id/ivAddPlaylist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                app:srcCompat="@drawable/ic_add" />
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
-
 
             <LinearLayout
                 android:id="@+id/llFrameLoveSong"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvLoveSongCover"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="0dp"
+                    app:cardCornerRadius="10dp">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@color/colorMain5"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/ic_lovesong" />
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:id="@+id/llLoveSong"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTitleLoveSong"
+                        style="@style/tvStyle1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="10dp"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
+                        android:text="@string/tvTitleLoveSong"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp">
+
+                        <ImageView
+                            android:id="@+id/ivNumberSongLove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_music_alt" />
+
+                        <TextView
+                            android:id="@+id/tvNumberSongLove"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/ivNumberSongLove"
+                            android:layout_alignBottom="@+id/ivNumberSongLove"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@+id/ivNumberSongLove"
+                            android:fontFamily="@font/comfortaa"
+                            android:gravity="center"
+                            android:text="@string/tvNumberSongLove"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorLight9"
+                            android:textStyle="normal" />
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
 
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvYourPlaylist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </LinearLayout>

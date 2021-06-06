@@ -48,7 +48,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FullPlayerActivity.class);
-            intent.putExtra("SONGLOVE", songArrayList.get(position));
+            intent.putExtra("SONGCHART", songArrayList.get(position));
             v.getContext().startActivity(intent);
         });
     }
