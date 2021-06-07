@@ -53,6 +53,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             v.getContext().startActivity(intent);
         });
 
+
         holder.ivItemSongLove.setOnClickListener(v -> {
             holder.ivItemSongLove.setImageResource(R.drawable.ic_favorite);
         });

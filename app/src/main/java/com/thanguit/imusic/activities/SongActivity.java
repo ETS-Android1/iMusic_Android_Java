@@ -59,6 +59,7 @@ public class SongActivity extends AppCompatActivity {
         this.coordinatorlayout = findViewById(R.id.cdlListSong);
         this.collapsingToolbarLayout = findViewById(R.id.ctlImage);
         this.toolbar = findViewById(R.id.tbListSong);
+
         this.floatingActionButton = findViewById(R.id.fabPlay);
         this.floatingActionButton.setEnabled(false); // Set false để cho nó không hoạt động trước đã, sau khi load xong hết các bài hát thì gọi hàm Play_All_Song();
 
@@ -105,17 +106,19 @@ public class SongActivity extends AppCompatActivity {
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 songArrayList = (ArrayList<Song>) response.body();
 
-                sflItemSong.setVisibility(View.GONE); // Load biến mất
-                recyclerview.setVisibility(View.VISIBLE); // Hiện thông tin
+                if (songArrayList != null && songArrayList.size() > 0) {
+                    sflItemSong.setVisibility(View.GONE); // Load biến mất
 
-                recyclerview.setHasFixedSize(true);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(SongActivity.this);
-                layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
-                recyclerview.setLayoutManager(layoutManager);
-                recyclerview.setAdapter(new SongAdapter(songArrayList));
-                Play_All_Song();
+                    recyclerview.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(SongActivity.this);
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    recyclerview.setLayoutManager(layoutManager);
+                    recyclerview.setAdapter(new SongAdapter(songArrayList));
+                    recyclerview.setVisibility(View.VISIBLE); // Hiện thông tin
+                    Play_All_Song();
 
-                Log.d(TAG, songArrayList.get(0).getName());
+                    Log.d(TAG, songArrayList.get(0).getName());
+                }
             }
 
             @Override
@@ -129,7 +132,7 @@ public class SongActivity extends AppCompatActivity {
         this.floatingActionButton.setEnabled(true);
         this.floatingActionButton.setOnClickListener(v -> {
             Intent intent = new Intent(SongActivity.this, FullPlayerActivity.class);
-            intent.putExtra("SONGALL", songArrayList);
+            intent.putExtra("ALLSONGS", songArrayList);
             startActivity(intent);
         });
     }

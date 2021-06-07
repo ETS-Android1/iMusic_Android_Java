@@ -102,7 +102,8 @@
     <string name="btnDialogCreate">Tạo playlist</string>
 
     <!-- - - - - - - - - - - PersonalPlaylistActivity - - - - - - - - - - -->
-    <string name="tvPersonalPlaylistTitle">Your Playlist</string>
+    <string name="tvPersonalPlaylistTitle">Tên Playlist</string>
     <string name="btnPersonalPlayAll">Phát tất cả</string>
+    <string name="tvEmptySong">Chưa có bài hát nào</string>
 
 </resources>

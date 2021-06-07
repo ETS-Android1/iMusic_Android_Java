@@ -55,7 +55,7 @@ public class ThemeHomeAdapter extends RecyclerView.Adapter<ThemeHomeAdapter.View
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.ivTheme = (ImageView) itemView.findViewById(R.id.ivTheme);
+            this.ivTheme = itemView.findViewById(R.id.ivTheme);
         }
     }
 }

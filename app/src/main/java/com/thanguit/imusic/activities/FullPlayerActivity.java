@@ -37,7 +37,7 @@ public class FullPlayerActivity extends AppCompatActivity implements FullPlayerF
     private Song song;
     private ArrayList<Song> songArrayList = new ArrayList<>();
 
-    public static ArrayList<Song> dataSongArrayList = new ArrayList<>(); // Mảng này để hiển thị danh sách bài hát cho DetailPlayerFragment
+    public static ArrayList<Song> dataSongArrayList = new ArrayList<>(); // Mảng này để truyền dữ liệu cho các fragment
 
     private ImageView ivBack;
     public static TextView tvSongName;
@@ -96,41 +96,49 @@ public class FullPlayerActivity extends AppCompatActivity implements FullPlayerF
 
         this.scaleAnimation = new ScaleAnimation(this, this.ivBack);
         this.scaleAnimation.Event_ImageView();
-
         this.ivBack.setOnClickListener(v -> finish());
     }
 
     private void Get_Data_Intent() {
         Intent intent = getIntent();
-        dataSongArrayList.clear();
+        dataSongArrayList.clear(); // Xóa hết dữ liệu bài hát khi nhận đc một dữ liệu bài hát mới
 
         if (intent != null) {
-            if (intent.hasExtra("SONG")) {
-                this.song = (Song) intent.getParcelableExtra("SONG");
+            if (intent.hasExtra("SONG")) { // Khi chọn một bài hát
+                this.song = intent.getParcelableExtra("SONG");
                 if (this.song != null) {
                     dataSongArrayList.add(this.song);
 
-                    Log.d(TAG, this.song.getName());
+                    Log.d(TAG, "Bài hát người dùng chọn: " + this.song.getName());
                 }
-            } else if (intent.hasExtra("SONGCHART")) {
+            } else if (intent.hasExtra("SONGCHART")) { // Khi chọn một bài hát từ bảng xếp hạng bài hát
                 this.song = (Song) intent.getParcelableExtra("SONGCHART");
                 if (this.song != null) {
                     dataSongArrayList.add(this.song);
 
-                    Log.d(TAG, this.song.getName());
+                    Log.d(TAG, "Bài hát từ bảng xếp hạng: " + this.song.getName());
                 }
-            } else if (intent.hasExtra("SONGALL")) {
-                this.songArrayList = intent.getParcelableArrayListExtra("SONGALL");
+            } else if (intent.hasExtra("ALLSONGS")) { // Khi chọn nghe tất cả bài hát từ SongActivity
+                this.songArrayList = intent.getParcelableArrayListExtra("ALLSONGS");
                 if (this.songArrayList != null) {
                     dataSongArrayList = this.songArrayList;
 
                     for (int i = 0; i < this.songArrayList.size(); i++) {
-                        Log.d(TAG, this.songArrayList.get(i).getName());
+                        Log.d(TAG, "Bài hát từ SongActivity " + (i + 1) + ": " + this.songArrayList.get(i).getName());
+                    }
+                }
+            } else if (intent.hasExtra("ALLFAVORITESONGS")) { // Khi chọn nghe tất cả bài hát từ PersonalPlaylistActivity
+                this.songArrayList = intent.getParcelableArrayListExtra("ALLFAVORITESONGS");
+                if (this.songArrayList != null) {
+                    dataSongArrayList = this.songArrayList;
+
+                    for (int i = 0; i < this.songArrayList.size(); i++) {
+                        Log.d(TAG, "Bài hát yêu thích " + (i + 1) + ": " + this.songArrayList.get(i).getName());
                     }
                 }
             }
         } else {
-            Toast.makeText(FullPlayerActivity.this, "Không có dữ liệu!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(FullPlayerActivity.this, "Lỗi! Không có dữ liệu bài hát!", Toast.LENGTH_SHORT).show();
         }
     }
 

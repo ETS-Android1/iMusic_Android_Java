@@ -29,7 +29,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChartFragment extends Fragment {
-
     private ArrayList<Song> songArrayList;
     private RecyclerView rvChart;
 
@@ -59,8 +58,8 @@ public class ChartFragment extends Fragment {
     }
 
     private void Mapping(View view) {
-        this.rvChart = (RecyclerView) view.findViewById(R.id.rvChart);
-        this.sflItemSong = (ShimmerFrameLayout) view.findViewById(R.id.sflItemSong);
+        this.rvChart = view.findViewById(R.id.rvChart);
+        this.sflItemSong = view.findViewById(R.id.sflItemSong);
     }
 
     private void Handle_SongChart() {
@@ -71,16 +70,18 @@ public class ChartFragment extends Fragment {
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
                 songArrayList = (ArrayList<Song>) response.body();
 
-                sflItemSong.setVisibility(View.GONE); // Load biến mất
-                rvChart.setVisibility(View.VISIBLE); // Hiện thông tin
+                if (songArrayList != null && songArrayList.size() > 0) {
+                    sflItemSong.setVisibility(View.GONE); // Load biến mất
 
-                rvChart.setHasFixedSize(true);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
-                rvChart.setLayoutManager(layoutManager);
-                rvChart.setAdapter(new ChartAdapter(songArrayList));
+                    rvChart.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    rvChart.setLayoutManager(layoutManager);
+                    rvChart.setAdapter(new ChartAdapter(songArrayList));
+                    rvChart.setVisibility(View.VISIBLE); // Hiện thông tin
 
-                Log.d(TAG, songArrayList.get(0).getName());
+                    Log.d(TAG, songArrayList.get(0).getName());
+                }
             }
 
             @Override

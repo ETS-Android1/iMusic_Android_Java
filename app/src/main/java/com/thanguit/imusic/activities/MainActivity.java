@@ -94,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
     private void Mapping() {
         this.callbackManager = CallbackManager.Factory.create();
 
-        this.imvLogo = (ImageView) findViewById(R.id.imvLogo);
-        this.btnLoginFB = (Button) findViewById(R.id.btnLoginFB);
-//        this.btnLoginZL = (Button) findViewById(R.id.btnLoginZL);
+        this.imvLogo = findViewById(R.id.imvLogo);
+        this.btnLoginFB = findViewById(R.id.btnLoginFB);
+//        this.btnLoginZL = findViewById(R.id.btnLoginZL);
 
         this.topAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.top_animation);
         this.bottomAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bottom_animation);

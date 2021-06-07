@@ -47,4 +47,8 @@ public interface DataService {
     @FormUrlEncoded
     @POST("addnewuser.php")
     Call<List<User>> addNewUser(@Field("id") String id, @Field("name") String name, @Field("email") String email, @Field("img") String img, @Field("isDark") String isDark, @Field("isEnglish") String isEnglish);
+
+    @FormUrlEncoded
+    @POST("getfavoritesongfromid.php")
+    Call<List<Song>> getFavoriteSongUser(@Field("id") String id);
 }

@@ -59,26 +59,28 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView tvChartNumber, tvSongName, tvSongSinger, tvLikeNumber;
-        private ImageView ivSong;
+        private final TextView tvChartNumber;
+        private final TextView tvSongName;
+        private final TextView tvSongSinger;
+        private final TextView tvLikeNumber;
+        private final ImageView ivSong;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.tvChartNumber = (TextView) itemView.findViewById(R.id.tvChartNumber);
+            this.tvChartNumber = itemView.findViewById(R.id.tvChartNumber);
             this.tvChartNumber.setSelected(true); // Text will be moved
 
-            this.tvSongName = (TextView) itemView.findViewById(R.id.tvChartSongName);
+            this.tvSongName = itemView.findViewById(R.id.tvChartSongName);
             this.tvSongName.setSelected(true); // Text will be moved
 
-            this.tvSongSinger = (TextView) itemView.findViewById(R.id.tvSongSinger);
+            this.tvSongSinger = itemView.findViewById(R.id.tvSongSinger);
             this.tvSongSinger.setSelected(true); // Text will be moved
 
-            this.tvLikeNumber = (TextView) itemView.findViewById(R.id.tvLikeNumber);
+            this.tvLikeNumber = itemView.findViewById(R.id.tvLikeNumber);
             this.tvLikeNumber.setSelected(true); // Text will be moved
 
-            this.ivSong = (ImageView) itemView.findViewById(R.id.ivSong);
+            this.ivSong = itemView.findViewById(R.id.ivSong);
         }
     }
 
