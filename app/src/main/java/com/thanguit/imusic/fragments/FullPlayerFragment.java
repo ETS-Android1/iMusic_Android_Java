@@ -34,6 +34,7 @@ public class FullPlayerFragment extends Fragment {
 
     private ImageView ivCover;
     private ImageView ivFavorite;
+    private ImageView ivComment;
     private ImageView ivDownload;
     private ImageView ivShare;
     private ImageView ivShuffle;
@@ -95,6 +96,7 @@ public class FullPlayerFragment extends Fragment {
         this.ivCover = view.findViewById(R.id.ivCover);
         this.ivDownload = view.findViewById(R.id.ivDownload);
         this.ivFavorite = view.findViewById(R.id.ivFavorite);
+        this.ivComment = view.findViewById(R.id.ivComment);
         this.ivShare = view.findViewById(R.id.ivShare);
         this.ivShuffle = view.findViewById(R.id.ivShuffle);
         this.ivPrev = view.findViewById(R.id.ivPrev);
@@ -120,6 +122,8 @@ public class FullPlayerFragment extends Fragment {
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivDownload);
         this.scaleAnimation.Event_ImageView();
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivFavorite);
+        this.scaleAnimation.Event_ImageView();
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivComment);
         this.scaleAnimation.Event_ImageView();
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivShare);
         this.scaleAnimation.Event_ImageView();

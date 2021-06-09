@@ -31,13 +31,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SongActivity extends AppCompatActivity {
-
     private CoordinatorLayout coordinatorlayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;
     private FloatingActionButton floatingActionButton;
 
-    private RecyclerView recyclerview;
+    private RecyclerView rvListSong;
     private ShimmerFrameLayout sflItemSong;
 
     private ArrayList<Song> songArrayList;
@@ -63,7 +62,7 @@ public class SongActivity extends AppCompatActivity {
         this.floatingActionButton = findViewById(R.id.fabPlay);
         this.floatingActionButton.setEnabled(false); // Set false để cho nó không hoạt động trước đã, sau khi load xong hết các bài hát thì gọi hàm Play_All_Song();
 
-        this.recyclerview = findViewById(R.id.rvListSong);
+        this.rvListSong = findViewById(R.id.rvListSong);
         this.sflItemSong = findViewById(R.id.sflItemSong);
 
         this.playlist = new Playlist();
@@ -107,14 +106,15 @@ public class SongActivity extends AppCompatActivity {
                 songArrayList = (ArrayList<Song>) response.body();
 
                 if (songArrayList != null && songArrayList.size() > 0) {
-                    sflItemSong.setVisibility(View.GONE); // Load biến mất
-
-                    recyclerview.setHasFixedSize(true);
+                    rvListSong.setHasFixedSize(true);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(SongActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
-                    recyclerview.setLayoutManager(layoutManager);
-                    recyclerview.setAdapter(new SongAdapter(songArrayList));
-                    recyclerview.setVisibility(View.VISIBLE); // Hiện thông tin
+                    rvListSong.setLayoutManager(layoutManager);
+                    rvListSong.setAdapter(new SongAdapter(songArrayList));
+
+                    sflItemSong.setVisibility(View.GONE); // Load biến mất
+                    rvListSong.setVisibility(View.VISIBLE); // Hiện thông tin
+
                     Play_All_Song();
 
                     Log.d(TAG, songArrayList.get(0).getName());
