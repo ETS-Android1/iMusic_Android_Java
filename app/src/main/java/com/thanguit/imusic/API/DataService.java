@@ -4,6 +4,7 @@ import com.thanguit.imusic.models.Album;
 import com.thanguit.imusic.models.Playlist;
 import com.thanguit.imusic.models.Slider;
 import com.thanguit.imusic.models.Song;
+import com.thanguit.imusic.models.Status;
 import com.thanguit.imusic.models.Theme;
 import com.thanguit.imusic.models.User;
 
@@ -54,5 +55,5 @@ public interface DataService {
 
     @FormUrlEncoded
     @POST("adddeletefavoritesong.php")
-    Call<Integer> addDeleteFavoriteSong(@Field("action") String action, @Field("userID") String userID, @Field("songID") String songID);
+    Call<List<Status>> addDeleteFavoriteSong(@Field("action") String action, @Field("userID") String userID, @Field("songID") int songID);
 }

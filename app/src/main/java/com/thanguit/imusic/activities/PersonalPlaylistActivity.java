@@ -112,13 +112,13 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
                 songArrayList = (ArrayList<Song>) response.body();
 
                 if (songArrayList != null && songArrayList.size() > 0) { // Trường hợp người dùng đã có bài hát yêu thích
-                    sflItemSong.setVisibility(View.GONE); // Load biến mất
-
                     rvPersonalPlaylist.setHasFixedSize(true);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(PersonalPlaylistActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvPersonalPlaylist.setLayoutManager(layoutManager);
-                    rvPersonalPlaylist.setAdapter(new SongAdapter(songArrayList));
+                    rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList));
+
+                    sflItemSong.setVisibility(View.GONE); // Load biến mất
                     rvPersonalPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin
                     Play_All_Song();
 

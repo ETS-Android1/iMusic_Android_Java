@@ -1,5 +1,6 @@
 package com.thanguit.imusic.adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
+import com.thanguit.imusic.API.UserPlaylistManager;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.activities.PersonalPlaylistActivity;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
+import com.thanguit.imusic.models.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +36,18 @@ import retrofit2.Response;
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private static final String TAG = "SongAdapter";
 
-    private ArrayList<Song> favoriteSongArrayList;
-    private ArrayList<Song> songArrayList;
+    private ArrayList<Song> favoriteSongArrayList = new ArrayList<>();
 
-    private ScaleAnimation scaleAnimation;
+//    private List<Integer> listSongID = new ArrayList<>();
+//    private ArrayList<Song> getIDFavoriteSongArrayList = new ArrayList<>();
 
-    public SongAdapter(ArrayList<Song> songArrayList) {
+    private ArrayList<Status> statusArrayList = new ArrayList<>();
+
+    private Context context;
+    private ArrayList<Song> songArrayList = new ArrayList<>();
+
+    public SongAdapter(Context context, ArrayList<Song> songArrayList) {
+        this.context = context;
         this.songArrayList = songArrayList;
         notifyDataSetChanged();
     }
@@ -70,12 +79,52 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             v.getContext().startActivity(intent);
         });
 
+//        GetID_FavoriteSong();
 
-        Handle_Favourite_Icon_Color(holder.ivItemSongLove, position);
-
+        Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yếu thích của người dùng
 
         holder.ivItemSongLove.setOnClickListener(v -> {
-//            holder.ivItemSongLove.setImageResource(R.drawable.ic_favorite);
+            if (Is_Exist_Favorite_Song(songArrayList.get(position).getId())) {
+                Toast.makeText(context, "Trùng", Toast.LENGTH_SHORT).show();
+//                Handle_Add_Delete_Favorite_Song("delete", holder.ivItemSongLove, position);
+            } else {
+                Toast.makeText(context, "Không Trùng", Toast.LENGTH_SHORT).show();
+//                Handle_Add_Delete_Favorite_Song("insert", holder.ivItemSongLove, position);
+            }
+        });
+    }
+
+    private void Handle_Add_Delete_Favorite_Song(String action, ImageView imageView, int position) {
+        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+        Call<List<Status>> callBack = dataService.addDeleteFavoriteSong(action, DataLocalManager.getUserID(), songArrayList.get(position).getId());
+        callBack.enqueue(new Callback<List<Status>>() {
+            @Override
+            public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                statusArrayList = (ArrayList<Status>) response.body();
+
+                if (statusArrayList != null) {
+                    if (action.equals("insert")) {
+                        if (statusArrayList.get(0).getStatus() == 1) {
+                            imageView.setImageResource(R.drawable.ic_favorite);
+                            Toast.makeText(context, "Đã thêm \"" + songArrayList.get(position).getName() + "\" vào bài hát yêu thích", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Thêm \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    } else if (action.equals("delete")) {
+                        if (statusArrayList.get(0).getStatus() == 1) {
+                            imageView.setImageResource(R.drawable.ic_not_favorite);
+                            Toast.makeText(context, "Đã xóa \"" + songArrayList.get(position).getName() + "\" ra khỏi bài hát yêu thích", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Xóa \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Status>> call, Throwable t) {
+                Log.d(TAG, "Handle_Add_Delete_Favorite_Song(Error)" + t.getMessage());
+            }
         });
     }
 
@@ -89,8 +138,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
                 if (favoriteSongArrayList != null && favoriteSongArrayList.size() > 0) { // Trường hợp người dùng đã có bài hát yêu thích
                     for (int i = 0; i < favoriteSongArrayList.size(); i++) {
-                        if (songArrayList.get(position).getId().equals(favoriteSongArrayList.get(i).getId())) {
+                        Log.d(TAG, "ID: " + favoriteSongArrayList.get(i).getId());
+
+                        if (songArrayList.get(position).getId() == favoriteSongArrayList.get(i).getId()) {
                             imageView.setImageResource(R.drawable.ic_favorite);
+
+                            Log.d(TAG, "Bài hát yêu thích: " + favoriteSongArrayList.get(i).getName());
                         }
                     }
                 }
@@ -98,10 +151,43 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
-                Log.d(TAG, t.getMessage());
+                Log.d(TAG, "Handle_Favourite_Icon_Color(Error): " + t.getMessage());
             }
         });
     }
+
+    public boolean Is_Exist_Favorite_Song(int id) {
+        return GetID_FavoriteSong().contains(id);
+    }
+
+    public List<Integer> GetID_FavoriteSong() {
+        List<Integer> idFavoriteSong = new ArrayList<>();
+
+        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+        Call<List<Song>> callBack = dataService.getFavoriteSongUser(DataLocalManager.getUserID());
+        callBack.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                favoriteSongArrayList = (ArrayList<Song>) response.body();
+
+                if (favoriteSongArrayList != null) {
+                    for (int i = 0; i < favoriteSongArrayList.size(); i++) {
+                        idFavoriteSong.add(favoriteSongArrayList.get(i).getId());
+
+                        Log.d(TAG, "ID bài hát yêu thích: " + idFavoriteSong.get(i).toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+                Log.d(TAG, "GetID_FavoriteSong(Error): " + t.getMessage());
+            }
+        });
+
+        return idFavoriteSong;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -115,16 +201,20 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         private TextView tvItemSongName;
         private TextView tvItemSongSinger;
 
+        private ScaleAnimation scaleAnimation;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             this.ivItemSong = itemView.findViewById(R.id.ivItemSong);
 
             this.ivItemSongLove = itemView.findViewById(R.id.ivItemSongLove);
-            scaleAnimation = new ScaleAnimation(itemView.getContext(), this.ivItemSongLove);
-            scaleAnimation.Event_ImageView();
+            this.scaleAnimation = new ScaleAnimation(itemView.getContext(), this.ivItemSongLove);
+            this.scaleAnimation.Event_ImageView();
 
             this.ivItemSongMore = itemView.findViewById(R.id.ivItemSongMore);
+            this.scaleAnimation = new ScaleAnimation(itemView.getContext(), this.ivItemSongMore);
+            this.scaleAnimation.Event_ImageView();
 
             this.tvItemSongName = itemView.findViewById(R.id.tvItemSongName);
             this.tvItemSongName.setSelected(true); // Text will be moved

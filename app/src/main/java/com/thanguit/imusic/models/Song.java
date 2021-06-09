@@ -10,7 +10,7 @@ public class Song implements Parcelable {
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private int id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -31,7 +31,7 @@ public class Song implements Parcelable {
     private String lyric;
 
     protected Song(Parcel in) {
-        id = in.readString();
+        id = in.readInt();
         name = in.readString();
         img = in.readString();
         singer = in.readString();
@@ -52,11 +52,11 @@ public class Song implements Parcelable {
         }
     };
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -115,7 +115,7 @@ public class Song implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
+        dest.writeInt(id);
         dest.writeString(name);
         dest.writeString(img);
         dest.writeString(singer);

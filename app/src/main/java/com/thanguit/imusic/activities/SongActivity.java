@@ -110,7 +110,7 @@ public class SongActivity extends AppCompatActivity {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(SongActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvListSong.setLayoutManager(layoutManager);
-                    rvListSong.setAdapter(new SongAdapter(songArrayList));
+                    rvListSong.setAdapter(new SongAdapter(SongActivity.this, songArrayList));
 
                     sflItemSong.setVisibility(View.GONE); // Load biến mất
                     rvListSong.setVisibility(View.VISIBLE); // Hiện thông tin
