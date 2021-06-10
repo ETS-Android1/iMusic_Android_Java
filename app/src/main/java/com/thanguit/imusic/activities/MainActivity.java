@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.AccessTokenTracker;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphResponse;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -21,14 +25,14 @@ import com.facebook.login.LoginResult;
 import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
 import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
 import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
-import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.R;
-import com.thanguit.imusic.models.Album;
 import com.thanguit.imusic.models.User;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
     private DoubleBackPress doubleBackPress;
     private static final int TIME_DURATION = 2000;
 
-    private ArrayList<User> userArrayList;
-
     private static final String TAG = "MainActivity";
     private static final String LOG_TAG_1 = "LOGIN WITH FACEBOOK";
 //    private static final String LOG_TAG_2 = "LOGIN WITH ZALO";
@@ -68,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DataLocalManager.init(this);
-
-//        DataLocalManager.init(this);
 
 //        try {
 //            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
@@ -89,6 +89,23 @@ public class MainActivity extends AppCompatActivity {
         Event();
         Login_Facebook();
 //        Login_Zalo();
+    }
+
+    public void onStart() {
+        super.onStart();
+
+        if (AccessToken.getCurrentAccessToken() != null && !DataLocalManager.getUserID().isEmpty()) {
+            Intent intent = new Intent(MainActivity.this, FullActivity.class);
+            startActivity(intent);
+        }
+
+//        if (!ZaloSDK.Instance.getOAuthCode().isEmpty()) {
+//        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void Mapping() {
@@ -131,30 +148,8 @@ public class MainActivity extends AppCompatActivity {
             LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
-                    Log.d(LOG_TAG_1, "facebook: onSuccess: " + loginResult);
-                    if (loginResult.getAccessToken().getToken() != null) {
-                        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
-                            try {
-                                String id = object.getString("id");
-                                String name = object.getString("name");
-                                String email = object.getString("email");
-                                String img = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                                String isDark = "0";
-                                String isEnglish = "0";
-
-                                Handle_User(id, name, email, img, isDark, isEnglish);
-
-                                Log.d(TAG, "User information (FACEBOOK): " + String.valueOf(object));
-                            } catch (Exception e) {
-                                Log.d(LOG_TAG_1, e.getMessage());
-//                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        Bundle bundle = new Bundle();
-                        bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
-                        graphRequest.setParameters(bundle);
-                        graphRequest.executeAsync();
-                    }
+                    Log.d(LOG_TAG_1, "facebook: onSuccess: " + loginResult.getAccessToken());
+                    Get_User_Information();
                 }
 
                 @Override
@@ -202,52 +197,48 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-//        ZaloSDK.Instance.onActivityResult(this, requestCode, resultCode, data);
-    }
+    private void Get_User_Information() {
+        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
+            try {
+                Log.d(LOG_TAG_1, "User information (FACEBOOK): " + object);
 
-    private void Handle_User(String id, String name, String email, String img, String isDark, String isEnglish) {
-        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
-        Call<List<User>> callBack = dataService.addNewUser(id, name, email, img, isDark, isEnglish);
-        callBack.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                userArrayList = (ArrayList<User>) response.body();
-                if (userArrayList != null) {
-                    DataLocalManager.setUserID(userArrayList.get(0).getId()); // Lưu ID người dùng vào SharedPreferences
+                String id = object.getString("id");
+                DataLocalManager.setUserID(id); // Lưu ID người dùng vào SharedPreferences
 
+                if (!DataLocalManager.getUserID().isEmpty()) {
+//                    Toast.makeText(MainActivity.this, "ID:" + DataLocalManager.getUserID(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, FullActivity.class);
                     startActivity(intent);
-
-                    Toast.makeText(MainActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
-
-                    Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());
-                } else {
-                    Toast.makeText(MainActivity.this, "Lỗi thêm User!", Toast.LENGTH_SHORT).show();
                 }
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.d(TAG, "Handle_User (Error): " + t.getMessage());
+            } catch (Exception e) {
+                Log.d(LOG_TAG_1, "Get_User_Information(Error):" + e.getMessage());
+                Toast.makeText(MainActivity.this, R.string.toast10, Toast.LENGTH_SHORT).show();
             }
         });
+        Bundle bundle = new Bundle();
+        bundle.putString("fields", "id");
+        graphRequest.setParameters(bundle);
+        graphRequest.executeAsync(); // Thực thi không đồng bộ
     }
 
-    public void onStart() {
-        super.onStart();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+//        ZaloSDK.Instance.onActivityResult(this, requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
-        if (AccessToken.getCurrentAccessToken() != null && !DataLocalManager.getUserID().isEmpty()) {
-            Intent intent = new Intent(MainActivity.this, FullActivity.class);
-            startActivity(intent);
-        }
-
-//        if (!ZaloSDK.Instance.getOAuthCode().isEmpty()) {
-//        }
+//        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+//            @Override
+//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+//                if (currentAccessToken == null) {
+//                    LoginManager.getInstance().logOut();
+//
+//                    Toast.makeText(MainActivity.this, "Log out!", Toast.LENGTH_SHORT).show();
+//                    Log.d(LOG_TAG_1, "Log out!");
+//                }
+//            }
+//        };
     }
 
     @Override

@@ -59,6 +59,8 @@ public class FullActivity extends AppCompatActivity {
     private CircleImageView circleImageView;
     private EditText editText;
 
+    private ArrayList<User> userArrayList;
+
     private static final int ID_PERSONAL = 1;
     private static final int ID_CHART = 2;
     private static final int ID_HOME = 3;
@@ -82,14 +84,7 @@ public class FullActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (AccessToken.getCurrentAccessToken() == null) {
-            LoginManager.getInstance().logOut();
-            DataLocalManager.deleteAllData();
-            finish();
-            Intent intent = new Intent(FullActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
+        Check_Login();
 //        ZaloSDK.Instance.isAuthenticate(new ValidateOAuthCodeCallback() {
 //            @Override
 //            public void onValidateComplete(boolean validated, int i, long l, String s) {
@@ -102,7 +97,76 @@ public class FullActivity extends AppCompatActivity {
 //        });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Check_Login();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Check_Login();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Check_Login();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    private void Check_Login() {
+        if (AccessToken.getCurrentAccessToken() == null) {
+            LoginManager.getInstance().logOut();
+            DataLocalManager.deleteAllData();
+            finish();
+            Intent intent = new Intent(FullActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
     private void Mapping() {
+        // Event for load info of User with Facebook
+        if (AccessToken.getCurrentAccessToken().getToken() != null && !DataLocalManager.getUserID().isEmpty()) {
+            GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
+                try {
+                    String id = object.getString("id");
+                    String name = object.getString("name");
+                    String email = !object.getString("email").isEmpty() ? object.getString("email") : "Null";
+                    String avatarFacebook = !object.getJSONObject("picture").getJSONObject("data").getString("url").isEmpty() ? object.getJSONObject("picture").getJSONObject("data").getString("url") : "Null";
+                    String isDark = "0";
+                    String isEnglish = "0";
+
+                    Picasso.get()
+                            .load(avatarFacebook)
+                            .placeholder(R.drawable.ic_logo)
+                            .error(R.drawable.ic_logo)
+                            .into(this.circleImageView);
+
+                    Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
+
+                    Log.d(TAG, "User information (FACEBOOK): " + object);
+                } catch (Exception e) {
+                    e.printStackTrace();
+//                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            Bundle bundle = new Bundle();
+            bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
+            graphRequest.setParameters(bundle);
+            graphRequest.executeAsync();
+        }
+
         this.meowBottomNavigation = findViewById(R.id.bottomNavigation);
 
         this.ivBell = findViewById(R.id.ivBell);
@@ -167,29 +231,6 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation.show(ID_HOME, true); // Default tab when open
 
 
-        // Event for load info of User with Facebook
-        if (AccessToken.getCurrentAccessToken().getToken() != null) {
-            GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
-                try {
-                    String avatarFacebook = object.getJSONObject("picture").getJSONObject("data").getString("url");
-                    Picasso.get()
-                            .load(avatarFacebook)
-                            .placeholder(R.drawable.ic_logo)
-                            .error(R.drawable.ic_logo)
-                            .into(this.circleImageView);
-
-                    Log.d(TAG, "User information (FACEBOOK): " + String.valueOf(object));
-                } catch (Exception e) {
-                    e.printStackTrace();
-//                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            Bundle bundle = new Bundle();
-            bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
-            graphRequest.setParameters(bundle);
-            graphRequest.executeAsync();
-        }
-
         // Event for load info of User with Zalo
 //        String[] getData = {"id", "name", "picture"};
 //        ZaloSDK.Instance.getProfile(this, new ZaloOpenAPICallback() {
@@ -231,6 +272,33 @@ public class FullActivity extends AppCompatActivity {
 
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commitAllowingStateLoss();
+    }
+
+    private void Handle_User(String id, String name, String email, String img, String isDark, String isEnglish) {
+        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+        Call<List<User>> callBack = dataService.addNewUser(id, name, email, img, isDark, isEnglish);
+        callBack.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                userArrayList = new ArrayList<>();
+                userArrayList = (ArrayList<User>) response.body();
+
+                if (userArrayList != null && userArrayList.size() > 0) {
+//                    DataLocalManager.setUserID(id); // Lưu ID người dùng vào SharedPreferences
+
+                    Toast.makeText(FullActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
+
+                    Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());
+                } else {
+                    Toast.makeText(FullActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.d(TAG, "Handle_User (Error): " + t.getMessage());
+            }
+        });
     }
 
     @Override

@@ -38,7 +38,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     private ArrayList<Song> favoriteSongArrayList = new ArrayList<>();
 
-//    private List<Integer> listSongID = new ArrayList<>();
+    private List<Integer> idFavoriteSong;
+    //    private List<Integer> listSongID = new ArrayList<>();
 //    private ArrayList<Song> getIDFavoriteSongArrayList = new ArrayList<>();
 
     private ArrayList<Status> statusArrayList = new ArrayList<>();
@@ -79,17 +80,14 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             v.getContext().startActivity(intent);
         });
 
-//        GetID_FavoriteSong();
-
         Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yếu thích của người dùng
 
         holder.ivItemSongLove.setOnClickListener(v -> {
-            if (Is_Exist_Favorite_Song(songArrayList.get(position).getId())) {
-                Toast.makeText(context, "Trùng", Toast.LENGTH_SHORT).show();
-//                Handle_Add_Delete_Favorite_Song("delete", holder.ivItemSongLove, position);
+            if (Is_Exist_FavoriteSong(songArrayList.get(position).getId())) {
+                Handle_Add_Delete_Favorite_Song("delete", holder.ivItemSongLove, position);
+                notifyDataSetChanged();
             } else {
-                Toast.makeText(context, "Không Trùng", Toast.LENGTH_SHORT).show();
-//                Handle_Add_Delete_Favorite_Song("insert", holder.ivItemSongLove, position);
+                Handle_Add_Delete_Favorite_Song("insert", holder.ivItemSongLove, position);
             }
         });
     }
@@ -134,10 +132,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                idFavoriteSong = new ArrayList<>(); // Nhớ khởi tạo nha Thắng ơi, chú hay quên lắm (Thắng tự nhắc bản thân)
                 favoriteSongArrayList = (ArrayList<Song>) response.body();
 
-                if (favoriteSongArrayList != null && favoriteSongArrayList.size() > 0) { // Trường hợp người dùng đã có bài hát yêu thích
+                if (favoriteSongArrayList != null && favoriteSongArrayList.size() > 0) {
                     for (int i = 0; i < favoriteSongArrayList.size(); i++) {
+                        idFavoriteSong.add(favoriteSongArrayList.get(i).getId()); // Thêm id bài hát yêu thích của người dùng vảo list
                         Log.d(TAG, "ID: " + favoriteSongArrayList.get(i).getId());
 
                         if (songArrayList.get(position).getId() == favoriteSongArrayList.get(i).getId()) {
@@ -156,37 +156,35 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         });
     }
 
-    public boolean Is_Exist_Favorite_Song(int id) {
-        return GetID_FavoriteSong().contains(id);
+    public boolean Is_Exist_FavoriteSong(int id) {
+        List<Integer> idFavoriteSong = this.idFavoriteSong;
+        return idFavoriteSong.contains(id);
     }
 
-    public List<Integer> GetID_FavoriteSong() {
-        List<Integer> idFavoriteSong = new ArrayList<>();
-
-        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
-        Call<List<Song>> callBack = dataService.getFavoriteSongUser(DataLocalManager.getUserID());
-        callBack.enqueue(new Callback<List<Song>>() {
-            @Override
-            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                favoriteSongArrayList = (ArrayList<Song>) response.body();
-
-                if (favoriteSongArrayList != null) {
-                    for (int i = 0; i < favoriteSongArrayList.size(); i++) {
-                        idFavoriteSong.add(favoriteSongArrayList.get(i).getId());
-
-                        Log.d(TAG, "ID bài hát yêu thích: " + idFavoriteSong.get(i).toString());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Song>> call, Throwable t) {
-                Log.d(TAG, "GetID_FavoriteSong(Error): " + t.getMessage());
-            }
-        });
-
-        return idFavoriteSong;
-    }
+//    public List<Integer> GetID_FavoriteSong() {
+//        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+//        Call<List<Song>> callBack = dataService.getFavoriteSongUser(DataLocalManager.getUserID());
+//        callBack.enqueue(new Callback<List<Song>>() {
+//            @Override
+//            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+//                idFavoriteSong = new ArrayList<>(); // Nhớ khởi tạo nha Thắng ơi, chú hay quên lắm (Thắng tự nhắc bản thân)
+//
+//                getIDFavoriteSongArrayList = (ArrayList<Song>) response.body();
+//                if (getIDFavoriteSongArrayList != null) {
+//                    for (int i = 0; i < getIDFavoriteSongArrayList.size(); i++) {
+//                        idFavoriteSong.add(getIDFavoriteSongArrayList.get(i).getId());
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Song>> call, Throwable t) {
+//                Log.d(TAG, "GetID_FavoriteSong(Error): " + t.getMessage());
+//            }
+//        });
+//
+//        return idFavoriteSong;
+//    }
 
 
     @Override

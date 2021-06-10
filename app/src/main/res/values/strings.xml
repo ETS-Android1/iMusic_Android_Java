@@ -20,6 +20,7 @@
     <string name="toast5">Xác thực thất bại</string>
     <string name="toast8">Đăng nhập lại để tiếp tục</string>
     <string name="toast9">Đăng xuất thành công!</string>
+    <string name="toast10">Hãy thử lại lần nữa</string>
 
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
