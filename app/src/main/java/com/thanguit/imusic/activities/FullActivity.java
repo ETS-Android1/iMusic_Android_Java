@@ -25,6 +25,7 @@ import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.adapters.AlbumHomeAdapter;
+import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.fragments.ChartFragment;
 import com.thanguit.imusic.fragments.HomeFragment;
@@ -45,6 +46,7 @@ import retrofit2.Response;
 
 public class FullActivity extends AppCompatActivity {
     private ScaleAnimation scaleAnimation;
+    private LoadingDialog loadingDialog;
 
     private ImageView ivBell;
 
@@ -136,7 +138,10 @@ public class FullActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        // Event for load info of User with Facebook
+        this.loadingDialog = new LoadingDialog(this);
+        this.loadingDialog.Start_Loading();
+
+        // Load info of User with Facebook
         if (AccessToken.getCurrentAccessToken().getToken() != null && !DataLocalManager.getUserID().isEmpty()) {
             GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
                 try {
@@ -285,7 +290,7 @@ public class FullActivity extends AppCompatActivity {
 
                 if (userArrayList != null && userArrayList.size() > 0) {
 //                    DataLocalManager.setUserID(id); // Lưu ID người dùng vào SharedPreferences
-
+                    loadingDialog.Cancel_Dialog();
                     Toast.makeText(FullActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
 
                     Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());

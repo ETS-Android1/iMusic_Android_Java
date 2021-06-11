@@ -55,5 +55,5 @@ public interface DataService {
 
     @FormUrlEncoded
     @POST("adddeletefavoritesong.php")
-    Call<List<Status>> addDeleteFavoriteSong(@Field("action") String action, @Field("userID") String userID, @Field("songID") int songID);
+    Call<List<Status>> addDeleteFavoriteSong(@Field("userID") String userID, @Field("songID") int songID);
 }

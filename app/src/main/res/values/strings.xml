@@ -107,4 +107,7 @@
     <string name="btnPersonalPlayAll">Phát tất cả</string>
     <string name="tvEmptySong">Chưa có bài hát nào</string>
 
+    <!-- - - - - - - - - - - Layout_loading_dialog - - - - - - - - - - -->
+    <string name="tvLoading">Chờ xíu nha, hihi....</string>
+
 </resources>

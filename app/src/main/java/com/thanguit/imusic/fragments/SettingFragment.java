@@ -14,7 +14,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.thanguit.imusic.R;
 
 public class SettingFragment extends Fragment {
-
     private LottieAnimationView btnSwitchTheme;
     private boolean switchTheme = false;
 
@@ -42,18 +41,15 @@ public class SettingFragment extends Fragment {
     }
 
     private void Event() {
-        this.btnSwitchTheme.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (switchTheme) {
-                    btnSwitchTheme.setMinAndMaxProgress(0.65f, 1.0f);
-                    btnSwitchTheme.playAnimation();
-                    switchTheme = false;
-                } else {
-                    btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f);
-                    btnSwitchTheme.playAnimation();
-                    switchTheme = true;
-                }
+        this.btnSwitchTheme.setOnClickListener(v -> {
+            if (switchTheme) {
+                btnSwitchTheme.setMinAndMaxProgress(0.65f, 1.0f);
+                btnSwitchTheme.playAnimation();
+                switchTheme = false;
+            } else {
+                btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f);
+                btnSwitchTheme.playAnimation();
+                switchTheme = true;
             }
         });
     }

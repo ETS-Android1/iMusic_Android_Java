@@ -22,6 +22,7 @@ import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
+import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.User;
 
@@ -41,6 +42,7 @@ public class PersonalPageActivity extends AppCompatActivity {
     private Button btnLogout;
 
     private ScaleAnimation scaleAnimation;
+    private LoadingDialog loadingDialog;
 
     private ArrayList<User> userArrayList;
 
@@ -58,6 +60,9 @@ public class PersonalPageActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
+        this.loadingDialog = new LoadingDialog(this);
+        this.loadingDialog.Start_Loading();
+
         this.ivBack = findViewById(R.id.ivBack);
         this.civAvatarFrame = findViewById(R.id.civAvatarFrame);
 
@@ -147,6 +152,8 @@ public class PersonalPageActivity extends AppCompatActivity {
                     tvPersonalName.setText(userArrayList.get(0).getName());
                     tvYourInfoName.setText(userArrayList.get(0).getName());
                     tvYourInfoEmail.setText(userArrayList.get(0).getEmail());
+
+                    loadingDialog.Cancel_Dialog();
 
                     Log.d(TAG, "User Infomation: " + userArrayList.get(0).getName());
                 }

@@ -1,5 +1,6 @@
 package com.thanguit.imusic.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.activities.PersonalPlaylistActivity;
+import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.Status;
@@ -38,9 +40,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     private ArrayList<Song> favoriteSongArrayList = new ArrayList<>();
 
-    private List<Integer> idFavoriteSong;
-    //    private List<Integer> listSongID = new ArrayList<>();
-//    private ArrayList<Song> getIDFavoriteSongArrayList = new ArrayList<>();
+//    private List<Integer> idFavoriteSong;
+//    private ArrayList<Song> getIDFavoriteSongArrayList;
 
     private ArrayList<Status> statusArrayList = new ArrayList<>();
 
@@ -80,41 +81,41 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             v.getContext().startActivity(intent);
         });
 
+//        GetID_FavoriteSong();
+
         Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yếu thích của người dùng
 
         holder.ivItemSongLove.setOnClickListener(v -> {
-            if (Is_Exist_FavoriteSong(songArrayList.get(position).getId())) {
-                Handle_Add_Delete_Favorite_Song("delete", holder.ivItemSongLove, position);
-                notifyDataSetChanged();
-            } else {
-                Handle_Add_Delete_Favorite_Song("insert", holder.ivItemSongLove, position);
-            }
+//            AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
+//            LayoutInflater factory = LayoutInflater.from(v.getContext());
+//            final View view = factory.inflate(R.layout.layout_loading_dialog, null);
+//            alertDialog.setView(view);
+//            alertDialog.setCancelable(false);
+//            alertDialog.show();
+
+            Handle_Add_Delete_Favorite_Song(holder.ivItemSongLove, position);
         });
     }
 
-    private void Handle_Add_Delete_Favorite_Song(String action, ImageView imageView, int position) {
+    private void Handle_Add_Delete_Favorite_Song(ImageView imageView, int position) {
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
-        Call<List<Status>> callBack = dataService.addDeleteFavoriteSong(action, DataLocalManager.getUserID(), songArrayList.get(position).getId());
+        Call<List<Status>> callBack = dataService.addDeleteFavoriteSong(DataLocalManager.getUserID(), songArrayList.get(position).getId());
         callBack.enqueue(new Callback<List<Status>>() {
             @Override
             public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
                 statusArrayList = (ArrayList<Status>) response.body();
 
                 if (statusArrayList != null) {
-                    if (action.equals("insert")) {
-                        if (statusArrayList.get(0).getStatus() == 1) {
-                            imageView.setImageResource(R.drawable.ic_favorite);
-                            Toast.makeText(context, "Đã thêm \"" + songArrayList.get(position).getName() + "\" vào bài hát yêu thích", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "Thêm \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
-                        }
-                    } else if (action.equals("delete")) {
-                        if (statusArrayList.get(0).getStatus() == 1) {
-                            imageView.setImageResource(R.drawable.ic_not_favorite);
-                            Toast.makeText(context, "Đã xóa \"" + songArrayList.get(position).getName() + "\" ra khỏi bài hát yêu thích", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "Xóa \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
-                        }
+                    if (statusArrayList.get(0).getStatus() == 1) {
+                        imageView.setImageResource(R.drawable.ic_favorite);
+                        Toast.makeText(context, "Đã thêm \"" + songArrayList.get(position).getName() + "\" vào bài hát yêu thích", Toast.LENGTH_SHORT).show();
+                    } else if (statusArrayList.get(0).getStatus() == 2) {
+                        Toast.makeText(context, "Thêm \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
+                    } else if (statusArrayList.get(0).getStatus() == 3) {
+                        imageView.setImageResource(R.drawable.ic_not_favorite);
+                        Toast.makeText(context, "Đã xóa \"" + songArrayList.get(position).getName() + "\" ra khỏi bài hát yêu thích", Toast.LENGTH_SHORT).show();
+                    } else if (statusArrayList.get(0).getStatus() == 4) {
+                        Toast.makeText(context, "Xóa \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -132,14 +133,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
-                idFavoriteSong = new ArrayList<>(); // Nhớ khởi tạo nha Thắng ơi, chú hay quên lắm (Thắng tự nhắc bản thân)
                 favoriteSongArrayList = (ArrayList<Song>) response.body();
 
                 if (favoriteSongArrayList != null && favoriteSongArrayList.size() > 0) {
                     for (int i = 0; i < favoriteSongArrayList.size(); i++) {
-                        idFavoriteSong.add(favoriteSongArrayList.get(i).getId()); // Thêm id bài hát yêu thích của người dùng vảo list
-                        Log.d(TAG, "ID: " + favoriteSongArrayList.get(i).getId());
-
                         if (songArrayList.get(position).getId() == favoriteSongArrayList.get(i).getId()) {
                             imageView.setImageResource(R.drawable.ic_favorite);
 
@@ -156,23 +153,25 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         });
     }
 
-    public boolean Is_Exist_FavoriteSong(int id) {
-        List<Integer> idFavoriteSong = this.idFavoriteSong;
-        return idFavoriteSong.contains(id);
-    }
+//    public boolean Is_Exist_FavoriteSong(int id) {
+//        List<Integer> idFavorite = GetID_FavoriteSong();
+//        return this.idFavoriteSong.contains(id);
+//    }
 
-//    public List<Integer> GetID_FavoriteSong() {
+//    public void GetID_FavoriteSong() {
 //        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
 //        Call<List<Song>> callBack = dataService.getFavoriteSongUser(DataLocalManager.getUserID());
 //        callBack.enqueue(new Callback<List<Song>>() {
 //            @Override
 //            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
 //                idFavoriteSong = new ArrayList<>(); // Nhớ khởi tạo nha Thắng ơi, chú hay quên lắm (Thắng tự nhắc bản thân)
+//                getIDFavoriteSongArrayList = new ArrayList<>();
 //
 //                getIDFavoriteSongArrayList = (ArrayList<Song>) response.body();
 //                if (getIDFavoriteSongArrayList != null) {
 //                    for (int i = 0; i < getIDFavoriteSongArrayList.size(); i++) {
 //                        idFavoriteSong.add(getIDFavoriteSongArrayList.get(i).getId());
+//                        Log.d(TAG, "ID favarite: " + idFavoriteSong.get(i));
 //                    }
 //                }
 //            }
@@ -182,8 +181,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 //                Log.d(TAG, "GetID_FavoriteSong(Error): " + t.getMessage());
 //            }
 //        });
-//
-//        return idFavoriteSong;
 //    }
 
 
@@ -203,6 +200,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
 
             this.ivItemSong = itemView.findViewById(R.id.ivItemSong);
 
