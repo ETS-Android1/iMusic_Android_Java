@@ -38,10 +38,13 @@ import retrofit2.Response;
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private static final String TAG = "SongAdapter";
 
-    private ArrayList<Song> favoriteSongArrayList = new ArrayList<>();
+    private ArrayList<Song> favoriteSongArrayList;
 
 //    private List<Integer> idFavoriteSong;
 //    private ArrayList<Song> getIDFavoriteSongArrayList;
+
+    private AlertDialog alertDialog;
+    private AlertDialog alertDialog_1;
 
     private ArrayList<Status> statusArrayList = new ArrayList<>();
 
@@ -67,6 +70,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SongAdapter.ViewHolder holder, int position) {
+//        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+//        View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
+//        alertBuilder.setView(view);
+//        alertBuilder.setCancelable(false);
+//        this.alertDialog_1 = alertBuilder.create();
+//        this.alertDialog_1.show();
+
+        Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yếu thích của người dùng
+
         Picasso.get()
                 .load(this.songArrayList.get(position).getImg())
                 .placeholder(R.drawable.ic_logo)
@@ -82,16 +94,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         });
 
 //        GetID_FavoriteSong();
-
-        Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yếu thích của người dùng
-
         holder.ivItemSongLove.setOnClickListener(v -> {
-//            AlertDialog.Builder alertDialog = new AlertDialog.Builder(v.getContext());
-//            LayoutInflater factory = LayoutInflater.from(v.getContext());
-//            final View view = factory.inflate(R.layout.layout_loading_dialog, null);
-//            alertDialog.setView(view);
-//            alertDialog.setCancelable(false);
-//            alertDialog.show();
+            AlertDialog.Builder alertBuilder_1 = new AlertDialog.Builder(v.getContext());
+            View view_1 = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_loading_dialog, null);
+            alertBuilder_1.setView(view_1);
+            alertBuilder_1.setCancelable(false);
+            this.alertDialog = alertBuilder_1.create();
+            this.alertDialog.show();
 
             Handle_Add_Delete_Favorite_Song(holder.ivItemSongLove, position);
         });
@@ -107,14 +116,18 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
                 if (statusArrayList != null) {
                     if (statusArrayList.get(0).getStatus() == 1) {
+                        alertDialog.dismiss();
                         imageView.setImageResource(R.drawable.ic_favorite);
                         Toast.makeText(context, "Đã thêm \"" + songArrayList.get(position).getName() + "\" vào bài hát yêu thích", Toast.LENGTH_SHORT).show();
                     } else if (statusArrayList.get(0).getStatus() == 2) {
+                        alertDialog.dismiss();
                         Toast.makeText(context, "Thêm \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
                     } else if (statusArrayList.get(0).getStatus() == 3) {
+                        alertDialog.dismiss();
                         imageView.setImageResource(R.drawable.ic_not_favorite);
                         Toast.makeText(context, "Đã xóa \"" + songArrayList.get(position).getName() + "\" ra khỏi bài hát yêu thích", Toast.LENGTH_SHORT).show();
                     } else if (statusArrayList.get(0).getStatus() == 4) {
+                        alertDialog.dismiss();
                         Toast.makeText(context, "Xóa \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -133,6 +146,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                favoriteSongArrayList = new ArrayList<>();
                 favoriteSongArrayList = (ArrayList<Song>) response.body();
 
                 if (favoriteSongArrayList != null && favoriteSongArrayList.size() > 0) {
@@ -200,7 +214,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
 
             this.ivItemSong = itemView.findViewById(R.id.ivItemSong);
 

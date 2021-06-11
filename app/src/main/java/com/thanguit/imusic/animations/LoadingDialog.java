@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.thanguit.imusic.R;
 
@@ -16,16 +18,20 @@ public class LoadingDialog {
     }
 
     public void Start_Loading() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
-        LayoutInflater inflater = this.activity.getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.layout_loading_dialog, null));
-        builder.setCancelable(false);
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this.activity);
+        View view = LayoutInflater.from(activity).inflate(R.layout.layout_loading_dialog, null);
+        alertBuilder.setView(view);
 
-        this.alertDialog = builder.create();
+        TextView tvLoading = (TextView) view.findViewById(R.id.tvLoading);
+        tvLoading.setSelected(true);
+
+        alertBuilder.setCancelable(false); // Bấm ra ngoài cũng không thoát alertdialog
+
+        this.alertDialog = alertBuilder.create();
         this.alertDialog.show();
     }
 
-    public void Cancel_Dialog() {
+    public void Cancel_Loading() {
         this.alertDialog.dismiss();
     }
 }

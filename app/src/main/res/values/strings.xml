@@ -7,7 +7,7 @@
     <string name="facebook_app_id">1179700782483492</string>
     <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
-    <!--    <string name="zalo_app_id">270380721011787967</string>-->
+    <!-- <string name="zalo_app_id">270380721011787967</string> -->
 
 
     <!-- - - - - - - - - - - MainActivity - - - - - - - - - - -->
@@ -15,12 +15,13 @@
     <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
     <string name="toast1">Đăng nhập thành công!</string>
     <string name="toast2">Đã hủy đăng nhập</string>
-    <string name="toast3">Đăng nhập thất bại</string>
+    <string name="toast3">Đăng nhập thất bại! Hãy thử lại lần nữa</string>
     <string name="toast4">Vui lòng đăng nhập để tiếp tục</string>
     <string name="toast5">Xác thực thất bại</string>
     <string name="toast8">Đăng nhập lại để tiếp tục</string>
     <string name="toast9">Đăng xuất thành công!</string>
     <string name="toast10">Hãy thử lại lần nữa</string>
+    <string name="toast11">Lỗi! Vui lòng thử lại</string>
 
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
@@ -28,7 +29,7 @@
 
     <!-- - - - - - - - - - - FullActivity - - - - - - - - - - -->
     <string name="toast7">Nhấn BACK lần nữa để thoát</string>
-    <string name="etHint1">Bài hát, nghệ sĩ, ...</string>
+    <string name="etHint1">Bài hát, nghệ sĩ,…</string>
 
     <!-- - - - - - - - - - - FullPlayerActivity - - - - - - - - - - -->
     <string name="tvSongName">Tên bài hát</string>
@@ -47,8 +48,8 @@
     <string name="etHintComment">Nhập bình luận</string>
 
     <!-- - - - - - - - - - - FragmentFullPlayer - - - - - - - - - - -->
-    <string name="tvTimeStart">0:00</string>
-    <string name="tvTimeEnd">0:00</string>
+    <string name="tvTimeStart">00:00</string>
+    <string name="tvTimeEnd">00:00</string>
 
     <!-- - - - - - - - - - - SearchActivity - - - - - - - - - - -->
     <string name="tvSearchHint">Kết quả tìm kiếm sẽ hiển thị ở đây.</string>
@@ -108,6 +109,6 @@
     <string name="tvEmptySong">Chưa có bài hát nào</string>
 
     <!-- - - - - - - - - - - Layout_loading_dialog - - - - - - - - - - -->
-    <string name="tvLoading">Chờ xíu nha, hihi....</string>
+    <string name="tvLoading">Chờ xíu nha, hihi....😁</string>
 
 </resources>

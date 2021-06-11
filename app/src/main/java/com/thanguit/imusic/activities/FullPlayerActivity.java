@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.rd.PageIndicatorView;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.adapters.FullPlayerAdapter;
+import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.fragments.DetailPlayerFragment;
 import com.thanguit.imusic.fragments.FullPlayerFragment;
@@ -138,7 +139,7 @@ public class FullPlayerActivity extends AppCompatActivity implements FullPlayerF
                 }
             }
         } else {
-            Toast.makeText(FullPlayerActivity.this, "Lỗi! Không có dữ liệu bài hát!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(FullPlayerActivity.this, R.string.toast11, Toast.LENGTH_SHORT).show();
         }
     }
 

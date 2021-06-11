@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.FullPlayerActivity;
+import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 
 import java.io.IOException;
@@ -47,6 +48,7 @@ public class FullPlayerFragment extends Fragment {
     private SeekBar sbSong;
 
     private ScaleAnimation scaleAnimation;
+    private LoadingDialog loadingDialog;
 
     private int position = 0;
     private boolean repeat = false;
@@ -68,7 +70,7 @@ public class FullPlayerFragment extends Fragment {
         if (context instanceof ISendPositionListener) {
             iSendPositionListener = (ISendPositionListener) context;
         } else {
-            throw new RuntimeException(context.toString() + "Can phai implement");
+            throw new RuntimeException(context.toString() + "You need implement");
         }
 //        iSendPositionListener = (ISendPositionListener) getActivity(); // Khở tạo Interface khi Fragment gắn vào Activity
     }
@@ -93,6 +95,9 @@ public class FullPlayerFragment extends Fragment {
     }
 
     private void Mapping(View view) {
+        this.loadingDialog = new LoadingDialog(getActivity());
+        this.loadingDialog.Start_Loading();
+
         this.ivCover = view.findViewById(R.id.ivCover);
         this.ivDownload = view.findViewById(R.id.ivDownload);
         this.ivFavorite = view.findViewById(R.id.ivFavorite);
@@ -115,6 +120,8 @@ public class FullPlayerFragment extends Fragment {
             FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(0).getSinger());
             new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(0).getLink());
             this.ivPlayPause.setImageResource(R.drawable.ic_pause);
+
+            this.loadingDialog.Cancel_Loading();
         }
     }
 

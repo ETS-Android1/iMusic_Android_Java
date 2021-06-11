@@ -290,7 +290,7 @@ public class FullActivity extends AppCompatActivity {
 
                 if (userArrayList != null && userArrayList.size() > 0) {
 //                    DataLocalManager.setUserID(id); // Lưu ID người dùng vào SharedPreferences
-                    loadingDialog.Cancel_Dialog();
+                    loadingDialog.Cancel_Loading();
                     Toast.makeText(FullActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
 
                     Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());

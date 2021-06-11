@@ -153,7 +153,7 @@ public class PersonalPageActivity extends AppCompatActivity {
                     tvYourInfoName.setText(userArrayList.get(0).getName());
                     tvYourInfoEmail.setText(userArrayList.get(0).getEmail());
 
-                    loadingDialog.Cancel_Dialog();
+                    loadingDialog.Cancel_Loading();
 
                     Log.d(TAG, "User Infomation: " + userArrayList.get(0).getName());
                 }

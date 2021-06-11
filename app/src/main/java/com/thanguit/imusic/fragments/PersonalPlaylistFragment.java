@@ -38,6 +38,7 @@ import com.thanguit.imusic.activities.MainActivity;
 import com.thanguit.imusic.activities.PersonalPageActivity;
 import com.thanguit.imusic.activities.PersonalPlaylistActivity;
 import com.thanguit.imusic.adapters.SongAdapter;
+import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
 
@@ -59,6 +60,7 @@ public class PersonalPlaylistFragment extends Fragment {
     private RecyclerView rvYourPlaylist;
 
     private ScaleAnimation scaleAnimation;
+    private LoadingDialog loadingDialog;
 
     private ArrayList<Song> songArrayList;
 
@@ -91,6 +93,8 @@ public class PersonalPlaylistFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        this.loadingDialog = new LoadingDialog(getActivity());
+        this.loadingDialog.Start_Loading();
         Handle_Number_Favorite_Song();
     }
 
@@ -181,6 +185,7 @@ public class PersonalPlaylistFragment extends Fragment {
                 songArrayList = (ArrayList<Song>) response.body();
                 if (songArrayList != null) {
                     tvNumberSongLove.setText(String.valueOf(songArrayList.size()));
+                    loadingDialog.Cancel_Loading();
 
                     Log.d(TAG, "Number Favorite Song: " + songArrayList.size());
                 } else {
