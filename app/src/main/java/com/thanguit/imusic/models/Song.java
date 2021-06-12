@@ -7,7 +7,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Song implements Parcelable {
-
     @SerializedName("id")
     @Expose
     private int id;

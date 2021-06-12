@@ -35,7 +35,7 @@ public interface DataService {
 
     @FormUrlEncoded
     @POST("danhsachbaihat.php")
-    Call<List<Song>> getSongWithPlaylist(@Field("Pla_ID") String id);
+    Call<List<Song>> getSongWithPlaylist(@Field("Pla_ID") int id);
 
     @FormUrlEncoded
     @POST("searchsong.php")

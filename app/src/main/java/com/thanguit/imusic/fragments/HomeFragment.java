@@ -34,15 +34,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
-
     private FragmentTransaction fragmentTransaction;
-    private FrameLayout flPlaylistFragment, flFragmentTheme;
+    private FrameLayout flPlaylistFragment;
+    private FrameLayout flFragmentTheme;
 
     private SliderView sliderView;
     private SliderAdapter sliderAdapter;
     private ArrayList<Slider> sliderArrayList;
-
-    private Button button;
 
     private static final String TAG = "HomeFragment";
 
@@ -67,8 +65,8 @@ public class HomeFragment extends Fragment {
 
     private void Mapping(View view) {
 
-        this.flPlaylistFragment = (FrameLayout) view.findViewById(R.id.flFragmentPlaylist);
-        this.flFragmentTheme = (FrameLayout) view.findViewById(R.id.flFragmentTheme);
+        this.flPlaylistFragment = view.findViewById(R.id.flFragmentPlaylist);
+        this.flFragmentTheme = view.findViewById(R.id.flFragmentTheme);
 
         this.fragmentTransaction = getChildFragmentManager().beginTransaction();
         this.fragmentTransaction.add(R.id.flFragmentAlbum, new AlbumFragment()); // Thêm AlbumTheme vào HomeFragment
@@ -76,9 +74,7 @@ public class HomeFragment extends Fragment {
         this.fragmentTransaction.add(R.id.flFragmentTheme, new ThemeFragment()); // Thêm FragmentTheme vào HomeFragment
         this.fragmentTransaction.commit(); // Thực hiện gắn Fragment
 
-        this.sliderView = (SliderView) view.findViewById(R.id.isvSlider);
-
-
+        this.sliderView = view.findViewById(R.id.isvSlider);
     }
 
     private void Handle_Slider() {

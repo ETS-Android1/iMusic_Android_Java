@@ -7,7 +7,7 @@ public class Genre {
 
     @SerializedName("idGenre")
     @Expose
-    private String idGenre;
+    private int idGenre;
     @SerializedName("idTheme")
     @Expose
     private String idTheme;
@@ -18,11 +18,11 @@ public class Genre {
     @Expose
     private String img;
 
-    public String getIdGenre() {
+    public int getIdGenre() {
         return idGenre;
     }
 
-    public void setIdGenre(String idGenre) {
+    public void setIdGenre(int idGenre) {
         this.idGenre = idGenre;
     }
 

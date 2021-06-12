@@ -97,7 +97,7 @@ public class SongActivity extends AppCompatActivity {
         }
     }
 
-    private void Display_Song_Playlist(String id) {
+    private void Display_Song_Playlist(int id) {
         DataService dataService = APIService.getService();
         Call<List<Song>> callBack = dataService.getSongWithPlaylist(id);
         callBack.enqueue(new Callback<List<Song>>() {

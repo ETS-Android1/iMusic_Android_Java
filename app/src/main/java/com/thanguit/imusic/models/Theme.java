@@ -4,10 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Theme {
-
     @SerializedName("idTheme")
     @Expose
-    private String idTheme;
+    private int idTheme;
     @SerializedName("name")
     @Expose
     private String name;
@@ -15,11 +14,11 @@ public class Theme {
     @Expose
     private String img;
 
-    public String getIdTheme() {
+    public int getIdTheme() {
         return idTheme;
     }
 
-    public void setIdTheme(String idTheme) {
+    public void setIdTheme(int idTheme) {
         this.idTheme = idTheme;
     }
 
