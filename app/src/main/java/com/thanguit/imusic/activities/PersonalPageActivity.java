@@ -157,10 +157,12 @@ public class PersonalPageActivity extends AppCompatActivity {
 
                     Log.d(TAG, "User Infomation: " + userArrayList.get(0).getName());
                 }
+                loadingDialog.Cancel_Loading();
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
+                loadingDialog.Cancel_Loading();
                 Log.d(TAG, "Handler_Display_Info_User(Error): " + t.getMessage());
             }
         });

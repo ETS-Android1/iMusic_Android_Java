@@ -54,14 +54,14 @@
                 android:id="@+id/ivNumberPlaylist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tvNumberPlaylist"
+                android:layout_alignBottom="@+id/tvNumberPlaylist"
                 app:srcCompat="@drawable/ic_music_alt" />
 
             <TextView
                 android:id="@+id/tvNumberPlaylist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/ivNumberPlaylist"
-                android:layout_alignBottom="@+id/ivNumberPlaylist"
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@+id/ivNumberPlaylist"
                 android:fontFamily="@font/comfortaa"
@@ -69,6 +69,7 @@
                 android:text="@string/tvNumberSongLove"
                 android:textAlignment="center"
                 android:textColor="@color/colorLight9"
+                android:textSize="18sp"
                 android:textStyle="normal" />
         </RelativeLayout>
     </LinearLayout>

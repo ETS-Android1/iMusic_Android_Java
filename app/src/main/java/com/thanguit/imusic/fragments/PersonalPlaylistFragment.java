@@ -1,8 +1,6 @@
 package com.thanguit.imusic.fragments;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,19 +28,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.login.LoginManager;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
-import com.thanguit.imusic.activities.FullPlayerActivity;
-import com.thanguit.imusic.activities.MainActivity;
-import com.thanguit.imusic.activities.PersonalPageActivity;
 import com.thanguit.imusic.activities.PersonalPlaylistActivity;
-import com.thanguit.imusic.adapters.SongAdapter;
+import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
+import com.thanguit.imusic.models.Status;
+import com.thanguit.imusic.models.UserPlaylist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,19 +49,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PersonalPlaylistFragment extends Fragment {
+    private Dialog dialog;
+
     private LinearLayout llFrameLoveSong;
 
     private TextView tvNumberPlaylist;
     private TextView tvNumberSongLove;
     private ImageView ivAddPlaylist;
     private TextView tvTitleLoveSong;
+    private TextView tvEmptyPlaylist;
 
+    private ShimmerFrameLayout sflItemUserPlaylist;
     private RecyclerView rvYourPlaylist;
+    private UserPlaylistAdapter userPlaylistAdapter;
 
     private ScaleAnimation scaleAnimation;
     private LoadingDialog loadingDialog;
 
     private ArrayList<Song> songArrayList;
+    private ArrayList<UserPlaylist> userPlaylistArrayList;
+    private ArrayList<Status> statusArrayList;
 
     private static final String TAG = "PPFragment";
 
@@ -75,8 +81,11 @@ public class PersonalPlaylistFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        DataLocalManager.init(getContext());
+
         Mapping(view);
         Handle_Number_Favorite_Song();
+        Handle_User_Playlist();
         Event();
     }
 
@@ -93,21 +102,21 @@ public class PersonalPlaylistFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        this.loadingDialog = new LoadingDialog(getActivity());
-        this.loadingDialog.Start_Loading();
         Handle_Number_Favorite_Song();
+//        Handle_User_Playlist();
+//        this.loadingDialog = new LoadingDialog(getActivity());
+//        this.loadingDialog.Start_Loading();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Handle_Number_Favorite_Song();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Handle_Number_Favorite_Song();
+//        Handle_Number_Favorite_Song();
     }
 
 
@@ -118,6 +127,10 @@ public class PersonalPlaylistFragment extends Fragment {
         this.ivAddPlaylist = view.findViewById(R.id.ivAddPlaylist);
         this.tvTitleLoveSong = view.findViewById(R.id.tvTitleLoveSong);
 
+        this.tvEmptyPlaylist = view.findViewById(R.id.tvEmptyPlaylist);
+        this.tvEmptyPlaylist.setSelected(true); // Text will be moved
+
+        this.sflItemUserPlaylist = view.findViewById(R.id.sflItemUserPlaylist);
         this.rvYourPlaylist = view.findViewById(R.id.rvYourPlaylist);
     }
 
@@ -125,7 +138,7 @@ public class PersonalPlaylistFragment extends Fragment {
         this.scaleAnimation = new ScaleAnimation(getContext(), this.ivAddPlaylist);
         this.scaleAnimation.Event_ImageView();
         this.ivAddPlaylist.setOnClickListener(v -> {
-            Open_Dialog(Gravity.CENTER);
+            Open_Add_Playlist_Dialog(Gravity.CENTER);
         });
 
         this.llFrameLoveSong.setOnClickListener(v -> {
@@ -135,12 +148,13 @@ public class PersonalPlaylistFragment extends Fragment {
         });
     }
 
-    private void Open_Dialog(int gravity) {
-        final Dialog dialog = new Dialog(getContext());
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_add_playlist);
+    private void Open_Add_Playlist_Dialog(int gravity) {
+        this.dialog = new Dialog(getContext());
 
-        Window window = dialog.getWindow();
+        this.dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.dialog.setContentView(R.layout.layout_dialog_add_playlist);
+
+        Window window = this.dialog.getWindow();
         if (window == null) {
             return;
         }
@@ -151,30 +165,85 @@ public class PersonalPlaylistFragment extends Fragment {
         windowAttributes.gravity = gravity;
         window.setAttributes(windowAttributes);
 
-        dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
+        this.dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
 
-        EditText etDialogContentPlaylist = dialog.findViewById(R.id.etDialogContentPlaylist);
-        Button btnDialogCancel = dialog.findViewById(R.id.btnDialogCancel);
-        Button btnDialogCreate = dialog.findViewById(R.id.btnDialogCreate);
+        EditText etDialogContentPlaylist = this.dialog.findViewById(R.id.etDialogContentPlaylist);
+        Button btnDialogCancel = this.dialog.findViewById(R.id.btnDialogCancel);
+        Button btnDialogCreate = this.dialog.findViewById(R.id.btnDialogCreate);
 
-        dialog.setOnShowListener(dialogInterface -> {
-            etDialogContentPlaylist.requestFocus(); // When Activity show, Searchbox will be focused
+//        dialog.setOnShowListener(dialogInterface -> {
+//            etDialogContentPlaylist.requestFocus(); // When Activity show, Searchbox will be focused
+//        });
+
+        etDialogContentPlaylist.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogCancel);
         this.scaleAnimation.Event_Button();
         btnDialogCancel.setOnClickListener(v -> {
-            dialog.dismiss();
+            this.dialog.dismiss();
         });
 
         this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogCreate);
         this.scaleAnimation.Event_Button();
         btnDialogCreate.setOnClickListener(v -> {
-            dialog.dismiss();
+            String playlistName = etDialogContentPlaylist.getText().toString().trim();
+            if (playlistName.isEmpty()) {
+                Toast.makeText(v.getContext(), R.string.toast12, Toast.LENGTH_SHORT).show();
+            } else {
+//                Handle_Add_Update_Delete_DeleteAll_UserPlaylist("insert", 0, DataLocalManager.getUserID(), playlistName);
+
+                DataService dataService = APIService.getService();
+                Call<List<Status>> callBack = dataService.addUpdateDeleteUserPlaylist("insert", 0, DataLocalManager.getUserID(), playlistName);
+                callBack.enqueue(new Callback<List<Status>>() {
+                    @Override
+                    public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                        statusArrayList = new ArrayList<>();
+                        statusArrayList = (ArrayList<Status>) response.body();
+
+                        if (statusArrayList != null) {
+                            if (statusArrayList.get(0).getStatus() == 1) {
+                                userPlaylistAdapter.Update_Data();
+                                Toast.makeText(v.getContext(), R.string.toast13, Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            } else if (statusArrayList.get(0).getStatus() == 2) {
+                                Toast.makeText(v.getContext(), R.string.toast14, Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            } else if (statusArrayList.get(0).getStatus() == 3) {
+                                Toast.makeText(v.getContext(), R.string.toast15, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(v.getContext(), R.string.toast11, Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Status>> call, Throwable t) {
+                        Log.d(TAG, "Handle_Add_Update_Delete_DeleteAll_UserPlaylist(Error): " + t.getMessage());
+                    }
+                });
+
+            }
         });
 
-        dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
+        this.dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
     }
+
+//    private void Handle_Add_Update_Delete_DeleteAll_UserPlaylist(String action, int playlistID, String userID, String playlistName) {
+//
+//    }
 
     private void Handle_Number_Favorite_Song() {
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
@@ -182,20 +251,62 @@ public class PersonalPlaylistFragment extends Fragment {
         callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = new ArrayList<>();
                 songArrayList = (ArrayList<Song>) response.body();
+
                 if (songArrayList != null) {
                     tvNumberSongLove.setText(String.valueOf(songArrayList.size()));
-                    loadingDialog.Cancel_Loading();
+//                    loadingDialog.Cancel_Loading();
 
                     Log.d(TAG, "Number Favorite Song: " + songArrayList.size());
                 } else {
                     tvNumberSongLove.setText("0");
+//                    loadingDialog.Cancel_Loading();
                 }
+//                loadingDialog.Cancel_Loading();
             }
 
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
+//                loadingDialog.Cancel_Loading();
                 Log.d(TAG, "Handle_Number_Favorite_Song(Error): " + t.getMessage());
+            }
+        });
+    }
+
+    private void Handle_User_Playlist() {
+        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+        Call<List<UserPlaylist>> callBack = dataService.getUserPlaylist(DataLocalManager.getUserID());
+        callBack.enqueue(new Callback<List<UserPlaylist>>() {
+            @Override
+            public void onResponse(Call<List<UserPlaylist>> call, Response<List<UserPlaylist>> response) {
+                userPlaylistArrayList = new ArrayList<>();
+                userPlaylistArrayList = (ArrayList<UserPlaylist>) response.body();
+
+                if (userPlaylistArrayList != null && userPlaylistArrayList.size() > 0) {
+
+                    rvYourPlaylist.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    rvYourPlaylist.setLayoutManager(layoutManager);
+
+                    userPlaylistAdapter = new UserPlaylistAdapter(getContext(), userPlaylistArrayList);
+                    rvYourPlaylist.setAdapter(userPlaylistAdapter);
+
+                    sflItemUserPlaylist.setVisibility(View.GONE);
+                    tvNumberPlaylist.setText(String.valueOf(userPlaylistAdapter.getItemCount())); // Hiển thị số lượng Playlist
+                    rvYourPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin Playlist
+
+                    Log.d(TAG, "User Playlist: " + userPlaylistArrayList.get(0).getName());
+                } else {
+                    sflItemUserPlaylist.setVisibility(View.GONE);
+                    tvEmptyPlaylist.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserPlaylist>> call, Throwable t) {
+                Log.d(TAG, "Handle_User_Playlist(Error): " + t.getMessage());
             }
         });
     }

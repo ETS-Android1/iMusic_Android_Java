@@ -13,6 +13,7 @@
     <!-- - - - - - - - - - - MainActivity - - - - - - - - - - -->
     <!--    Button "Login with Facebook"    -->
     <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
+
     <string name="toast1">Đăng nhập thành công!</string>
     <string name="toast2">Đã hủy đăng nhập</string>
     <string name="toast3">Đăng nhập thất bại! Hãy thử lại lần nữa</string>
@@ -22,6 +23,11 @@
     <string name="toast9">Đăng xuất thành công!</string>
     <string name="toast10">Hãy thử lại lần nữa</string>
     <string name="toast11">Lỗi! Vui lòng thử lại</string>
+    <string name="toast12">Vui lòng không để trống</string>
+
+    <string name="toast13">Tạo playlist thành công</string>
+    <string name="toast14">Lỗi! Tạo playlist thất bại. Vui lòng thử lại</string>
+    <string name="toast15">Tên playlist đã tồn tại. Hãy chọn tên khác</string>
 
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
@@ -93,6 +99,7 @@
     <string name="tvNumberPlaylist">0</string>
     <string name="tvTitleLoveSong">Bài hát yêu thích</string>
     <string name="tvNumberSongLove">0</string>
+    <string name="tvEmptyPlaylist">Chưa có Playlist nào</string>
 
     <!-- - - - - - - - - - - ItemUserPlaylist - - - - - - - - - - -->
     <string name="tvPlaylistName">Tên Playlist</string>

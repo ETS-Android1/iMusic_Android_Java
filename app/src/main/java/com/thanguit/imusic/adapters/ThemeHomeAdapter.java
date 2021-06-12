@@ -17,7 +17,6 @@ import com.thanguit.imusic.models.Theme;
 import java.util.ArrayList;
 
 public class ThemeHomeAdapter extends RecyclerView.Adapter<ThemeHomeAdapter.ViewHolder> {
-
     private ArrayList<Theme> themeArrayList;
 
     public ThemeHomeAdapter(ArrayList<Theme> themeArrayList) {
@@ -46,7 +45,6 @@ public class ThemeHomeAdapter extends RecyclerView.Adapter<ThemeHomeAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         private ImageView ivTheme;
         private CardView cvTheme;
 

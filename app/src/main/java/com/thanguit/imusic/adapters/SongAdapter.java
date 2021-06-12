@@ -12,18 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
-import com.thanguit.imusic.API.UserPlaylistManager;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.FullPlayerActivity;
-import com.thanguit.imusic.activities.PersonalPlaylistActivity;
-import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.Status;
@@ -46,7 +42,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private AlertDialog alertDialog;
     private AlertDialog alertDialog_1;
 
-    private ArrayList<Status> statusArrayList = new ArrayList<>();
+    private ArrayList<Status> statusArrayList;
 
     private Context context;
     private ArrayList<Song> songArrayList = new ArrayList<>();
@@ -112,6 +108,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         callBack.enqueue(new Callback<List<Status>>() {
             @Override
             public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                statusArrayList = new ArrayList<>();
                 statusArrayList = (ArrayList<Status>) response.body();
 
                 if (statusArrayList != null) {
@@ -135,6 +132,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
             @Override
             public void onFailure(Call<List<Status>> call, Throwable t) {
+                alertDialog.dismiss();
                 Log.d(TAG, "Handle_Add_Delete_Favorite_Song(Error)" + t.getMessage());
             }
         });

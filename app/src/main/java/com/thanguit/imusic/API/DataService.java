@@ -7,6 +7,7 @@ import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.Status;
 import com.thanguit.imusic.models.Theme;
 import com.thanguit.imusic.models.User;
+import com.thanguit.imusic.models.UserPlaylist;
 
 import java.util.List;
 
@@ -56,4 +57,12 @@ public interface DataService {
     @FormUrlEncoded
     @POST("adddeletefavoritesong.php")
     Call<List<Status>> addDeleteFavoriteSong(@Field("userID") String userID, @Field("songID") int songID);
+
+    @FormUrlEncoded
+    @POST("getuserplaylist.php")
+    Call<List<UserPlaylist>> getUserPlaylist(@Field("userID") String userID);
+
+    @FormUrlEncoded
+    @POST("addupdatedeleteuserplaylist.php")
+    Call<List<Status>> addUpdateDeleteUserPlaylist(@Field("action") String action, @Field("playlistID") int playlistID, @Field("userID") String userID, @Field("playlistName") String playlistName);
 }

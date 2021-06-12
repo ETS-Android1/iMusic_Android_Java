@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -138,39 +139,8 @@ public class FullActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        this.loadingDialog = new LoadingDialog(this);
-        this.loadingDialog.Start_Loading();
-
-        // Load info of User with Facebook
-        if (AccessToken.getCurrentAccessToken().getToken() != null && !DataLocalManager.getUserID().isEmpty()) {
-            GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
-                try {
-                    String id = object.getString("id");
-                    String name = object.getString("name");
-                    String email = !object.getString("email").isEmpty() ? object.getString("email") : "Null";
-                    String avatarFacebook = !object.getJSONObject("picture").getJSONObject("data").getString("url").isEmpty() ? object.getJSONObject("picture").getJSONObject("data").getString("url") : "Null";
-                    String isDark = "0";
-                    String isEnglish = "0";
-
-                    Picasso.get()
-                            .load(avatarFacebook)
-                            .placeholder(R.drawable.ic_logo)
-                            .error(R.drawable.ic_logo)
-                            .into(this.circleImageView);
-
-                    Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
-
-                    Log.d(TAG, "User information (FACEBOOK): " + object);
-                } catch (Exception e) {
-                    e.printStackTrace();
-//                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            Bundle bundle = new Bundle();
-            bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
-            graphRequest.setParameters(bundle);
-            graphRequest.executeAsync();
-        }
+//        this.loadingDialog = new LoadingDialog(this);
+//        this.loadingDialog.Start_Loading();
 
         this.meowBottomNavigation = findViewById(R.id.bottomNavigation);
 
@@ -235,6 +205,38 @@ public class FullActivity extends AppCompatActivity {
 
         this.meowBottomNavigation.show(ID_HOME, true); // Default tab when open
 
+        // Load info of User with Facebook
+        if (AccessToken.getCurrentAccessToken().getToken() != null && !DataLocalManager.getUserID().isEmpty()) {
+//            loadingDialog.Cancel_Loading();
+            GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
+                try {
+                    String id = object.getString("id");
+                    String name = object.getString("name");
+                    String email = !object.getString("email").isEmpty() ? object.getString("email") : "Null";
+                    String avatarFacebook = !object.getJSONObject("picture").getJSONObject("data").getString("url").isEmpty() ? object.getJSONObject("picture").getJSONObject("data").getString("url") : "Null";
+                    String isDark = "0";
+                    String isEnglish = "0";
+
+                    Picasso.get()
+                            .load(avatarFacebook)
+                            .placeholder(R.drawable.ic_logo)
+                            .error(R.drawable.ic_logo)
+                            .into(this.circleImageView);
+
+                    Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
+
+                    Log.d(TAG, "User information (FACEBOOK): " + object);
+                } catch (Exception e) {
+                    e.printStackTrace();
+//                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            Bundle bundle = new Bundle();
+            bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
+            graphRequest.setParameters(bundle);
+            graphRequest.executeAsync();
+        }
+
 
         // Event for load info of User with Zalo
 //        String[] getData = {"id", "name", "picture"};
@@ -290,7 +292,7 @@ public class FullActivity extends AppCompatActivity {
 
                 if (userArrayList != null && userArrayList.size() > 0) {
 //                    DataLocalManager.setUserID(id); // Lưu ID người dùng vào SharedPreferences
-                    loadingDialog.Cancel_Loading();
+//                    loadingDialog.Cancel_Loading();
                     Toast.makeText(FullActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
 
                     Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());

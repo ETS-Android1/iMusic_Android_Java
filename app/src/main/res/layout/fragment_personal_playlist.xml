@@ -119,14 +119,14 @@
                             android:id="@+id/ivNumberSongLove"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/tvNumberSongLove"
+                            android:layout_alignBottom="@+id/tvNumberSongLove"
                             app:srcCompat="@drawable/ic_music_alt" />
 
                         <TextView
                             android:id="@+id/tvNumberSongLove"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignTop="@+id/ivNumberSongLove"
-                            android:layout_alignBottom="@+id/ivNumberSongLove"
                             android:layout_marginStart="5dp"
                             android:layout_toEndOf="@+id/ivNumberSongLove"
                             android:fontFamily="@font/comfortaa"
@@ -134,16 +134,72 @@
                             android:text="@string/tvNumberSongLove"
                             android:textAlignment="center"
                             android:textColor="@color/colorLight9"
+                            android:textSize="18sp"
                             android:textStyle="normal" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvYourPlaylist"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp">
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/sflItemUserPlaylist"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/item_shimmer_song" />
+
+                        <include layout="@layout/item_shimmer_song" />
+
+                        <include layout="@layout/item_shimmer_song" />
+
+                        <include layout="@layout/item_shimmer_song" />
+
+                        <include layout="@layout/item_shimmer_song" />
+
+                        <include layout="@layout/item_shimmer_song" />
+
+                        <include layout="@layout/item_shimmer_song" />
+
+                        <include layout="@layout/item_shimmer_song" />
+
+                        <include layout="@layout/item_shimmer_song" />
+
+                        <include layout="@layout/item_shimmer_song" />
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <TextView
+                    android:id="@+id/tvEmptyPlaylist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:ellipsize="marquee"
+                    android:fontFamily="@font/comfortaa"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/tvEmptyPlaylist"
+                    android:textColor="@color/colorLight9"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvYourPlaylist"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+            </FrameLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
