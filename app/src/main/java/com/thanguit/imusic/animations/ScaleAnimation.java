@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.cardview.widget.CardView;
 
@@ -24,6 +25,7 @@ public class ScaleAnimation {
     private ImageView imageView;
     private CardView cardView;
     private CircleImageView circleImageView;
+    private RelativeLayout relativeLayout;
 
     public ScaleAnimation() {
     }
@@ -46,6 +48,11 @@ public class ScaleAnimation {
     public ScaleAnimation(Context context, CircleImageView circleImageView) {
         this.context = context;
         this.circleImageView = circleImageView;
+    }
+
+    public ScaleAnimation(Context context, RelativeLayout relativelayout) {
+        this.context = context;
+        this.relativeLayout = relativelayout;
     }
 
     public void Event_Button() {
@@ -99,6 +106,20 @@ public class ScaleAnimation {
                 circleImageView.startAnimation(scaleDownAnimation);
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
                 circleImageView.startAnimation(scaleUpAnimation);
+            }
+            return false;
+        });
+    }
+
+    public void Event_RelativeLayout() {
+        this.scaleUpAnimation = AnimationUtils.loadAnimation(this.context, R.anim.scale_up);
+        this.scaleDownAnimation = AnimationUtils.loadAnimation(this.context, R.anim.scale_down);
+
+        this.relativeLayout.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                relativeLayout.startAnimation(scaleDownAnimation);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                relativeLayout.startAnimation(scaleUpAnimation);
             }
             return false;
         });

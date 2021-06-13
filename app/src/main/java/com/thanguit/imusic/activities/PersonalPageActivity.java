@@ -95,7 +95,7 @@ public class PersonalPageActivity extends AppCompatActivity {
     private void Open_Dialog(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_signout);
+        dialog.setContentView(R.layout.layout_dialog_textview);
 
         Window window = (Window) dialog.getWindow();
         if (window == null) {

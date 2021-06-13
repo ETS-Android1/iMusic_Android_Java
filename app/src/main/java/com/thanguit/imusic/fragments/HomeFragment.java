@@ -64,7 +64,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void Mapping(View view) {
-
         this.flPlaylistFragment = view.findViewById(R.id.flFragmentPlaylist);
         this.flFragmentTheme = view.findViewById(R.id.flFragmentTheme);
 

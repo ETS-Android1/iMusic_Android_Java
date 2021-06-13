@@ -92,15 +92,58 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
 
     private void Get_Data_Intent() {
         Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
         if (intent != null) {
             if (intent.hasExtra("FAVORITESONG")) {
                 String titlePlaylist = intent.getStringExtra("FAVORITESONG");
                 if (!titlePlaylist.isEmpty()) {
                     this.tvPersonalPlaylistTitle.setText(titlePlaylist);
+
                     Handle_Favorite_Song();
                 }
             }
         }
+        if (bundle != null) {
+            int playlistID = bundle.getInt("IDPLAYLIST");
+            String titlePlaylist = bundle.getString("TITLEPLAYLIST");
+            this.tvPersonalPlaylistTitle.setText(titlePlaylist);
+
+            Handle_UserPlaylist_Song(playlistID);
+        }
+    }
+
+    private void Handle_UserPlaylist_Song(int playlistID) {
+        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+        Call<List<Song>> callBack = dataService.getSongUserPlaylist(DataLocalManager.getUserID(), playlistID);
+        callBack.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = new ArrayList<>();
+                songArrayList = (ArrayList<Song>) response.body();
+
+                if (songArrayList != null && songArrayList.size() > 0) { // Trường hợp người dùng đã có bài hát
+                    rvPersonalPlaylist.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(PersonalPlaylistActivity.this);
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    rvPersonalPlaylist.setLayoutManager(layoutManager);
+                    rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList));
+
+                    sflItemSong.setVisibility(View.GONE); // Load biến mất
+                    rvPersonalPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin
+                    Play_All_Song();
+
+                    Log.d(TAG, songArrayList.get(0).getName());
+                } else { // Trường hợp người dùng chưa có bài hát yêu thích
+                    sflItemSong.setVisibility(View.GONE); // Load biến mất
+                    tvEmptySong.setVisibility(View.VISIBLE); // Hiện thông báo chưa có bài hát nào
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+                Log.d(TAG, "Handle_UserPlaylist_Song(Error): " + t.getMessage());
+            }
+        });
     }
 
     private void Handle_Favorite_Song() {
@@ -109,6 +152,7 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
         callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = new ArrayList<>();
                 songArrayList = (ArrayList<Song>) response.body();
 
                 if (songArrayList != null && songArrayList.size() > 0) { // Trường hợp người dùng đã có bài hát yêu thích

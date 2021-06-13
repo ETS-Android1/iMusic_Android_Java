@@ -139,8 +139,8 @@ public class FullActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-//        this.loadingDialog = new LoadingDialog(this);
-//        this.loadingDialog.Start_Loading();
+        this.loadingDialog = new LoadingDialog(this);
+        this.loadingDialog.Start_Loading();
 
         this.meowBottomNavigation = findViewById(R.id.bottomNavigation);
 
@@ -207,7 +207,6 @@ public class FullActivity extends AppCompatActivity {
 
         // Load info of User with Facebook
         if (AccessToken.getCurrentAccessToken().getToken() != null && !DataLocalManager.getUserID().isEmpty()) {
-//            loadingDialog.Cancel_Loading();
             GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
                 try {
                     String id = object.getString("id");
@@ -292,17 +291,19 @@ public class FullActivity extends AppCompatActivity {
 
                 if (userArrayList != null && userArrayList.size() > 0) {
 //                    DataLocalManager.setUserID(id); // Lưu ID người dùng vào SharedPreferences
-//                    loadingDialog.Cancel_Loading();
+                    loadingDialog.Cancel_Loading();
                     Toast.makeText(FullActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
 
                     Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());
                 } else {
+                    loadingDialog.Cancel_Loading();
                     Toast.makeText(FullActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
+                loadingDialog.Cancel_Loading();
                 Log.d(TAG, "Handle_User (Error): " + t.getMessage());
             }
         });

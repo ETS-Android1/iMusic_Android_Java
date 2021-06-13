@@ -22,10 +22,10 @@ public class LoadingDialog {
         View view = LayoutInflater.from(activity).inflate(R.layout.layout_loading_dialog, null);
         alertBuilder.setView(view);
 
-        TextView tvLoading = (TextView) view.findViewById(R.id.tvLoading);
+        TextView tvLoading = view.findViewById(R.id.tvLoading);
         tvLoading.setSelected(true);
 
-        alertBuilder.setCancelable(false); // Bấm ra ngoài cũng không thoát alertdialog
+        alertBuilder.setCancelable(true);
 
         this.alertDialog = alertBuilder.create();
         this.alertDialog.show();

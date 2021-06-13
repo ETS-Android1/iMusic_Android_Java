@@ -49,8 +49,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PersonalPlaylistFragment extends Fragment {
-    private Dialog dialog;
-
     private LinearLayout llFrameLoveSong;
 
     private TextView tvNumberPlaylist;
@@ -102,10 +100,8 @@ public class PersonalPlaylistFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Handle_Number_Favorite_Song();
+//        Handle_Number_Favorite_Song();
 //        Handle_User_Playlist();
-//        this.loadingDialog = new LoadingDialog(getActivity());
-//        this.loadingDialog.Start_Loading();
     }
 
     @Override
@@ -121,6 +117,9 @@ public class PersonalPlaylistFragment extends Fragment {
 
 
     private void Mapping(View view) {
+        this.loadingDialog = new LoadingDialog(getActivity());
+        this.loadingDialog.Start_Loading();
+
         this.llFrameLoveSong = view.findViewById(R.id.llFrameLoveSong);
         this.tvNumberPlaylist = view.findViewById(R.id.tvNumberPlaylist);
         this.tvNumberSongLove = view.findViewById(R.id.tvNumberSongLove);
@@ -149,12 +148,12 @@ public class PersonalPlaylistFragment extends Fragment {
     }
 
     private void Open_Add_Playlist_Dialog(int gravity) {
-        this.dialog = new Dialog(getContext());
+        final Dialog dialog = new Dialog(getContext());
 
-        this.dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.dialog.setContentView(R.layout.layout_dialog_add_playlist);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_dialog_add_playlist);
 
-        Window window = this.dialog.getWindow();
+        Window window = dialog.getWindow();
         if (window == null) {
             return;
         }
@@ -165,11 +164,11 @@ public class PersonalPlaylistFragment extends Fragment {
         windowAttributes.gravity = gravity;
         window.setAttributes(windowAttributes);
 
-        this.dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
+        dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
 
-        EditText etDialogContentPlaylist = this.dialog.findViewById(R.id.etDialogContentPlaylist);
-        Button btnDialogCancel = this.dialog.findViewById(R.id.btnDialogCancel);
-        Button btnDialogCreate = this.dialog.findViewById(R.id.btnDialogCreate);
+        EditText etDialogContentPlaylist = dialog.findViewById(R.id.etDialogContentPlaylist);
+        Button btnDialogCancel = dialog.findViewById(R.id.btnDialogCancel);
+        Button btnDialogCreate = dialog.findViewById(R.id.btnDialogCreate);
 
 //        dialog.setOnShowListener(dialogInterface -> {
 //            etDialogContentPlaylist.requestFocus(); // When Activity show, Searchbox will be focused
@@ -192,7 +191,7 @@ public class PersonalPlaylistFragment extends Fragment {
         this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogCancel);
         this.scaleAnimation.Event_Button();
         btnDialogCancel.setOnClickListener(v -> {
-            this.dialog.dismiss();
+            dialog.dismiss();
         });
 
         this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogCreate);
@@ -231,14 +230,14 @@ public class PersonalPlaylistFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<Status>> call, Throwable t) {
+                        dialog.dismiss();
                         Log.d(TAG, "Handle_Add_Update_Delete_DeleteAll_UserPlaylist(Error): " + t.getMessage());
                     }
                 });
-
             }
         });
 
-        this.dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
+        dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
     }
 
 //    private void Handle_Add_Update_Delete_DeleteAll_UserPlaylist(String action, int playlistID, String userID, String playlistName) {
@@ -256,19 +255,19 @@ public class PersonalPlaylistFragment extends Fragment {
 
                 if (songArrayList != null) {
                     tvNumberSongLove.setText(String.valueOf(songArrayList.size()));
-//                    loadingDialog.Cancel_Loading();
+                    loadingDialog.Cancel_Loading();
 
                     Log.d(TAG, "Number Favorite Song: " + songArrayList.size());
                 } else {
                     tvNumberSongLove.setText("0");
-//                    loadingDialog.Cancel_Loading();
+                    loadingDialog.Cancel_Loading();
                 }
-//                loadingDialog.Cancel_Loading();
+                loadingDialog.Cancel_Loading();
             }
 
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
-//                loadingDialog.Cancel_Loading();
+                loadingDialog.Cancel_Loading();
                 Log.d(TAG, "Handle_Number_Favorite_Song(Error): " + t.getMessage());
             }
         });
@@ -284,7 +283,6 @@ public class PersonalPlaylistFragment extends Fragment {
                 userPlaylistArrayList = (ArrayList<UserPlaylist>) response.body();
 
                 if (userPlaylistArrayList != null && userPlaylistArrayList.size() > 0) {
-
                     rvYourPlaylist.setHasFixedSize(true);
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc

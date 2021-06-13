@@ -29,6 +29,9 @@
     <string name="toast14">Lỗi! Tạo playlist thất bại. Vui lòng thử lại</string>
     <string name="toast15">Tên playlist đã tồn tại. Hãy chọn tên khác</string>
 
+    <string name="toast16">Xóa playlist thành công</string>
+    <string name="toast17">Lỗi! Xóa playlist thất bại. Vui lòng thử lại</string>
+
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
     <string name="toast6">Mã lỗi: </string>
@@ -98,7 +101,7 @@
     <string name="tvYourPlaylist">Playlist: </string>
     <string name="tvNumberPlaylist">0</string>
     <string name="tvTitleLoveSong">Bài hát yêu thích</string>
-    <string name="tvNumberSongLove">0</string>
+    <string name="tvNumberSongLove"> </string>
     <string name="tvEmptyPlaylist">Chưa có Playlist nào</string>
 
     <!-- - - - - - - - - - - ItemUserPlaylist - - - - - - - - - - -->
@@ -117,5 +120,12 @@
 
     <!-- - - - - - - - - - - Layout_loading_dialog - - - - - - - - - - -->
     <string name="tvLoading">Chờ xíu nha, hihi....😁</string>
+
+    <!-- - - - - - - - - - - Layout_userplaylist_more - - - - - - - - - - -->
+    <string name="tvAddPlaylist">Tạo mới playlist</string>
+    <string name="tvEditPlaylist">Sửa tên playlist hiện tại</string>
+    <string name="tvDeletePlaylist">Xóa playlist hiện tại</string>
+    <string name="tvDeleteAllPlaylist">Xóa toàn bộ playlist</string>
+    <string name="tvCloseInfoPlaylist">Thoát</string>
 
 </resources>
