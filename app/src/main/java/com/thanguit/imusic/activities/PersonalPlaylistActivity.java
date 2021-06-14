@@ -101,14 +101,13 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
 
                     Handle_Favorite_Song();
                 }
-            }
-        }
-        if (bundle != null) {
-            int playlistID = bundle.getInt("IDPLAYLIST");
-            String titlePlaylist = bundle.getString("TITLEPLAYLIST");
-            this.tvPersonalPlaylistTitle.setText(titlePlaylist);
+            } else if (bundle != null) {
+                int playlistID = bundle.getInt("IDPLAYLIST", 0);
+                String titlePlaylist = bundle.getString("TITLEPLAYLIST", "");
+                this.tvPersonalPlaylistTitle.setText(titlePlaylist);
 
-            Handle_UserPlaylist_Song(playlistID);
+                Handle_UserPlaylist_Song(playlistID);
+            }
         }
     }
 

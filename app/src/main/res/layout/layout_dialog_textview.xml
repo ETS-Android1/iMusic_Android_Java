@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="16dp"
     android:background="@drawable/shape_corner_16dp"
     android:orientation="vertical">
@@ -12,8 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_corner_16dp_topleft_topright"
+        android:ellipsize="marquee"
         android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
         android:padding="10dp"
+        android:scrollHorizontally="true"
         android:text="@string/tvDialogTitle"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -46,7 +49,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnDialog1"
+                android:id="@+id/btnDialogCancel"
                 style="@style/tvStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -62,7 +65,7 @@
                 android:textStyle="normal" />
 
             <Button
-                android:id="@+id/btnDialog2"
+                android:id="@+id/btnDialogAction"
                 style="@style/tvStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

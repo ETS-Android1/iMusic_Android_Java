@@ -110,18 +110,28 @@ public class PersonalPageActivity extends AppCompatActivity {
 
         dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
 
-        Button btnDialog1 = dialog.findViewById(R.id.btnDialog1);
-        Button btnDialog2 = dialog.findViewById(R.id.btnDialog2);
+        TextView tvDialogTitle = dialog.findViewById(R.id.tvDialogTitle);
+        tvDialogTitle.setSelected(true); // Text will be moved
+        tvDialogTitle.setText(R.string.tvDialogTitle1);
 
-        this.scaleAnimation = new ScaleAnimation(PersonalPageActivity.this, btnDialog1);
+        TextView tvDialogContent = dialog.findViewById(R.id.tvDialogContent);
+        tvDialogContent.setText(R.string.tvDialogContent1);
+
+        Button btnDialogCancel = dialog.findViewById(R.id.btnDialogCancel);
+        btnDialogCancel.setText(R.string.btnDialogCancel1);
+
+        Button btnDialogAction = dialog.findViewById(R.id.btnDialogAction);
+        btnDialogAction.setText(R.string.btnDialogAction1);
+
+        this.scaleAnimation = new ScaleAnimation(PersonalPageActivity.this, btnDialogCancel);
         this.scaleAnimation.Event_Button();
-        btnDialog1.setOnClickListener(v -> {
+        btnDialogCancel.setOnClickListener(v -> {
             dialog.dismiss();
         });
 
-        this.scaleAnimation = new ScaleAnimation(PersonalPageActivity.this, btnDialog2);
+        this.scaleAnimation = new ScaleAnimation(PersonalPageActivity.this, btnDialogAction);
         this.scaleAnimation.Event_Button();
-        btnDialog2.setOnClickListener(v -> {
+        btnDialogAction.setOnClickListener(v -> {
             dialog.dismiss();
             LoginManager.getInstance().logOut();
             DataLocalManager.deleteAllData();

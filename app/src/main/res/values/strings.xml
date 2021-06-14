@@ -29,8 +29,12 @@
     <string name="toast14">Lỗi! Tạo playlist thất bại. Vui lòng thử lại</string>
     <string name="toast15">Tên playlist đã tồn tại. Hãy chọn tên khác</string>
 
-    <string name="toast16">Xóa playlist thành công</string>
-    <string name="toast17">Lỗi! Xóa playlist thất bại. Vui lòng thử lại</string>
+    <string name="toast16">Sửa tên playlist thành công</string>
+    <string name="toast17">Lỗi! Sửa tên playlist thất bại. Vui lòng thử lại</string>
+    <string name="toast18">Tên playlist đã tồn tại. Hãy chọn tên khác</string>
+
+    <string name="toast19">Xóa playlist thành công</string>
+    <string name="toast20">Lỗi! Xóa playlist thất bại. Vui lòng thử lại</string>
 
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
@@ -91,11 +95,26 @@
     <string name="tvYourInfoEmail">Email người dùng</string>
     <string name="btnLogout">Đăng xuất</string>
 
-    <!-- - - - - - - - - - - LayoutDialogSignout - - - - - - - - - - -->
-    <string name="tvDialogTitle">Đăng xuất</string>
-    <string name="tvDialogContent">Bạn có muốn đăng xuất?</string>
-    <string name="btnDialog1">Hủy</string>
-    <string name="btnDialog2">Đăng xuất</string>
+    <!-- - - - - - - - - - - LayoutDialogTextView - - - - - - - - - - -->
+    <string name="tvDialogTitle">Title</string>
+    <string name="tvDialogContent">Content</string>
+    <string name="btnDialog1">Cancel</string>
+    <string name="btnDialog2">Action</string>
+
+    <string name="tvDialogTitle1">Đăng xuất</string>
+    <string name="tvDialogContent1">Bạn có muốn đăng xuất?</string>
+    <string name="btnDialogCancel1">Hủy</string>
+    <string name="btnDialogAction1">Đăng xuất</string>
+
+    <string name="tvDialogTitle2">Xóa playlist</string>
+    <string name="tvDialogContent2">Bạn có chắc muốn xóa playlist này?</string>
+    <string name="btnDialogCancel2">Hủy</string>
+    <string name="btnDialogAction2">Xóa</string>
+
+    <string name="tvDialogTitle3">Xóa tất cả playlist</string>
+    <string name="tvDialogContent3">Bạn có chắc muốn xóa tất cả playlist?</string>
+    <string name="btnDialogCancel3">Hủy</string>
+    <string name="btnDialogAction3">Xóa</string>
 
     <!-- - - - - - - - - - - PersonalPlaylistFragment - - - - - - - - - - -->
     <string name="tvYourPlaylist">Playlist: </string>
@@ -107,11 +126,16 @@
     <!-- - - - - - - - - - - ItemUserPlaylist - - - - - - - - - - -->
     <string name="tvPlaylistName">Tên Playlist</string>
 
-    <!-- - - - - - - - - - - layout_dialog_add_playlist - - - - - - - - - - -->
+    <!-- - - - - - - - - - - layout_dialog_editText - - - - - - - - - - -->
     <string name="tvDialogTitlePlaylist">Tạo Playlist</string>
-    <string name="etDialogContent">Tên playlist</string>
-    <string name="btnDialogCancel">Hủy</string>
-    <string name="btnDialogCreate">Tạo playlist</string>
+    <string name="etDialogContentPlaylist">Tên playlist</string>
+    <string name="btnDialogCancelPlaylist">Hủy</string>
+    <string name="btnDialogActionPlaylist">Tạo playlist</string>
+
+    <string name="tvDialogTitlePlaylist1">Sửa Playlist</string>
+    <string name="etDialogContentPlaylist1">Nhập tên playlist mới</string>
+    <string name="btnDialogCancelPlaylist1">Hủy</string>
+    <string name="btnDialogActionPlaylist1">Sửa playlist</string>
 
     <!-- - - - - - - - - - - PersonalPlaylistActivity - - - - - - - - - - -->
     <string name="tvPersonalPlaylistTitle">Tên Playlist</string>

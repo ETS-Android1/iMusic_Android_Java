@@ -91,12 +91,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
 //        GetID_FavoriteSong();
         holder.ivItemSongLove.setOnClickListener(v -> {
-            AlertDialog.Builder alertBuilder_1 = new AlertDialog.Builder(v.getContext());
-            View view_1 = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_loading_dialog, null);
-            alertBuilder_1.setView(view_1);
-            alertBuilder_1.setCancelable(false);
-            this.alertDialog = alertBuilder_1.create();
-            this.alertDialog.show();
+//            AlertDialog.Builder alertBuilder_1 = new AlertDialog.Builder(v.getContext());
+//            View view_1 = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_loading_dialog, null);
+//            alertBuilder_1.setView(view_1);
+//            alertBuilder_1.setCancelable(true);
+//            this.alertDialog = alertBuilder_1.create();
+//            this.alertDialog.show();
 
             Handle_Add_Delete_Favorite_Song(holder.ivItemSongLove, position);
         });
@@ -113,18 +113,18 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
                 if (statusArrayList != null) {
                     if (statusArrayList.get(0).getStatus() == 1) {
-                        alertDialog.dismiss();
+//                        alertDialog.dismiss();
                         imageView.setImageResource(R.drawable.ic_favorite);
                         Toast.makeText(context, "Đã thêm \"" + songArrayList.get(position).getName() + "\" vào bài hát yêu thích", Toast.LENGTH_SHORT).show();
                     } else if (statusArrayList.get(0).getStatus() == 2) {
-                        alertDialog.dismiss();
+//                        alertDialog.dismiss();
                         Toast.makeText(context, "Thêm \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
                     } else if (statusArrayList.get(0).getStatus() == 3) {
-                        alertDialog.dismiss();
+//                        alertDialog.dismiss();
                         imageView.setImageResource(R.drawable.ic_not_favorite);
                         Toast.makeText(context, "Đã xóa \"" + songArrayList.get(position).getName() + "\" ra khỏi bài hát yêu thích", Toast.LENGTH_SHORT).show();
                     } else if (statusArrayList.get(0).getStatus() == 4) {
-                        alertDialog.dismiss();
+//                        alertDialog.dismiss();
                         Toast.makeText(context, "Xóa \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -132,7 +132,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
             @Override
             public void onFailure(Call<List<Status>> call, Throwable t) {
-                alertDialog.dismiss();
+//                alertDialog.dismiss();
                 Log.d(TAG, "Handle_Add_Delete_Favorite_Song(Error)" + t.getMessage());
             }
         });

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="16dp"
     android:background="@drawable/shape_corner_16dp"
     android:orientation="vertical">
@@ -12,8 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_corner_16dp_topleft_topright"
+        android:ellipsize="marquee"
         android:gravity="center"
+        android:marqueeRepeatLimit="marquee_forever"
         android:padding="10dp"
+        android:scrollHorizontally="true"
         android:text="@string/tvDialogTitlePlaylist"
         android:textAlignment="center"
         android:textAllCaps="true"
@@ -33,7 +36,7 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/shape_corner_10dp_border"
             android:fontFamily="@font/comfortaa"
-            android:hint="@string/etDialogContent"
+            android:hint="@string/etDialogContentPlaylist"
             android:imeOptions="actionDone"
             android:lines="1"
             android:maxLength="100"
@@ -50,7 +53,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnDialogCancel"
+                android:id="@+id/btnDialogCancelPlaylist"
                 style="@style/tvStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -59,14 +62,14 @@
                 android:alpha="0.6"
                 android:background="@drawable/shape_corner_gradient2_10dp"
                 android:gravity="center"
-                android:text="@string/btnDialogCancel"
+                android:text="@string/btnDialogCancelPlaylist"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textSize="14sp"
                 android:textStyle="normal" />
 
             <Button
-                android:id="@+id/btnDialogCreate"
+                android:id="@+id/btnDialogActionPlaylist"
                 style="@style/tvStyle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -74,7 +77,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_corner_gradient1_10dp"
                 android:gravity="center"
-                android:text="@string/btnDialogCreate"
+                android:text="@string/btnDialogActionPlaylist"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textSize="14sp"

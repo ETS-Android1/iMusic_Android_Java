@@ -83,7 +83,7 @@ public class PersonalPlaylistFragment extends Fragment {
 
         Mapping(view);
         Handle_Number_Favorite_Song();
-        Handle_User_Playlist();
+        Handle_UserPlaylist();
         Event();
     }
 
@@ -151,7 +151,7 @@ public class PersonalPlaylistFragment extends Fragment {
         final Dialog dialog = new Dialog(getContext());
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_add_playlist);
+        dialog.setContentView(R.layout.layout_dialog_edittext);
 
         Window window = dialog.getWindow();
         if (window == null) {
@@ -167,12 +167,8 @@ public class PersonalPlaylistFragment extends Fragment {
         dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
 
         EditText etDialogContentPlaylist = dialog.findViewById(R.id.etDialogContentPlaylist);
-        Button btnDialogCancel = dialog.findViewById(R.id.btnDialogCancel);
-        Button btnDialogCreate = dialog.findViewById(R.id.btnDialogCreate);
-
-//        dialog.setOnShowListener(dialogInterface -> {
-//            etDialogContentPlaylist.requestFocus(); // When Activity show, Searchbox will be focused
-//        });
+        Button btnDialogCancelPlaylist = dialog.findViewById(R.id.btnDialogCancelPlaylist);
+        Button btnDialogActionPlaylist = dialog.findViewById(R.id.btnDialogActionPlaylist);
 
         etDialogContentPlaylist.addTextChangedListener(new TextWatcher() {
             @Override
@@ -188,21 +184,21 @@ public class PersonalPlaylistFragment extends Fragment {
             }
         });
 
-        this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogCancel);
+        this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogCancelPlaylist);
         this.scaleAnimation.Event_Button();
-        btnDialogCancel.setOnClickListener(v -> {
+        btnDialogCancelPlaylist.setOnClickListener(v -> {
             dialog.dismiss();
         });
 
-        this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogCreate);
+        this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogActionPlaylist);
         this.scaleAnimation.Event_Button();
-        btnDialogCreate.setOnClickListener(v -> {
+        btnDialogActionPlaylist.setOnClickListener(v -> {
             String playlistName = etDialogContentPlaylist.getText().toString().trim();
             if (playlistName.isEmpty()) {
                 Toast.makeText(v.getContext(), R.string.toast12, Toast.LENGTH_SHORT).show();
             } else {
 //                Handle_Add_Update_Delete_DeleteAll_UserPlaylist("insert", 0, DataLocalManager.getUserID(), playlistName);
-
+                loadingDialog.Start_Loading();
                 DataService dataService = APIService.getService();
                 Call<List<Status>> callBack = dataService.addUpdateDeleteUserPlaylist("insert", 0, DataLocalManager.getUserID(), playlistName);
                 callBack.enqueue(new Callback<List<Status>>() {
@@ -213,19 +209,27 @@ public class PersonalPlaylistFragment extends Fragment {
 
                         if (statusArrayList != null) {
                             if (statusArrayList.get(0).getStatus() == 1) {
-                                userPlaylistAdapter.Update_Data();
+                                loadingDialog.Cancel_Loading();
+
                                 Toast.makeText(v.getContext(), R.string.toast13, Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             } else if (statusArrayList.get(0).getStatus() == 2) {
+                                loadingDialog.Cancel_Loading();
+
                                 Toast.makeText(v.getContext(), R.string.toast14, Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             } else if (statusArrayList.get(0).getStatus() == 3) {
+                                loadingDialog.Cancel_Loading();
+
                                 Toast.makeText(v.getContext(), R.string.toast15, Toast.LENGTH_SHORT).show();
                             } else {
+                                loadingDialog.Cancel_Loading();
+
                                 Toast.makeText(v.getContext(), R.string.toast11, Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
                         }
+                        loadingDialog.Cancel_Loading();
                     }
 
                     @Override
@@ -273,7 +277,7 @@ public class PersonalPlaylistFragment extends Fragment {
         });
     }
 
-    private void Handle_User_Playlist() {
+    private void Handle_UserPlaylist() {
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
         Call<List<UserPlaylist>> callBack = dataService.getUserPlaylist(DataLocalManager.getUserID());
         callBack.enqueue(new Callback<List<UserPlaylist>>() {
