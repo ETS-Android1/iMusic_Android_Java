@@ -100,8 +100,8 @@ public class PersonalPlaylistFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        Handle_Number_Favorite_Song();
-//        Handle_User_Playlist();
+        Handle_Number_Favorite_Song();
+        Handle_UserPlaylist();
     }
 
     @Override

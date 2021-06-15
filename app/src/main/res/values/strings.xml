@@ -121,18 +121,18 @@
     <string name="tvNumberPlaylist">0</string>
     <string name="tvTitleLoveSong">Bài hát yêu thích</string>
     <string name="tvNumberSongLove"> </string>
-    <string name="tvEmptyPlaylist">Chưa có Playlist nào</string>
+    <string name="tvEmptyPlaylist">Chưa có playlist nào</string>
 
     <!-- - - - - - - - - - - ItemUserPlaylist - - - - - - - - - - -->
     <string name="tvPlaylistName">Tên Playlist</string>
 
     <!-- - - - - - - - - - - layout_dialog_editText - - - - - - - - - - -->
-    <string name="tvDialogTitlePlaylist">Tạo Playlist</string>
+    <string name="tvDialogTitlePlaylist">Tạo playlist</string>
     <string name="etDialogContentPlaylist">Tên playlist</string>
     <string name="btnDialogCancelPlaylist">Hủy</string>
     <string name="btnDialogActionPlaylist">Tạo playlist</string>
 
-    <string name="tvDialogTitlePlaylist1">Sửa Playlist</string>
+    <string name="tvDialogTitlePlaylist1">Sửa playlist</string>
     <string name="etDialogContentPlaylist1">Nhập tên playlist mới</string>
     <string name="btnDialogCancelPlaylist1">Hủy</string>
     <string name="btnDialogActionPlaylist1">Sửa playlist</string>
@@ -151,5 +151,15 @@
     <string name="tvDeletePlaylist">Xóa playlist hiện tại</string>
     <string name="tvDeleteAllPlaylist">Xóa toàn bộ playlist</string>
     <string name="tvCloseInfoPlaylist">Thoát</string>
+
+    <!-- - - - - - - - - - - Layout_song_more - - - - - - - - - - -->
+    <string name="tvPlaySong">Phát nhạc</string>
+    <string name="tvAddSongToPlaylist">Thêm bài hát vào playlist</string>
+    <string name="tvDeleteSongToPlaylist">Xóa bài hát khỏi playlist hiện tại</string>
+    <string name="tvDeleteAllSongToPlaylist">Xóa tất cả bài hát khỏi playlist hiện tại</string>
+    <string name="tvDownLoadSong">Tải nhạc về</string>
+    <string name="tvDeleteDownLoadSong">Xóa nhạc tải về</string>
+    <string name="tvCloseInfoSong">Thoát</string>
+
 
 </resources>

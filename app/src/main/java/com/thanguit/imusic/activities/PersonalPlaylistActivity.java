@@ -88,6 +88,10 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
 
         this.scaleAnimation = new ScaleAnimation(this, this.btnPersonalPlayAll);
         this.scaleAnimation.Event_Button();
+//        this.btnPersonalPlayAll.setOnClickListener(v -> {
+//            songArrayList = new ArrayList<>();
+//            if(songArrayList == null)
+//        });
     }
 
     private void Get_Data_Intent() {
@@ -125,7 +129,7 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(PersonalPlaylistActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvPersonalPlaylist.setLayoutManager(layoutManager);
-                    rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList));
+                    rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList, "PLAYLISTSONG"));
 
                     sflItemSong.setVisibility(View.GONE); // Load biến mất
                     rvPersonalPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin
@@ -159,7 +163,7 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(PersonalPlaylistActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvPersonalPlaylist.setLayoutManager(layoutManager);
-                    rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList));
+                    rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList, "FAVORITESONG"));
 
                     sflItemSong.setVisibility(View.GONE); // Load biến mất
                     rvPersonalPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin
@@ -182,9 +186,13 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
     private void Play_All_Song() { // Hàm này sẽ đảm bảo khi các bài hát load xong về giao diện thì button này mới hoạt động
         this.btnPersonalPlayAll.setEnabled(true);
         this.btnPersonalPlayAll.setOnClickListener(v -> {
-            Intent intent = new Intent(this, FullPlayerActivity.class);
-            intent.putExtra("ALLFAVORITESONGS", songArrayList);
-            startActivity(intent);
+            if (songArrayList.size() > 0) {
+                Intent intent = new Intent(this, FullPlayerActivity.class);
+                intent.putExtra("ALLFAVORITESONGS", songArrayList);
+                startActivity(intent);
+            } else {
+                tvEmptySong.setVisibility(View.VISIBLE); // Hiện thông báo chưa có bài hát nào
+            }
         });
     }
 }

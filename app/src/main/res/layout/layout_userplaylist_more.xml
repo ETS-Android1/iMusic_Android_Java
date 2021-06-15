@@ -41,7 +41,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:text="@string/tvPlaylistName"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -52,36 +52,36 @@
         android:layout_marginTop="20dp"
         android:background="@color/colorMain6" />
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/rlAddPlaylist"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="20dp">-->
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/rlAddPlaylist"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="20dp">-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/ivAddPlaylist"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignTop="@+id/tvAddPlaylist"-->
-<!--            android:layout_alignBottom="@+id/tvAddPlaylist"-->
-<!--            app:srcCompat="@drawable/ic_add_1" />-->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/ivAddPlaylist"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_alignTop="@+id/tvAddPlaylist"-->
+    <!--            android:layout_alignBottom="@+id/tvAddPlaylist"-->
+    <!--            app:srcCompat="@drawable/ic_add_1" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvAddPlaylist"-->
-<!--            style="@style/tvStyle1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="10dp"-->
-<!--            android:layout_toEndOf="@+id/ivAddPlaylist"-->
-<!--            android:ellipsize="marquee"-->
-<!--            android:gravity="center"-->
-<!--            android:marqueeRepeatLimit="marquee_forever"-->
-<!--            android:scrollHorizontally="true"-->
-<!--            android:text="@string/tvAddPlaylist"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textSize="18sp"-->
-<!--            android:textStyle="normal" />-->
-<!--    </RelativeLayout>-->
+    <!--        <TextView-->
+    <!--            android:id="@+id/tvAddPlaylist"-->
+    <!--            style="@style/tvStyle1"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="10dp"-->
+    <!--            android:layout_toEndOf="@+id/ivAddPlaylist"-->
+    <!--            android:ellipsize="marquee"-->
+    <!--            android:gravity="center"-->
+    <!--            android:marqueeRepeatLimit="marquee_forever"-->
+    <!--            android:scrollHorizontally="true"-->
+    <!--            android:text="@string/tvAddPlaylist"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textSize="18sp"-->
+    <!--            android:textStyle="normal" />-->
+    <!--    </RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/rlEditPlaylist"
@@ -102,7 +102,7 @@
             style="@style/tvStyle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/ivEditPlaylist"
             android:ellipsize="marquee"
             android:gravity="center"
@@ -133,7 +133,7 @@
             style="@style/tvStyle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/ivDeletePlaylist"
             android:ellipsize="marquee"
             android:gravity="center"
@@ -164,7 +164,7 @@
             style="@style/tvStyle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/ivDeleteAllPlaylist"
             android:ellipsize="marquee"
             android:gravity="center"
@@ -193,7 +193,7 @@
             android:id="@+id/tvCloseInfoPlaylist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/ivCloseInfoPlaylist"
             android:ellipsize="marquee"
             android:fontFamily="@font/comfortaa"

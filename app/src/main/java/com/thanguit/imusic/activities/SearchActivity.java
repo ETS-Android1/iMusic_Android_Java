@@ -110,9 +110,9 @@ public class SearchActivity extends AppCompatActivity {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(SearchActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvSearchResult.setLayoutManager(layoutManager);
-                    rvSearchResult.setAdapter(new SongAdapter(SearchActivity.this, songArrayList));
+                    rvSearchResult.setAdapter(new SongAdapter(SearchActivity.this, songArrayList, "SONGSEARCH"));
                 } else {
-                    rvSearchResult.setAdapter(new SongAdapter(SearchActivity.this, songArrayList));
+                    rvSearchResult.setAdapter(new SongAdapter(SearchActivity.this, songArrayList, "SONGSEARCH"));
                 }
             }
 

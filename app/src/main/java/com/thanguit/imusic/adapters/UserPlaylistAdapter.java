@@ -87,6 +87,10 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         holder.tvPlaylistName.setText(userPlaylistArrayList.get(position).getName());
 
         holder.ivPlaylistMore.setOnClickListener(v -> Open_Info_Playlist_Dialog(Gravity.BOTTOM, position));
+        holder.itemView.setOnLongClickListener(v -> {
+            Open_Info_Playlist_Dialog(Gravity.BOTTOM, position);
+            return false;
+        });
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, PersonalPlaylistActivity.class);
@@ -124,9 +128,20 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
 //        RelativeLayout rlAddPlaylist = dialog.findViewById(R.id.rlAddPlaylist);
         RelativeLayout rlEditPlaylist = dialog_1.findViewById(R.id.rlEditPlaylist);
+        TextView tvEditPlaylist = dialog_1.findViewById(R.id.tvEditPlaylist);
+        tvEditPlaylist.setSelected(true);
+
         RelativeLayout rlDeletePlaylist = dialog_1.findViewById(R.id.rlDeletePlaylist);
+        TextView tvDeletePlaylist = dialog_1.findViewById(R.id.tvDeletePlaylist);
+        tvDeletePlaylist.setSelected(true);
+
         RelativeLayout rlDeleteAllPlaylist = dialog_1.findViewById(R.id.rlDeleteAllPlaylist);
+        TextView tvDeleteAllPlaylist = dialog_1.findViewById(R.id.tvDeleteAllPlaylist);
+        tvDeleteAllPlaylist.setSelected(true);
+
         RelativeLayout rlCloseInfoPlaylist = dialog_1.findViewById(R.id.rlCloseInfoPlaylist);
+        TextView tvCloseInfoPlaylist = dialog_1.findViewById(R.id.tvCloseInfoPlaylist);
+        tvCloseInfoPlaylist.setSelected(true);
 
 //        this.scaleAnimation = new ScaleAnimation(context, rlAddPlaylist);
 //        this.scaleAnimation.Event_RelativeLayout();
