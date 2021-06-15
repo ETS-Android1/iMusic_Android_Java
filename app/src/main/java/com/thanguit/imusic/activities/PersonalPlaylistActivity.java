@@ -88,10 +88,6 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
 
         this.scaleAnimation = new ScaleAnimation(this, this.btnPersonalPlayAll);
         this.scaleAnimation.Event_Button();
-//        this.btnPersonalPlayAll.setOnClickListener(v -> {
-//            songArrayList = new ArrayList<>();
-//            if(songArrayList == null)
-//        });
     }
 
     private void Get_Data_Intent() {
@@ -129,7 +125,7 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(PersonalPlaylistActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvPersonalPlaylist.setLayoutManager(layoutManager);
-                    rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList, "PLAYLISTSONG"));
+                    rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList, playlistID, "PLAYLISTSONG"));
 
                     sflItemSong.setVisibility(View.GONE); // Load biến mất
                     rvPersonalPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin

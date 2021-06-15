@@ -387,8 +387,8 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
             public void onFailure(Call<List<Status>> call, Throwable t) {
                 alertDialog.dismiss();
 
-                dialog_1.dismiss();
                 dialog_2.dismiss();
+                dialog_1.dismiss();
                 Log.d(TAG, "Handle_Add_Update_Delete_DeleteAll_UserPlaylist(Error): " + t.getMessage());
             }
         });

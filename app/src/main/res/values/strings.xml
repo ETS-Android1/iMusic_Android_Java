@@ -116,6 +116,17 @@
     <string name="btnDialogCancel3">Hủy</string>
     <string name="btnDialogAction3">Xóa</string>
 
+    <string name="tvDialogTitle4">Xóa bài hát</string>
+    <string name="tvDialogContent4">Bạn có chắc muốn xóa bài hát này?</string>
+    <string name="btnDialogCancel4">Hủy</string>
+    <string name="btnDialogAction4">Xóa</string>
+
+    <string name="tvDialogTitle5">Xóa tất cả bài hát</string>
+    <string name="tvDialogContent5">Bạn có chắc muốn xóa tất cả bài?</string>
+    <string name="btnDialogCancel5">Hủy</string>
+    <string name="btnDialogAction5">Xóa</string>
+
+
     <!-- - - - - - - - - - - PersonalPlaylistFragment - - - - - - - - - - -->
     <string name="tvYourPlaylist">Playlist: </string>
     <string name="tvNumberPlaylist">0</string>
@@ -132,10 +143,10 @@
     <string name="btnDialogCancelPlaylist">Hủy</string>
     <string name="btnDialogActionPlaylist">Tạo playlist</string>
 
-    <string name="tvDialogTitlePlaylist1">Sửa playlist</string>
+    <string name="tvDialogTitlePlaylist1">Sửa tên playlist</string>
     <string name="etDialogContentPlaylist1">Nhập tên playlist mới</string>
     <string name="btnDialogCancelPlaylist1">Hủy</string>
-    <string name="btnDialogActionPlaylist1">Sửa playlist</string>
+    <string name="btnDialogActionPlaylist1">Lưu</string>
 
     <!-- - - - - - - - - - - PersonalPlaylistActivity - - - - - - - - - - -->
     <string name="tvPersonalPlaylistTitle">Tên Playlist</string>

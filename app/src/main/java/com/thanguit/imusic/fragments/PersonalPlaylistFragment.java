@@ -244,10 +244,6 @@ public class PersonalPlaylistFragment extends Fragment {
         dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
     }
 
-//    private void Handle_Add_Update_Delete_DeleteAll_UserPlaylist(String action, int playlistID, String userID, String playlistName) {
-//
-//    }
-
     private void Handle_Number_Favorite_Song() {
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
         Call<List<Song>> callBack = dataService.getFavoriteSongUser(DataLocalManager.getUserID());
@@ -297,6 +293,7 @@ public class PersonalPlaylistFragment extends Fragment {
 
                     sflItemUserPlaylist.setVisibility(View.GONE);
                     tvNumberPlaylist.setText(String.valueOf(userPlaylistAdapter.getItemCount())); // Hiển thị số lượng Playlist
+//                    userPlaylistAdapter.Update_Data();
                     rvYourPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin Playlist
 
                     Log.d(TAG, "User Playlist: " + userPlaylistArrayList.get(0).getName());
