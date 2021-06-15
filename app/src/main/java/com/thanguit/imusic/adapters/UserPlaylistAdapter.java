@@ -335,12 +335,13 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                         if (statusArrayList.get(0).getStatus() == 1) {
                             alertDialog.dismiss();
 
+                            Toast.makeText(context, R.string.toast19, Toast.LENGTH_SHORT).show();
+
                             userPlaylistArrayList.remove(position);
                             notifyDataSetChanged();
 
                             dialog_2.dismiss();
                             dialog_1.dismiss();
-                            Toast.makeText(context, R.string.toast19, Toast.LENGTH_SHORT).show();
                         } else if (statusArrayList.get(0).getStatus() == 2) {
                             alertDialog.dismiss();
 

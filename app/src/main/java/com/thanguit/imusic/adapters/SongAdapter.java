@@ -243,11 +243,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
         this.scaleAnimation = new ScaleAnimation(context, rlDeleteSongToPlaylist);
         this.scaleAnimation.Event_RelativeLayout();
-        rlDeleteSongToPlaylist.setOnClickListener(v -> Open_Delete_SongPlaylist_Dialog(ACTION_DELETE_SONG_PLAYLIST, DataLocalManager.getUserID(), playlistID, songArrayList.get(position).getId()));
+        rlDeleteSongToPlaylist.setOnClickListener(v -> Open_Delete_SongPlaylist_Dialog(ACTION_DELETE_SONG_PLAYLIST, DataLocalManager.getUserID(), playlistID, songArrayList.get(position).getId(), position));
 
         this.scaleAnimation = new ScaleAnimation(context, rlDeleteAllSongToPlaylist);
         this.scaleAnimation.Event_RelativeLayout();
-        rlDeleteAllSongToPlaylist.setOnClickListener(v -> Open_Delete_SongPlaylist_Dialog(ACTION_DELETEALL_SONG_PLAYLIST, DataLocalManager.getUserID(), playlistID, songArrayList.get(position).getId()));
+        rlDeleteAllSongToPlaylist.setOnClickListener(v -> Open_Delete_SongPlaylist_Dialog(ACTION_DELETEALL_SONG_PLAYLIST, DataLocalManager.getUserID(), playlistID, songArrayList.get(position).getId(), position));
 
         this.scaleAnimation = new ScaleAnimation(context, rlDownLoadSong);
         this.scaleAnimation.Event_RelativeLayout();
@@ -267,7 +267,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         this.dialog_1.show(); // câu lệnh này sẽ hiển thị Dialog lên
     }
 
-    private void Open_Delete_SongPlaylist_Dialog(String action, String userID, int playlistID, int songID) {
+    private void Open_Delete_SongPlaylist_Dialog(String action, String userID, int playlistID, int songID, int position) {
         this.dialog_2 = new Dialog(this.context);
 
         dialog_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -323,13 +323,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             this.alertDialog = alertBuilder.create();
             this.alertDialog.show();
 
-            Handle_Add_Delete_DeleteAll_Song_Playlist(action, userID, playlistID, songID);
+            Handle_Add_Delete_DeleteAll_Song_Playlist(action, userID, playlistID, songID, position);
         });
 
         dialog_2.show(); // câu lệnh này sẽ hiển thị Dialog lên
     }
 
-    private void Handle_Add_Delete_DeleteAll_Song_Playlist(String action, String userID, int playlistID, int songID) {
+    private void Handle_Add_Delete_DeleteAll_Song_Playlist(String action, String userID, int playlistID, int songID, int position) {
         DataService dataService = APIService.getService();
         Call<List<Status>> callBack = dataService.addDeleteUserPlayListSong(action, userID, playlistID, songID);
         callBack.enqueue(new Callback<List<Status>>() {
@@ -342,11 +342,56 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     if (action.equals(ACTION_INSERT_SONG_PLAYLIST)) {
 
                     } else if (action.equals(ACTION_DELETE_SONG_PLAYLIST)) {
+                        if (statusArrayList.get(0).getStatus() == 1) {
+                            alertDialog.dismiss();
 
+                            Toast.makeText(context, R.string.toast21, Toast.LENGTH_SHORT).show();
+
+                            songArrayList.remove(position);
+                            notifyDataSetChanged();
+
+                            dialog_2.dismiss();
+                            dialog_1.dismiss();
+                        } else if (statusArrayList.get(0).getStatus() == 2) {
+                            alertDialog.dismiss();
+
+                            dialog_2.dismiss();
+                            dialog_1.dismiss();
+                            Toast.makeText(context, R.string.toast22, Toast.LENGTH_SHORT).show();
+                        } else {
+                            alertDialog.dismiss();
+
+                            dialog_2.dismiss();
+                            dialog_1.dismiss();
+                            Toast.makeText(context, R.string.toast11, Toast.LENGTH_SHORT).show();
+                        }
                     } else if (action.equals(ACTION_DELETEALL_SONG_PLAYLIST)) {
+                        if (statusArrayList.get(0).getStatus() == 1) {
+                            alertDialog.dismiss();
 
+                            dialog_2.dismiss();
+                            dialog_1.dismiss();
+
+                            songArrayList.clear();
+                            notifyDataSetChanged();
+
+                            Toast.makeText(context, R.string.toast21, Toast.LENGTH_SHORT).show();
+                        } else if (statusArrayList.get(0).getStatus() == 2) {
+                            alertDialog.dismiss();
+
+                            dialog_2.dismiss();
+                            dialog_1.dismiss();
+                            Toast.makeText(context, R.string.toast22, Toast.LENGTH_SHORT).show();
+                        } else {
+                            alertDialog.dismiss();
+
+                            dialog_2.dismiss();
+                            dialog_1.dismiss();
+                            Toast.makeText(context, R.string.toast11, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
+                alertDialog.dismiss();
             }
 
             @Override

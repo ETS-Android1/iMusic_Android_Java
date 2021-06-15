@@ -36,6 +36,9 @@
     <string name="toast19">Xóa playlist thành công</string>
     <string name="toast20">Lỗi! Xóa playlist thất bại. Vui lòng thử lại</string>
 
+    <string name="toast21">Xóa bài hát thành công</string>
+    <string name="toast22">Lỗi! Xóa bài hát thất bại. Vui lòng thử lại</string>
+
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
     <string name="toast6">Mã lỗi: </string>
