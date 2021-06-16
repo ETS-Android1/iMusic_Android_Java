@@ -28,6 +28,7 @@ import com.thanguit.imusic.animations.ScaleAnimation;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Random;
 
 public class FullPlayerFragment extends Fragment {
@@ -361,7 +362,7 @@ public class FullPlayerFragment extends Fragment {
     }
 
     private void TimeSong() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss", Locale.getDefault());
 
         this.tvTimeEnd.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
         this.sbSong.setMax(mediaPlayer.getDuration());
@@ -373,7 +374,7 @@ public class FullPlayerFragment extends Fragment {
             @Override
             public void run() {
                 if (mediaPlayer != null) {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss", Locale.getDefault());
 
                     tvTimeStart.setText(simpleDateFormat.format(mediaPlayer.getCurrentPosition()));
                     sbSong.setProgress(mediaPlayer.getCurrentPosition());

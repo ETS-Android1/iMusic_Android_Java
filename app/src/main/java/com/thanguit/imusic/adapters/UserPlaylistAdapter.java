@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -27,18 +25,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.facebook.login.LoginManager;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
-import com.thanguit.imusic.activities.MainActivity;
-import com.thanguit.imusic.activities.PersonalPageActivity;
 import com.thanguit.imusic.activities.PersonalPlaylistActivity;
-import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Status;
-import com.thanguit.imusic.models.Theme;
 import com.thanguit.imusic.models.UserPlaylist;
 
 import java.util.ArrayList;
@@ -56,6 +49,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
     private Context context;
     private ArrayList<UserPlaylist> userPlaylistArrayList;
+    private int songID = -1;
 
     private ScaleAnimation scaleAnimation;
     private AlertDialog alertDialog;
@@ -66,10 +60,20 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
     private final String ACTION_DELETE_PLAYLIST = "delete";
     private final String ACTION_DELETEALL_PLAYLIST = "deleteall";
 
+    private final String ACTION_INSERT_SONG_PLAYLIST = "insert";
+
     public UserPlaylistAdapter(Context context, ArrayList<UserPlaylist> userPlaylistArrayList) {
         this.context = context;
         this.userPlaylistArrayList = userPlaylistArrayList;
     }
+
+    public UserPlaylistAdapter(Context context, ArrayList<UserPlaylist> userPlaylistArrayList, int songID) {
+        this.context = context;
+        this.userPlaylistArrayList = userPlaylistArrayList;
+        this.songID = songID;
+    }
+
+//    public UserPlaylistAdapter(Context context, ArrayList<UserPlaylist> userPlaylistArrayList)
 
     public void Update_Data() {
         notifyDataSetChanged();
@@ -84,23 +88,40 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
     @Override
     public void onBindViewHolder(@NonNull UserPlaylistAdapter.ViewHolder holder, int position) {
+        DataLocalManager.init(context);
+
         holder.tvPlaylistName.setText(userPlaylistArrayList.get(position).getName());
 
         holder.ivPlaylistMore.setOnClickListener(v -> Open_Info_Playlist_Dialog(Gravity.BOTTOM, position));
-        holder.itemView.setOnLongClickListener(v -> {
-            Open_Info_Playlist_Dialog(Gravity.BOTTOM, position);
-            return false;
-        });
 
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, PersonalPlaylistActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putInt("IDPLAYLIST", userPlaylistArrayList.get(position).getYouID());
-            bundle.putString("TITLEPLAYLIST", holder.tvPlaylistName.getText().toString());
+        if (this.songID > -1) {
+            holder.itemView.setOnClickListener(v -> {
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
+                alertBuilder.setView(view);
+                alertBuilder.setCancelable(true);
+                alertDialog = alertBuilder.create();
+                alertDialog.show();
 
-            intent.putExtras(bundle);
-            context.startActivity(intent);
-        });
+                Handle_Add_Song_Playlist(ACTION_INSERT_SONG_PLAYLIST, DataLocalManager.getUserID(), userPlaylistArrayList.get(position).getYouID(), songID);
+            });
+        } else {
+            holder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(context, PersonalPlaylistActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("IDPLAYLIST", userPlaylistArrayList.get(position).getYouID());
+                bundle.putString("TITLEPLAYLIST", holder.tvPlaylistName.getText().toString());
+
+                intent.putExtras(bundle);
+                context.startActivity(intent);
+            });
+
+            holder.itemView.setOnLongClickListener(v -> {
+                Open_Info_Playlist_Dialog(Gravity.BOTTOM, position);
+                return false;
+            });
+        }
+
     }
 
     private void Open_Info_Playlist_Dialog(int gravity, int position) {
@@ -118,6 +139,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = gravity;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
         window.setAttributes(windowAttributes);
 
         dialog_1.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
@@ -177,7 +199,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         this.dialog_2 = new Dialog(this.context);
 
         dialog_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog_2.setContentView(R.layout.layout_dialog_edittext);
+        dialog_2.setContentView(R.layout.layout_edittext_dialog);
 
         Window window = (Window) dialog_2.getWindow();
         if (window == null) {
@@ -188,6 +210,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = Gravity.CENTER;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
         window.setAttributes(windowAttributes);
 
         dialog_2.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
@@ -237,7 +260,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         this.dialog_2 = new Dialog(this.context);
 
         dialog_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog_2.setContentView(R.layout.layout_dialog_textview);
+        dialog_2.setContentView(R.layout.layout_textview_dialog);
 
         Window window = (Window) dialog_2.getWindow();
         if (window == null) {
@@ -248,6 +271,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = Gravity.CENTER;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
         window.setAttributes(windowAttributes);
 
         dialog_2.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
@@ -323,6 +347,8 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                         } else if (statusArrayList.get(0).getStatus() == 3) {
                             alertDialog.dismiss();
 
+                            notifyDataSetChanged();
+
                             Toast.makeText(context, R.string.toast18, Toast.LENGTH_SHORT).show();
                         } else {
                             alertDialog.dismiss();
@@ -335,13 +361,12 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                         if (statusArrayList.get(0).getStatus() == 1) {
                             alertDialog.dismiss();
 
-                            Toast.makeText(context, R.string.toast19, Toast.LENGTH_SHORT).show();
-
                             userPlaylistArrayList.remove(position);
                             notifyDataSetChanged();
 
                             dialog_2.dismiss();
                             dialog_1.dismiss();
+                            Toast.makeText(context, R.string.toast19, Toast.LENGTH_SHORT).show();
                         } else if (statusArrayList.get(0).getStatus() == 2) {
                             alertDialog.dismiss();
 
@@ -359,12 +384,11 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                         if (statusArrayList.get(0).getStatus() == 1) {
                             alertDialog.dismiss();
 
-                            dialog_2.dismiss();
-                            dialog_1.dismiss();
-
                             userPlaylistArrayList.clear();
                             notifyDataSetChanged();
 
+                            dialog_2.dismiss();
+                            dialog_1.dismiss();
                             Toast.makeText(context, R.string.toast19, Toast.LENGTH_SHORT).show();
                         } else if (statusArrayList.get(0).getStatus() == 2) {
                             alertDialog.dismiss();
@@ -394,6 +418,49 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
             }
         });
     }
+
+    private void Handle_Add_Song_Playlist(String action, String userID, int playlistID, int songID) {
+        DataService dataService = APIService.getService();
+        Call<List<Status>> callBack = dataService.addDeleteUserPlayListSong(action, userID, playlistID, songID);
+        callBack.enqueue(new Callback<List<Status>>() {
+            @Override
+            public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                statusArrayList = new ArrayList<>();
+                statusArrayList = (ArrayList<Status>) response.body();
+
+                if (statusArrayList != null) {
+                    if (action.equals(ACTION_INSERT_SONG_PLAYLIST)) {
+                        if (statusArrayList.get(0).getStatus() == 1) {
+                            alertDialog.dismiss();
+
+                            Toast.makeText(context, R.string.toast23, Toast.LENGTH_SHORT).show();
+                        } else if (statusArrayList.get(0).getStatus() == 2) {
+                            alertDialog.dismiss();
+
+                            Toast.makeText(context, R.string.toast24, Toast.LENGTH_SHORT).show();
+                        } else if (statusArrayList.get(0).getStatus() == 3) {
+                            alertDialog.dismiss();
+
+                            Toast.makeText(context, R.string.toast25, Toast.LENGTH_SHORT).show();
+                        } else {
+                            alertDialog.dismiss();
+
+                            Toast.makeText(context, R.string.toast11, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                alertDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<Status>> call, Throwable t) {
+                alertDialog.dismiss();
+
+                Log.d(TAG, "Handle_Add_Song_Playlist(Error): " + t.getMessage());
+            }
+        });
+    }
+
 
     @Override
     public int getItemCount() {

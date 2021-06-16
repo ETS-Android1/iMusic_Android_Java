@@ -151,7 +151,7 @@ public class PersonalPlaylistFragment extends Fragment {
         final Dialog dialog = new Dialog(getContext());
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_edittext);
+        dialog.setContentView(R.layout.layout_edittext_dialog);
 
         Window window = dialog.getWindow();
         if (window == null) {
@@ -162,6 +162,7 @@ public class PersonalPlaylistFragment extends Fragment {
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = gravity;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
         window.setAttributes(windowAttributes);
 
         dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog

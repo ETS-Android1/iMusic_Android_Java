@@ -20,8 +20,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
@@ -31,6 +33,7 @@ import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.Status;
+import com.thanguit.imusic.models.UserPlaylist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +50,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     private Dialog dialog_1;
     private Dialog dialog_2;
+    private Dialog dialog_3;
 
     private ScaleAnimation scaleAnimation;
 
     private ArrayList<Song> favoriteSongArrayList;
     private ArrayList<Status> statusArrayList;
+
+    private ArrayList<UserPlaylist> userPlaylistArrayList;
+    private UserPlaylistAdapter userPlaylistAdapter;
 
     private Context context;
     private ArrayList<Song> songArrayList = new ArrayList<>();
@@ -64,7 +71,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private static final String DOWNLOAD_SONG = "DOWNLOADSONG";
     private static final String SONG_SEARCH = "SONGSEARCH";
 
-    private final String ACTION_INSERT_SONG_PLAYLIST = "insert";
+    //    private final String ACTION_INSERT_SONG_PLAYLIST = "insert";
     private final String ACTION_DELETE_SONG_PLAYLIST = "delete";
     private final String ACTION_DELETEALL_SONG_PLAYLIST = "deleteall";
 
@@ -96,6 +103,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SongAdapter.ViewHolder holder, int position) {
+        DataLocalManager.init(context);
+
         Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yếu thích của người dùng
 
         Picasso.get()
@@ -147,6 +156,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = gravity;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
         window.setAttributes(windowAttributes);
 
         this.dialog_1.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
@@ -234,11 +244,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
         this.scaleAnimation = new ScaleAnimation(context, rlAddSongToPlaylist);
         this.scaleAnimation.Event_RelativeLayout();
-        rlAddSongToPlaylist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        rlAddSongToPlaylist.setOnClickListener(v -> {
+            Open_Insert_Song_Playlist_Dialog(DataLocalManager.getUserID(), songArrayList.get(position).getId());
         });
 
         this.scaleAnimation = new ScaleAnimation(context, rlDeleteSongToPlaylist);
@@ -267,11 +274,75 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         this.dialog_1.show(); // câu lệnh này sẽ hiển thị Dialog lên
     }
 
+    private void Open_Insert_Song_Playlist_Dialog(String userID, int songID) {
+        this.dialog_3 = new Dialog(this.context);
+
+        dialog_3.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_3.setContentView(R.layout.layout_add_song_to_playlist_dialog);
+
+        Window window = (Window) dialog_3.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // Set màu mờ mờ cho background dialog, che đi activity chính, nhưng vẫn có thể thấy được một phần
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = Gravity.BOTTOM;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
+        window.setAttributes(windowAttributes);
+
+        dialog_3.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
+
+        TextView tvSelectPlaylist = dialog_3.findViewById(R.id.tvSelectPlaylist);
+        tvSelectPlaylist.setSelected(true);
+        ShimmerFrameLayout sflItemUserPlaylist = dialog_3.findViewById(R.id.sflItemUserPlaylist);
+        TextView tvEmptyPlaylist = dialog_3.findViewById(R.id.tvEmptyPlaylist);
+        tvEmptyPlaylist.setSelected(true);
+        RecyclerView rvYourPlaylist = dialog_3.findViewById(R.id.rvYourPlaylist);
+
+
+        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+        Call<List<UserPlaylist>> callBack = dataService.getUserPlaylist(userID);
+        callBack.enqueue(new Callback<List<UserPlaylist>>() {
+            @Override
+            public void onResponse(Call<List<UserPlaylist>> call, Response<List<UserPlaylist>> response) {
+                userPlaylistArrayList = new ArrayList<>();
+                userPlaylistArrayList = (ArrayList<UserPlaylist>) response.body();
+
+                if (userPlaylistArrayList != null && userPlaylistArrayList.size() > 0) {
+                    rvYourPlaylist.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    rvYourPlaylist.setLayoutManager(layoutManager);
+
+                    userPlaylistAdapter = new UserPlaylistAdapter(context, userPlaylistArrayList, songID);
+                    rvYourPlaylist.setAdapter(userPlaylistAdapter);
+
+                    sflItemUserPlaylist.setVisibility(View.GONE);
+                    rvYourPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin Playlist
+
+                    Log.d(TAG, "User Playlist: " + userPlaylistArrayList.get(0).getName());
+                } else {
+                    sflItemUserPlaylist.setVisibility(View.GONE);
+                    tvEmptyPlaylist.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserPlaylist>> call, Throwable t) {
+                Log.d(TAG, "(Error): " + t.getMessage());
+            }
+        });
+
+        dialog_3.show();
+    }
+
     private void Open_Delete_SongPlaylist_Dialog(String action, String userID, int playlistID, int songID, int position) {
         this.dialog_2 = new Dialog(this.context);
 
         dialog_2.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog_2.setContentView(R.layout.layout_dialog_textview);
+        dialog_2.setContentView(R.layout.layout_textview_dialog);
 
         Window window = (Window) dialog_2.getWindow();
         if (window == null) {
@@ -282,6 +353,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = Gravity.CENTER;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
         window.setAttributes(windowAttributes);
 
         dialog_2.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
@@ -339,19 +411,16 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                 statusArrayList = (ArrayList<Status>) response.body();
 
                 if (statusArrayList != null) {
-                    if (action.equals(ACTION_INSERT_SONG_PLAYLIST)) {
-
-                    } else if (action.equals(ACTION_DELETE_SONG_PLAYLIST)) {
+                    if (action.equals(ACTION_DELETE_SONG_PLAYLIST)) {
                         if (statusArrayList.get(0).getStatus() == 1) {
                             alertDialog.dismiss();
-
-                            Toast.makeText(context, R.string.toast21, Toast.LENGTH_SHORT).show();
 
                             songArrayList.remove(position);
                             notifyDataSetChanged();
 
                             dialog_2.dismiss();
                             dialog_1.dismiss();
+                            Toast.makeText(context, R.string.toast21, Toast.LENGTH_SHORT).show();
                         } else if (statusArrayList.get(0).getStatus() == 2) {
                             alertDialog.dismiss();
 
@@ -369,12 +438,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                         if (statusArrayList.get(0).getStatus() == 1) {
                             alertDialog.dismiss();
 
-                            dialog_2.dismiss();
-                            dialog_1.dismiss();
-
                             songArrayList.clear();
                             notifyDataSetChanged();
 
+                            dialog_2.dismiss();
+                            dialog_1.dismiss();
                             Toast.makeText(context, R.string.toast21, Toast.LENGTH_SHORT).show();
                         } else if (statusArrayList.get(0).getStatus() == 2) {
                             alertDialog.dismiss();
@@ -400,7 +468,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
                 dialog_2.dismiss();
                 dialog_1.dismiss();
-                Log.d(TAG, "Handle_Add_Update_Delete_DeleteAll_UserPlaylist(Error): " + t.getMessage());
+                Log.d(TAG, "Handle_Add_Delete_DeleteAll_Song_Playlist(Error): " + t.getMessage());
             }
         });
     }

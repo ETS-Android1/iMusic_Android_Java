@@ -39,6 +39,10 @@
     <string name="toast21">Xóa bài hát thành công</string>
     <string name="toast22">Lỗi! Xóa bài hát thất bại. Vui lòng thử lại</string>
 
+    <string name="toast23">Thêm bài hát vào playlist thành công</string>
+    <string name="toast24">Lỗi! Thêm bài hát vào playlist thất bại. Vui lòng thử lại</string>
+    <string name="toast25">Bài hát này đã tồn tại trong playlist</string>
+
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
     <string name="toast6">Mã lỗi: </string>
@@ -125,7 +129,7 @@
     <string name="btnDialogAction4">Xóa</string>
 
     <string name="tvDialogTitle5">Xóa tất cả bài hát</string>
-    <string name="tvDialogContent5">Bạn có chắc muốn xóa tất cả bài?</string>
+    <string name="tvDialogContent5">Bạn có chắc muốn xóa tất cả bài hát?</string>
     <string name="btnDialogCancel5">Hủy</string>
     <string name="btnDialogAction5">Xóa</string>
 
@@ -175,5 +179,8 @@
     <string name="tvDeleteDownLoadSong">Xóa nhạc tải về</string>
     <string name="tvCloseInfoSong">Thoát</string>
 
+
+    <!-- - - - - - - - - - - Layout_add_song_to_playlist_dialog - - - - - - - - - - -->
+    <string name="tvSelectPlaylist">Chọn playlist</string>
 
 </resources>

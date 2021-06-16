@@ -95,7 +95,7 @@ public class PersonalPageActivity extends AppCompatActivity {
     private void Open_Dialog(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_textview);
+        dialog.setContentView(R.layout.layout_textview_dialog);
 
         Window window = (Window) dialog.getWindow();
         if (window == null) {
@@ -106,6 +106,7 @@ public class PersonalPageActivity extends AppCompatActivity {
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
         windowAttributes.gravity = gravity;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
         window.setAttributes(windowAttributes);
 
         dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog

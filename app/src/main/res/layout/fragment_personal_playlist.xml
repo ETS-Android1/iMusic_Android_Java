@@ -84,7 +84,6 @@
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:background="@color/colorMain5"
-                        android:scaleType="fitXY"
                         app:srcCompat="@drawable/ic_lovesong" />
                 </androidx.cardview.widget.CardView>
 
