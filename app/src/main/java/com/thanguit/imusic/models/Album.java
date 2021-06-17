@@ -1,9 +1,12 @@
 package com.thanguit.imusic.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Album {
+public class Album implements Parcelable {
     @SerializedName("id")
     @Expose
     private int id;
@@ -16,6 +19,25 @@ public class Album {
     @SerializedName("img")
     @Expose
     private String img;
+
+    protected Album(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        singer = in.readString();
+        img = in.readString();
+    }
+
+    public static final Creator<Album> CREATOR = new Creator<Album>() {
+        @Override
+        public Album createFromParcel(Parcel in) {
+            return new Album(in);
+        }
+
+        @Override
+        public Album[] newArray(int size) {
+            return new Album[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -47,5 +69,18 @@ public class Album {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(singer);
+        dest.writeString(img);
     }
 }

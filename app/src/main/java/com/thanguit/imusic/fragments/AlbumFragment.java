@@ -7,7 +7,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,17 +37,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AlbumFragment extends Fragment {
+    private static final String TAG = "AlbumFragment";
 
-    private ArrayList<Album> albumArrayList;
+    private List<Album> albumArrayList;
 
-    private RecyclerView rvAlbum;
+//    private RecyclerView rvAlbum;
+
+    private ViewPager2 vpg2Album;
 
     private ImageView ivAlbumMore;
     private TextView tvAlbum;
 
     private ScaleAnimation scaleAnimation;
-
-    private static final String TAG = "AlbumFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,6 @@ public class AlbumFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_album, container, false);
     }
 
@@ -65,7 +69,8 @@ public class AlbumFragment extends Fragment {
     }
 
     private void Mapping(View view) {
-        this.rvAlbum = (RecyclerView) view.findViewById(R.id.rvAlbum);
+//        this.rvAlbum = (RecyclerView) view.findViewById(R.id.rvAlbum);
+        this.vpg2Album = (ViewPager2) view.findViewById(R.id.vpg2Album);
 
         this.ivAlbumMore = (ImageView) view.findViewById(R.id.ivAlbumMore);
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivAlbumMore);
@@ -73,7 +78,6 @@ public class AlbumFragment extends Fragment {
 
         this.tvAlbum = (TextView) view.findViewById(R.id.tvAlbum);
         this.tvAlbum.setSelected(true); // Text will be moved
-
     }
 
     private void Handle_Album() {
@@ -82,15 +86,35 @@ public class AlbumFragment extends Fragment {
         callBack.enqueue(new Callback<List<Album>>() {
             @Override
             public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
+                albumArrayList = new ArrayList<>();
                 albumArrayList = (ArrayList<Album>) response.body();
 
-                rvAlbum.setHasFixedSize(true);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                layoutManager.setOrientation(RecyclerView.HORIZONTAL); // Chiều ngang
-                rvAlbum.setLayoutManager(layoutManager);
-                rvAlbum.setAdapter(new AlbumHomeAdapter(albumArrayList));
+                if (albumArrayList != null) {
+//                    rvAlbum.setHasFixedSize(true);
+//                    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+//                    layoutManager.setOrientation(RecyclerView.HORIZONTAL); // Chiều ngang
+//                    rvAlbum.setLayoutManager(layoutManager);
+//                    rvAlbum.setAdapter(new AlbumHomeAdapter(getContext(), albumArrayList));
 
-                Log.d(TAG, albumArrayList.get(0).getImg());
+                    vpg2Album.setClipToPadding(false); // Set clip padding
+                    vpg2Album.setClipChildren(false); // Set clip children
+                    vpg2Album.setOffscreenPageLimit(3); // Set page limit
+                    vpg2Album.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER); // Không bao giờ cho phép người dùng cuộn quá chế độ xem này.
+
+                    vpg2Album.setAdapter(new AlbumHomeAdapter(getContext(), albumArrayList, vpg2Album));
+
+                    // Xét các hiệu ứng chuyển động cho vpg2Album
+                    CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+                    compositePageTransformer.addTransformer(new MarginPageTransformer(30));
+                    compositePageTransformer.addTransformer((page, position) -> {
+                        float r = 1 - Math.abs(position);
+                        page.setScaleY(0.8f + r * 0.2f);
+                    });
+
+                    vpg2Album.setPageTransformer(compositePageTransformer);
+
+                    Log.d(TAG, albumArrayList.get(0).getImg());
+                }
             }
 
             @Override

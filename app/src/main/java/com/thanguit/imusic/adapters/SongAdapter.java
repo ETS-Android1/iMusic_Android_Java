@@ -541,7 +541,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         });
     }
 
-
     @Override
     public int getItemCount() {
         return this.songArrayList.size();
@@ -567,7 +566,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             }
             this.scaleAnimation = new ScaleAnimation(itemView.getContext(), this.ivItemSongLove);
             this.scaleAnimation.Event_ImageView();
-
 
             this.ivItemSongMore = itemView.findViewById(R.id.ivItemSongMore);
             this.scaleAnimation = new ScaleAnimation(itemView.getContext(), this.ivItemSongMore);

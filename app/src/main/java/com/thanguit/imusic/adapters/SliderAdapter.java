@@ -78,16 +78,17 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder>
                 songArrayList = (ArrayList<Song>) response.body();
 
                 if (songArrayList != null && songArrayList.size() > 0) {
-                    alertDialog.dismiss();
-
                     Intent intent = new Intent(context, FullPlayerActivity.class);
                     intent.putExtra("SONGSLIDER", songArrayList);
+
+                    alertDialog.dismiss();
                     context.startActivity(intent);
                 }
             }
 
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
+                alertDialog.dismiss();
                 Log.d(TAG, "Handle_Song_Slider(Error): " + t.getMessage());
             }
         });

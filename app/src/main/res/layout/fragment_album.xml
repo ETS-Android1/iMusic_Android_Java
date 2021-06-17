@@ -32,10 +32,21 @@
         android:layout_gravity="center"
         app:srcCompat="@drawable/ic_angle_right" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAlbum"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpg2Album"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tvAlbum"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:paddingStart="80dp"
+        android:paddingEnd="80dp" />
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/rvAlbum"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_below="@+id/tvAlbum"-->
+    <!--        android:layout_marginTop="5dp" />-->
+
 </RelativeLayout>

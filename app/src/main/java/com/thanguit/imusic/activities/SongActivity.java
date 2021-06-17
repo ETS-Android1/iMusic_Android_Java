@@ -19,6 +19,7 @@ import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.adapters.SongAdapter;
+import com.thanguit.imusic.models.Album;
 import com.thanguit.imusic.models.Playlist;
 import com.thanguit.imusic.models.Song;
 
@@ -41,6 +42,7 @@ public class SongActivity extends AppCompatActivity {
 
     private ArrayList<Song> songArrayList;
     private Playlist playlist;
+    private Album album;
 
     private static final String TAG = "SongActivity";
 
@@ -64,8 +66,6 @@ public class SongActivity extends AppCompatActivity {
 
         this.rvListSong = findViewById(R.id.rvListSong);
         this.sflItemSong = findViewById(R.id.sflItemSong);
-
-//        this.playlist = new Playlist();
 
         setSupportActionBar(this.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -92,6 +92,14 @@ public class SongActivity extends AppCompatActivity {
                     this.collapsingToolbarLayout.setTitle(this.playlist.getName());
                     Display_Song_Playlist(this.playlist.getId());
                 }
+            } else if (intent.hasExtra("ALBUM")) {
+                this.album = (Album) intent.getParcelableExtra("ALBUM");
+                if (this.album != null) {
+                    Log.d(TAG, this.album.getName());
+
+                    this.collapsingToolbarLayout.setTitle(this.album.getName());
+                    Display_Song_Album(this.album.getId());
+                }
             }
         }
     }
@@ -102,6 +110,7 @@ public class SongActivity extends AppCompatActivity {
         callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = new ArrayList<>();
                 songArrayList = (ArrayList<Song>) response.body();
 
                 if (songArrayList != null && songArrayList.size() > 0) {
@@ -122,9 +131,42 @@ public class SongActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
-                Log.d(TAG, t.getMessage());
+                Log.d(TAG, "Display_Song_Playlist(Error)" + t.getMessage());
             }
         });
+    }
+
+    private void Display_Song_Album(int id) {
+        DataService dataService = APIService.getService();
+        Call<List<Song>> callBack = dataService.getSongAlbum(id);
+        callBack.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = new ArrayList<>();
+                songArrayList = (ArrayList<Song>) response.body();
+
+                if (songArrayList != null && songArrayList.size() > 0) {
+                    rvListSong.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(SongActivity.this);
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    rvListSong.setLayoutManager(layoutManager);
+                    rvListSong.setAdapter(new SongAdapter(SongActivity.this, songArrayList, "SONG"));
+
+                    sflItemSong.setVisibility(View.GONE); // Load biến mất
+                    rvListSong.setVisibility(View.VISIBLE); // Hiện thông tin
+
+                    Play_All_Song();
+
+                    Log.d(TAG, songArrayList.get(0).getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+                Log.d(TAG, "Display_Song_Album(Error)" + t.getMessage());
+            }
+        });
+
     }
 
     private void Play_All_Song() { // Hàm này sẽ đảm bảo khi các bài hát load xong về giao diện thì button này mới hoạt động

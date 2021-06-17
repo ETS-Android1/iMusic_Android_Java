@@ -34,12 +34,16 @@ public interface DataService {
     @GET("albumcurrentday.php")
     Call<List<Album>> getAlbumCurrentDay();
 
+    @FormUrlEncoded
+    @POST("getsongalbum.php")
+    Call<List<Song>> getSongAlbum(@Field("id") int id);
+
     @GET("songlove.php")
     Call<List<Song>> getSongChart();
 
     @FormUrlEncoded
     @POST("getsongplaylist.php")
-    Call<List<Song>> getSongPlaylist(@Field("Pla_ID") int id);
+    Call<List<Song>> getSongPlaylist(@Field("id") int id);
 
     @FormUrlEncoded
     @POST("searchsong.php")

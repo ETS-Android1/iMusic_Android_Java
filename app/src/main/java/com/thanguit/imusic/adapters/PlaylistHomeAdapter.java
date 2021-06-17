@@ -44,10 +44,10 @@ public class PlaylistHomeAdapter extends RecyclerView.Adapter<PlaylistHomeAdapte
                 .error(R.drawable.ic_logo)
                 .into(holder.ivPlaylist);
 
-        holder.cvPlaylist.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), SongActivity.class);
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, SongActivity.class);
             intent.putExtra("PLAYLIST", playlistArrayList.get(position));
-            v.getContext().startActivity(intent);
+            context.startActivity(intent);
         });
     }
 
@@ -57,14 +57,14 @@ public class PlaylistHomeAdapter extends RecyclerView.Adapter<PlaylistHomeAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView ivPlaylist;
         private CardView cvPlaylist;
+        private ImageView ivPlaylist;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.ivPlaylist = (ImageView) itemView.findViewById(R.id.ivPlaylistImage);
             this.cvPlaylist = (CardView) itemView.findViewById(R.id.cvPlaylist);
+            this.ivPlaylist = (ImageView) itemView.findViewById(R.id.ivPlaylistImage);
         }
     }
 }

@@ -1,33 +1,45 @@
 package com.thanguit.imusic.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.activities.SongActivity;
 import com.thanguit.imusic.models.Album;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AlbumHomeAdapter extends RecyclerView.Adapter<AlbumHomeAdapter.ViewHolder> {
+    private static final String TAG = "AlbumHomeAdapter";
 
-    private ArrayList<Album> albumArrayList;
+    private Context context;
+    private List<Album> albumArrayList;
+    private ViewPager2 viewPager2;
 
-    public AlbumHomeAdapter(ArrayList<Album> albumArrayList) {
+    public AlbumHomeAdapter(Context context, List<Album> albumArrayList, ViewPager2 viewPager2) {
+        this.context = context;
         this.albumArrayList = albumArrayList;
+        this.viewPager2 = viewPager2;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_album_home, parent, false);
+//        view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         return new ViewHolder(view);
     }
 
@@ -40,6 +52,12 @@ public class AlbumHomeAdapter extends RecyclerView.Adapter<AlbumHomeAdapter.View
                 .into(holder.ivAlbum);
         holder.tvAlbumName.setText(this.albumArrayList.get(position).getName());
         holder.tvAlbumSinger.setText(this.albumArrayList.get(position).getSinger());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, SongActivity.class);
+            intent.putExtra("ALBUM", albumArrayList.get(position));
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -48,10 +66,10 @@ public class AlbumHomeAdapter extends RecyclerView.Adapter<AlbumHomeAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         private CardView cvAlbum;
         private ImageView ivAlbum;
-        private TextView tvAlbumName, tvAlbumSinger;
+        private TextView tvAlbumName;
+        private TextView tvAlbumSinger;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
