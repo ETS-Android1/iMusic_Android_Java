@@ -127,12 +127,12 @@
                 android:gravity="center"
                 app:srcCompat="@drawable/ic_comment" />
 
-            <ImageView
-                android:id="@+id/ivShare"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:gravity="center"
-                app:srcCompat="@drawable/ic_share" />
+<!--            <ImageView-->
+<!--                android:id="@+id/ivShare"-->
+<!--                android:layout_width="25dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:gravity="center"-->
+<!--                app:srcCompat="@drawable/ic_share" />-->
         </TableRow>
     </TableLayout>
 

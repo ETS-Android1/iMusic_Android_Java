@@ -30,6 +30,7 @@ import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.PersonalPlaylistActivity;
+import com.thanguit.imusic.activities.SongActivity;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Status;
 import com.thanguit.imusic.models.UserPlaylist;
@@ -73,8 +74,6 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         this.songID = songID;
     }
 
-//    public UserPlaylistAdapter(Context context, ArrayList<UserPlaylist> userPlaylistArrayList)
-
     public void Update_Data() {
         notifyDataSetChanged();
     }
@@ -108,11 +107,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         } else {
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PersonalPlaylistActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("IDPLAYLIST", userPlaylistArrayList.get(position).getYouID());
-                bundle.putString("TITLEPLAYLIST", holder.tvPlaylistName.getText().toString());
-
-                intent.putExtras(bundle);
+                intent.putExtra("SONGPLAYLIST", userPlaylistArrayList.get(position));
                 context.startActivity(intent);
             });
 

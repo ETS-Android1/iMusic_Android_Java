@@ -87,7 +87,7 @@
 
     <!-- - - - - - - - - - - FragmentChart - - - - - - - - - - -->
     <string name="tvChart">Bảng xếp hạng</string>
-    <string name="tvChartNumber">1</string>
+    <string name="tvChartNumber">0</string>
     <string name="tvChartSongName">Tên bài hát</string>
     <string name="tvChartSongSinger">Tên ca sĩ</string>
     <string name="tvLikeNumber">100</string>

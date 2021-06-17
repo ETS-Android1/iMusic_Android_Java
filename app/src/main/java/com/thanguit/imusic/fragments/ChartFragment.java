@@ -77,7 +77,7 @@ public class ChartFragment extends Fragment {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvChart.setLayoutManager(layoutManager);
-                    rvChart.setAdapter(new ChartAdapter(songArrayList));
+                    rvChart.setAdapter(new ChartAdapter(getContext(), songArrayList));
                     rvChart.setVisibility(View.VISIBLE); // Hiện thông tin
 
                     Log.d(TAG, songArrayList.get(0).getName());

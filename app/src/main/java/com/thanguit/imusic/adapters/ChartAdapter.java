@@ -1,6 +1,8 @@
 package com.thanguit.imusic.adapters;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,11 @@ import com.thanguit.imusic.models.Song;
 import java.util.ArrayList;
 
 public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> {
-
+    private Context context;
     private ArrayList<Song> songArrayList;
 
-    public ChartAdapter(ArrayList<Song> songArrayList) {
+    public ChartAdapter(Context context, ArrayList<Song> songArrayList) {
+        this.context = context;
         this.songArrayList = songArrayList;
         notifyDataSetChanged();
     }
@@ -39,12 +42,12 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
                 .load(this.songArrayList.get(position).getImg())
                 .placeholder(R.drawable.ic_logo)
                 .error(R.drawable.ic_logo)
-                .into(holder.ivSong);
+                .into(holder.ivSongChartImage);
 
         Handle_Position(holder.tvChartNumber, position);
-        holder.tvSongName.setText(this.songArrayList.get(position).getName());
-        holder.tvSongSinger.setText(this.songArrayList.get(position).getSinger());
-        holder.tvLikeNumber.setText(this.songArrayList.get(position).getLike());
+        holder.tvChartSongName.setText(this.songArrayList.get(position).getName());
+        holder.tvChartSongSinger.setText(this.songArrayList.get(position).getSinger());
+        holder.tvChartLikeNumber.setText(this.songArrayList.get(position).getLike());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FullPlayerActivity.class);
@@ -60,10 +63,11 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvChartNumber;
-        private final TextView tvSongName;
-        private final TextView tvSongSinger;
-        private final TextView tvLikeNumber;
-        private final ImageView ivSong;
+        private final TextView tvChartSongName;
+        private final TextView tvChartSongSinger;
+        private final TextView tvChartLikeNumber;
+        private final ImageView ivSongChartImage;
+        private final ImageView ivChartSongMore;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,20 +75,37 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
             this.tvChartNumber = itemView.findViewById(R.id.tvChartNumber);
             this.tvChartNumber.setSelected(true); // Text will be moved
 
-            this.tvSongName = itemView.findViewById(R.id.tvChartSongName);
-            this.tvSongName.setSelected(true); // Text will be moved
+            this.tvChartSongName = itemView.findViewById(R.id.tvChartSongName);
+            this.tvChartSongName.setSelected(true); // Text will be moved
 
-            this.tvSongSinger = itemView.findViewById(R.id.tvSongSinger);
-            this.tvSongSinger.setSelected(true); // Text will be moved
+            this.tvChartSongSinger = itemView.findViewById(R.id.tvChartSongSinger);
+            this.tvChartSongSinger.setSelected(true); // Text will be moved
 
-            this.tvLikeNumber = itemView.findViewById(R.id.tvLikeNumber);
-            this.tvLikeNumber.setSelected(true); // Text will be moved
+            this.tvChartLikeNumber = itemView.findViewById(R.id.tvChartLikeNumber);
+            this.tvChartLikeNumber.setSelected(true); // Text will be moved
 
-            this.ivSong = itemView.findViewById(R.id.ivSong);
+            this.ivSongChartImage = itemView.findViewById(R.id.ivSongChartImage);
+
+            this.ivChartSongMore = itemView.findViewById(R.id.ivChartSongMore);
+            this.ivChartSongMore.setVisibility(View.GONE);
         }
     }
 
     private void Handle_Position(TextView tvPosition, int position) {
         tvPosition.setText(String.valueOf(position + 1));
+
+        if (position == 0) {
+            tvPosition.setTextColor(context.getResources().getColor(R.color.colorMain4));
+            tvPosition.setTypeface(Typeface.DEFAULT_BOLD);
+        } else if (position == 1) {
+            tvPosition.setTextColor(context.getResources().getColor(R.color.colorMain7));
+            tvPosition.setTypeface(Typeface.DEFAULT_BOLD);
+        } else if (position == 2) {
+            tvPosition.setTextColor(context.getResources().getColor(R.color.colorMain8));
+            tvPosition.setTypeface(Typeface.DEFAULT_BOLD);
+        } else { // Ko biết tại sao, khí nào quay lại tìm hiểu sau
+            tvPosition.setTextColor(context.getResources().getColor(R.color.colorLight7));
+            tvPosition.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+        }
     }
 }

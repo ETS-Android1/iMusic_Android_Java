@@ -33,6 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PlaylistFragment extends Fragment {
+    private static final String TAG = "PlaylistFragment";
 
     private ArrayList<Playlist> playlistArrayList;
 
@@ -42,8 +43,6 @@ public class PlaylistFragment extends Fragment {
     private TextView tvPlaylist;
 
     private ScaleAnimation scaleAnimation;
-
-    private static final String TAG = "PlaylistFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,15 +80,18 @@ public class PlaylistFragment extends Fragment {
         callBack.enqueue(new Callback<List<Playlist>>() {
             @Override
             public void onResponse(Call<List<Playlist>> call, Response<List<Playlist>> response) {
+                playlistArrayList = new ArrayList<>();
                 playlistArrayList = (ArrayList<Playlist>) response.body(); // Lấy dữ liệu về đưa vào Arraylist
 
-                rvPlaylist.setHasFixedSize(true);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc xuống
-                rvPlaylist.setLayoutManager(layoutManager);
-                rvPlaylist.setAdapter(new PlaylistHomeAdapter(playlistArrayList));
+                if (playlistArrayList != null) {
+                    rvPlaylist.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc xuống
+                    rvPlaylist.setLayoutManager(layoutManager);
+                    rvPlaylist.setAdapter(new PlaylistHomeAdapter(getContext(), playlistArrayList));
 
-                Log.d(TAG, playlistArrayList.get(0).getImg());
+                    Log.d(TAG, playlistArrayList.get(0).getImg());
+                }
             }
 
             @Override

@@ -4,19 +4,22 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Slider {
-    @SerializedName("id")
+    @SerializedName("sliderID")
     @Expose
-    private int id;
+    private int sliderID;
     @SerializedName("image")
     @Expose
     private String image;
+    @SerializedName("songID")
+    @Expose
+    private int songID;
 
-    public int getId() {
-        return id;
+    public int getSliderID() {
+        return sliderID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSliderID(int sliderID) {
+        this.sliderID = sliderID;
     }
 
     public String getImage() {
@@ -27,4 +30,11 @@ public class Slider {
         this.image = image;
     }
 
+    public int getSongID() {
+        return songID;
+    }
+
+    public void setSongID(int songID) {
+        this.songID = songID;
+    }
 }

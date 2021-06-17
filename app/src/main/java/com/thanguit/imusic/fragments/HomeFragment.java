@@ -34,6 +34,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
+    private static final String TAG = "HomeFragment";
+
     private FragmentTransaction fragmentTransaction;
     private FrameLayout flPlaylistFragment;
     private FrameLayout flFragmentTheme;
@@ -41,8 +43,6 @@ public class HomeFragment extends Fragment {
     private SliderView sliderView;
     private SliderAdapter sliderAdapter;
     private ArrayList<Slider> sliderArrayList;
-
-    private static final String TAG = "HomeFragment";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,19 +82,21 @@ public class HomeFragment extends Fragment {
         callBack.enqueue(new Callback<List<Slider>>() {
             @Override
             public void onResponse(Call<List<Slider>> call, Response<List<Slider>> response) {
+                sliderArrayList = new ArrayList<>();
                 sliderArrayList = (ArrayList<Slider>) response.body(); // Lấy dữ liệu về đưa vào Arraylist
 
-                sliderAdapter = new SliderAdapter(sliderArrayList);
-                sliderView.setSliderTransformAnimation(SliderAnimations.ZOOMOUTTRANSFORMATION);
-                sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-                sliderView.setSliderAdapter(sliderAdapter);
+                if (sliderArrayList != null) {
+                    sliderView.setSliderTransformAnimation(SliderAnimations.ZOOMOUTTRANSFORMATION);
+                    sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+                    sliderView.setSliderAdapter(new SliderAdapter(getContext(), sliderArrayList));
 
-                Log.d(TAG, sliderArrayList.get(0).getImage());
+                    Log.d(TAG, sliderArrayList.get(0).getImage());
+                }
             }
 
             @Override
             public void onFailure(Call<List<Slider>> call, Throwable t) {
-                Log.d(TAG, t.getMessage());
+                Log.d(TAG, "Handle_Slider(Error): " + t.getMessage());
             }
         });
     }

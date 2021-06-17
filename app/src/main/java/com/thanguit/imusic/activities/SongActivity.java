@@ -65,7 +65,7 @@ public class SongActivity extends AppCompatActivity {
         this.rvListSong = findViewById(R.id.rvListSong);
         this.sflItemSong = findViewById(R.id.sflItemSong);
 
-        this.playlist = new Playlist();
+//        this.playlist = new Playlist();
 
         setSupportActionBar(this.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -74,7 +74,6 @@ public class SongActivity extends AppCompatActivity {
         this.collapsingToolbarLayout.setExpandedTitleTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorMain2)));
         this.collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorMain2));
     }
-
 
     private void Event() {
         this.toolbar.setNavigationOnClickListener(v -> {
@@ -86,7 +85,7 @@ public class SongActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             if (intent.hasExtra("PLAYLIST")) {
-                this.playlist = (Playlist) intent.getSerializableExtra("PLAYLIST");
+                this.playlist = (Playlist) intent.getParcelableExtra("PLAYLIST");
                 if (this.playlist != null) {
                     Log.d(TAG, this.playlist.getName());
 
@@ -99,7 +98,7 @@ public class SongActivity extends AppCompatActivity {
 
     private void Display_Song_Playlist(int id) {
         DataService dataService = APIService.getService();
-        Call<List<Song>> callBack = dataService.getSongWithPlaylist(id);
+        Call<List<Song>> callBack = dataService.getSongPlaylist(id);
         callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {

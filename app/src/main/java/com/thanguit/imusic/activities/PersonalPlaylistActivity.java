@@ -22,6 +22,7 @@ import com.thanguit.imusic.adapters.ChartAdapter;
 import com.thanguit.imusic.adapters.SongAdapter;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
+import com.thanguit.imusic.models.UserPlaylist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
     private ScaleAnimation scaleAnimation;
 
     private ArrayList<Song> songArrayList;
+    private UserPlaylist userPlaylist;
 
     private static final String TAG = "PPActivity";
 
@@ -92,7 +94,6 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
 
     private void Get_Data_Intent() {
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
         if (intent != null) {
             if (intent.hasExtra("FAVORITESONG")) {
                 String titlePlaylist = intent.getStringExtra("FAVORITESONG");
@@ -101,12 +102,15 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
 
                     Handle_Favorite_Song();
                 }
-            } else if (bundle != null) {
-                int playlistID = bundle.getInt("IDPLAYLIST", 0);
-                String titlePlaylist = bundle.getString("TITLEPLAYLIST", "");
-                this.tvPersonalPlaylistTitle.setText(titlePlaylist);
+            } else if (intent.hasExtra("SONGPLAYLIST")) {
+                this.userPlaylist = (UserPlaylist) intent.getParcelableExtra("SONGPLAYLIST");
+                if (this.userPlaylist != null) {
+                    int playlistID = this.userPlaylist.getYouID();
+                    String titlePlaylist = this.userPlaylist.getName();
 
-                Handle_UserPlaylist_Song(playlistID);
+                    this.tvPersonalPlaylistTitle.setText(titlePlaylist);
+                    Handle_UserPlaylist_Song(playlistID);
+                }
             }
         }
     }

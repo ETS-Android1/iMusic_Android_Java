@@ -18,9 +18,12 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface DataService {
-
     @GET("slider.php")
     Call<List<Slider>> getSlider();
+
+    @FormUrlEncoded
+    @POST("getsongslider.php")
+    Call<List<Song>> getSongFromSlider(@Field("id") int id);
 
     @GET("playlistforcurrentday.php")
     Call<List<Playlist>> getPlaylistCurrentDay();
@@ -35,8 +38,8 @@ public interface DataService {
     Call<List<Song>> getSongChart();
 
     @FormUrlEncoded
-    @POST("danhsachbaihat.php")
-    Call<List<Song>> getSongWithPlaylist(@Field("Pla_ID") int id);
+    @POST("getsongplaylist.php")
+    Call<List<Song>> getSongPlaylist(@Field("Pla_ID") int id);
 
     @FormUrlEncoded
     @POST("searchsong.php")

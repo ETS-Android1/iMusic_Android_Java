@@ -1,5 +1,6 @@
 package com.thanguit.imusic.adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +20,13 @@ import com.thanguit.imusic.models.Playlist;
 import java.util.ArrayList;
 
 public class PlaylistHomeAdapter extends RecyclerView.Adapter<PlaylistHomeAdapter.ViewHolder> {
-
-    private ArrayList<Playlist> playlistArrayList = new ArrayList<>();
-
     private static final String TAG = "PlaylistHomeAdapter";
 
-    public PlaylistHomeAdapter(ArrayList<Playlist> playlistArrayList) {
+    private Context context;
+    private ArrayList<Playlist> playlistArrayList;
+
+    public PlaylistHomeAdapter(Context context, ArrayList<Playlist> playlistArrayList) {
+        this.context = context;
         this.playlistArrayList = playlistArrayList;
     }
 
