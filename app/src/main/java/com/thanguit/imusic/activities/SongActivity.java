@@ -20,6 +20,7 @@ import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.adapters.SongAdapter;
 import com.thanguit.imusic.models.Album;
+import com.thanguit.imusic.models.Genre;
 import com.thanguit.imusic.models.Playlist;
 import com.thanguit.imusic.models.Song;
 
@@ -41,8 +42,10 @@ public class SongActivity extends AppCompatActivity {
     private ShimmerFrameLayout sflItemSong;
 
     private ArrayList<Song> songArrayList;
+
     private Playlist playlist;
     private Album album;
+    private Genre genre;
 
     private static final String TAG = "SongActivity";
 
@@ -100,8 +103,48 @@ public class SongActivity extends AppCompatActivity {
                     this.collapsingToolbarLayout.setTitle(this.album.getName());
                     Display_Song_Album(this.album.getId());
                 }
+            } else if (intent.hasExtra("GENRE")) {
+                this.genre = (Genre) intent.getParcelableExtra("GENRE");
+                if (this.genre != null) {
+                    Log.d(TAG, this.genre.getName());
+
+                    this.collapsingToolbarLayout.setTitle(this.genre.getName());
+                    Display_Song_Genre(this.genre.getIdGenre());
+                }
             }
         }
+    }
+
+    private void Display_Song_Genre(int id) {
+        DataService dataService = APIService.getService();
+        Call<List<Song>> callBack = dataService.getSongGenre(id);
+        callBack.enqueue(new Callback<List<Song>>() {
+            @Override
+            public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = new ArrayList<>();
+                songArrayList = (ArrayList<Song>) response.body();
+
+                if (songArrayList != null && songArrayList.size() > 0) {
+                    rvListSong.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(SongActivity.this);
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    rvListSong.setLayoutManager(layoutManager);
+                    rvListSong.setAdapter(new SongAdapter(SongActivity.this, songArrayList, "SONG"));
+
+                    sflItemSong.setVisibility(View.GONE); // Load biến mất
+                    rvListSong.setVisibility(View.VISIBLE); // Hiện thông tin
+
+                    Play_All_Song();
+
+                    Log.d(TAG, songArrayList.get(0).getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Song>> call, Throwable t) {
+                Log.d(TAG, "Display_Song_Genre(Error)" + t.getMessage());
+            }
+        });
     }
 
     private void Display_Song_Playlist(int id) {

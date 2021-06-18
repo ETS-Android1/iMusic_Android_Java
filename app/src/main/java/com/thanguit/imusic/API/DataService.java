@@ -1,6 +1,7 @@
 package com.thanguit.imusic.API;
 
 import com.thanguit.imusic.models.Album;
+import com.thanguit.imusic.models.Genre;
 import com.thanguit.imusic.models.Playlist;
 import com.thanguit.imusic.models.Slider;
 import com.thanguit.imusic.models.Song;
@@ -37,6 +38,15 @@ public interface DataService {
     @FormUrlEncoded
     @POST("getsongalbum.php")
     Call<List<Song>> getSongAlbum(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("getgenre.php")
+    Call<List<Genre>> getGenre(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("getsonggenre.php")
+    Call<List<Song>> getSongGenre(@Field("id") int id);
+
 
     @GET("songlove.php")
     Call<List<Song>> getSongChart();

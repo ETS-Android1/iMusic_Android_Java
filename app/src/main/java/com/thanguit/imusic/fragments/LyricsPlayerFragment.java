@@ -43,6 +43,25 @@ public class LyricsPlayerFragment extends Fragment {
         Mapping(view);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (FullPlayerActivity.dataSongArrayList.size() > 0) {
+            String lyric = FullPlayerActivity.dataSongArrayList.get(position).getLyric().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator")));
+            this.tvLyric.setText(lyric);
+
+            Log.d(TAG, lyric);
+        } else {
+            Log.d(TAG, "Lỗi! Không có dữ liệu");
+        }
+    }
+
     private void Mapping(View view) {
         this.tvLyric = view.findViewById(R.id.tvLyric);
 
@@ -58,6 +77,17 @@ public class LyricsPlayerFragment extends Fragment {
             Log.d(TAG, "Lỗi! Không có dữ liệu");
         }
     }
+
+//    private void Display_Lyric() {
+//        if (FullPlayerActivity.dataSongArrayList.size() > 0) {
+//            String lyric = FullPlayerActivity.dataSongArrayList.get(position).getLyric().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator")));
+//            this.tvLyric.setText(lyric);
+//
+//            Log.d(TAG, lyric);
+//        } else {
+//            Log.d(TAG, "Lỗi! Không có dữ liệu");
+//        }
+//    }
 
     public void Get_Position(int index) {
         this.position = index;

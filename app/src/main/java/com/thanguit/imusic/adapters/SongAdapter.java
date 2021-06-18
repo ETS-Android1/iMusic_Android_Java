@@ -61,7 +61,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private UserPlaylistAdapter userPlaylistAdapter;
 
     private Context context;
-    private ArrayList<Song> songArrayList = new ArrayList<>();
+    private ArrayList<Song> songArrayList;
     private int playlistID;
     private String layout;
 

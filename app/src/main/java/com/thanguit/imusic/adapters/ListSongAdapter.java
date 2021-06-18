@@ -54,14 +54,14 @@ public class ListSongAdapter extends RecyclerView.Adapter<ListSongAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.ivListItemSong = (ImageView) itemView.findViewById(R.id.ivListItemSong);
-            this.ivListItemSongLove = (ImageView) itemView.findViewById(R.id.ivListItemSongLove);
-            this.ivListItemSongMore = (ImageView) itemView.findViewById(R.id.ivListItemSongMore);
+            this.ivListItemSong = itemView.findViewById(R.id.ivListItemSong);
+            this.ivListItemSongLove = itemView.findViewById(R.id.ivListItemSongLove);
+            this.ivListItemSongMore = itemView.findViewById(R.id.ivListItemSongMore);
 
-            this.tvListItemSongName = (TextView) itemView.findViewById(R.id.tvListItemSongName);
+            this.tvListItemSongName = itemView.findViewById(R.id.tvListItemSongName);
             this.tvListItemSongName.setSelected(true); // Text will be moved
 
-            this.tvListItemSongSinger = (TextView) itemView.findViewById(R.id.tvListItemSongSinger);
+            this.tvListItemSongSinger = itemView.findViewById(R.id.tvListItemSongSinger);
             this.tvListItemSongSinger.setSelected(true); // Text will be moved
         }
     }

@@ -14,7 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IMusic">
-        <activity android:name=".activities.PersonalPlaylistActivity"></activity>
+        <activity
+            android:name=".activities.GenreActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.PersonalPlaylistActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PersonalPageActivity"
             android:screenOrientation="portrait" />

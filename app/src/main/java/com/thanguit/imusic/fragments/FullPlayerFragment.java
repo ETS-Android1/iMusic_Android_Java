@@ -1,6 +1,11 @@
 package com.thanguit.imusic.fragments;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -8,21 +13,30 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.activities.FullActivity;
 import com.thanguit.imusic.activities.FullPlayerActivity;
+import com.thanguit.imusic.activities.PersonalPageActivity;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 
@@ -31,6 +45,8 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Random;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FullPlayerFragment extends Fragment {
     private MediaPlayer mediaPlayer;
 
@@ -38,7 +54,7 @@ public class FullPlayerFragment extends Fragment {
     private ImageView ivFavorite;
     private ImageView ivComment;
     private ImageView ivDownload;
-//    private ImageView ivShare;
+    //    private ImageView ivShare;
     private ImageView ivShuffle;
     private ImageView ivPrev;
     private ImageView ivPlayPause;
@@ -50,6 +66,8 @@ public class FullPlayerFragment extends Fragment {
 
     private ScaleAnimation scaleAnimation;
     private LoadingDialog loadingDialog;
+
+    private Dialog dialog;
 
     private int position = 0;
     private boolean repeat = false;
@@ -96,8 +114,8 @@ public class FullPlayerFragment extends Fragment {
     }
 
     private void Mapping(View view) {
-        this.loadingDialog = new LoadingDialog(getActivity());
-        this.loadingDialog.Start_Loading();
+//        this.loadingDialog = new LoadingDialog(getActivity());
+//        this.loadingDialog.Start_Loading();
 
         this.ivCover = view.findViewById(R.id.ivCover);
         this.ivDownload = view.findViewById(R.id.ivDownload);
@@ -122,7 +140,7 @@ public class FullPlayerFragment extends Fragment {
             new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(0).getLink());
             this.ivPlayPause.setImageResource(R.drawable.ic_pause);
 
-            this.loadingDialog.Cancel_Loading();
+//            this.loadingDialog.Cancel_Loading();
         }
     }
 
@@ -131,8 +149,13 @@ public class FullPlayerFragment extends Fragment {
         this.scaleAnimation.Event_ImageView();
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivFavorite);
         this.scaleAnimation.Event_ImageView();
+
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivComment);
         this.scaleAnimation.Event_ImageView();
+        this.ivComment.setOnClickListener(v -> {
+            Open_Comment_Dialog();
+        });
+
 //        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivShare);
 //        this.scaleAnimation.Event_ImageView();
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivShuffle);
@@ -330,6 +353,58 @@ public class FullPlayerFragment extends Fragment {
     }
 
 
+    private void Open_Comment_Dialog() {
+        this.dialog = new Dialog(getContext());
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_comment_song);
+
+        Window window = (Window) dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // Set màu mờ mờ cho background dialog, che đi activity chính, nhưng vẫn có thể thấy được một phần
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = Gravity.CENTER;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
+        window.setAttributes(windowAttributes);
+
+        dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
+
+
+        // Ánh xạ các view trong dialog
+        ImageView ivClose = dialog.findViewById(R.id.ivClose);
+        ShimmerFrameLayout sflItemComment = dialog.findViewById(R.id.sflItemComment);
+        RecyclerView rvComment = dialog.findViewById(R.id.rvComment);
+        CircleImageView civAvatarComment = dialog.findViewById(R.id.civAvatarComment);
+        EditText etInputComment = dialog.findViewById(R.id.etInputComment);
+        ImageView ivSend = dialog.findViewById(R.id.ivSend);
+
+
+        this.scaleAnimation = new ScaleAnimation(getContext(), ivClose);
+        this.scaleAnimation.Event_ImageView();
+        ivClose.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        this.scaleAnimation = new ScaleAnimation(getContext(), civAvatarComment);
+        this.scaleAnimation.Event_CircleImageView();
+        civAvatarComment.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), PersonalPageActivity.class);
+            startActivity(intent);
+        });
+
+        this.scaleAnimation = new ScaleAnimation(getContext(), ivSend);
+        this.scaleAnimation.Event_ImageView();
+        ivSend.setOnClickListener(v -> {
+        });
+
+        dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
+    }
+
+
     public class PlayMP3 extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -348,7 +423,7 @@ public class FullPlayerFragment extends Fragment {
                     mediaPlayer.reset();
                 });
 
-                mediaPlayer.setDataSource(song); // Cái này quan trọng nè Thắng
+                mediaPlayer.setDataSource(song); // Cái này quan trọng nè Thắng, chơi nhạc trực tuyến từ link
                 mediaPlayer.prepare();
             } catch (IOException e) {
                 Toast.makeText(getActivity(), "Lỗi. Vui lòng thử lại", Toast.LENGTH_SHORT).show();

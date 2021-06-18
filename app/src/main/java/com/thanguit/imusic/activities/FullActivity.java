@@ -163,7 +163,6 @@ public class FullActivity extends AppCompatActivity {
         this.scaleAnimation = new ScaleAnimation(FullActivity.this, this.circleImageView);
         this.scaleAnimation.Event_CircleImageView();
 
-
         this.circleImageView.setOnClickListener(v -> {
             Intent intent = new Intent(FullActivity.this, PersonalPageActivity.class);
             startActivity(intent);

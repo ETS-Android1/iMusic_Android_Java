@@ -66,6 +66,10 @@
 
     <string name="tvTitleComment">Bình luận</string>
     <string name="etHintComment">Nhập bình luận</string>
+    <string name="tvUserCommentName">User</string>
+    <string name="tvTimeComment">00/00/0000</string>
+    <string name="tvContentComment">Nội dung bình luận</string>
+
 
     <!-- - - - - - - - - - - FragmentFullPlayer - - - - - - - - - - -->
     <string name="tvTimeStart">00:00</string>
@@ -133,7 +137,6 @@
     <string name="btnDialogCancel5">Hủy</string>
     <string name="btnDialogAction5">Xóa</string>
 
-
     <!-- - - - - - - - - - - PersonalPlaylistFragment - - - - - - - - - - -->
     <string name="tvYourPlaylist">Playlist: </string>
     <string name="tvNumberPlaylist">0</string>
@@ -179,8 +182,13 @@
     <string name="tvDeleteDownLoadSong">Xóa nhạc tải về</string>
     <string name="tvCloseInfoSong">Thoát</string>
 
-
     <!-- - - - - - - - - - - Layout_add_song_to_playlist_dialog - - - - - - - - - - -->
     <string name="tvSelectPlaylist">Chọn playlist</string>
+
+    <!-- - - - - - - - - - - item_genre - - - - - - - - - - -->
+    <string name="tvGenreName">Tên thể loại</string>
+
+
+    <string name="tvTitle">Tiêu đề</string>
 
 </resources>

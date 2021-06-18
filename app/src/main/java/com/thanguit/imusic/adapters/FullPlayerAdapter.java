@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FullPlayerAdapter extends FragmentStatePagerAdapter {
-
     private List<Fragment> fragmentList = new ArrayList<>();
 
     public FullPlayerAdapter(@NonNull FragmentManager fm, int behavior) {

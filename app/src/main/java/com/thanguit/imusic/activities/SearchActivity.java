@@ -33,6 +33,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
+    private static final String TAG = "SearchActivity";
+
     private EditText etSearchBox;
     private ImageView ivBack;
     private TextView tvSearchHint;
@@ -43,8 +45,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private ArrayList<Song> songArrayList = new ArrayList<>();
     private SongAdapter songAdapter;
-
-    private static final String TAG = "SearchActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +85,17 @@ public class SearchActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 String keyWord = s.toString().toLowerCase().trim(); // Chuyển kí tự về dạng chữ viết thường để tìm kiếm cho nhanh
 
-                Handler handler = new Handler();
-                handler.postDelayed(() -> {
-                    if (!keyWord.isEmpty()) {
-                        Handle_Search(keyWord);
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!keyWord.isEmpty()) {
+                            Handle_Search(keyWord);
+                        }
                     }
-                }, 1000);
+                };
+
+                Handler handler = new Handler();
+                handler.postDelayed(runnable, 1000);
             }
         });
     }
@@ -101,6 +106,7 @@ public class SearchActivity extends AppCompatActivity {
         callBack.enqueue(new Callback<List<Song>>() {
             @Override
             public void onResponse(Call<List<Song>> call, Response<List<Song>> response) {
+                songArrayList = new ArrayList<>();
                 songArrayList = (ArrayList<Song>) response.body();
 
                 if (songArrayList != null && songArrayList.size() > 0) {
@@ -110,6 +116,7 @@ public class SearchActivity extends AppCompatActivity {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(SearchActivity.this);
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvSearchResult.setLayoutManager(layoutManager);
+
                     rvSearchResult.setAdapter(new SongAdapter(SearchActivity.this, songArrayList, "SONGSEARCH"));
                 } else {
                     rvSearchResult.setAdapter(new SongAdapter(SearchActivity.this, songArrayList, "SONGSEARCH"));
@@ -118,7 +125,7 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
-                Log.d(TAG, t.getMessage());
+                Log.d(TAG, "Handle_Search(Error)" + t.getMessage());
             }
         });
     }

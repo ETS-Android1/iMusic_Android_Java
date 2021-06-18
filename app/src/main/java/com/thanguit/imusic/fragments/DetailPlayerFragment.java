@@ -31,7 +31,6 @@ public class DetailPlayerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail_player, container, false);
     }
 
@@ -44,7 +43,7 @@ public class DetailPlayerFragment extends Fragment {
     }
 
     private void Mapping(View view) {
-        this.rvDataListSong = (RecyclerView) view.findViewById(R.id.rvDataListSong);
+        this.rvDataListSong = view.findViewById(R.id.rvDataListSong);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -54,6 +53,7 @@ public class DetailPlayerFragment extends Fragment {
             LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
             layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
             this.rvDataListSong.setLayoutManager(layoutManager);
+
             this.rvDataListSong.setAdapter(new ListSongAdapter(FullPlayerActivity.dataSongArrayList));
 
             Log.d(TAG, FullPlayerActivity.dataSongArrayList.get(0).getName());
