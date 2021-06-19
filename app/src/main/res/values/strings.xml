@@ -43,6 +43,8 @@
     <string name="toast24">Lỗi! Thêm bài hát vào playlist thất bại. Vui lòng thử lại</string>
     <string name="toast25">Bài hát này đã tồn tại trong playlist</string>
 
+    <string name="toast26">Không có kết nối</string>
+
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
     <string name="toast6">Mã lỗi: </string>
@@ -69,7 +71,7 @@
     <string name="tvUserCommentName">User</string>
     <string name="tvTimeComment">00/00/0000</string>
     <string name="tvContentComment">Nội dung bình luận</string>
-
+    <string name="tvEmptyComment">Chưa có comment nào.\nHãy là người bình luận đầu tiên</string>
 
     <!-- - - - - - - - - - - FragmentFullPlayer - - - - - - - - - - -->
     <string name="tvTimeStart">00:00</string>

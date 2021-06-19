@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         app:cardCornerRadius="5dp"
-        app:cardElevation="0dp">
+        app:cardElevation="0dp"
+        app:cardUseCompatPadding="false">
 
         <ImageView
             android:id="@+id/ivSongChartImage"

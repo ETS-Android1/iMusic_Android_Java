@@ -70,6 +70,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private static final String PLAYLIST_SONG = "PLAYLISTSONG";
     private static final String DOWNLOAD_SONG = "DOWNLOADSONG";
     private static final String SONG_SEARCH = "SONGSEARCH";
+    private static final String LIST_SONG = "LISTSONG";
 
     //    private final String ACTION_INSERT_SONG_PLAYLIST = "insert";
     private final String ACTION_DELETE_SONG_PLAYLIST = "delete";
@@ -79,7 +80,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         this.context = context;
         this.songArrayList = songArrayList;
         this.layout = layout;
-        notifyDataSetChanged();
     }
 
     public SongAdapter(Context context, ArrayList<Song> songArrayList, int playlistID, String layout) {
@@ -87,7 +87,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         this.songArrayList = songArrayList;
         this.playlistID = playlistID;
         this.layout = layout;
-        notifyDataSetChanged();
     }
 
     public void Update_Data() {
@@ -105,7 +104,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull SongAdapter.ViewHolder holder, int position) {
         DataLocalManager.init(context);
 
-        Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yếu thích của người dùng
+        Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yêu thích của người dùng
 
         Picasso.get()
                 .load(this.songArrayList.get(position).getImg())
@@ -115,11 +114,14 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         holder.tvItemSongName.setText(this.songArrayList.get(position).getName());
         holder.tvItemSongSinger.setText(this.songArrayList.get(position).getSinger());
 
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), FullPlayerActivity.class);
-            intent.putExtra("SONG", songArrayList.get(position));
-            v.getContext().startActivity(intent);
-        });
+
+        if (!this.layout.equals(LIST_SONG)) {
+            holder.itemView.setOnClickListener(v -> {
+                Intent intent = new Intent(v.getContext(), FullPlayerActivity.class);
+                intent.putExtra("SONG", songArrayList.get(position));
+                v.getContext().startActivity(intent);
+            });
+        }
 
         holder.ivItemSongMore.setOnClickListener(v -> Open_Info_Song_Dialog(Gravity.BOTTOM, position));
 
@@ -229,6 +231,14 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                 rlDeleteAllSongToPlaylist.setVisibility(View.GONE);
                 break;
             }
+
+            case LIST_SONG: {
+                rlPlaySong.setVisibility(View.GONE);
+                rlDeleteSongToPlaylist.setVisibility(View.GONE);
+                rlDeleteAllSongToPlaylist.setVisibility(View.GONE);
+                rlDeleteDownLoadSong.setVisibility(View.GONE);
+                break;
+            }
             default: {
                 break;
             }
@@ -269,7 +279,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         this.scaleAnimation = new ScaleAnimation(context, rlCloseInfoPlaylist);
         this.scaleAnimation.Event_RelativeLayout();
         rlCloseInfoPlaylist.setOnClickListener(v -> dialog_1.dismiss());
-
 
         this.dialog_1.show(); // câu lệnh này sẽ hiển thị Dialog lên
     }

@@ -80,9 +80,9 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder>
                 if (songArrayList != null && songArrayList.size() > 0) {
                     Intent intent = new Intent(context, FullPlayerActivity.class);
                     intent.putExtra("SONGSLIDER", songArrayList);
+                    context.startActivity(intent);
 
                     alertDialog.dismiss();
-                    context.startActivity(intent);
                 }
             }
 

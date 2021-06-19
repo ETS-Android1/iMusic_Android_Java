@@ -18,7 +18,13 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
-public interface DataService {
+public interface DataService { // Interface này dùng để định nghĩa các API dùng trong ứng dụng
+    // Gửi phương thức và nhận dữ liệu từ server về
+
+    // Lưu ý @FormUrlEncoded không thể sư dụng cho GET request
+    // Yêu cầu form encoded chỉ sử dụng khi chúng ta muốn gửi dữ liệu lên server.
+    // Bên cạnh đó bạn cần sử dụng chú thích @Field cho đối số truyền vào cái mà sẽ được chuyển lên server
+
     @GET("slider.php")
     Call<List<Slider>> getSlider();
 

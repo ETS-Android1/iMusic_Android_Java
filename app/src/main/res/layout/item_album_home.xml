@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="false">
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
 
         <ImageView
             android:id="@+id/ivAlbum"

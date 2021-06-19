@@ -26,7 +26,6 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
     public ChartAdapter(Context context, ArrayList<Song> songArrayList) {
         this.context = context;
         this.songArrayList = songArrayList;
-        notifyDataSetChanged();
     }
 
     @NonNull

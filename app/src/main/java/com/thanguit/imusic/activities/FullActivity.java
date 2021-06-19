@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -17,6 +20,7 @@ import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.login.LoginManager;
+import com.google.android.material.snackbar.Snackbar;
 import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
 import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
 import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
@@ -36,6 +40,7 @@ import com.thanguit.imusic.fragments.SettingFragment;
 import com.thanguit.imusic.models.Album;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.User;
+import com.thanguit.imusic.services.MyBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +51,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FullActivity extends AppCompatActivity {
+    private static final String TAG = "FullActivity";
+
+    private MyBroadcastReceiver myBroadcastReceiver;
+
     private ScaleAnimation scaleAnimation;
     private LoadingDialog loadingDialog;
 
@@ -70,12 +79,11 @@ public class FullActivity extends AppCompatActivity {
     private static final int ID_RADIO = 4;
     private static final int ID_SETTING = 5;
 
-    private final String TAG = "FullActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full);
+        myBroadcastReceiver = new MyBroadcastReceiver();
 
         DataLocalManager.init(this);
 //        Toast.makeText(this, "User_ID: " + DataLocalManager.getUserID(), Toast.LENGTH_SHORT).show();
@@ -87,6 +95,9 @@ public class FullActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(myBroadcastReceiver, intentFilter); // Đăng kí lắng nghe
+
         Check_Login();
 //        ZaloSDK.Instance.isAuthenticate(new ValidateOAuthCodeCallback() {
 //            @Override
@@ -103,7 +114,6 @@ public class FullActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Check_Login();
     }
 
     @Override
@@ -120,12 +130,15 @@ public class FullActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        Check_Login();
+
+        unregisterReceiver(myBroadcastReceiver); // Hủy đăng kí lắng nghe sự kiện
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+//        unregisterReceiver(myBroadcastReceiver); // Hủy đăng kí lắng nghe sự kiện
     }
 
     private void Check_Login() {

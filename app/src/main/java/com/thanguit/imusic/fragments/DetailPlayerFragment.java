@@ -16,13 +16,15 @@ import android.view.ViewGroup;
 
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.FullPlayerActivity;
+import com.thanguit.imusic.activities.PersonalPlaylistActivity;
 import com.thanguit.imusic.adapters.ListSongAdapter;
+import com.thanguit.imusic.adapters.SongAdapter;
 import com.thanguit.imusic.adapters.ThemeHomeAdapter;
 
 public class DetailPlayerFragment extends Fragment {
-    private RecyclerView rvDataListSong;
-
     private static final String TAG = "DetailPlayerFragment";
+
+    private RecyclerView rvDataListSong;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class DetailPlayerFragment extends Fragment {
             layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
             this.rvDataListSong.setLayoutManager(layoutManager);
 
-            this.rvDataListSong.setAdapter(new ListSongAdapter(FullPlayerActivity.dataSongArrayList));
+            this.rvDataListSong.setAdapter(new SongAdapter(getContext(), FullPlayerActivity.dataSongArrayList, "LISTSONG"));
 
             Log.d(TAG, FullPlayerActivity.dataSongArrayList.get(0).getName());
         } else {

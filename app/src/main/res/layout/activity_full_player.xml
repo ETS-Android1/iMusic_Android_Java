@@ -67,7 +67,8 @@
             android:layout_marginEnd="5dp"
             android:gravity="center"
             android:padding="10dp"
-            app:srcCompat="@drawable/ic_menu_dots_vertical" />
+            app:srcCompat="@drawable/ic_menu_dots_vertical"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -86,7 +87,7 @@
             app:piv_padding="5dp"
             app:piv_radius="5dp"
             app:piv_selectedColor="@color/colorMain3"
-            app:piv_unselectedColor="@color/colorLight6"
+            app:piv_unselectedColor="@color/colorLight13"
             app:piv_viewPager="@+id/vpFullPlayer" />
 
         <androidx.viewpager.widget.ViewPager

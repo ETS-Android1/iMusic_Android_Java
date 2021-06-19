@@ -4,7 +4,7 @@
         <!-- <item name="android:windowTranslucentStatus">true</item> -->
 
         <!-- Status bar color -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/colorLight6</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/colorMain3</item>
     </style>
 
     <style name="btnLogin">

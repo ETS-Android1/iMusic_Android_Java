@@ -153,7 +153,7 @@ public class FullPlayerFragment extends Fragment {
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivComment);
         this.scaleAnimation.Event_ImageView();
         this.ivComment.setOnClickListener(v -> {
-            Open_Comment_Dialog();
+            Open_Comment_Dialog(position);
         });
 
 //        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivShare);
@@ -353,8 +353,10 @@ public class FullPlayerFragment extends Fragment {
     }
 
 
-    private void Open_Comment_Dialog() {
+    private void Open_Comment_Dialog(int position) {
         this.dialog = new Dialog(getContext());
+
+        Toast.makeText(getContext(), "Song: " + FullPlayerActivity.dataSongArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_comment_song);
@@ -367,7 +369,7 @@ public class FullPlayerFragment extends Fragment {
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // Set màu mờ mờ cho background dialog, che đi activity chính, nhưng vẫn có thể thấy được một phần
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
-        windowAttributes.gravity = Gravity.CENTER;
+        windowAttributes.gravity = Gravity.BOTTOM;
         windowAttributes.windowAnimations = R.style.DialogAnimation;
         window.setAttributes(windowAttributes);
 
@@ -375,6 +377,24 @@ public class FullPlayerFragment extends Fragment {
 
 
         // Ánh xạ các view trong dialog
+        ImageView ivInfoSongImageComment = dialog.findViewById(R.id.ivInfoSongImageComment);
+        Picasso.get()
+                .load(FullPlayerActivity.dataSongArrayList.get(position).getImg())
+                .placeholder(R.drawable.ic_logo)
+                .error(R.drawable.ic_logo)
+                .into(ivInfoSongImageComment);
+
+        TextView tvInfoSongNameComment = dialog.findViewById(R.id.tvInfoSongNameComment);
+        tvInfoSongNameComment.setSelected(true); // Text will be moved
+        tvInfoSongNameComment.setText(String.valueOf(FullPlayerActivity.dataSongArrayList.get(position).getName()));
+
+        TextView tvInfoSongSingerComment = dialog.findViewById(R.id.tvInfoSongSingerComment);
+        tvInfoSongSingerComment.setSelected(true); // Text will be moved
+        tvInfoSongSingerComment.setText(String.valueOf(FullPlayerActivity.dataSongArrayList.get(position).getSinger()));
+
+        TextView tvNullComment = dialog.findViewById(R.id.tvNullComment);
+        tvNullComment.setSelected(true);
+
         ImageView ivClose = dialog.findViewById(R.id.ivClose);
         ShimmerFrameLayout sflItemComment = dialog.findViewById(R.id.sflItemComment);
         RecyclerView rvComment = dialog.findViewById(R.id.rvComment);

@@ -7,6 +7,16 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Song implements Parcelable {
+    // Model dùng để mapping với dữ liệu mà API trả về, để tiện thì các bạn có thể vào
+    // trang http://www.jsonschema2pojo.org/ để convert dữ liệu sang các class model
+
+    /* - @SerializedName cần thiết cho Gson để ánh xạ các khoá JSON với các trường dữ liệu của chúng ta.
+    Để phù hợp với quy ước đặt tên kiểu camelCase của Java cho các thuộc tính thành viên của lớp,
+    bạn không nên sử dụng dấu gạch dưới để tách các từ ngữ trong một biến. @SerializedName giúp chuyển đổi giữa hai cái này.
+
+       - Chú thích @Expose chỉ ra rằng thành viên này nên được trình bày với JSON serialization hoặc deserialization.
+    */
+
     @SerializedName("id")
     @Expose
     private int id;
