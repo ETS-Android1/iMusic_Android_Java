@@ -1,6 +1,7 @@
 package com.thanguit.imusic.API;
 
 import com.thanguit.imusic.models.Album;
+import com.thanguit.imusic.models.Comment;
 import com.thanguit.imusic.models.Genre;
 import com.thanguit.imusic.models.Playlist;
 import com.thanguit.imusic.models.Slider;
@@ -96,4 +97,8 @@ public interface DataService { // Interface này dùng để định nghĩa các
     @FormUrlEncoded
     @POST("adddeleteuserplaylistsong.php")
     Call<List<Status>> addDeleteUserPlayListSong(@Field("action") String action, @Field("userID") String userID, @Field("playlistID") int playlistID, @Field("songID") int songID);
+
+    @FormUrlEncoded
+    @POST("getcommentsong.php")
+    Call<List<Comment>> getCommentSong(@Field("id") int id);
 }

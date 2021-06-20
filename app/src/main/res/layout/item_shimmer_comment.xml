@@ -6,10 +6,10 @@
 
     <ImageView
         android:id="@+id/ivAvatarCommentShimmer"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:background="@drawable/shape_oval_corner_50dp"
+        android:background="@drawable/shape_oval_corner_40dp"
         android:gravity="center" />
 
     <RelativeLayout

@@ -50,8 +50,8 @@ public class AlbumHomeAdapter extends RecyclerView.Adapter<AlbumHomeAdapter.View
                 .placeholder(R.drawable.ic_logo)
                 .error(R.drawable.ic_logo)
                 .into(holder.ivAlbum);
-        holder.tvAlbumName.setText(this.albumArrayList.get(position).getName());
-        holder.tvAlbumSinger.setText(this.albumArrayList.get(position).getSinger());
+        holder.tvAlbumName.setText(this.albumArrayList.get(position).getName().trim());
+        holder.tvAlbumSinger.setText(this.albumArrayList.get(position).getSinger().trim());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, SongActivity.class);

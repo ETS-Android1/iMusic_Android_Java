@@ -13,6 +13,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
@@ -33,21 +34,33 @@ import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
+import com.thanguit.imusic.API.APIService;
+import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.FullActivity;
 import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.activities.PersonalPageActivity;
+import com.thanguit.imusic.adapters.CommentSongAdapter;
+import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
+import com.thanguit.imusic.models.Comment;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FullPlayerFragment extends Fragment {
+    private static final String TAG = "FullPlayerFragment";
+
     private MediaPlayer mediaPlayer;
 
     private ImageView ivCover;
@@ -66,15 +79,14 @@ public class FullPlayerFragment extends Fragment {
 
     private ScaleAnimation scaleAnimation;
     private LoadingDialog loadingDialog;
-
     private Dialog dialog;
+
+    private List<Comment> commentList;
 
     private int position = 0;
     private boolean repeat = false;
     private boolean checkRandom = false;
     private boolean next = false;
-
-    private static final String TAG = "FullPlayerFragment";
 
     private ISendPositionListener iSendPositionListener;
 
@@ -356,8 +368,6 @@ public class FullPlayerFragment extends Fragment {
     private void Open_Comment_Dialog(int position) {
         this.dialog = new Dialog(getContext());
 
-        Toast.makeText(getContext(), "Song: " + FullPlayerActivity.dataSongArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
-
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_comment_song);
 
@@ -402,6 +412,37 @@ public class FullPlayerFragment extends Fragment {
         EditText etInputComment = dialog.findViewById(R.id.etInputComment);
         ImageView ivSend = dialog.findViewById(R.id.ivSend);
 
+        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+        Call<List<Comment>> callBack = dataService.getCommentSong(FullPlayerActivity.dataSongArrayList.get(position).getId());
+        callBack.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                commentList = new ArrayList<>();
+                commentList = response.body();
+
+                if (commentList != null && commentList.size() > 0) {
+                    rvComment.setHasFixedSize(true);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                    layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    rvComment.setLayoutManager(layoutManager);
+
+                    rvComment.setAdapter(new CommentSongAdapter(getContext(), commentList));
+
+                    sflItemComment.setVisibility(View.GONE);
+                    rvComment.setVisibility(View.VISIBLE); // Hiện thông tin Playlist
+
+                    Log.d(TAG, "User Playlist: " + commentList.get(0).getContent());
+                } else {
+                    sflItemComment.setVisibility(View.GONE);
+                    tvNullComment.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+                Log.d(TAG, "Handle_Comment(Error): " + t.getMessage());
+            }
+        });
 
         this.scaleAnimation = new ScaleAnimation(getContext(), ivClose);
         this.scaleAnimation.Event_ImageView();
@@ -422,6 +463,9 @@ public class FullPlayerFragment extends Fragment {
         });
 
         dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
+    }
+
+    private void Handle_Comment(int songID) {
     }
 
 

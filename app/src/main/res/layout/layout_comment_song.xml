@@ -162,9 +162,9 @@
             android:layout_marginTop="20dp"
             android:ellipsize="marquee"
             android:fontFamily="@font/comfortaa"
+            android:lineSpacingExtra="5dp"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            android:singleLine="true"
             android:text="@string/tvEmptyComment"
             android:textAlignment="center"
             android:textColor="@color/colorLight9"
@@ -187,32 +187,37 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/civAvatarComment"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:src="@drawable/ic_logo" />
+            android:src="@drawable/ic_logo"
+            app:civ_border_color="@color/colorMain3"
+            app:civ_border_width="1dp" />
 
         <EditText
             android:id="@+id/etInputComment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:layout_alignTop="@+id/civAvatarComment"
             android:layout_alignBottom="@+id/civAvatarComment"
             android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_toStartOf="@+id/ivSend"
             android:layout_toEndOf="@+id/civAvatarComment"
 
-            android:background="@drawable/shape_shadow_2"
+            android:background="@drawable/shape_corner_10dp_border"
             android:fontFamily="@font/comfortaa"
             android:hint="@string/etHintComment"
             android:overScrollMode="always"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:maxLength="200"
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical"
-            android:textColor="@color/colorLight9"
+            android:textColor="@color/colorLight7"
             android:textSize="16sp" />
 
         <ImageView

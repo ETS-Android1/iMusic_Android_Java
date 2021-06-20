@@ -89,7 +89,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
     public void onBindViewHolder(@NonNull UserPlaylistAdapter.ViewHolder holder, int position) {
         DataLocalManager.init(context);
 
-        holder.tvPlaylistName.setText(userPlaylistArrayList.get(position).getName());
+        holder.tvPlaylistName.setText(userPlaylistArrayList.get(position).getName().trim());
 
         holder.ivPlaylistMore.setOnClickListener(v -> Open_Info_Playlist_Dialog(Gravity.BOTTOM, position));
 
