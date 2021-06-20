@@ -111,8 +111,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                 .placeholder(R.drawable.ic_logo)
                 .error(R.drawable.ic_logo)
                 .into(holder.ivItemSong);
-        holder.tvItemSongName.setText(this.songArrayList.get(position).getName());
-        holder.tvItemSongSinger.setText(this.songArrayList.get(position).getSinger());
+        holder.tvItemSongName.setText(this.songArrayList.get(position).getName().trim());
+        holder.tvItemSongSinger.setText(this.songArrayList.get(position).getSinger().trim());
 
 
         if (!this.layout.equals(LIST_SONG)) {

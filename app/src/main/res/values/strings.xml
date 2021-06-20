@@ -45,6 +45,8 @@
 
     <string name="toast26">Không có kết nối</string>
 
+    <string name="toast27">Vui lòng không viết quá 200 kí tự</string>
+
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
     <string name="toast6">Mã lỗi: </string>

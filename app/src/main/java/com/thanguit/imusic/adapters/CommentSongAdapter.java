@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.models.Comment;
 
 import java.text.SimpleDateFormat;
@@ -51,6 +53,16 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
         holder.tvUserComment.setText(this.commentList.get(position).getUserName().trim());
         holder.tvTimeComment.setText(Handle_Date(this.commentList.get(position).getDate()).trim());
         holder.tvContentComment.setText(this.commentList.get(position).getContent().trim());
+
+        if (this.commentList.get(position).getIdUser().trim().equals(DataLocalManager.getUserID())) {
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    return false;
+                }
+            });
+        }
     }
 
     private String Handle_Date(String date) {

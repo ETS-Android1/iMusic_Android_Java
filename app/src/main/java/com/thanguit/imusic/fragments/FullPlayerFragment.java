@@ -37,6 +37,7 @@ import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.FullActivity;
 import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.activities.PersonalPageActivity;
@@ -45,10 +46,13 @@ import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Comment;
+import com.thanguit.imusic.models.Status;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -57,6 +61,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Field;
 
 public class FullPlayerFragment extends Fragment {
     private static final String TAG = "FullPlayerFragment";
@@ -82,6 +87,11 @@ public class FullPlayerFragment extends Fragment {
     private Dialog dialog;
 
     private List<Comment> commentList;
+    private CommentSongAdapter commentSongAdapter;
+
+    private ArrayList<Status> statusArrayList;
+
+    private final String ACTION_INSERT_COMMENT = "insert";
 
     private int position = 0;
     private boolean repeat = false;
@@ -120,13 +130,14 @@ public class FullPlayerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        DataLocalManager.init(getContext());
 
         Mapping(view);
         Event();
     }
 
     private void Mapping(View view) {
-//        this.loadingDialog = new LoadingDialog(getActivity());
+        this.loadingDialog = new LoadingDialog(getActivity());
 //        this.loadingDialog.Start_Loading();
 
         this.ivCover = view.findViewById(R.id.ivCover);
@@ -426,7 +437,8 @@ public class FullPlayerFragment extends Fragment {
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvComment.setLayoutManager(layoutManager);
 
-                    rvComment.setAdapter(new CommentSongAdapter(getContext(), commentList));
+                    commentSongAdapter = new CommentSongAdapter(getContext(), commentList);
+                    rvComment.setAdapter(commentSongAdapter);
 
                     sflItemComment.setVisibility(View.GONE);
                     rvComment.setVisibility(View.VISIBLE); // Hiện thông tin Playlist
@@ -460,12 +472,61 @@ public class FullPlayerFragment extends Fragment {
         this.scaleAnimation = new ScaleAnimation(getContext(), ivSend);
         this.scaleAnimation.Event_ImageView();
         ivSend.setOnClickListener(v -> {
+            String content = etInputComment.getText().toString().trim();
+
+            Date date = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            String time = dateFormat.format(date);
+
+            if (content.isEmpty()) {
+                Toast.makeText(v.getContext(), R.string.toast12, Toast.LENGTH_SHORT).show();
+            } else if (content.length() > 200) {
+                Toast.makeText(v.getContext(), R.string.toast27, Toast.LENGTH_SHORT).show();
+            } else {
+                loadingDialog.Start_Loading();
+                Handle_Add_Comment(ACTION_INSERT_COMMENT, 0, FullPlayerActivity.dataSongArrayList.get(position).getId(), DataLocalManager.getUserID(), content, time);
+            }
         });
 
         dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
     }
 
-    private void Handle_Comment(int songID) {
+    private void Handle_Add_Comment(String action, int commentID, int songID, String userID, String content, String date) {
+        DataService dataService = APIService.getService();
+        Call<List<Status>> callBack = dataService.addUpdateDeleteCommentSong(action, commentID, songID, userID, content, date);
+        callBack.enqueue(new Callback<List<Status>>() {
+            @Override
+            public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                statusArrayList = new ArrayList<>();
+                statusArrayList = (ArrayList<Status>) response.body();
+
+                if (statusArrayList != null) {
+                    if (statusArrayList.get(0).getStatus() == 1) {
+                        loadingDialog.Cancel_Loading();
+
+                        commentSongAdapter.notifyDataSetChanged();
+                        Toast.makeText(getContext(), "Đã bình luận", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    } else if (statusArrayList.get(0).getStatus() == 2) {
+                        loadingDialog.Cancel_Loading();
+
+                        Toast.makeText(getContext(), R.string.toast27, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    } else {
+                        loadingDialog.Cancel_Loading();
+
+                        Toast.makeText(getContext(), R.string.toast11, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                }
+                loadingDialog.Cancel_Loading();
+            }
+
+            @Override
+            public void onFailure(Call<List<Status>> call, Throwable t) {
+                Log.d(TAG, "Handle_Add_Comment(Error): " + t.getMessage());
+            }
+        });
     }
 
 

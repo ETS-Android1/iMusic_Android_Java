@@ -101,4 +101,8 @@ public interface DataService { // Interface này dùng để định nghĩa các
     @FormUrlEncoded
     @POST("getcommentsong.php")
     Call<List<Comment>> getCommentSong(@Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("addupdatedeletecommentsong.php")
+    Call<List<Status>> addUpdateDeleteCommentSong(@Field("action") String action, @Field("commentID") int commentID, @Field("songID") int songID, @Field("userID") String userID, @Field("content") String content, @Field("date") String date);
 }

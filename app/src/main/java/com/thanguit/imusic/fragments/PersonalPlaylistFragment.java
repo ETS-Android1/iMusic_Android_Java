@@ -118,7 +118,7 @@ public class PersonalPlaylistFragment extends Fragment {
 
     private void Mapping(View view) {
         this.loadingDialog = new LoadingDialog(getActivity());
-        this.loadingDialog.Start_Loading();
+//        this.loadingDialog.Start_Loading();
 
         this.llFrameLoveSong = view.findViewById(R.id.llFrameLoveSong);
         this.tvNumberPlaylist = view.findViewById(R.id.tvNumberPlaylist);
@@ -171,20 +171,6 @@ public class PersonalPlaylistFragment extends Fragment {
         Button btnDialogCancelPlaylist = dialog.findViewById(R.id.btnDialogCancelPlaylist);
         Button btnDialogActionPlaylist = dialog.findViewById(R.id.btnDialogActionPlaylist);
 
-        etDialogContentPlaylist.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
         this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogCancelPlaylist);
         this.scaleAnimation.Event_Button();
         btnDialogCancelPlaylist.setOnClickListener(v -> {
@@ -198,8 +184,8 @@ public class PersonalPlaylistFragment extends Fragment {
             if (playlistName.isEmpty()) {
                 Toast.makeText(v.getContext(), R.string.toast12, Toast.LENGTH_SHORT).show();
             } else {
-//                Handle_Add_Update_Delete_DeleteAll_UserPlaylist("insert", 0, DataLocalManager.getUserID(), playlistName);
-                loadingDialog.Start_Loading();
+                this.loadingDialog.Start_Loading();
+
                 DataService dataService = APIService.getService();
                 Call<List<Status>> callBack = dataService.addUpdateDeleteUserPlaylist("insert", 0, DataLocalManager.getUserID(), playlistName);
                 callBack.enqueue(new Callback<List<Status>>() {
@@ -210,31 +196,29 @@ public class PersonalPlaylistFragment extends Fragment {
 
                         if (statusArrayList != null) {
                             if (statusArrayList.get(0).getStatus() == 1) {
-                                loadingDialog.Cancel_Loading();
+                                Handle_UserPlaylist();
 
+                                loadingDialog.Cancel_Loading();
                                 Toast.makeText(v.getContext(), R.string.toast13, Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             } else if (statusArrayList.get(0).getStatus() == 2) {
                                 loadingDialog.Cancel_Loading();
-
                                 Toast.makeText(v.getContext(), R.string.toast14, Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             } else if (statusArrayList.get(0).getStatus() == 3) {
                                 loadingDialog.Cancel_Loading();
-
                                 Toast.makeText(v.getContext(), R.string.toast15, Toast.LENGTH_SHORT).show();
                             } else {
                                 loadingDialog.Cancel_Loading();
-
                                 Toast.makeText(v.getContext(), R.string.toast11, Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
                         }
-                        loadingDialog.Cancel_Loading();
                     }
 
                     @Override
                     public void onFailure(Call<List<Status>> call, Throwable t) {
+                        loadingDialog.Cancel_Loading();
                         dialog.dismiss();
                         Log.d(TAG, "Handle_Add_Update_Delete_DeleteAll_UserPlaylist(Error): " + t.getMessage());
                     }
@@ -256,19 +240,15 @@ public class PersonalPlaylistFragment extends Fragment {
 
                 if (songArrayList != null) {
                     tvNumberSongLove.setText(String.valueOf(songArrayList.size()));
-                    loadingDialog.Cancel_Loading();
 
                     Log.d(TAG, "Number Favorite Song: " + songArrayList.size());
                 } else {
                     tvNumberSongLove.setText("0");
-                    loadingDialog.Cancel_Loading();
                 }
-                loadingDialog.Cancel_Loading();
             }
 
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
-                loadingDialog.Cancel_Loading();
                 Log.d(TAG, "Handle_Number_Favorite_Song(Error): " + t.getMessage());
             }
         });
@@ -294,7 +274,6 @@ public class PersonalPlaylistFragment extends Fragment {
 
                     sflItemUserPlaylist.setVisibility(View.GONE);
                     tvNumberPlaylist.setText(String.valueOf(userPlaylistAdapter.getItemCount())); // Hiển thị số lượng Playlist
-//                    userPlaylistAdapter.Update_Data();
                     rvYourPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin Playlist
 
                     Log.d(TAG, "User Playlist: " + userPlaylistArrayList.get(0).getName());
