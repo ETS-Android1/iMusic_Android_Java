@@ -54,7 +54,6 @@ public interface DataService { // Interface này dùng để định nghĩa các
     @POST("getsonggenre.php")
     Call<List<Song>> getSongGenre(@Field("id") int id);
 
-
     @GET("songlove.php")
     Call<List<Song>> getSongChart();
 

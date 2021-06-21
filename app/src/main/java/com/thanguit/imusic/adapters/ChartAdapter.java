@@ -227,7 +227,6 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
         tvEmptyPlaylist.setSelected(true);
         RecyclerView rvYourPlaylist = dialog_3.findViewById(R.id.rvYourPlaylist);
 
-
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
         Call<List<UserPlaylist>> callBack = dataService.getUserPlaylist(userID);
         callBack.enqueue(new Callback<List<UserPlaylist>>() {
@@ -276,16 +275,12 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
 
         if (position == 0) {
             tvPosition.setTextColor(context.getResources().getColor(R.color.colorMain4));
-            tvPosition.setTypeface(Typeface.DEFAULT_BOLD);
         } else if (position == 1) {
             tvPosition.setTextColor(context.getResources().getColor(R.color.colorMain7));
-            tvPosition.setTypeface(Typeface.DEFAULT_BOLD);
         } else if (position == 2) {
             tvPosition.setTextColor(context.getResources().getColor(R.color.colorMain8));
-            tvPosition.setTypeface(Typeface.DEFAULT_BOLD);
         } else { // Ko biết tại sao, khí nào quay lại tìm hiểu sau
             tvPosition.setTextColor(context.getResources().getColor(R.color.colorLight7));
-            tvPosition.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
     }
 

@@ -44,6 +44,7 @@ import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.User;
 import com.thanguit.imusic.services.FullPlayerManagerService;
 import com.thanguit.imusic.services.MyBroadcastReceiver;
+import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,7 @@ public class FullActivity extends AppCompatActivity {
 //        Toast.makeText(this, "User_ID: " + DataLocalManager.getUserID(), Toast.LENGTH_SHORT).show();
 
         Mapping();
+        Update_Language();
         Event();
     }
 
@@ -119,6 +121,8 @@ public class FullActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        Update_Language();
 
         if (FullPlayerManagerService.listCurrentSong != null) {
             loadFragmentMiniPlayer();
@@ -298,6 +302,14 @@ public class FullActivity extends AppCompatActivity {
                 .withDoublePressDuration(TIME_DURATION)
                 .withFirstBackPressAction(this.firstBackPressAction)
                 .withDoubleBackPressAction(this.doubleBackPressAction);
+    }
+
+    private void Update_Language() {
+        if (DataLocalManager.getLanguage()) {
+            this.editText.setHint(getString(R.string.enetHint1));
+        } else {
+            this.editText.setHint(getString(R.string.etHint1));
+        }
     }
 
     private void loadFragment(Fragment fragment) {

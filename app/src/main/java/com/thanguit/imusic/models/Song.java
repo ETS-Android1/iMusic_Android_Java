@@ -39,6 +39,10 @@ public class Song implements Parcelable {
     @Expose
     private String lyric;
 
+    @SerializedName("mvcode")
+    @Expose
+    private String mvcode;
+
     protected Song(Parcel in) {
         id = in.readInt();
         name = in.readString();
@@ -47,6 +51,7 @@ public class Song implements Parcelable {
         link = in.readString();
         like = in.readString();
         lyric = in.readString();
+        mvcode = in.readString();
     }
 
     public static final Creator<Song> CREATOR = new Creator<Song>() {
@@ -117,6 +122,15 @@ public class Song implements Parcelable {
         this.lyric = lyric;
     }
 
+    public String getMvcode() {
+        return mvcode;
+    }
+
+    public void setMvcode(String mvcode) {
+        this.mvcode = mvcode;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -131,5 +145,6 @@ public class Song implements Parcelable {
         dest.writeString(link);
         dest.writeString(like);
         dest.writeString(lyric);
+        dest.writeString(mvcode);
     }
 }
