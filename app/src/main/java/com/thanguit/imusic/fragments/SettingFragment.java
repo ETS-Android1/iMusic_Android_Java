@@ -1,8 +1,5 @@
 package com.thanguit.imusic.fragments;
 
-import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,15 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
-import com.thanguit.imusic.activities.FullActivity;
-import com.thanguit.imusic.services.SettingLanguage;
 
-import java.util.Locale;
 
 public class SettingFragment extends Fragment {
     private LottieAnimationView btnSwitchTheme;
