@@ -186,7 +186,7 @@
         android:layout_alignParentBottom="true">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civAvatarComment"
+            android:id="@+id/civYourAvatarComment"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
@@ -201,20 +201,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            android:layout_alignTop="@+id/civAvatarComment"
-            android:layout_alignBottom="@+id/civAvatarComment"
+            android:layout_alignTop="@+id/civYourAvatarComment"
+            android:layout_alignBottom="@+id/civYourAvatarComment"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_toStartOf="@+id/ivSend"
-            android:layout_toEndOf="@+id/civAvatarComment"
+            android:layout_toEndOf="@+id/civYourAvatarComment"
 
             android:background="@drawable/shape_corner_10dp_border"
             android:fontFamily="@font/comfortaa"
             android:hint="@string/etHintComment"
+            android:maxLength="200"
             android:overScrollMode="always"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:maxLength="200"
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical"
             android:textColor="@color/colorLight7"
@@ -224,8 +224,8 @@
             android:id="@+id/ivSend"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignTop="@+id/civAvatarComment"
-            android:layout_alignBottom="@+id/civAvatarComment"
+            android:layout_alignTop="@+id/civYourAvatarComment"
+            android:layout_alignBottom="@+id/civYourAvatarComment"
             android:layout_alignParentEnd="true"
             android:gravity="center"
             app:srcCompat="@drawable/ic_send" />

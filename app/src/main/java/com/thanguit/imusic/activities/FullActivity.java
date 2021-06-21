@@ -244,6 +244,8 @@ public class FullActivity extends AppCompatActivity {
                             .error(R.drawable.ic_logo)
                             .into(this.circleImageView);
 
+                    DataLocalManager.setUserAvatar(avatarFacebook);
+
                     Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
 
                     Log.d(TAG, "User information (FACEBOOK): " + object);

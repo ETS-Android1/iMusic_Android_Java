@@ -58,7 +58,7 @@ public class MiniPlayerOnLockScreenService extends Service {
         if (action.equalsIgnoreCase(ACTION_PLAY)) {
             buildNotification(initAction(R.drawable.ic_pause, "Pause", ACTION_PLAY));
         } else if (action.equalsIgnoreCase(ACTION_PAUSE)) {
-            buildNotification(initAction(R.drawable.ic_play_1, "Pause", ACTION_PAUSE));
+            buildNotification(initAction(R.drawable.ic_play_2, "Pause", ACTION_PAUSE));
         } else if (action.equalsIgnoreCase(ACTION_NEXT)) {
             mediaController.getTransportControls().skipToNext();
         } else if (action.equalsIgnoreCase(ACTION_PRE)) {
@@ -102,12 +102,10 @@ public class MiniPlayerOnLockScreenService extends Service {
 
                     @Override
                     public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
                     }
 
                     @Override
                     public void onPrepareLoad(Drawable placeHolderDrawable) {
-
                     }
                 });
 
@@ -116,7 +114,7 @@ public class MiniPlayerOnLockScreenService extends Service {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
 
             NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
             mChannel.setDescription(description);

@@ -163,6 +163,10 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 //        this.scaleAnimation = new ScaleAnimation(context, rlAddPlaylist);
 //        this.scaleAnimation.Event_RelativeLayout();
 
+        if (songID > -1) {
+            rlEditPlaylist.setVisibility(View.GONE);
+        }
+
         this.scaleAnimation = new ScaleAnimation(context, rlEditPlaylist);
         this.scaleAnimation.Event_RelativeLayout();
         rlEditPlaylist.setOnClickListener(v -> {
@@ -270,7 +274,6 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         window.setAttributes(windowAttributes);
 
         dialog_2.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
-
 
         // Ánh xạ các view trong dialog
         TextView tvDialogTitle = dialog_2.findViewById(R.id.tvDialogTitle);
@@ -455,7 +458,6 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

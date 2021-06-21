@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -38,6 +40,7 @@ import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
@@ -466,6 +469,7 @@ public class FullPlayerFragment extends Fragment {
 
     private void Open_Comment_Dialog(int position) {
         this.dialog = new Dialog(getContext());
+        DataLocalManager.init(getContext());
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_comment_song);
@@ -507,7 +511,14 @@ public class FullPlayerFragment extends Fragment {
         ImageView ivClose = dialog.findViewById(R.id.ivClose);
         ShimmerFrameLayout sflItemComment = dialog.findViewById(R.id.sflItemComment);
         RecyclerView rvComment = dialog.findViewById(R.id.rvComment);
-        CircleImageView civAvatarComment = dialog.findViewById(R.id.civAvatarComment);
+
+        CircleImageView civYourAvatarComment = dialog.findViewById(R.id.civYourAvatarComment);
+        Picasso.get()
+                .load(DataLocalManager.getUserAvatar())
+                .placeholder(R.drawable.ic_logo)
+                .error(R.drawable.ic_logo)
+                .into(civYourAvatarComment);
+
         EditText etInputComment = dialog.findViewById(R.id.etInputComment);
         ImageView ivSend = dialog.findViewById(R.id.ivSend);
 
@@ -550,9 +561,9 @@ public class FullPlayerFragment extends Fragment {
             dialog.dismiss();
         });
 
-        this.scaleAnimation = new ScaleAnimation(getContext(), civAvatarComment);
+        this.scaleAnimation = new ScaleAnimation(getContext(), civYourAvatarComment);
         this.scaleAnimation.Event_CircleImageView();
-        civAvatarComment.setOnClickListener(v -> {
+        civYourAvatarComment.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), PersonalPageActivity.class);
             startActivity(intent);
         });
@@ -593,7 +604,7 @@ public class FullPlayerFragment extends Fragment {
                         loadingDialog.Cancel_Loading();
 
                         commentSongAdapter.notifyDataSetChanged();
-                        Toast.makeText(getContext(), "Đã bình luận", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.toast28, Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     } else if (statusArrayList.get(0).getStatus() == 2) {
                         loadingDialog.Cancel_Loading();

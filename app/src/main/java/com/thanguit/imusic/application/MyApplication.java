@@ -14,7 +14,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
 //        ZaloSDKApplication.wrap(this);
-        createNotificationChannel();
+//        createNotificationChannel();
     }
 
     private void createNotificationChannel() {
@@ -23,7 +23,7 @@ public class MyApplication extends Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
             String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_HIGH;
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
 
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);

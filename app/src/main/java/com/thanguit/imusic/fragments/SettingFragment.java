@@ -9,13 +9,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.thanguit.imusic.R;
+import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 
 public class SettingFragment extends Fragment {
     private LottieAnimationView btnSwitchTheme;
-    private boolean switchTheme = false;
+    private TextView tvVietNamese;
+    private TextView tvEnglish;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +28,6 @@ public class SettingFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_setting, container, false);
     }
 
@@ -32,24 +35,48 @@ public class SettingFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        DataLocalManager.init(getContext());
+
         Mapping(view);
         Event();
     }
 
     public void Mapping(View view) {
-        this.btnSwitchTheme = (LottieAnimationView) view.findViewById(R.id.btnSwitchTheme);
+        this.btnSwitchTheme = view.findViewById(R.id.btnSwitchTheme);
+        this.tvVietNamese = view.findViewById(R.id.tvVietNamese);
+        this.tvEnglish = view.findViewById(R.id.tvEnglish);
+
+        if (DataLocalManager.getTheme()) {
+            this.btnSwitchTheme.setMinAndMaxProgress(0.5f, 1.0f); // Tối
+        } else {
+            this.btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Sáng
+        }
     }
 
     private void Event() {
         this.btnSwitchTheme.setOnClickListener(v -> {
-            if (switchTheme) {
-                btnSwitchTheme.setMinAndMaxProgress(0.65f, 1.0f);
-                btnSwitchTheme.playAnimation();
-                switchTheme = false;
+            if (DataLocalManager.getTheme()) {
+                this.btnSwitchTheme.setMinAndMaxProgress(0.5f, 1.0f); // Tối
+                this.btnSwitchTheme.playAnimation();
+                DataLocalManager.setTheme(false);
             } else {
-                btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f);
-                btnSwitchTheme.playAnimation();
-                switchTheme = true;
+                this.btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Sáng
+                this.btnSwitchTheme.playAnimation();
+                DataLocalManager.setTheme(true);
+            }
+        });
+
+        this.tvVietNamese.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        this.tvEnglish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

@@ -1,10 +1,18 @@
 package com.thanguit.imusic.adapters;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,23 +20,39 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+import com.thanguit.imusic.API.APIService;
+import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
+import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Comment;
+import com.thanguit.imusic.models.Status;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.ViewHolder> {
     private static final String TAG = "CommentSongAdapter";
 
+    private ScaleAnimation scaleAnimation;
+    private AlertDialog alertDialog;
+    private Dialog dialog_1;
+
     private Context context;
     private List<Comment> commentList;
+
+    private ArrayList<Status> statusArrayList;
+
+    private final String ACTION_DELETE_COMMENT = "delete";
 
     public CommentSongAdapter(Context context, List<Comment> commentList) {
         this.context = context;
@@ -55,14 +79,103 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
         holder.tvContentComment.setText(this.commentList.get(position).getContent().trim());
 
         if (this.commentList.get(position).getIdUser().trim().equals(DataLocalManager.getUserID())) {
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-
-                    return false;
-                }
+            holder.itemView.setOnLongClickListener(v -> {
+                Open_Delele_Comment_Dialog(Gravity.CENTER, position);
+                return false;
             });
         }
+    }
+
+    private void Open_Delele_Comment_Dialog(int gravity, int position) {
+        this.dialog_1 = new Dialog(this.context);
+
+        dialog_1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_1.setContentView(R.layout.layout_textview_dialog);
+
+        Window window = (Window) dialog_1.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // Set màu mờ mờ cho background dialog, che đi activity chính, nhưng vẫn có thể thấy được một phần
+
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        windowAttributes.windowAnimations = R.style.DialogAnimation;
+        window.setAttributes(windowAttributes);
+
+        dialog_1.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
+
+        // Ánh xạ các view trong dialog
+        TextView tvDialogTitle = dialog_1.findViewById(R.id.tvDialogTitle);
+        tvDialogTitle.setSelected(true); // Text will be moved
+        TextView tvDialogContent = dialog_1.findViewById(R.id.tvDialogContent);
+        Button btnDialogCancel = dialog_1.findViewById(R.id.btnDialogCancel);
+        Button btnDialogAction = dialog_1.findViewById(R.id.btnDialogAction);
+
+        tvDialogTitle.setText(R.string.tvDialogTitle6);
+        tvDialogContent.setText(R.string.tvDialogContent6);
+        btnDialogCancel.setText(R.string.btnDialogCancel6);
+        btnDialogAction.setText(R.string.btnDialogAction6);
+
+        this.scaleAnimation = new ScaleAnimation(context, btnDialogCancel);
+        this.scaleAnimation.Event_Button();
+        btnDialogCancel.setOnClickListener(v -> {
+            dialog_1.dismiss();
+        });
+
+        this.scaleAnimation = new ScaleAnimation(context, btnDialogAction);
+        this.scaleAnimation.Event_Button();
+        btnDialogAction.setOnClickListener(v -> {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+            View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
+            alertBuilder.setView(view);
+            alertBuilder.setCancelable(true);
+            this.alertDialog = alertBuilder.create();
+            this.alertDialog.show();
+
+            Handle_Delete_Comment(ACTION_DELETE_COMMENT, commentList.get(position).getIdComment(), commentList.get(position).getIdSong(), DataLocalManager.getUserID(), commentList.get(position).getContent(), commentList.get(position).getDate());
+        });
+
+        dialog_1.show(); // câu lệnh này sẽ hiển thị Dialog lên
+    }
+
+    private void Handle_Delete_Comment(String action, int commentID, int songID, String userID, String content, String date) {
+        DataService dataService = APIService.getService();
+        Call<List<Status>> callBack = dataService.addUpdateDeleteCommentSong(action, commentID, songID, userID, content, date);
+        callBack.enqueue(new Callback<List<Status>>() {
+            @Override
+            public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                statusArrayList = new ArrayList<>();
+                statusArrayList = (ArrayList<Status>) response.body();
+
+                if (statusArrayList != null) {
+                    if (statusArrayList.get(0).getStatus() == 1) {
+                        alertDialog.dismiss();
+                        notifyDataSetChanged();
+                        dialog_1.dismiss();
+                        Toast.makeText(context, R.string.toast29, Toast.LENGTH_SHORT).show();
+                    } else if (statusArrayList.get(0).getStatus() == 2) {
+                        alertDialog.dismiss();
+                        dialog_1.dismiss();
+                        Toast.makeText(context, R.string.toast30, Toast.LENGTH_SHORT).show();
+                    } else {
+                        dialog_1.dismiss();
+                        Toast.makeText(context, R.string.toast11, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                alertDialog.dismiss();
+                dialog_1.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<Status>> call, Throwable t) {
+                alertDialog.dismiss();
+                dialog_1.dismiss();
+
+                Log.d(TAG, "Handle_Add_Comment(Error): " + t.getMessage());
+            }
+        });
     }
 
     private String Handle_Date(String date) {

@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/tvLanguage"
                 android:layout_alignBottom="@+id/tvLanguage"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="10dp"
                 android:layout_toStartOf="@+id/tvEnglish"
                 android:fontFamily="@font/comfortaa"
                 android:gravity="center"

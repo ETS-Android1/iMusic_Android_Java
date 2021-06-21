@@ -47,6 +47,10 @@
 
     <string name="toast27">Vui lòng không viết quá 200 kí tự</string>
 
+    <string name="toast28">Đã bình luận</string>
+    <string name="toast29">Đã xóa bình luận</string>
+    <string name="toast30">Xóa bình luận thất bại</string>
+
     <!--    Button "Login with Zalo"    -->
     <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
     <string name="toast6">Mã lỗi: </string>
@@ -140,6 +144,11 @@
     <string name="tvDialogContent5">Bạn có chắc muốn xóa tất cả bài hát?</string>
     <string name="btnDialogCancel5">Hủy</string>
     <string name="btnDialogAction5">Xóa</string>
+
+    <string name="tvDialogTitle6">Xóa comment</string>
+    <string name="tvDialogContent6">Bạn có chắc muốn xóa comment này?</string>
+    <string name="btnDialogCancel6">Hủy</string>
+    <string name="btnDialogAction6">Xóa</string>
 
     <!-- - - - - - - - - - - PersonalPlaylistFragment - - - - - - - - - - -->
     <string name="tvYourPlaylist">Playlist: </string>

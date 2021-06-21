@@ -181,11 +181,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
         TextView tvInfoSongName = this.dialog_1.findViewById(R.id.tvInfoSongName);
         tvInfoSongName.setSelected(true);
-        tvInfoSongName.setText(String.valueOf(this.songArrayList.get(position).getName()));
+        tvInfoSongName.setText(this.songArrayList.get(position).getName().trim());
 
         TextView tvInfoSongSinger = this.dialog_1.findViewById(R.id.tvInfoSongSinger);
         tvInfoSongSinger.setSelected(true);
-        tvInfoSongSinger.setText(String.valueOf(this.songArrayList.get(position).getSinger()));
+        tvInfoSongSinger.setText(this.songArrayList.get(position).getSinger().trim());
 
 
         RelativeLayout rlPlaySong = this.dialog_1.findViewById(R.id.rlPlaySong);

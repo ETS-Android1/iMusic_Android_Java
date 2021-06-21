@@ -75,7 +75,6 @@ public class DataLocalManager {
         return DataLocalManager.getInstance().sharedPreferencesManager.getBooleanValue(LANGUAGE);
     }
 
-
     public static void setListSongDownloaded(List<Song> song) {
         Gson gs = new Gson();
         JsonArray jsonArray = gs.toJsonTree(song).getAsJsonArray();
