@@ -144,6 +144,7 @@
     <!-- - - - - - - - - - - PersonalPlaylistFragment - - - - - - - - - - -->
     <string name="tvYourPlaylist">Playlist: </string>
     <string name="tvNumberPlaylist">0</string>
+    <string name="tvTitleDownloadSong">Bài hát trên thiết bị</string>
     <string name="tvTitleLoveSong">Bài hát yêu thích</string>
     <string name="tvNumberSongLove"> </string>
     <string name="tvEmptyPlaylist">Chưa có playlist nào</string>
@@ -198,5 +199,9 @@
     <string name="minutes">phút trước</string>
     <string name="days">ngày trước</string>
     <string name="today">Hôm nay</string>
+
+    <!-- - - - - - - - - - - fragment radio - - - - - - - - - - -->
+    <string name="tvRadio">Chức năng đang phát triển</string>
+
 
 </resources>

@@ -2,9 +2,13 @@ package com.thanguit.imusic.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -46,7 +50,11 @@ import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Comment;
+import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.Status;
+import com.thanguit.imusic.services.DownloadService;
+import com.thanguit.imusic.services.FullPlayerManagerService;
+import com.thanguit.imusic.services.MiniPlayerOnLockScreenService;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -98,6 +106,9 @@ public class FullPlayerFragment extends Fragment {
     private boolean checkRandom = false;
     private boolean next = false;
 
+    private boolean isEvent_Of_FullPlayerFragment = false;
+    private boolean isRegister = false;
+
     private ISendPositionListener iSendPositionListener;
 
     public interface ISendPositionListener {
@@ -123,7 +134,6 @@ public class FullPlayerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_full_player, container, false);
     }
 
@@ -134,6 +144,19 @@ public class FullPlayerFragment extends Fragment {
 
         Mapping(view);
         Event();
+
+        if (!FullPlayerManagerService.isRegister) {
+            getActivity().registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACkS"));
+            FullPlayerManagerService.isRegister = true;
+        }
+        CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().unregisterReceiver(broadcastReceiver);
+        FullPlayerManagerService.isRegister = true;
     }
 
     private void Mapping(View view) {
@@ -142,7 +165,7 @@ public class FullPlayerFragment extends Fragment {
 
         this.ivCover = view.findViewById(R.id.ivCover);
         this.ivDownload = view.findViewById(R.id.ivDownload);
-        this.ivFavorite = view.findViewById(R.id.ivFavorite);
+//        this.ivFavorite = view.findViewById(R.id.ivFavorite);
         this.ivComment = view.findViewById(R.id.ivComment);
 //        this.ivShare = view.findViewById(R.id.ivShare);
         this.ivShuffle = view.findViewById(R.id.ivShuffle);
@@ -157,10 +180,28 @@ public class FullPlayerFragment extends Fragment {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        if (FullPlayerManagerService.listCurrentSong != null && FullPlayerActivity.dataSongArrayList.size() <= 0) {
+            FullPlayerActivity.dataSongArrayList = new ArrayList<Song>(FullPlayerManagerService.listCurrentSong);
+            position = FullPlayerManagerService.position;
+        } else {
+            FullPlayerManagerService.position = 0;
+        }
+
         if (FullPlayerActivity.dataSongArrayList.size() > 0) {
-            FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(0).getName());
-            FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(0).getSinger());
-            new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(0).getLink());
+            try {
+                //FullPlayerManagerService.mediaPlayer.stop();
+                if (DownloadService.isSongDownloaded(FullPlayerActivity.dataSongArrayList.get(position).getId())) {
+                    Song songDownload = DownloadService.GetDownloadSongById(FullPlayerActivity.dataSongArrayList.get(position).getId());
+                    new PlayMP3().execute(songDownload.getLink());
+                    FullPlayerManagerService.currentSong = FullPlayerActivity.dataSongArrayList.get(position);
+                } else {
+                    new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(position).getLink());
+                }
+            } catch (Exception e) {
+                new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(position).getLink());
+            }
+            FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(position).getName());
+            FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(position).getSinger());
             this.ivPlayPause.setImageResource(R.drawable.ic_pause);
 
 //            this.loadingDialog.Cancel_Loading();
@@ -170,8 +211,8 @@ public class FullPlayerFragment extends Fragment {
     private void Event() {
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivDownload);
         this.scaleAnimation.Event_ImageView();
-        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivFavorite);
-        this.scaleAnimation.Event_ImageView();
+//        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivFavorite);
+//        this.scaleAnimation.Event_ImageView();
 
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivComment);
         this.scaleAnimation.Event_ImageView();
@@ -211,46 +252,52 @@ public class FullPlayerFragment extends Fragment {
 
 
         this.ivPlayPause.setOnClickListener(v -> {
-            if (mediaPlayer.isPlaying()) {
-                this.mediaPlayer.pause();
-                this.ivPlayPause.setImageResource(R.drawable.ic_play_1);
-            } else {
-                this.mediaPlayer.start();
-                this.ivPlayPause.setImageResource(R.drawable.ic_pause);
-            }
+            onSongPlay();
         });
 
 
         this.ivRepeat.setOnClickListener(v -> {
+            isEvent_Of_FullPlayerFragment = true;
             if (!repeat) {
                 if (checkRandom) {
                     checkRandom = false;
+                    FullPlayerManagerService.checkRandom = false;
                     this.ivRepeat.setImageResource(R.drawable.ic_loop_check);
                     this.ivShuffle.setImageResource(R.drawable.ic_shuffle);
+                    repeat = true;
+                    FullPlayerManagerService.repeat = true;
                 } else {
                     this.ivRepeat.setImageResource(R.drawable.ic_loop_check);
                     repeat = true;
+                    FullPlayerManagerService.repeat = true;
                 }
             } else {
                 this.ivRepeat.setImageResource(R.drawable.ic_loop);
                 repeat = false;
+                FullPlayerManagerService.repeat = false;
             }
         });
 
 
         this.ivShuffle.setOnClickListener(v -> {
+            isEvent_Of_FullPlayerFragment = true;
             if (!checkRandom) {
                 if (repeat) {
                     repeat = false;
+                    FullPlayerManagerService.repeat = false;
                     this.ivShuffle.setImageResource(R.drawable.ic_shuffle_check);
                     this.ivRepeat.setImageResource(R.drawable.ic_loop);
+                    checkRandom = true;
+                    FullPlayerManagerService.checkRandom = true;
                 } else {
                     this.ivShuffle.setImageResource(R.drawable.ic_shuffle_check);
                     checkRandom = true;
+                    FullPlayerManagerService.checkRandom = true;
                 }
             } else {
                 this.ivShuffle.setImageResource(R.drawable.ic_shuffle);
                 checkRandom = false;
+                FullPlayerManagerService.checkRandom = false;
             }
         });
 
@@ -266,113 +313,154 @@ public class FullPlayerFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                mediaPlayer.seekTo(seekBar.getProgress());
+                //mediaPlayer.seekTo(seekBar.getProgress());
+                FullPlayerManagerService.mediaPlayer.seekTo(seekBar.getProgress());
             }
         });
 
-
         this.ivNext.setOnClickListener(v -> {
-            if (FullPlayerActivity.dataSongArrayList.size() > 0) {
-                if (this.mediaPlayer.isPlaying() || this.mediaPlayer != null) {
-                    this.mediaPlayer.stop();
-                    this.mediaPlayer.release(); // Đồng bộ
-                    this.mediaPlayer = null;
-                }
-                if (this.position < FullPlayerActivity.dataSongArrayList.size()) {
-                    ivPlayPause.setImageResource(R.drawable.ic_pause);
-                    this.position++;
-
-                    if (repeat) {
-                        if (this.position == 0) {
-                            this.position = FullPlayerActivity.dataSongArrayList.size();
-                        }
-                        this.position -= 1;
-                    }
-
-                    if (checkRandom) {
-                        Random random = new Random();
-                        int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
-                        if (index == this.position) {
-                            this.position = index - 1;
-                        }
-                        this.position = index;
-                    }
-                    if (this.position > FullPlayerActivity.dataSongArrayList.size() - 1) {
-                        this.position = 0;
-                    }
-                }
-                new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(this.position).getLink());
-
-                Picasso.get()
-                        .load(FullPlayerActivity.dataSongArrayList.get(this.position).getImg())
-                        .placeholder(R.drawable.ic_logo)
-                        .error(R.drawable.ic_logo)
-                        .into(this.ivCover);
-
-                FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getName());
-                FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getSinger());
-                iSendPositionListener.Send_Position(this.position); // Chú ý
-                UpdateTimeSong();
-            }
-            this.ivNext.setClickable(false);
-            this.ivPrev.setClickable(false);
-
-            new Handler().postDelayed(() -> {
-                this.ivNext.setClickable(true);
-                this.ivPrev.setClickable(true);
-            }, 2000);
+            onSongNext();
         });
 
 
         this.ivPrev.setOnClickListener(v -> {
-            if (FullPlayerActivity.dataSongArrayList.size() > 0) {
-                if (this.mediaPlayer.isPlaying() || this.mediaPlayer != null) {
-                    this.mediaPlayer.stop();
-                    this.mediaPlayer.release(); // Đồng bộ
-                    this.mediaPlayer = null;
-                }
-                if (this.position < FullPlayerActivity.dataSongArrayList.size()) {
-                    ivPlayPause.setImageResource(R.drawable.ic_pause);
-                    this.position--;
-
-                    if (this.position < 0) {
-                        this.position = FullPlayerActivity.dataSongArrayList.size() - 1;
-                    }
-
-                    if (repeat) {
-                        this.position += 1;
-                    }
-
-                    if (checkRandom) {
-                        Random random = new Random();
-                        int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
-                        if (index == this.position) {
-                            this.position = index - 1;
-                        }
-                        this.position = index;
-                    }
-                }
-                new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(this.position).getLink());
-
-                Picasso.get()
-                        .load(FullPlayerActivity.dataSongArrayList.get(this.position).getImg())
-                        .placeholder(R.drawable.ic_logo)
-                        .error(R.drawable.ic_logo)
-                        .into(this.ivCover);
-
-                FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getName());
-                FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getSinger());
-                iSendPositionListener.Send_Position(this.position); // Chú ý
-                UpdateTimeSong();
-            }
-            this.ivNext.setClickable(false);
-            this.ivPrev.setClickable(false);
-
-            new Handler().postDelayed(() -> {
-                this.ivNext.setClickable(true);
-                this.ivPrev.setClickable(true);
-            }, 2000);
+            onSongPrev();
         });
+
+        this.ivDownload.setOnClickListener(v -> {
+            if (FullPlayerActivity.dataSongArrayList.size() > 0) {
+                DownloadService.DownloadSong(getContext(), FullPlayerActivity.dataSongArrayList.get(position));
+            }
+
+        });
+    }
+
+    private void CreateNotification(String action) {
+        Intent intent = new Intent(getActivity(), MiniPlayerOnLockScreenService.class);
+        intent.setAction(action);
+        getActivity().startService(intent);
+        //NotificationService.NotificationService(getContext(),FullPlayerActivity.dataSongArrayList.get(position),R.drawable.ic_pause,position,FullPlayerActivity.dataSongArrayList.size());
+    }
+
+    public void onSongPlay() {
+        isEvent_Of_FullPlayerFragment = true;
+        if (FullPlayerManagerService.mediaPlayer.isPlaying()) {
+
+            FullPlayerManagerService.mediaPlayer.pause();
+            this.ivPlayPause.setImageResource(R.drawable.ic_play_1);
+            CreateNotification(MiniPlayerOnLockScreenService.ACTION_PAUSE);
+        } else {
+            FullPlayerManagerService.mediaPlayer.start();
+            this.ivPlayPause.setImageResource(R.drawable.ic_pause);
+            CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+        }
+    }
+
+    public void onSongNext() {
+        isEvent_Of_FullPlayerFragment = true;
+        if (FullPlayerActivity.dataSongArrayList.size() > 0) {
+            if (FullPlayerManagerService.mediaPlayer.isPlaying() || FullPlayerManagerService.mediaPlayer != null) {
+                FullPlayerManagerService.mediaPlayer.stop();
+                FullPlayerManagerService.mediaPlayer.release(); // Đồng bộ
+                FullPlayerManagerService.mediaPlayer = null;
+            }
+            if (this.position < FullPlayerActivity.dataSongArrayList.size()) {
+                ivPlayPause.setImageResource(R.drawable.ic_pause);
+                this.position++;
+
+                if (repeat) {
+                    if (this.position == 0) {
+                        this.position = FullPlayerActivity.dataSongArrayList.size();
+                    }
+                    this.position -= 1;
+                }
+
+                if (checkRandom) {
+                    Random random = new Random();
+                    int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
+                    if (index == this.position) {
+                        this.position = index - 1;
+                    }
+                    this.position = index;
+                }
+                if (this.position > FullPlayerActivity.dataSongArrayList.size() - 1) {
+                    this.position = 0;
+                }
+            }
+            new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(this.position).getLink());
+
+            Picasso.get()
+                    .load(FullPlayerActivity.dataSongArrayList.get(this.position).getImg())
+                    .placeholder(R.drawable.ic_logo)
+                    .error(R.drawable.ic_logo)
+                    .into(this.ivCover);
+
+            FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getName());
+            FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getSinger());
+            iSendPositionListener.Send_Position(this.position); // Chú ý
+            UpdateTimeSong();
+        }
+        this.ivNext.setClickable(false);
+        this.ivPrev.setClickable(false);
+
+        new Handler().postDelayed(() -> {
+            this.ivNext.setClickable(true);
+            this.ivPrev.setClickable(true);
+        }, 2000);
+        CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+    }
+
+    public void onSongPrev() {
+        isEvent_Of_FullPlayerFragment = true;
+        if (FullPlayerActivity.dataSongArrayList.size() > 0) {
+            if (FullPlayerManagerService.mediaPlayer.isPlaying() || FullPlayerManagerService.mediaPlayer != null) {
+                FullPlayerManagerService.mediaPlayer.stop();
+                FullPlayerManagerService.mediaPlayer.release(); // Đồng bộ
+                FullPlayerManagerService.mediaPlayer = null;
+            }
+            if (this.position < FullPlayerActivity.dataSongArrayList.size()) {
+                ivPlayPause.setImageResource(R.drawable.ic_pause);
+                this.position--;
+
+                if (this.position < 0) {
+                    this.position = FullPlayerActivity.dataSongArrayList.size() - 1;
+                }
+
+                if (repeat) {
+                    this.position += 1;
+                }
+
+                if (checkRandom) {
+                    Random random = new Random();
+                    int index = random.nextInt(FullPlayerActivity.dataSongArrayList.size());
+                    if (index == this.position) {
+                        this.position = index - 1;
+                    }
+                    this.position = index;
+                }
+            }
+            new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(this.position).getLink());
+
+            Picasso.get()
+                    .load(FullPlayerActivity.dataSongArrayList.get(this.position).getImg())
+                    .placeholder(R.drawable.ic_logo)
+                    .error(R.drawable.ic_logo)
+                    .into(this.ivCover);
+            BitmapDrawable drawable = (BitmapDrawable) ivCover.getDrawable();
+            Bitmap bitmap = drawable.getBitmap();
+            FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getName());
+            FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(this.position).getSinger());
+            iSendPositionListener.Send_Position(this.position); // Chú ý
+            UpdateTimeSong();
+        }
+        this.ivNext.setClickable(false);
+        this.ivPrev.setClickable(false);
+
+        new Handler().postDelayed(() -> {
+            this.ivNext.setClickable(true);
+            this.ivPrev.setClickable(true);
+        }, 2000);
+        CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
     }
 
 
@@ -540,32 +628,73 @@ public class FullPlayerFragment extends Fragment {
         protected void onPostExecute(String song) {
             super.onPostExecute(song);
             try {
-                mediaPlayer = new MediaPlayer();
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-                mediaPlayer.setOnCompletionListener(mp -> {
-                    mediaPlayer.stop();
-                    mediaPlayer.reset();
-                });
+                if (!isCurrentSong() || isEvent_Of_FullPlayerFragment) {
 
-                mediaPlayer.setDataSource(song); // Cái này quan trọng nè Thắng, chơi nhạc trực tuyến từ link
-                mediaPlayer.prepare();
+                    if (FullPlayerManagerService.mediaPlayer != null) {
+                        try {
+                            FullPlayerManagerService.mediaPlayer.stop();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+
+                    FullPlayerManagerService.mediaPlayer = new MediaPlayer();
+                    FullPlayerManagerService.mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+                    FullPlayerManagerService.mediaPlayer.setOnCompletionListener(mp -> {
+                        FullPlayerManagerService.mediaPlayer.stop();
+                        FullPlayerManagerService.mediaPlayer.reset();
+                    });
+                    FullPlayerManagerService.currentSong = FullPlayerActivity.dataSongArrayList.get(position);
+                    FullPlayerManagerService.position = position;
+                    //Log.d("CurrentSong",FullPlayerManagerService.currentSong.getName());
+                    FullPlayerManagerService.mediaPlayer.setDataSource(song); // Cái này quan trọng nè Thắng
+                    FullPlayerManagerService.mediaPlayer.prepare();
+                    FullPlayerManagerService.mediaPlayer.start();
+                    mediaPlayer = FullPlayerManagerService.mediaPlayer;
+                    FullPlayerManagerService.listCurrentSong = new ArrayList<Song>(FullPlayerActivity.dataSongArrayList);
+                }
             } catch (IOException e) {
                 Toast.makeText(getActivity(), "Lỗi. Vui lòng thử lại", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, e.getMessage());
                 e.printStackTrace();
             }
-            mediaPlayer.start();
             TimeSong();
             UpdateTimeSong();
         }
     }
 
+    private boolean isCurrentSong() {
+        try {
+            if (FullPlayerManagerService.listCurrentSong != null) {
+                if (FullPlayerManagerService.listCurrentSong.get(position).getId() == FullPlayerActivity.dataSongArrayList.get(position).getId()) {
+                    repeat = FullPlayerManagerService.repeat;
+                    checkRandom = FullPlayerManagerService.checkRandom;
+                    if (repeat) {
+                        this.ivRepeat.setImageResource(R.drawable.ic_loop_check);
+                    }
+                    if (checkRandom) {
+                        this.ivShuffle.setImageResource(R.drawable.ic_shuffle_check);
+                    }
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        FullPlayerManagerService.repeat = false;
+        FullPlayerManagerService.checkRandom = false;
+        return false;
+    }
+
     private void TimeSong() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss", Locale.getDefault());
 
-        this.tvTimeEnd.setText(simpleDateFormat.format(mediaPlayer.getDuration()));
-        this.sbSong.setMax(mediaPlayer.getDuration());
+        this.tvTimeEnd.setText(simpleDateFormat.format(FullPlayerManagerService.mediaPlayer.getDuration()));
+        this.sbSong.setMax(FullPlayerManagerService.mediaPlayer.getDuration());
     }
 
     private void UpdateTimeSong() {
@@ -573,14 +702,28 @@ public class FullPlayerFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mediaPlayer != null) {
+                if (FullPlayerManagerService.mediaPlayer != null) {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss", Locale.getDefault());
-
-                    tvTimeStart.setText(simpleDateFormat.format(mediaPlayer.getCurrentPosition()));
-                    sbSong.setProgress(mediaPlayer.getCurrentPosition());
-
+                    try {
+                        //tvTimeStart.setText(simpleDateFormat.format(mediaPlayer.getCurrentPosition()));
+                        //sbSong.setProgress(mediaPlayer.getCurrentPosition());
+                        int time = FullPlayerManagerService.mediaPlayer.getCurrentPosition();
+                        Log.d("Test", String.valueOf(time));
+                        tvTimeStart.setText(simpleDateFormat.format(FullPlayerManagerService.mediaPlayer.getCurrentPosition()));
+                        sbSong.setProgress(FullPlayerManagerService.mediaPlayer.getCurrentPosition());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     handler.postDelayed(this, 1000); // Gọi lại ham này thực thi 1s mỗi lần
-                    mediaPlayer.setOnCompletionListener(mp -> {
+/*                    mediaPlayer.setOnCompletionListener(mp -> {
+                        next = true;
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    });*/
+                    FullPlayerManagerService.mediaPlayer.setOnCompletionListener(mp -> {
                         next = true;
                         try {
                             Thread.sleep(1000);
@@ -648,4 +791,36 @@ public class FullPlayerFragment extends Fragment {
             }
         }, 1000);
     }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getExtras().getString("actionname");
+            switch (action) {
+                case MiniPlayerOnLockScreenService.ACTION_PLAY:
+                    onSongPlay();
+                    break;
+                case MiniPlayerOnLockScreenService.ACTION_PAUSE:
+                    onSongPlay();
+                    break;
+                case MiniPlayerOnLockScreenService.ACTION_PRE:
+                    try {
+                        onSongPrev();
+                        //CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case MiniPlayerOnLockScreenService.ACTION_NEXT:
+
+                    try {
+                        onSongNext();
+                        //CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }
+    };
 }

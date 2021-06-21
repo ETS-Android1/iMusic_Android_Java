@@ -111,7 +111,36 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
                     this.tvPersonalPlaylistTitle.setText(titlePlaylist);
                     Handle_UserPlaylist_Song(playlistID);
                 }
+            } else if (intent.hasExtra("DOWNLOADSONG")) {
+                String titlePlaylist = intent.getStringExtra("DOWNLOADSONG");
+                if (!titlePlaylist.isEmpty()) {
+                    this.tvPersonalPlaylistTitle.setText(titlePlaylist);
+
+                    Handle_Download_Song();
+                }
             }
+        }
+    }
+
+    private void Handle_Download_Song() {
+        songArrayList = (ArrayList<Song>) DataLocalManager.getListSongDownloaded();
+        if (songArrayList != null && songArrayList.size() > 0) {
+
+            rvPersonalPlaylist.setHasFixedSize(true);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(PersonalPlaylistActivity.this);
+            layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+            rvPersonalPlaylist.setLayoutManager(layoutManager);
+
+            rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList, "DOWNLOADSONG"));
+
+            sflItemSong.setVisibility(View.GONE); // Load biến mất
+            rvPersonalPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin
+
+            Play_All_Song();
+            Log.d(TAG, songArrayList.get(0).getName());
+        } else {
+            sflItemSong.setVisibility(View.GONE); // Load biến mất
+            tvEmptySong.setVisibility(View.VISIBLE); // Hiện thông báo chưa có bài hát nào
         }
     }
 

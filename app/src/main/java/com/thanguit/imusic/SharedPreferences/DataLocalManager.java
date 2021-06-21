@@ -2,11 +2,26 @@ package com.thanguit.imusic.SharedPreferences;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.thanguit.imusic.models.Song;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataLocalManager {
     private static DataLocalManager instance;
     private SharedPreferencesManager sharedPreferencesManager;
 
     private static final String USER_ID = "USER_ID";
+    private static final String USER_AVATAR = "USER_AVATAR";
+    private static final String THEME = "THEME";
+    private static final String LANGUAGE = "LANGUAGE";
+    private static final String SONG_DOWNLOADED = "SONG_DOWNLOADED";
 
     public static void init(Context context) {
         instance = new DataLocalManager();
@@ -20,9 +35,10 @@ public class DataLocalManager {
         return instance;
     }
 
-    public static void deleteAllData(){
+    public static void deleteAllData() {
         DataLocalManager.getInstance().sharedPreferencesManager.deleteAllData();
     }
+
 
     public static void setUserID(String userID) {
         DataLocalManager.getInstance().sharedPreferencesManager.putStringValue(USER_ID, userID);
@@ -30,5 +46,59 @@ public class DataLocalManager {
 
     public static String getUserID() {
         return DataLocalManager.getInstance().sharedPreferencesManager.getStringValue(USER_ID);
+    }
+
+
+    public static void setUserAvatar(String userAvatar) {
+        DataLocalManager.getInstance().sharedPreferencesManager.putStringValue(USER_AVATAR, userAvatar);
+    }
+
+    public static String getUserAvatar() {
+        return DataLocalManager.getInstance().sharedPreferencesManager.getStringValue(USER_AVATAR);
+    }
+
+
+    public static void setTheme(boolean theme) {
+        DataLocalManager.getInstance().sharedPreferencesManager.putBooleanValue(THEME, theme);
+    }
+
+    public static boolean getTheme() {
+        return DataLocalManager.getInstance().sharedPreferencesManager.getBooleanValue(THEME);
+    }
+
+
+    public static void setLanguage(boolean language) {
+        DataLocalManager.getInstance().sharedPreferencesManager.putBooleanValue(LANGUAGE, language);
+    }
+
+    public static boolean getLanguage() {
+        return DataLocalManager.getInstance().sharedPreferencesManager.getBooleanValue(LANGUAGE);
+    }
+
+
+    public static void setListSongDownloaded(List<Song> song) {
+        Gson gs = new Gson();
+        JsonArray jsonArray = gs.toJsonTree(song).getAsJsonArray();
+        String strJsArraySong = jsonArray.toString();
+        DataLocalManager.getInstance().sharedPreferencesManager.putStringValue(SONG_DOWNLOADED, strJsArraySong);
+    }
+
+    public static List<Song> getListSongDownloaded() {
+        String jsonSong = DataLocalManager.getInstance().sharedPreferencesManager.getStringValue(SONG_DOWNLOADED);
+        List<Song> listSong = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonSong);
+            JSONObject jsonObject;
+            Song song;
+            Gson gs = new Gson();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                jsonObject = jsonArray.getJSONObject(i);
+                song = gs.fromJson(jsonObject.toString(), Song.class);
+                listSong.add(song);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return listSong;
     }
 }

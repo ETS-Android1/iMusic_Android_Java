@@ -57,6 +57,11 @@ public class PersonalPlaylistFragment extends Fragment {
     private TextView tvTitleLoveSong;
     private TextView tvEmptyPlaylist;
 
+    //Download
+    private TextView tvNumberDownloadSong;
+    private TextView tvTitleDownloadSong;
+    private LinearLayout llFrameDownloadSong;
+
     private ShimmerFrameLayout sflItemUserPlaylist;
     private RecyclerView rvYourPlaylist;
     private UserPlaylistAdapter userPlaylistAdapter;
@@ -82,6 +87,7 @@ public class PersonalPlaylistFragment extends Fragment {
         DataLocalManager.init(getContext());
 
         Mapping(view);
+        Handle_Number_Download_Song();
         Handle_Number_Favorite_Song();
         Handle_UserPlaylist();
         Event();
@@ -100,6 +106,7 @@ public class PersonalPlaylistFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Handle_Number_Download_Song();
         Handle_Number_Favorite_Song();
         Handle_UserPlaylist();
     }
@@ -131,6 +138,11 @@ public class PersonalPlaylistFragment extends Fragment {
 
         this.sflItemUserPlaylist = view.findViewById(R.id.sflItemUserPlaylist);
         this.rvYourPlaylist = view.findViewById(R.id.rvYourPlaylist);
+
+        //DownloadSong
+        this.llFrameDownloadSong = view.findViewById(R.id.llFrameDownloadSong);
+        this.tvNumberDownloadSong = view.findViewById(R.id.tvNumberSongDownload);
+        this.tvTitleDownloadSong = view.findViewById(R.id.tvTitleDownloadSong);
     }
 
     private void Event() {
@@ -138,6 +150,12 @@ public class PersonalPlaylistFragment extends Fragment {
         this.scaleAnimation.Event_ImageView();
         this.ivAddPlaylist.setOnClickListener(v -> {
             Open_Add_Playlist_Dialog(Gravity.CENTER);
+        });
+
+        this.llFrameDownloadSong.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), PersonalPlaylistActivity.class);
+            intent.putExtra("DOWNLOADSONG", this.tvTitleDownloadSong.getText());
+            startActivity(intent);
         });
 
         this.llFrameLoveSong.setOnClickListener(v -> {
@@ -227,6 +245,17 @@ public class PersonalPlaylistFragment extends Fragment {
         });
 
         dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
+    }
+
+    private void Handle_Number_Download_Song() {
+        List<Song> sonDownloadgArrayList = DataLocalManager.getListSongDownloaded();
+        if (sonDownloadgArrayList != null) {
+            tvNumberDownloadSong.setText(String.valueOf(sonDownloadgArrayList.size()));
+
+            Log.d(TAG, "Number Download Song: " + sonDownloadgArrayList.size());
+        } else {
+            tvNumberDownloadSong.setText("0");
+        }
     }
 
     private void Handle_Number_Favorite_Song() {

@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,12 +35,14 @@ import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.fragments.ChartFragment;
 import com.thanguit.imusic.fragments.HomeFragment;
+import com.thanguit.imusic.fragments.MiniPlayerFragment;
 import com.thanguit.imusic.fragments.PersonalPlaylistFragment;
 import com.thanguit.imusic.fragments.RadioFragment;
 import com.thanguit.imusic.fragments.SettingFragment;
 import com.thanguit.imusic.models.Album;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.User;
+import com.thanguit.imusic.services.FullPlayerManagerService;
 import com.thanguit.imusic.services.MyBroadcastReceiver;
 
 import java.util.ArrayList;
@@ -59,6 +62,8 @@ public class FullActivity extends AppCompatActivity {
     private LoadingDialog loadingDialog;
 
     private ImageView ivBell;
+
+    private FrameLayout frameMiniPlayer;
 
     private MeowBottomNavigation meowBottomNavigation;
     private Fragment fragment;
@@ -114,6 +119,10 @@ public class FullActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (FullPlayerManagerService.listCurrentSong != null) {
+            loadFragmentMiniPlayer();
+        }
     }
 
     @Override
@@ -158,6 +167,7 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation = findViewById(R.id.bottomNavigation);
 
         this.ivBell = findViewById(R.id.ivBell);
+        this.frameMiniPlayer = findViewById(R.id.frameMiniPlayer);
 
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_PERSONAL, R.drawable.ic_music_note));
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_CHART, R.drawable.ic_chart));
@@ -290,6 +300,13 @@ public class FullActivity extends AppCompatActivity {
 
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commitAllowingStateLoss();
+    }
+
+    public void loadFragmentMiniPlayer() {
+        frameMiniPlayer.setVisibility(View.VISIBLE);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameMiniPlayer, new MiniPlayerFragment()).commitAllowingStateLoss();
+        frameMiniPlayer.setOnClickListener(v -> {
+        });
     }
 
     private void Handle_User(String id, String name, String email, String img, String isDark, String isEnglish) {

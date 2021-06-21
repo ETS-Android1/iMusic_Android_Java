@@ -2,8 +2,11 @@ package com.thanguit.imusic.adapters;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
@@ -34,6 +37,7 @@ import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.Status;
 import com.thanguit.imusic.models.UserPlaylist;
+import com.thanguit.imusic.services.DownloadService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +55,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private Dialog dialog_1;
     private Dialog dialog_2;
     private Dialog dialog_3;
+    private Dialog dialog_4;
+
+    int index = 0;
+    private boolean isDownloadSong = false;
 
     private ScaleAnimation scaleAnimation;
 
@@ -269,11 +277,18 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         this.scaleAnimation = new ScaleAnimation(context, rlDownLoadSong);
         this.scaleAnimation.Event_RelativeLayout();
         rlDownLoadSong.setOnClickListener(v -> {
+            context.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+            DownloadService downloadService = new DownloadService();
+            downloadService.DownloadSong(context, songArrayList.get(position));
+            dialog_1.dismiss();
+            notifyDataSetChanged();
         });
 
         this.scaleAnimation = new ScaleAnimation(context, rlDeleteDownLoadSong);
         this.scaleAnimation.Event_RelativeLayout();
         rlDeleteDownLoadSong.setOnClickListener(v -> {
+            Open_Delete_SongDownLoaded_Dialog(Gravity.CENTER, position);
+            dialog_1.dismiss();
         });
 
         this.scaleAnimation = new ScaleAnimation(context, rlCloseInfoPlaylist);
@@ -281,6 +296,71 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         rlCloseInfoPlaylist.setOnClickListener(v -> dialog_1.dismiss());
 
         this.dialog_1.show(); // câu lệnh này sẽ hiển thị Dialog lên
+    }
+
+    BroadcastReceiver onComplete = new BroadcastReceiver() {
+        public void onReceive(Context ctxt, Intent intent) {
+            Toast.makeText(ctxt, "Hoàn tất tải bài hát: " + songArrayList.get(index).getName() + "!", Toast.LENGTH_LONG).show();
+            context.unregisterReceiver(onComplete);
+        }
+    };
+
+    private void Open_Delete_SongDownLoaded_Dialog(int gravity, int position) {
+        if (DownloadService.isSongDownloaded(songArrayList.get(position).getId())) {
+            this.dialog_4 = new Dialog(context);
+
+            dialog_4.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog_4.setContentView(R.layout.layout_textview_dialog);
+
+            Window window = (Window) dialog_4.getWindow();
+            if (window == null) {
+                return;
+            }
+
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // Set màu mờ mờ cho background dialog, che đi activity chính, nhưng vẫn có thể thấy được một phần
+
+            WindowManager.LayoutParams windowAttributes = window.getAttributes();
+            windowAttributes.gravity = gravity;
+            windowAttributes.windowAnimations = R.style.DialogAnimation;
+            window.setAttributes(windowAttributes);
+
+            dialog_4.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
+
+            // Ánh xạ các view trong dialog
+            TextView tvDialogTitle = dialog_4.findViewById(R.id.tvDialogTitle);
+            tvDialogTitle.setSelected(true); // Text will be moved
+            TextView tvDialogContent = dialog_4.findViewById(R.id.tvDialogContent);
+            Button btnDialogCancel = dialog_4.findViewById(R.id.btnDialogCancel);
+            Button btnDialogAction = dialog_4.findViewById(R.id.btnDialogAction);
+
+            tvDialogTitle.setText(R.string.tvDialogTitle4);
+            tvDialogContent.setText(R.string.tvDialogContent4);
+            btnDialogCancel.setText(R.string.btnDialogCancel4);
+            btnDialogAction.setText(R.string.btnDialogAction4);
+
+            this.scaleAnimation = new ScaleAnimation(context, btnDialogCancel);
+            this.scaleAnimation.Event_Button();
+            btnDialogCancel.setOnClickListener(v -> {
+                dialog_4.dismiss();
+            });
+
+            this.scaleAnimation = new ScaleAnimation(context, btnDialogAction);
+            this.scaleAnimation.Event_Button();
+            btnDialogAction.setOnClickListener(v -> {
+                DownloadService.DeleteDownloadedSong(context, songArrayList.get(position));
+                Toast.makeText(context, "Đã xóa \"" + songArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
+
+                songArrayList.remove(position);
+                notifyDataSetChanged();
+
+                dialog_4.dismiss();
+            });
+
+            dialog_4.show(); // câu lệnh này sẽ hiển thị Dialog lên
+        } else {
+            Toast.makeText(context, "Bạn chưa tải bài hát " + songArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void Open_Insert_Song_Playlist_Dialog(String userID, int songID) {
@@ -572,6 +652,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             this.ivItemSongLove = itemView.findViewById(R.id.ivItemSongLove);
             if (layout.equals(FAVORITE_SONG)) {
                 this.ivItemSongLove.setImageResource(R.drawable.ic_favorite);
+            }
+            if (layout.equals(DOWNLOAD_SONG)) {
+                this.ivItemSongLove.setVisibility(View.GONE);
             }
             this.scaleAnimation = new ScaleAnimation(itemView.getContext(), this.ivItemSongLove);
             this.scaleAnimation.Event_ImageView();

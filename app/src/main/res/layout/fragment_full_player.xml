@@ -113,12 +113,12 @@
                 android:gravity="center"
                 app:srcCompat="@drawable/ic_download" />
 
-            <ImageView
-                android:id="@+id/ivFavorite"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:gravity="center"
-                app:srcCompat="@drawable/ic_not_favorite" />
+<!--            <ImageView-->
+<!--                android:id="@+id/ivFavorite"-->
+<!--                android:layout_width="25dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:gravity="center"-->
+<!--                app:srcCompat="@drawable/ic_not_favorite" />-->
 
             <ImageView
                 android:id="@+id/ivComment"
