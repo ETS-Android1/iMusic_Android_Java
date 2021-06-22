@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,14 +29,11 @@ import java.util.Locale;
 public class SettingFragment extends Fragment {
     private static final String TAG = "SettingFragment";
 
-    private SettingLanguage settingLanguage;
+    private SettingLanguage settingLanguage = SettingLanguage.getInstance(getContext());
 
     private LottieAnimationView btnSwitchTheme;
     private TextView tvVietNamese;
     private TextView tvEnglish;
-
-    private final String VIETNAMESE = "vi";
-    private final String ENGLISH = "en";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +61,6 @@ public class SettingFragment extends Fragment {
     }
 
     public void Mapping(View view) {
-        settingLanguage = SettingLanguage.getInstance(getContext());
         settingLanguage.Update_Language();
 
         this.btnSwitchTheme = view.findViewById(R.id.btnSwitchTheme);
@@ -110,13 +107,15 @@ public class SettingFragment extends Fragment {
 
         this.tvVietNamese.setOnClickListener(v -> {
             DataLocalManager.setLanguage(true);
+
             this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorMain3));
             this.tvEnglish.setTextColor(getResources().getColor(R.color.colorLight7));
 
+            Log.d(TAG, "VietNam: " + DataLocalManager.getLanguage());
+
             settingLanguage.Update_Language();
 
-            Intent intent = new Intent(getContext(), FullActivity.class);
-            startActivity(intent);
+            getActivity().recreate();
         });
 
         this.tvEnglish.setOnClickListener(v -> {
@@ -124,10 +123,14 @@ public class SettingFragment extends Fragment {
             this.tvEnglish.setTextColor(getResources().getColor(R.color.colorMain3));
             this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorLight7));
 
+            Log.d(TAG, "English: " + DataLocalManager.getLanguage());
+
             settingLanguage.Update_Language();
 
-            Intent intent = new Intent(getContext(), FullActivity.class);
-            startActivity(intent);
+            getActivity().recreate();
+
+//            Intent intent = new Intent(getContext(), FullActivity.class);
+//            startActivity(intent);
         });
     }
 }

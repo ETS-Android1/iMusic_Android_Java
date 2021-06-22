@@ -32,6 +32,7 @@ import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.FullPlayerActivity;
+import com.thanguit.imusic.activities.YoutubeActivity;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.UserPlaylist;
@@ -84,6 +85,20 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
         holder.tvChartSongName.setText(this.songArrayList.get(position).getName().trim());
         holder.tvChartSongSinger.setText(this.songArrayList.get(position).getSinger().trim());
         holder.tvChartLikeNumber.setText(this.songArrayList.get(position).getLike().trim());
+
+        if (this.songArrayList.get(position).getMvcode() != null) {
+            //holder.ivMv.setVisibility(View.VISIBLE);
+            holder.ivMv.setOnClickListener(v -> {
+                Intent intent = new Intent(context, YoutubeActivity.class);
+                intent.putExtra("MvCode", this.songArrayList.get(position).getMvcode());
+                intent.putExtra("Artist", this.songArrayList.get(position).getSinger());
+                intent.putExtra("SongName", this.songArrayList.get(position).getName());
+                context.startActivity(intent);
+            });
+        } else {
+            holder.ivMv.setVisibility(View.GONE);
+            //Toast.makeText(context, "Bài này không có MV", Toast.LENGTH_SHORT).show();
+        }
 
         holder.ivChartSongMore.setOnClickListener(v -> Open_Info_Song_Dialog(Gravity.BOTTOM, position));
         holder.itemView.setOnLongClickListener(v -> {
@@ -296,6 +311,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
         private final TextView tvChartLikeNumber;
         private final ImageView ivSongChartImage;
         private final ImageView ivChartSongMore;
+        private final ImageView ivMv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -315,6 +331,9 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
             this.ivSongChartImage = itemView.findViewById(R.id.ivSongChartImage);
 
             this.ivChartSongMore = itemView.findViewById(R.id.ivChartSongMore);
+
+            this.ivMv = itemView.findViewById(R.id.ivMv);
+
         }
     }
 }

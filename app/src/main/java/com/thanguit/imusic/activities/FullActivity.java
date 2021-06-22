@@ -174,6 +174,8 @@ public class FullActivity extends AppCompatActivity {
 
         this.settingLanguage = SettingLanguage.getInstance(this);
         this.settingLanguage.Update_Language();
+//        Toast.makeText(this, "Language: " + DataLocalManager.getLanguage(), Toast.LENGTH_SHORT).show();
+
 
         this.loadingDialog = new LoadingDialog(this);
 //        this.loadingDialog.Start_Loading();

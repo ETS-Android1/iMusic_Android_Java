@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".application.MyApplication"
@@ -16,6 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IMusic">
+        <activity
+            android:name=".activities.YoutubeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.RadioActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.GenreActivity"
             android:screenOrientation="portrait" />
@@ -47,8 +53,8 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".services.MiniPlayerOnLockScreenService"/>
-        <receiver android:name=".services.NotificationActionService"/>
+        <service android:name=".services.MiniPlayerOnLockScreenService" />
+        <receiver android:name=".services.NotificationActionService" />
 
         <!-- Facebook -->
         <meta-data

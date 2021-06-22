@@ -45,8 +45,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'gun0912.ted:tedpermission:2.2.3'
-
+    implementation ('io.socket:socket.io-client:2.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
     implementation 'com.facebook.android:facebook-android-sdk:5.0.0'
+    implementation files('libs\\YouTubeAndroidPlayerApi.jar')
 //    implementation "com.zing.zalo.zalosdk:core:2.4.1030"
 //    implementation "com.zing.zalo.zalosdk:auth:2.4.1030"
 //    implementation "com.zing.zalo.zalosdk:openapi:2.4.1030"

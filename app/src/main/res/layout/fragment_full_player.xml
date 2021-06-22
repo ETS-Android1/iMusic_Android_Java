@@ -74,7 +74,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        app:srcCompat="@drawable/ic_play_1" />
+        app:srcCompat="@drawable/ic_play_2" />
 
     <ImageView
         android:id="@+id/ivPrev"
@@ -128,12 +128,12 @@
                 android:gravity="center"
                 app:srcCompat="@drawable/ic_comment" />
 
-            <!--            <ImageView-->
-            <!--                android:id="@+id/ivShare"-->
-            <!--                android:layout_width="25dp"-->
-            <!--                android:layout_height="25dp"-->
-            <!--                android:gravity="center"-->
-            <!--                app:srcCompat="@drawable/ic_share" />-->
+            <ImageView
+                android:id="@+id/ivMv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:gravity="center"
+                app:srcCompat="@drawable/ic_play_1" />
         </TableRow>
     </TableLayout>
 

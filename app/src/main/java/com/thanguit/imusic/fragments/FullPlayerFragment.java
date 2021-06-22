@@ -48,6 +48,7 @@ import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.FullActivity;
 import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.activities.PersonalPageActivity;
+import com.thanguit.imusic.activities.YoutubeActivity;
 import com.thanguit.imusic.adapters.CommentSongAdapter;
 import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
@@ -83,7 +84,7 @@ public class FullPlayerFragment extends Fragment {
     private ImageView ivFavorite;
     private ImageView ivComment;
     private ImageView ivDownload;
-    //    private ImageView ivShare;
+    private ImageView ivMv;
     private ImageView ivShuffle;
     private ImageView ivPrev;
     private ImageView ivPlayPause;
@@ -170,7 +171,7 @@ public class FullPlayerFragment extends Fragment {
         this.ivDownload = view.findViewById(R.id.ivDownload);
 //        this.ivFavorite = view.findViewById(R.id.ivFavorite);
         this.ivComment = view.findViewById(R.id.ivComment);
-//        this.ivShare = view.findViewById(R.id.ivShare);
+        this.ivMv = view.findViewById(R.id.ivMv);
         this.ivShuffle = view.findViewById(R.id.ivShuffle);
         this.ivPrev = view.findViewById(R.id.ivPrev);
         this.ivPlayPause = view.findViewById(R.id.ivPlayPause);
@@ -334,7 +335,21 @@ public class FullPlayerFragment extends Fragment {
             if (FullPlayerActivity.dataSongArrayList.size() > 0) {
                 DownloadService.DownloadSong(getContext(), FullPlayerActivity.dataSongArrayList.get(position));
             }
+        });
 
+        this.ivMv.setOnClickListener(v -> {
+            if (FullPlayerActivity.dataSongArrayList.get(position).getMvcode() != null) {
+                Intent intent = new Intent(getActivity(), YoutubeActivity.class);
+                intent.putExtra("MvCode", FullPlayerActivity.dataSongArrayList.get(position).getMvcode());
+                intent.putExtra("Artist", FullPlayerActivity.dataSongArrayList.get(position).getSinger().trim());
+                intent.putExtra("SongName", FullPlayerActivity.dataSongArrayList.get(position).getName().trim());
+                startActivity(intent);
+            } else {
+/*                Intent intent = new Intent(getActivity(), YoutubeActivity.class);
+                intent.putExtra("MvCode",FullPlayerActivity.dataSongArrayList.get(position).getMvcode());
+                startActivity(intent);*/
+                Toast.makeText(v.getContext(), "Bài này không có MV", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -350,7 +365,7 @@ public class FullPlayerFragment extends Fragment {
         if (FullPlayerManagerService.mediaPlayer.isPlaying()) {
 
             FullPlayerManagerService.mediaPlayer.pause();
-            this.ivPlayPause.setImageResource(R.drawable.ic_play_1);
+            this.ivPlayPause.setImageResource(R.drawable.ic_play_2);
             CreateNotification(MiniPlayerOnLockScreenService.ACTION_PAUSE);
         } else {
             FullPlayerManagerService.mediaPlayer.start();
@@ -665,6 +680,7 @@ public class FullPlayerFragment extends Fragment {
                     FullPlayerManagerService.mediaPlayer.prepare();
                     FullPlayerManagerService.mediaPlayer.start();
                     mediaPlayer = FullPlayerManagerService.mediaPlayer;
+                    CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
                     FullPlayerManagerService.listCurrentSong = new ArrayList<Song>(FullPlayerActivity.dataSongArrayList);
                 }
             } catch (IOException e) {

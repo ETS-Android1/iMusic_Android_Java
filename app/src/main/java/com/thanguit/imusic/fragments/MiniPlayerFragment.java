@@ -223,7 +223,7 @@ public class MiniPlayerFragment extends Fragment {
     private void onSongPlay() {
         if (FullPlayerManagerService.mediaPlayer.isPlaying()) {
             FullPlayerManagerService.mediaPlayer.pause();
-            this.ivPlay.setImageResource(R.drawable.ic_play_1);
+            this.ivPlay.setImageResource(R.drawable.ic_play_2);
             CreateNotification(MiniPlayerOnLockScreenService.ACTION_PAUSE);
         } else {
             FullPlayerManagerService.mediaPlayer.start();

@@ -1,22 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.RadioFragment">
 
-    <TextView
-        android:id="@+id/tvRadio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:ellipsize="marquee"
-        android:fontFamily="@font/comfortaa"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:scrollHorizontally="true"
-        android:text="@string/tvRadio"
-        android:textAlignment="center"
-        android:textColor="@color/colorLight9"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/sbSong"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/ivRoom1"
+                android:layout_width="150dp"
+                android:layout_height="300dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_logo" />
+
+            <ImageView
+                android:id="@+id/ivRoom2"
+                android:layout_width="150dp"
+                android:layout_height="300dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_logo" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/ivRoom3"
+                android:layout_width="150dp"
+                android:layout_height="300dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_logo" />
+
+            <ImageView
+                android:id="@+id/ivRoom4"
+                android:layout_width="150dp"
+                android:layout_height="300dp"
+                android:layout_margin="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_logo" />
+
+        </TableRow>
+    </TableLayout>
 </FrameLayout>

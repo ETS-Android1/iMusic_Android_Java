@@ -33,6 +33,9 @@ public class SettingLanguage {
 
     public void Update_Language() {
         Locale locale;
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+
         if (DataLocalManager.getLanguage()) {
             locale = new Locale("vi"); // true: Tiếng Việt
             Locale.setDefault(locale);
@@ -40,13 +43,12 @@ public class SettingLanguage {
             locale = new Locale("en"); // false: Tiếng Anh
             Locale.setDefault(locale);
         }
+
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
 //        Configuration configuration = new Configuration();
 //        configuration.locale = locale;
 //        context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
-
-        Resources resources = context.getResources();
-        Configuration configuration = resources.getConfiguration();
-        configuration.setLocale(locale);
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 }
