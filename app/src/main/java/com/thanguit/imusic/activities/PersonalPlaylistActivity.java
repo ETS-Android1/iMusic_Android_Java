@@ -23,6 +23,7 @@ import com.thanguit.imusic.adapters.SongAdapter;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.UserPlaylist;
+import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PersonalPlaylistActivity extends AppCompatActivity {
+    private static final String TAG = "PPActivity";
+
+    private SettingLanguage settingLanguage;
+
     private ImageView ivPersonalPlaylistBack;
     private TextView tvPersonalPlaylistTitle;
     private ImageView ivPersonalPlaylistMore;
@@ -46,8 +51,6 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
     private ArrayList<Song> songArrayList;
     private UserPlaylist userPlaylist;
 
-    private static final String TAG = "PPActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +64,9 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
+        this.settingLanguage = SettingLanguage.getInstance(this);
+        this.settingLanguage.Update_Language();
+        
         this.ivPersonalPlaylistBack = findViewById(R.id.ivPersonalPlaylistBack);
 
         this.tvPersonalPlaylistTitle = findViewById(R.id.tvPersonalPlaylistTitle);

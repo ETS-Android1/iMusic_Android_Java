@@ -16,10 +16,7 @@ import android.view.ViewGroup;
 
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.FullPlayerActivity;
-import com.thanguit.imusic.activities.PersonalPlaylistActivity;
-import com.thanguit.imusic.adapters.ListSongAdapter;
 import com.thanguit.imusic.adapters.SongAdapter;
-import com.thanguit.imusic.adapters.ThemeHomeAdapter;
 
 public class DetailPlayerFragment extends Fragment {
     private static final String TAG = "DetailPlayerFragment";

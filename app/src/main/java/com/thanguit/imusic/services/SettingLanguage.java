@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.FullActivity;
@@ -39,12 +40,13 @@ public class SettingLanguage {
             locale = new Locale("en"); // false: Tiếng Anh
             Locale.setDefault(locale);
         }
+//        Configuration configuration = new Configuration();
+//        configuration.locale = locale;
+//        context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
+
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-
-//        Intent intent = new Intent(getContext(), FullActivity.class);
-//        startActivity(intent);
     }
 }

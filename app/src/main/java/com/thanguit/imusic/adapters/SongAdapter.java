@@ -602,13 +602,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     if (statusArrayList.get(0).getStatus() == 1) {
                         alertDialog.dismiss();
                         imageView.setImageResource(R.drawable.ic_favorite);
-                        Toast.makeText(context, "Đã thêm \"" + songArrayList.get(position).getName() + "\" vào bài hát yêu thích", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Added \"" + songArrayList.get(position).getName() + "\" in favorite songs", Toast.LENGTH_SHORT).show();
                     } else if (statusArrayList.get(0).getStatus() == 2) {
                         alertDialog.dismiss();
-                        Toast.makeText(context, "Thêm \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Added \"" + songArrayList.get(position).getName() + "\" fail", Toast.LENGTH_SHORT).show();
                     } else if (statusArrayList.get(0).getStatus() == 3) {
                         alertDialog.dismiss();
-                        Toast.makeText(context, "Đã xóa \"" + songArrayList.get(position).getName() + "\" ra khỏi bài hát yêu thích", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Removed \"" + songArrayList.get(position).getName() + "\" from favorite songs", Toast.LENGTH_SHORT).show();
                         if (layout.equals(FAVORITE_SONG)) {
                             songArrayList.remove(position);
                             notifyDataSetChanged();
@@ -617,7 +617,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                         }
                     } else if (statusArrayList.get(0).getStatus() == 4) {
                         alertDialog.dismiss();
-                        Toast.makeText(context, "Xóa \"" + songArrayList.get(position).getName() + "\" không thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Removed \"" + songArrayList.get(position).getName() + "\" fail", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

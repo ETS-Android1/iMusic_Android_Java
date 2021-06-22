@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorLight4"
     android:orientation="vertical"
     tools:context=".activities.FullPlayerActivity">
 
@@ -67,8 +68,8 @@
             android:layout_marginEnd="5dp"
             android:gravity="center"
             android:padding="10dp"
-            app:srcCompat="@drawable/ic_menu_dots_vertical"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_menu_dots_vertical" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -4,6 +4,7 @@
     android:id="@+id/llDialogContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorLight4"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp">
@@ -37,6 +38,6 @@
         android:scrollHorizontally="true"
         android:singleLine="true"
         android:text="@string/tvLoading"
-        android:textColor="@color/colorLight9"
+        android:textColor="@color/colorLight7"
         android:textSize="18sp" />
 </LinearLayout>

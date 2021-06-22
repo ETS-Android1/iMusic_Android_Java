@@ -1,6 +1,7 @@
 package com.thanguit.imusic.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -165,11 +166,17 @@ public class FullActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        settingLanguage = SettingLanguage.getInstance(this);
-        settingLanguage.Update_Language();
-
+        if (DataLocalManager.getTheme()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        
         this.loadingDialog = new LoadingDialog(this);
         this.loadingDialog.Start_Loading();
+
+        this.settingLanguage = SettingLanguage.getInstance(this);
+        this.settingLanguage.Update_Language();
 
         this.meowBottomNavigation = findViewById(R.id.bottomNavigation);
 

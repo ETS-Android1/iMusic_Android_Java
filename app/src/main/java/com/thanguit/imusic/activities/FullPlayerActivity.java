@@ -21,10 +21,13 @@ import com.thanguit.imusic.fragments.DetailPlayerFragment;
 import com.thanguit.imusic.fragments.FullPlayerFragment;
 import com.thanguit.imusic.fragments.LyricsPlayerFragment;
 import com.thanguit.imusic.models.Song;
+import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 
 public class FullPlayerActivity extends AppCompatActivity implements FullPlayerFragment.ISendPositionListener {
+    private SettingLanguage settingLanguage;
+
     private ViewPager viewpager;
     public static FullPlayerAdapter fullPlayerAdapter;
     private PageIndicatorView pageIndicatorView;
@@ -57,6 +60,9 @@ public class FullPlayerActivity extends AppCompatActivity implements FullPlayerF
     }
 
     private void Mapping() {
+        this.settingLanguage = SettingLanguage.getInstance(this);
+        this.settingLanguage.Update_Language();
+
         this.viewpager = findViewById(R.id.vpFullPlayer);
         fullPlayerAdapter = new FullPlayerAdapter(getSupportFragmentManager(), 1);
         this.pageIndicatorView = findViewById(R.id.pageIndicatorView);

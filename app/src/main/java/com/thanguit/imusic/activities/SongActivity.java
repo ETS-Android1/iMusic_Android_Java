@@ -23,6 +23,7 @@ import com.thanguit.imusic.models.Album;
 import com.thanguit.imusic.models.Genre;
 import com.thanguit.imusic.models.Playlist;
 import com.thanguit.imusic.models.Song;
+import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SongActivity extends AppCompatActivity {
+    private SettingLanguage settingLanguage;
+
     private CoordinatorLayout coordinatorlayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;
@@ -60,6 +63,9 @@ public class SongActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
+        this.settingLanguage = SettingLanguage.getInstance(this);
+        this.settingLanguage.Update_Language();
+
         this.coordinatorlayout = findViewById(R.id.cdlListSong);
         this.collapsingToolbarLayout = findViewById(R.id.ctlImage);
         this.toolbar = findViewById(R.id.tbListSong);

@@ -85,7 +85,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/colorLight8" />
+            <solid android:color="@color/colorLight4" />
 
             <corners
                 android:topLeftRadius="60dp"

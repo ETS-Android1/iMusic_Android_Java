@@ -3,10 +3,12 @@ package com.thanguit.imusic.fragments;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -68,6 +70,12 @@ public class SettingFragment extends Fragment {
         this.tvVietNamese = view.findViewById(R.id.tvVietNamese);
         this.tvEnglish = view.findViewById(R.id.tvEnglish);
 
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            this.tvVietNamese.setVisibility(View.GONE);
+            Toast.makeText(getContext(), "Can't change another language, because the device is out of date!", Toast.LENGTH_LONG).show();
+        }
+
+
         if (DataLocalManager.getTheme()) {
             this.btnSwitchTheme.setMinAndMaxProgress(0.5f, 1.0f); // Tối
         } else {
@@ -89,10 +97,14 @@ public class SettingFragment extends Fragment {
                 DataLocalManager.setTheme(false);
                 btnSwitchTheme.setMinAndMaxProgress(0.65f, 1.0f); // Sáng
                 btnSwitchTheme.playAnimation();
+
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             } else {
                 DataLocalManager.setTheme(true);
                 btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Tối
                 btnSwitchTheme.playAnimation();
+
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
         });
 
@@ -118,22 +130,4 @@ public class SettingFragment extends Fragment {
             startActivity(intent);
         });
     }
-
-//    private void Update_Language() {
-//        Locale locale;
-//        if (DataLocalManager.getLanguage()) {
-//            locale = new Locale(VIETNAMESE); // true: Tiếng Việt
-//            Locale.setDefault(locale);
-//        } else {
-//            locale = new Locale(ENGLISH); // false: Tiếng Anh
-//            Locale.setDefault(locale);
-//        }
-//        Resources resources = getActivity().getResources();
-//        Configuration configuration = resources.getConfiguration();
-//        configuration.setLocale(locale);
-//        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-//
-//        Intent intent = new Intent(getContext(), FullActivity.class);
-//        startActivity(intent);
-//    }
 }

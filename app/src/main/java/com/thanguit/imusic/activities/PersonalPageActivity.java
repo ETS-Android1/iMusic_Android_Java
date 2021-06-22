@@ -63,8 +63,8 @@ public class PersonalPageActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        settingLanguage = SettingLanguage.getInstance(this);
-        settingLanguage.Update_Language();
+        this.settingLanguage = SettingLanguage.getInstance(this);
+        this.settingLanguage.Update_Language();
 
         this.loadingDialog = new LoadingDialog(this);
         this.loadingDialog.Start_Loading();

@@ -1,6 +1,7 @@
 package com.thanguit.imusic.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.models.User;
+import com.thanguit.imusic.services.SettingLanguage;
 
 import org.json.JSONObject;
 
@@ -43,6 +45,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    private SettingLanguage settingLanguage;
+
     private CallbackManager callbackManager;
 
     private ScaleAnimation scaleAnimation;
@@ -109,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
+        this.settingLanguage = SettingLanguage.getInstance(this);
+        this.settingLanguage.Update_Language();
+
         this.callbackManager = CallbackManager.Factory.create();
 
         this.imvLogo = findViewById(R.id.imvLogo);

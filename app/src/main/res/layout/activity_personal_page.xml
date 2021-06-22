@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorLight4"
     android:orientation="vertical"
     tools:context=".activities.PersonalPageActivity">
 
@@ -44,6 +45,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorLight4"
         android:fillViewport="true">
 
         <LinearLayout
@@ -59,6 +61,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/colorLight4"
                     android:padding="10dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -99,6 +102,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/colorLight4"
                     android:padding="10dp">
 
                     <TextView

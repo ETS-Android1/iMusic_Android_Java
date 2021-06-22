@@ -55,8 +55,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        settingLanguage = SettingLanguage.getInstance(this);
-        settingLanguage.Update_Language();
+        this.settingLanguage = SettingLanguage.getInstance(this);
+        this.settingLanguage.Update_Language();
 
         this.etSearchBox = findViewById(R.id.etSearchBox);
         this.etSearchBox.requestFocus(); // When Activity show, Searchbox will be focused
