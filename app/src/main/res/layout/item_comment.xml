@@ -50,7 +50,7 @@
             android:gravity="center"
             android:text="@string/tvTimeComment"
             android:textAlignment="center"
-            android:textColor="@color/colorLight9"
+            android:textColor="@color/colorLight7"
             android:textSize="14sp"
             android:textStyle="normal" />
 

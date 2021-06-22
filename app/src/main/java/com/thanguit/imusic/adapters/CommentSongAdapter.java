@@ -134,13 +134,13 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
             this.alertDialog = alertBuilder.create();
             this.alertDialog.show();
 
-            Handle_Delete_Comment(ACTION_DELETE_COMMENT, commentList.get(position).getIdComment(), commentList.get(position).getIdSong(), DataLocalManager.getUserID(), commentList.get(position).getContent(), commentList.get(position).getDate());
+            Handle_Delete_Comment(ACTION_DELETE_COMMENT, commentList.get(position).getIdComment(), commentList.get(position).getIdSong(), DataLocalManager.getUserID(), commentList.get(position).getContent(), commentList.get(position).getDate(), position);
         });
 
         dialog_1.show(); // câu lệnh này sẽ hiển thị Dialog lên
     }
 
-    private void Handle_Delete_Comment(String action, int commentID, int songID, String userID, String content, String date) {
+    private void Handle_Delete_Comment(String action, int commentID, int songID, String userID, String content, String date, int position) {
         DataService dataService = APIService.getService();
         Call<List<Status>> callBack = dataService.addUpdateDeleteCommentSong(action, commentID, songID, userID, content, date);
         callBack.enqueue(new Callback<List<Status>>() {
@@ -151,8 +151,10 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
 
                 if (statusArrayList != null) {
                     if (statusArrayList.get(0).getStatus() == 1) {
-                        alertDialog.dismiss();
+                        commentList.remove(position);
                         notifyDataSetChanged();
+
+                        alertDialog.dismiss();
                         dialog_1.dismiss();
                         Toast.makeText(context, R.string.toast29, Toast.LENGTH_SHORT).show();
                     } else if (statusArrayList.get(0).getStatus() == 2) {

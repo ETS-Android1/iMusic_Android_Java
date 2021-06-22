@@ -603,7 +603,7 @@ public class FullPlayerFragment extends Fragment {
                     if (statusArrayList.get(0).getStatus() == 1) {
                         loadingDialog.Cancel_Loading();
 
-                        commentSongAdapter.notifyDataSetChanged();
+//                        commentSongAdapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), R.string.toast28, Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     } else if (statusArrayList.get(0).getStatus() == 2) {
