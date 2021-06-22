@@ -26,9 +26,11 @@ import com.facebook.login.LoginResult;
 import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
 import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
 import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
+import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
+import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.models.User;
@@ -52,9 +54,12 @@ public class MainActivity extends AppCompatActivity {
     private ScaleAnimation scaleAnimation;
 
     private Animation topAnimation, bottomAnimation;
+    private LoadingDialog loadingDialog;
 
     private ImageView imvLogo;
     private Button btnLoginFB;
+
+    private ArrayList<User> userArrayList;
 //    private Button btnLoginZL;
 
 //    private OAuthCompleteListener oAuthCompleteListener;
@@ -156,7 +161,29 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
                     Log.d(LOG_TAG_1, "facebook: onSuccess: " + loginResult.getAccessToken());
-                    Get_User_Information();
+
+                    GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
+                        try {
+                            Log.d(LOG_TAG_1, "User information (FACEBOOK): " + object);
+
+                            String id = object.getString("id");
+                            String name = object.getString("name");
+                            String email = !object.getString("email").isEmpty() ? object.getString("email") : "Null";
+                            String avatarFacebook = !object.getJSONObject("picture").getJSONObject("data").getString("url").isEmpty() ? object.getJSONObject("picture").getJSONObject("data").getString("url") : "Null";
+                            String isDark = "0";
+                            String isEnglish = "0";
+
+                            loadingDialog.Start_Loading();
+                            Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
+                        } catch (Exception e) {
+                            Log.d(LOG_TAG_1, "Get_User_Information(Error):" + e.getMessage());
+                            Toast.makeText(MainActivity.this, R.string.toast10, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    Bundle bundle = new Bundle();
+                    bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
+                    graphRequest.setParameters(bundle);
+                    graphRequest.executeAsync(); // Thực thi không đồng bộ
                 }
 
                 @Override
@@ -204,48 +231,46 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //    }
 
-
-    private void Get_User_Information() {
-        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
-            try {
-                Log.d(LOG_TAG_1, "User information (FACEBOOK): " + object);
-
-                String id = object.getString("id");
-                DataLocalManager.setUserID(id); // Lưu ID người dùng vào SharedPreferences
-
-                if (!DataLocalManager.getUserID().isEmpty()) {
-//                    Toast.makeText(MainActivity.this, "ID:" + DataLocalManager.getUserID(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, FullActivity.class);
-                    startActivity(intent);
-                }
-            } catch (Exception e) {
-                Log.d(LOG_TAG_1, "Get_User_Information(Error):" + e.getMessage());
-                Toast.makeText(MainActivity.this, R.string.toast10, Toast.LENGTH_SHORT).show();
-            }
-        });
-        Bundle bundle = new Bundle();
-        bundle.putString("fields", "id");
-        graphRequest.setParameters(bundle);
-        graphRequest.executeAsync(); // Thực thi không đồng bộ
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
 //        ZaloSDK.Instance.onActivityResult(this, requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+    }
 
-//        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
-//            @Override
-//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-//                if (currentAccessToken == null) {
-//                    LoginManager.getInstance().logOut();
-//
-//                    Toast.makeText(MainActivity.this, "Log out!", Toast.LENGTH_SHORT).show();
-//                    Log.d(LOG_TAG_1, "Log out!");
-//                }
-//            }
-//        };
+    private void Handle_User(String id, String name, String email, String img, String isDark, String isEnglish) {
+        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+        Call<List<User>> callBack = dataService.addNewUser(id, name, email, img, isDark, isEnglish);
+        callBack.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                userArrayList = new ArrayList<>();
+                userArrayList = (ArrayList<User>) response.body();
+
+                if (userArrayList != null && userArrayList.size() > 0) {
+
+                    DataLocalManager.setUserID(id);
+                    DataLocalManager.setUserAvatar(img);
+
+                    if (!DataLocalManager.getUserID().isEmpty()) {
+                        Intent intent = new Intent(MainActivity.this, FullActivity.class);
+                        startActivity(intent);
+
+                        loadingDialog.Cancel_Loading();
+                        Toast.makeText(MainActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
+                    }
+
+                    Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Log.d(TAG, "Handle_User (Error): " + t.getMessage());
+            }
+        });
     }
 
     @Override

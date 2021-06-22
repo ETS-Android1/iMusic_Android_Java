@@ -171,16 +171,17 @@ public class FullActivity extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-        
-        this.loadingDialog = new LoadingDialog(this);
-        this.loadingDialog.Start_Loading();
 
         this.settingLanguage = SettingLanguage.getInstance(this);
         this.settingLanguage.Update_Language();
 
+        this.loadingDialog = new LoadingDialog(this);
+//        this.loadingDialog.Start_Loading();
+
         this.meowBottomNavigation = findViewById(R.id.bottomNavigation);
 
         this.ivBell = findViewById(R.id.ivBell);
+        this.editText = findViewById(R.id.etSearch);
         this.frameMiniPlayer = findViewById(R.id.frameMiniPlayer);
 
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_PERSONAL, R.drawable.ic_music_note));
@@ -190,7 +191,13 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation.add(new MeowBottomNavigation.Model(ID_SETTING, R.drawable.ic_setting));
 
         this.circleImageView = findViewById(R.id.civAvatar);
-        this.editText = findViewById(R.id.etSearch);
+        Picasso.get()
+                .load(DataLocalManager.getUserAvatar())
+                .placeholder(R.drawable.ic_logo)
+                .error(R.drawable.ic_logo)
+                .into(this.circleImageView);
+
+//        this.loadingDialog.Cancel_Loading();
     }
 
     private void Event() {
@@ -242,37 +249,37 @@ public class FullActivity extends AppCompatActivity {
         this.meowBottomNavigation.show(ID_HOME, true); // Default tab when open
 
         // Load info of User with Facebook
-        if (AccessToken.getCurrentAccessToken().getToken() != null && !DataLocalManager.getUserID().isEmpty()) {
-            GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
-                try {
-                    String id = object.getString("id");
-                    String name = object.getString("name");
-                    String email = !object.getString("email").isEmpty() ? object.getString("email") : "Null";
-                    String avatarFacebook = !object.getJSONObject("picture").getJSONObject("data").getString("url").isEmpty() ? object.getJSONObject("picture").getJSONObject("data").getString("url") : "Null";
-                    String isDark = "0";
-                    String isEnglish = "0";
-
-                    Picasso.get()
-                            .load(avatarFacebook)
-                            .placeholder(R.drawable.ic_logo)
-                            .error(R.drawable.ic_logo)
-                            .into(this.circleImageView);
-
-                    DataLocalManager.setUserAvatar(avatarFacebook);
-
-                    Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
-
-                    Log.d(TAG, "User information (FACEBOOK): " + object);
-                } catch (Exception e) {
-                    e.printStackTrace();
-//                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-            Bundle bundle = new Bundle();
-            bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
-            graphRequest.setParameters(bundle);
-            graphRequest.executeAsync();
-        }
+//        if (AccessToken.getCurrentAccessToken().getToken() != null && !DataLocalManager.getUserID().isEmpty()) {
+//            GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
+//                try {
+//                    String id = object.getString("id");
+//                    String name = object.getString("name");
+//                    String email = !object.getString("email").isEmpty() ? object.getString("email") : "Null";
+//                    String avatarFacebook = !object.getJSONObject("picture").getJSONObject("data").getString("url").isEmpty() ? object.getJSONObject("picture").getJSONObject("data").getString("url") : "Null";
+//                    String isDark = "0";
+//                    String isEnglish = "0";
+//
+//                    Picasso.get()
+//                            .load(avatarFacebook)
+//                            .placeholder(R.drawable.ic_logo)
+//                            .error(R.drawable.ic_logo)
+//                            .into(this.circleImageView);
+//
+//                    DataLocalManager.setUserAvatar(avatarFacebook);
+//
+//                    Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
+//
+//                    Log.d(TAG, "User information (FACEBOOK): " + object);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+////                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//            Bundle bundle = new Bundle();
+//            bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
+//            graphRequest.setParameters(bundle);
+//            graphRequest.executeAsync();
+//        }
 
 
         // Event for load info of User with Zalo
@@ -325,34 +332,34 @@ public class FullActivity extends AppCompatActivity {
         });
     }
 
-    private void Handle_User(String id, String name, String email, String img, String isDark, String isEnglish) {
-        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
-        Call<List<User>> callBack = dataService.addNewUser(id, name, email, img, isDark, isEnglish);
-        callBack.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                userArrayList = new ArrayList<>();
-                userArrayList = (ArrayList<User>) response.body();
-
-                if (userArrayList != null && userArrayList.size() > 0) {
-//                    DataLocalManager.setUserID(id); // Lưu ID người dùng vào SharedPreferences
-                    loadingDialog.Cancel_Loading();
-                    Toast.makeText(FullActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
-
-                    Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());
-                } else {
-                    loadingDialog.Cancel_Loading();
-                    Toast.makeText(FullActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                loadingDialog.Cancel_Loading();
-                Log.d(TAG, "Handle_User (Error): " + t.getMessage());
-            }
-        });
-    }
+//    private void Handle_User(String id, String name, String email, String img, String isDark, String isEnglish) {
+//        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+//        Call<List<User>> callBack = dataService.addNewUser(id, name, email, img, isDark, isEnglish);
+//        callBack.enqueue(new Callback<List<User>>() {
+//            @Override
+//            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+//                userArrayList = new ArrayList<>();
+//                userArrayList = (ArrayList<User>) response.body();
+//
+//                if (userArrayList != null && userArrayList.size() > 0) {
+////                    DataLocalManager.setUserID(id); // Lưu ID người dùng vào SharedPreferences
+//                    loadingDialog.Cancel_Loading();
+//                    Toast.makeText(FullActivity.this, R.string.toast1, Toast.LENGTH_SHORT).show();
+//
+//                    Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());
+//                } else {
+//                    loadingDialog.Cancel_Loading();
+//                    Toast.makeText(FullActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<User>> call, Throwable t) {
+//                loadingDialog.Cancel_Loading();
+//                Log.d(TAG, "Handle_User (Error): " + t.getMessage());
+//            }
+//        });
+//    }
 
     @Override
     public void onBackPressed() {

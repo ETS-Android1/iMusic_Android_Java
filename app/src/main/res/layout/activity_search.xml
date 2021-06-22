@@ -45,6 +45,7 @@
             android:paddingRight="20dp"
             android:singleLine="true"
             android:textColor="@color/colorLight9"
+            android:textColorHint="@color/colorLight9"
             android:textSize="15sp" />
     </RelativeLayout>
 

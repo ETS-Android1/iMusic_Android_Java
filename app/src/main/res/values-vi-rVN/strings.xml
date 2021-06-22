@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">iMusic</string>
+
+    <string name="channel_name">iMusic 1</string>
+    <string name="channel_description">iMusic Play</string>
+
+    <string name="facebook_app_id">1179700782483492</string>
+<!--    <string name="fb_login_protocol_scheme">fb1179700782483492</string>-->
+
     <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
     <string name="toast1">Đăng nhập thành công!</string>
     <string name="toast2">Đã hủy đăng nhập</string>
@@ -43,10 +50,6 @@
     <string name="tvContentComment">Nội dung bình luận</string>
     <string name="tvEmptyComment">Chưa có bình luận nào. \\nHãy là người bình luận đầu tiên</string>
     <string name="tvTimeStart">00:00</string>
-    <string name="channel_name">iMusic 1</string>
-    <string name="channel_description">iMusic Play</string>
-    <string name="facebook_app_id">1179700782483492</string>
-    <string name="fb_login_protocol_scheme">fb1179700782483492</string>
     <string name="tvVietNamese">VietNamese</string>
     <string name="tvEnglish">English</string>
     <string name="tvUserCommentName">Người dùng</string>

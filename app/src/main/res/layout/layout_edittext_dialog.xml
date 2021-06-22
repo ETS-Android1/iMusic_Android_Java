@@ -44,6 +44,7 @@
             android:padding="12dp"
             android:singleLine="true"
             android:textColor="@color/colorLight9"
+            android:textColorHint="@color/colorLight9"
             android:textSize="16sp"
             android:textStyle="normal" />
 
