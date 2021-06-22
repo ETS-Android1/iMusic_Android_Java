@@ -7,348 +7,351 @@
     <string name="facebook_app_id">1179700782483492</string>
     <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
-    <!-- <string name="zalo_app_id">270380721011787967</string> -->
-
-
-    <!-- - - - - - - - - - - MainActivity - - - - - - - - - - -->
-    <!--    Button "Login with Facebook"    -->
-    <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
-
-    <string name="toast1">Đăng nhập thành công!</string>
-    <string name="toast2">Đã hủy đăng nhập</string>
-    <string name="toast3">Đăng nhập thất bại! Hãy thử lại lần nữa</string>
-    <string name="toast4">Vui lòng đăng nhập để tiếp tục</string>
-    <string name="toast5">Xác thực thất bại</string>
-    <string name="toast8">Đăng nhập lại để tiếp tục</string>
-    <string name="toast9">Đăng xuất thành công!</string>
-    <string name="toast10">Hãy thử lại lần nữa</string>
-    <string name="toast11">Lỗi! Vui lòng thử lại</string>
-    <string name="toast12">Vui lòng không để trống</string>
-
-    <string name="toast13">Tạo playlist thành công</string>
-    <string name="toast14">Lỗi! Tạo playlist thất bại. Vui lòng thử lại</string>
-    <string name="toast15">Tên playlist đã tồn tại. Hãy chọn tên khác</string>
-
-    <string name="toast16">Sửa tên playlist thành công</string>
-    <string name="toast17">Lỗi! Sửa tên playlist thất bại. Vui lòng thử lại</string>
-    <string name="toast18">Tên playlist đã tồn tại. Hãy chọn tên khác</string>
-
-    <string name="toast19">Xóa playlist thành công</string>
-    <string name="toast20">Lỗi! Xóa playlist thất bại. Vui lòng thử lại</string>
-
-    <string name="toast21">Xóa bài hát thành công</string>
-    <string name="toast22">Lỗi! Xóa bài hát thất bại. Vui lòng thử lại</string>
-
-    <string name="toast23">Thêm bài hát vào playlist thành công</string>
-    <string name="toast24">Lỗi! Thêm bài hát vào playlist thất bại. Vui lòng thử lại</string>
-    <string name="toast25">Bài hát này đã tồn tại trong playlist</string>
-
-    <string name="toast26">Không có kết nối</string>
-
-    <string name="toast27">Vui lòng không viết quá 200 kí tự</string>
-
-    <string name="toast28">Đã bình luận</string>
-    <string name="toast29">Đã xóa bình luận</string>
-    <string name="toast30">Xóa bình luận thất bại</string>
-
-    <!--    Button "Login with Zalo"    -->
-    <string name="btnLoginZL">Đăng nhập bằng Zalo</string>
-    <string name="toast6">Mã lỗi: </string>
-
-    <!-- - - - - - - - - - - FullActivity - - - - - - - - - - -->
-    <string name="toast7">Nhấn BACK lần nữa để thoát</string>
-    <string name="etHint1">Bài hát, nghệ sĩ,…</string>
-
-    <!-- - - - - - - - - - - FullPlayerActivity - - - - - - - - - - -->
-    <string name="tvSongName">Tên bài hát</string>
-    <string name="tvArtist">Tên ca sĩ</string>
-
-    <!-- - - - - - - - - - - FragmentSetting - - - - - - - - - - -->
-    <string name="tvTheme">Giao diện </string>
-    <string name="tvLanguage">Ngôn ngữ </string>
+    <string name="btnLoginFB">Login with Facebook</string>
+    <string name="toast1">Logged in successfully!</string>
+    <string name="toast2">Canceled login</string>
+    <string name="toast3">Login failed! Let\'s try again</string>
+    <string name="toast4">Please login to continue</string>
+    <string name="toast5">Authentication failed</string>
+    <string name="toast8">Log in again to continue</string>
+    <string name="toast9">Sign out successful!</string>
+    <string name="toast10">Let\'s try again</string>
+    <string name="toast11">Error! Please try again</string>
+    <string name="toast12">Please do not leave it blank</string>
+    <string name="toast13">Create playlist successfully</string>
+    <string name="toast14">Error! Playlist creation failed. Please try again</string>
+    <string name="toast15">The playlist name already exists. Please choose another name</string>
+    <string name="toast16">Edit playlist name successfully</string>
+    <string name="toast17">Error! Edit playlist name failed. Please try again</string>
+    <string name="toast18">The playlist name already exists. Please choose another name</string>
+    <string name="toast19">Delete playlist successfully</string>
+    <string name="toast20">Error! Deleting the playlist failed. Please try again</string>
+    <string name="toast21">Delete song successfully</string>
+    <string name="toast22">Error! Delete failed song. Please try again</string>
+    <string name="toast23">Add song to playlist successfully</string>
+    <string name="toast24">Error! Adding songs to playlist failed. Please try again</string>
+    <string name="toast25">This song already exists in the playlist</string>
+    <string name="toast26">No connection</string>
+    <string name="toast27">Please do not write more than 200 characters</string>
+    <string name="toast28">Commented</string>
+    <string name="toast29">Comment removed</string>
+    <string name="toast30">Delete comment failed</string>
+    <string name="btnLoginZL">Login with Zalo</string>
+    <string name="toast6">Error code:</string>
+    <string name="toast7">Press BACK again to exit</string>
+    <string name="etHint1">Songs, artists…</string>
+    <string name="tvSongName">Name of the song</string>
+    <string name="tvArtist">Singer name</string>
+    <string name="tvTheme">Theme</string>
+    <string name="tvLanguage">Language</string>
+    <string name="tvTitleComment">Comment</string>
+    <string name="etHintComment">Enter a comment</string>
+    <string name="tvContentComment">Comment content</string>
+    <string name="tvEmptyComment">No comments yet. \nBe the first to comment</string>
+    <string name="tvTimeStart">00:00</string>
     <string name="tvVietNamese">VietNamese</string>
     <string name="tvEnglish">English</string>
-
-    <!-- - - - - - - - - - - FragmentLyricsPlayer - - - - - - - - - - -->
-    <string name="tvLyrics">Và giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nTrái tim mình nói không nên lời\\nĐắng cay từng tiếng yêu xa vời\\nThế là...\\nVà hôm nay em đến\\nNhưng nắng đâu còn thiết tha gọi mời\\nGió âm thầm lướt qua muôn đời\\nVì ai vì ai\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nĐóa hoa hồng trước kia trở về\\nNhánh hương tình thoảng trên câu thề\\nAnh ước rằng...\\nRằng một mai anh đến\\nAnh đón em vào sớm mai trong lành\\nNhưng đó mãi là giấc mơ không thành\\nVì ai vì ai\\nVà giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nNước mắt em rơi\\nDòng lệ tràn đầy cầu kì\\nVì em vì em\\n</string>
-
-    <string name="tvTitleComment">Bình luận</string>
-    <string name="etHintComment">Nhập bình luận</string>
     <string name="tvUserCommentName">User</string>
     <string name="tvTimeComment">00/00/0000</string>
-    <string name="tvContentComment">Nội dung bình luận</string>
-    <string name="tvEmptyComment">Chưa có bình luận nào. \nHãy là người bình luận đầu tiên</string>
-
-    <!-- - - - - - - - - - - FragmentFullPlayer - - - - - - - - - - -->
-    <string name="tvTimeStart">00:00</string>
     <string name="tvTimeEnd">00:00</string>
-
-    <!-- - - - - - - - - - - SearchActivity - - - - - - - - - - -->
-    <string name="tvSearchHint">Kết quả tìm kiếm sẽ hiển thị ở đây.</string>
-
-    <!-- - - - - - - - - - - FragmentPlaylist - - - - - - - - - - -->
+    <string name="tvSearchHint">Search results will be displayed here.</string>
     <string name="tvPlaylist">Playlist Hot</string>
-
-    <!-- - - - - - - - - - - FragmentTheme - - - - - - - - - - -->
-    <string name="tvThemeFragment">Chủ đề Hot</string>
-
-    <!-- - - - - - - - - - - FragmentAlbum - - - - - - - - - - -->
+    <string name="tvThemeFragment">Hot Topics</string>
     <string name="tvAlbum">Album Hot</string>
-    <string name="tvAlbumName">Tên Album</string>
-    <string name="tvAlbumSinger">Ca sĩ</string>
-
-    <!-- - - - - - - - - - - FragmentChart - - - - - - - - - - -->
-    <string name="tvChart">Bảng xếp hạng</string>
+    <string name="tvAlbumName">Album Name</string>
+    <string name="tvAlbumSinger">Singer</string>
+    <string name="tvChart">Charts</string>
     <string name="tvChartNumber">0</string>
-    <string name="tvChartSongName">Tên bài hát</string>
-    <string name="tvChartSongSinger">Tên ca sĩ</string>
+    <string name="tvChartSongName">Name of the song</string>
+    <string name="tvChartSongSinger">Singer name</string>
     <string name="tvLikeNumber">100</string>
-
-    <!-- - - - - - - - - - - PersonalActivity - - - - - - - - - - -->
-    <string name="tvPersonalTitle">Thông tin cá nhân</string>
-    <string name="tvPersonalName">Tên người dùng</string>
-    <string name="tvInfoName">Tên hiển thị: </string>
-    <string name="tvYourInfoName">Tên người dùng</string>
-    <string name="tvInfoGender">Giới tính</string>
+    <string name="tvPersonalTitle">Personal information</string>
+    <string name="tvPersonalName">User name</string>
+    <string name="tvInfoName">Display name:</string>
+    <string name="tvYourInfoName">User name</string>
     <string name="tvInfoEmail">Email: </string>
-    <string name="tvYourInfoEmail">Email người dùng</string>
-    <string name="btnLogout">Đăng xuất</string>
-
-    <!-- - - - - - - - - - - LayoutDialogTextView - - - - - - - - - - -->
+    <string name="tvYourInfoEmail">User email</string>
+    <string name="btnLogout">Log out</string>
     <string name="tvDialogTitle">Title</string>
     <string name="tvDialogContent">Content</string>
     <string name="btnDialog1">Cancel</string>
     <string name="btnDialog2">Action</string>
-
-    <string name="tvDialogTitle1">Đăng xuất</string>
-    <string name="tvDialogContent1">Bạn có muốn đăng xuất?</string>
-    <string name="btnDialogCancel1">Hủy</string>
-    <string name="btnDialogAction1">Đăng xuất</string>
-
-    <string name="tvDialogTitle2">Xóa playlist</string>
-    <string name="tvDialogContent2">Bạn có chắc muốn xóa playlist này?</string>
-    <string name="btnDialogCancel2">Hủy</string>
-    <string name="btnDialogAction2">Xóa</string>
-
-    <string name="tvDialogTitle3">Xóa tất cả playlist</string>
-    <string name="tvDialogContent3">Bạn có chắc muốn xóa tất cả playlist?</string>
-    <string name="btnDialogCancel3">Hủy</string>
-    <string name="btnDialogAction3">Xóa</string>
-
-    <string name="tvDialogTitle4">Xóa bài hát</string>
-    <string name="tvDialogContent4">Bạn có chắc muốn xóa bài hát này?</string>
-    <string name="btnDialogCancel4">Hủy</string>
-    <string name="btnDialogAction4">Xóa</string>
-
-    <string name="tvDialogTitle5">Xóa tất cả bài hát</string>
-    <string name="tvDialogContent5">Bạn có chắc muốn xóa tất cả bài hát?</string>
-    <string name="btnDialogCancel5">Hủy</string>
-    <string name="btnDialogAction5">Xóa</string>
-
-    <string name="tvDialogTitle6">Xóa comment</string>
-    <string name="tvDialogContent6">Bạn có chắc muốn xóa comment này?</string>
-    <string name="btnDialogCancel6">Hủy</string>
-    <string name="btnDialogAction6">Xóa</string>
-
-    <!-- - - - - - - - - - - PersonalPlaylistFragment - - - - - - - - - - -->
+    <string name="tvDialogTitle1">Log out</string>
+    <string name="tvDialogContent1">Do you want to sign out?</string>
+    <string name="btnDialogCancel1">Cancel</string>
+    <string name="btnDialogAction1">Log out</string>
+    <string name="tvDialogTitle2">Delete playlist</string>
+    <string name="tvDialogContent2">Are you sure you want to delete this playlist?</string>
+    <string name="btnDialogCancel2">Cancel</string>
+    <string name="btnDialogAction2">Delete</string>
+    <string name="tvDialogTitle3">Delete all playlists</string>
+    <string name="tvDialogContent3">Are you sure you want to delete all playlists?</string>
+    <string name="btnDialogCancel3">Cancel</string>
+    <string name="btnDialogAction3">Delete</string>
+    <string name="tvDialogTitle4">Delete song</string>
+    <string name="tvDialogContent4">Are you sure you want to delete this song?</string>
+    <string name="btnDialogCancel4">Cancel</string>
+    <string name="btnDialogAction4">Delete</string>
+    <string name="tvDialogTitle5">Delete all songs</string>
+    <string name="tvDialogContent5">Are you sure you want to delete all songs?</string>
+    <string name="btnDialogCancel5">Cancel</string>
+    <string name="btnDialogAction5">Delete</string>
+    <string name="tvDialogTitle6">Delete comments</string>
+    <string name="tvDialogContent6">Are you sure you want to delete this comment?</string>
+    <string name="btnDialogCancel6">Cancel</string>
+    <string name="btnDialogAction6">Delete</string>
     <string name="tvYourPlaylist">Playlist: </string>
     <string name="tvNumberPlaylist">0</string>
-    <string name="tvTitleDownloadSong">Bài hát trên thiết bị</string>
-    <string name="tvTitleLoveSong">Bài hát yêu thích</string>
+    <string name="tvTitleDownloadSong">Songs on the device</string>
+    <string name="tvTitleLoveSong">Favorite song</string>
     <string name="tvNumberSongLove"> </string>
-    <string name="tvEmptyPlaylist">Chưa có playlist nào</string>
+    <string name="tvEmptyPlaylist">There are no playlists yet</string>
+    <string name="tvPlaylistName">Playlist name</string>
+    <string name="tvDialogTitlePlaylist">Create playlist</string>
+    <string name="etDialogContentPlaylist">Playlist name</string>
+    <string name="btnDialogCancelPlaylist">Cancel</string>
+    <string name="btnDialogActionPlaylist">Create playlist</string>
+    <string name="tvDialogTitlePlaylist1">Edit playlist name</string>
+    <string name="etDialogContentPlaylist1">Enter new playlist name</string>
+    <string name="btnDialogCancelPlaylist1">Cancel</string>
+    <string name="btnDialogActionPlaylist1">Save</string>
+    <string name="tvPersonalPlaylistTitle">Playlist name</string>
+    <string name="tvInfoGender">Gender</string>
+    <string name="btnPersonalPlayAll">Play all</string>
+    <string name="tvEmptySong">There has been no song yet</string>
+    <string name="tvLoading">Wait a minute, hihi....😁</string>
+    <string name="tvAddPlaylist">Create a new playlist</string>
+    <string name="tvEditPlaylist">Edit current playlist name</string>
+    <string name="tvDeletePlaylist">Delete current playlist</string>
+    <string name="tvDeleteAllPlaylist">Delete all playlist</string>
+    <string name="tvCloseInfoPlaylist">Exit</string>
+    <string name="tvPlaySong">Play music</string>
+    <string name="tvAddSongToPlaylist">Add songs to playlist</string>
+    <string name="tvDeleteSongToPlaylist">Remove song from current playlist</string>
+    <string name="tvDeleteAllSongToPlaylist">Remove all songs from current playlist playlist</string>
+    <string name="tvDownLoadSong">Download music</string>
+    <string name="tvDeleteDownLoadSong">Delete downloaded music</string>
+    <string name="tvCloseInfoSong">Exit</string>
+    <string name="tvSelectPlaylist">Select playlist</string>
+    <string name="tvGenreName">Category name</string>
+    <string name="tvTitle">Title</string>
+    <string name="hours">h ago</string>
+    <string name="minutes">minutes ago</string>
+    <string name="days">days ago</string>
+    <string name="today">Today</string>
+    <string name="tvRadio">Functions in development</string>
+    <string name="tvLyrics">Và giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nTrái tim mình nói không nên lời\\nĐắng cay từng tiếng yêu xa vời\\nThế là...\\nVà hôm nay em đến\\nNhưng nắng đâu còn thiết tha gọi mời\\nGió âm thầm lướt qua muôn đời\\nVì ai vì ai\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nĐóa hoa hồng trước kia trở về\\nNhánh hương tình thoảng trên câu thề\\nAnh ước rằng...\\nRằng một mai anh đến\\nAnh đón em vào sớm mai trong lành\\nNhưng đó mãi là giấc mơ không thành\\nVì ai vì ai\\nVà giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nNước mắt em rơi\\nDòng lệ tràn đầy cầu kì\\nVì em vì em\\n</string>
 
-    <!-- - - - - - - - - - - ItemUserPlaylist - - - - - - - - - - -->
-    <string name="tvPlaylistName">Tên Playlist</string>
+    <!--    <string name="app_name">iMusic</string>-->
 
-    <!-- - - - - - - - - - - layout_dialog_editText - - - - - - - - - - -->
-    <string name="tvDialogTitlePlaylist">Tạo playlist</string>
-    <string name="etDialogContentPlaylist">Tên playlist</string>
-    <string name="btnDialogCancelPlaylist">Hủy</string>
-    <string name="btnDialogActionPlaylist">Tạo playlist</string>
+    <!--    <string name="channel_name">iMusic 1</string>-->
+    <!--    <string name="channel_description">iMusic Play</string>-->
 
-    <string name="tvDialogTitlePlaylist1">Sửa tên playlist</string>
-    <string name="etDialogContentPlaylist1">Nhập tên playlist mới</string>
-    <string name="btnDialogCancelPlaylist1">Hủy</string>
-    <string name="btnDialogActionPlaylist1">Lưu</string>
+    <!--    <string name="facebook_app_id">1179700782483492</string>-->
+    <!--    <string name="fb_login_protocol_scheme">fb1179700782483492</string>-->
 
-    <!-- - - - - - - - - - - PersonalPlaylistActivity - - - - - - - - - - -->
-    <string name="tvPersonalPlaylistTitle">Tên Playlist</string>
-    <string name="btnPersonalPlayAll">Phát tất cả</string>
-    <string name="tvEmptySong">Chưa có bài hát nào</string>
-
-    <!-- - - - - - - - - - - Layout_loading_dialog - - - - - - - - - - -->
-    <string name="tvLoading">Chờ xíu nha, hihi....😁</string>
-
-    <!-- - - - - - - - - - - Layout_userplaylist_more - - - - - - - - - - -->
-    <string name="tvAddPlaylist">Tạo mới playlist</string>
-    <string name="tvEditPlaylist">Sửa tên playlist hiện tại</string>
-    <string name="tvDeletePlaylist">Xóa playlist hiện tại</string>
-    <string name="tvDeleteAllPlaylist">Xóa toàn bộ playlist</string>
-    <string name="tvCloseInfoPlaylist">Thoát</string>
-
-    <!-- - - - - - - - - - - Layout_song_more - - - - - - - - - - -->
-    <string name="tvPlaySong">Phát nhạc</string>
-    <string name="tvAddSongToPlaylist">Thêm bài hát vào playlist</string>
-    <string name="tvDeleteSongToPlaylist">Xóa bài hát khỏi playlist hiện tại</string>
-    <string name="tvDeleteAllSongToPlaylist">Xóa tất cả bài hát khỏi playlist hiện tại</string>
-    <string name="tvDownLoadSong">Tải nhạc về</string>
-    <string name="tvDeleteDownLoadSong">Xóa nhạc tải về</string>
-    <string name="tvCloseInfoSong">Thoát</string>
-
-    <!-- - - - - - - - - - - Layout_add_song_to_playlist_dialog - - - - - - - - - - -->
-    <string name="tvSelectPlaylist">Chọn playlist</string>
-
-    <!-- - - - - - - - - - - item_genre - - - - - - - - - - -->
-    <string name="tvGenreName">Tên thể loại</string>
-
-    <string name="tvTitle">Tiêu đề</string>
-
-    <string name="hours">h trước</string>
-    <string name="minutes">phút trước</string>
-    <string name="days">ngày trước</string>
-    <string name="today">Hôm nay</string>
-
-    <!-- - - - - - - - - - - fragment radio - - - - - - - - - - -->
-    <string name="tvRadio">Chức năng đang phát triển</string>
+    <!--    &lt;!&ndash; <string name="zalo_app_id">270380721011787967</string> &ndash;&gt;-->
 
 
-    <string name="enbtnLoginFB">Login with Facebook</string>
-    <string name="entoast1">Logged in successfully!</string>
-    <string name="entoast2">Canceled login</string>
-    <string name="entoast3">Login failed! Let\'s try again</string>
-    <string name="entoast4">Please login to continue</string>
-    <string name="entoast5">Authentication failed</string>
-    <string name="entoast8">Log in again to continue</string>
-    <string name="entoast9">Sign out successful!</string>
-    <string name="entoast10">Let\'s try again</string>
-    <string name="entoast11">Error! Please try again</string>
-    <string name="entoast12">Please do not leave it blank</string>
-    <string name="entoast13">Create playlist successfully</string>
-    <string name="entoast14">Error! Playlist creation failed. Please try again</string>
-    <string name="entoast15">The playlist name already exists. Please choose another name</string>
-    <string name="entoast16">Edit playlist name successfully</string>
-    <string name="entoast17">Error! Edit playlist name failed. Please try again</string>
-    <string name="entoast18">The playlist name already exists. Please choose another name</string>
-    <string name="entoast19">Delete playlist successfully</string>
-    <string name="entoast20">Error! Deleting the playlist failed. Please try again</string>
-    <string name="entoast21">Delete song successfully</string>
-    <string name="entoast22">Error! Delete failed song. Please try again</string>
-    <string name="entoast23">Add song to playlist successfully</string>
-    <string name="entoast24">Error! Adding songs to playlist failed. Please try again</string>
-    <string name="entoast25">This song already exists in the playlist</string>
-    <string name="entoast26">No connection</string>
-    <string name="entoast27">Please do not write more than 200 characters</string>
-    <string name="entoast28">Commented</string>
-    <string name="entoast29">Comment removed</string>
-    <string name="entoast30">Delete comment failed</string>
-    <string name="enbtnLoginZL">Login with Zalo</string>
-    <string name="entoast6">Error code:</string>
-    <string name="entoast7">Press BACK again to exit</string>
-    <string name="enetHint1">Songs, artists…</string>
-    <string name="entvSongName">Name of the song</string>
-    <string name="entvArtist">Singer name</string>
-    <string name="entvTheme">Theme</string>
-    <string name="entvLanguage">Language</string>
-    <string name="entvTitleComment">Comment</string>
-    <string name="enetHintComment">Enter a comment</string>
-    <string name="entvContentComment">Comment content</string>
-    <string name="entvEmptyComment">No comments yet. \\nBe the first to comment</string>
-    <string name="entvTimeStart" translatable="false">00:00</string>
-    <string name="enchannel_name">iMusic 1</string>
-    <string name="enchannel_description">iMusic Play</string>
-    <string name="enfacebook_app_id">1179700782483492</string>
-    <string name="enfb_login_protocol_scheme">fb1179700782483492</string>
-    <string name="entvVietNamese">VietNamese</string>
-    <string name="entvEnglish">English</string>
-    <string name="entvUserCommentName">User</string>
-    <string name="entvTimeComment">00/00/0000</string>
-    <string name="entvTimeEnd">00:00</string>
-    <string name="entvSearchHint">Search results will be displayed here.</string>
-    <string name="entvPlaylist">Playlist Hot</string>
-    <string name="entvThemeFragment">Hot Topics</string>
-    <string name="entvAlbum">Album Hot</string>
-    <string name="entvAlbumName">Album Name</string>
-    <string name="entvAlbumSinger">Singer</string>
-    <string name="entvChart">Charts</string>
-    <string name="entvChartNumber">0</string>
-    <string name="entvChartSongName">Name of the song</string>
-    <string name="entvChartSongSinger">Singer name</string>
-    <string name="entvLikeNumber">100</string>
-    <string name="entvPersonalTitle">Personal information</string>
-    <string name="entvPersonalName">User name</string>
-    <string name="entvInfoName">Display name:</string>
-    <string name="entvYourInfoName">User name</string>
-    <string name="entvInfoEmail">"Email: "</string>
-    <string name="entvYourInfoEmail">User email</string>
-    <string name="enbtnLogout">Log out</string>
-    <string name="entvDialogTitle">Title</string>
-    <string name="entvDialogContent">Content</string>
-    <string name="enbtnDialog1">Cancel</string>
-    <string name="enbtnDialog2">Action</string>
-    <string name="entvDialogTitle1">Log out</string>
-    <string name="entvDialogContent1">Do you want to sign out?</string>
-    <string name="enbtnDialogCancel1">Cancel</string>
-    <string name="enbtnDialogAction1">Log out</string>
-    <string name="entvDialogTitle2">Delete playlist</string>
-    <string name="entvDialogContent2">Are you sure you want to delete this playlist?</string>
-    <string name="enbtnDialogCancel2">Cancel</string>
-    <string name="enbtnDialogAction2">Delete</string>
-    <string name="entvDialogTitle3">Delete all playlists</string>
-    <string name="entvDialogContent3">Are you sure you want to delete all playlists?</string>
-    <string name="enbtnDialogCancel3">Cancel</string>
-    <string name="enbtnDialogAction3">Delete</string>
-    <string name="entvDialogTitle4">Delete song</string>
-    <string name="entvDialogContent4">Are you sure you want to delete this song?</string>
-    <string name="enbtnDialogCancel4">Cancel</string>
-    <string name="enbtnDialogAction4">Delete</string>
-    <string name="entvDialogTitle5">Delete all songs</string>
-    <string name="entvDialogContent5">Are you sure you want to delete all songs?</string>
-    <string name="enbtnDialogCancel5">Cancel</string>
-    <string name="enbtnDialogAction5">Delete</string>
-    <string name="entvDialogTitle6">Delete comments</string>
-    <string name="entvDialogContent6">Are you sure you want to delete this comment?</string>
-    <string name="enbtnDialogCancel6">Cancel</string>
-    <string name="enbtnDialogAction6">Delete</string>
-    <string name="entvYourPlaylist">"Playlist: "</string>
-    <string name="entvNumberPlaylist">0</string>
-    <string name="entvTitleDownloadSong">Songs on the device</string>
-    <string name="entvTitleLoveSong">Favorite song</string>
-    <string name="entvNumberSongLove">" "</string>
-    <string name="entvEmptyPlaylist">There are no playlists yet</string>
-    <string name="entvPlaylistName">Playlist name</string>
-    <string name="entvDialogTitlePlaylist">Create playlist</string>
-    <string name="enetDialogContentPlaylist">Playlist name</string>
-    <string name="enbtnDialogCancelPlaylist">Cancel</string>
-    <string name="enbtnDialogActionPlaylist">Create playlist</string>
-    <string name="entvDialogTitlePlaylist1">Edit playlist name</string>
-    <string name="enetDialogContentPlaylist1">Enter new playlist name</string>
-    <string name="enbtnDialogCancelPlaylist1">Cancel</string>
-    <string name="enbtnDialogActionPlaylist1">Save</string>
-    <string name="entvPersonalPlaylistTitle">Playlist name</string>
-    <string name="entvLyrics">Và giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nTrái tim mình nói không nên lời\\nĐắng cay từng tiếng yêu xa vời\\nThế là...\\nVà hôm nay em đến\\nNhưng nắng đâu còn thiết tha gọi mời\\nGió âm thầm lướt qua muôn đời\\nVì ai vì ai\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nĐóa hoa hồng trước kia trở về\\nNhánh hương tình thoảng trên câu thề\\nAnh ước rằng...\\nRằng một mai anh đến\\nAnh đón em vào sớm mai trong lành\\nNhưng đó mãi là giấc mơ không thành\\nVì ai vì ai\\nVà giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nNước mắt em rơi\\nDòng lệ tràn đầy cầu kì\\nVì em vì em\\n</string>
-    <string name="entvInfoGender">Gender</string>
-    <string name="enbtnPersonalPlayAll">Play all</string>
-    <string name="entvEmptySong">There has been no song yet</string>
-    <string name="entvLoading">Wait a minute, hihi....😁</string>
-    <string name="entvAddPlaylist">Create a new playlist</string>
-    <string name="entvEditPlaylist">Edit current playlist name</string>
-    <string name="entvDeletePlaylist">Delete current playlist</string>
-    <string name="entvDeleteAllPlaylist">Delete all playlist</string>
-    <string name="entvCloseInfoPlaylist">Exit</string>
-    <string name="entvPlaySong">Play music</string>
-    <string name="entvAddSongToPlaylist">Add songs to playlist</string>
-    <string name="entvDeleteSongToPlaylist">Remove song from current playlist</string>
-    <string name="entvDeleteAllSongToPlaylist">Remove all songs from current playlist playlist</string>
-    <string name="entvDownLoadSong">Download music</string>
-    <string name="entvDeleteDownLoadSong">Delete downloaded music</string>
-    <string name="entvCloseInfoSong">Exit</string>
-    <string name="entvSelectPlaylist">Select playlist</string>
-    <string name="entvGenreName">Category name</string>
-    <string name="entvTitle">Title</string>
-    <string name="enhours">h ago</string>
-    <string name="enminutes">minutes ago</string>
-    <string name="endays">days ago</string>
-    <string name="entoday">Today</string>
-    <string name="entvRadio">Functions in development</string>
+    <!--    &lt;!&ndash; - - - - - - - - - - MainActivity - - - - - - - - - - &ndash;&gt;-->
+    <!--    &lt;!&ndash;    Button "Login with Facebook"    &ndash;&gt;-->
+    <!--    <string name="btnLoginFB">Đăng nhập bằng Facebook</string>-->
+
+    <!--    <string name="toast1">Đăng nhập thành công!</string>-->
+    <!--    <string name="toast2">Đã hủy đăng nhập</string>-->
+    <!--    <string name="toast3">Đăng nhập thất bại! Hãy thử lại lần nữa</string>-->
+    <!--    <string name="toast4">Vui lòng đăng nhập để tiếp tục</string>-->
+    <!--    <string name="toast5">Xác thực thất bại</string>-->
+    <!--    <string name="toast8">Đăng nhập lại để tiếp tục</string>-->
+    <!--    <string name="toast9">Đăng xuất thành công!</string>-->
+    <!--    <string name="toast10">Hãy thử lại lần nữa</string>-->
+    <!--    <string name="toast11">Lỗi! Vui lòng thử lại</string>-->
+    <!--    <string name="toast12">Vui lòng không để trống</string>-->
+
+    <!--    <string name="toast13">Tạo playlist thành công</string>-->
+    <!--    <string name="toast14">Lỗi! Tạo playlist thất bại. Vui lòng thử lại</string>-->
+    <!--    <string name="toast15">Tên playlist đã tồn tại. Hãy chọn tên khác</string>-->
+
+    <!--    <string name="toast16">Sửa tên playlist thành công</string>-->
+    <!--    <string name="toast17">Lỗi! Sửa tên playlist thất bại. Vui lòng thử lại</string>-->
+    <!--    <string name="toast18">Tên playlist đã tồn tại. Hãy chọn tên khác</string>-->
+
+    <!--    <string name="toast19">Xóa playlist thành công</string>-->
+    <!--    <string name="toast20">Lỗi! Xóa playlist thất bại. Vui lòng thử lại</string>-->
+
+    <!--    <string name="toast21">Xóa bài hát thành công</string>-->
+    <!--    <string name="toast22">Lỗi! Xóa bài hát thất bại. Vui lòng thử lại</string>-->
+
+    <!--    <string name="toast23">Thêm bài hát vào playlist thành công</string>-->
+    <!--    <string name="toast24">Lỗi! Thêm bài hát vào playlist thất bại. Vui lòng thử lại</string>-->
+    <!--    <string name="toast25">Bài hát này đã tồn tại trong playlist</string>-->
+
+    <!--    <string name="toast26">Không có kết nối</string>-->
+
+    <!--    <string name="toast27">Vui lòng không viết quá 200 kí tự</string>-->
+
+    <!--    <string name="toast28">Đã bình luận</string>-->
+    <!--    <string name="toast29">Đã xóa bình luận</string>-->
+    <!--    <string name="toast30">Xóa bình luận thất bại</string>-->
+
+    <!--    &lt;!&ndash;    Button "Login with Zalo"    &ndash;&gt;-->
+    <!--    <string name="btnLoginZL">Đăng nhập bằng Zalo</string>-->
+    <!--    <string name="toast6">Mã lỗi: </string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - FullActivity - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="toast7">Nhấn BACK lần nữa để thoát</string>-->
+    <!--    <string name="etHint1">Bài hát, nghệ sĩ,…</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - FullPlayerActivity - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvSongName">Tên bài hát</string>-->
+    <!--    <string name="tvArtist">Tên ca sĩ</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - FragmentSetting - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvTheme">Giao diện </string>-->
+    <!--    <string name="tvLanguage">Ngôn ngữ </string>-->
+    <!--    <string name="tvVietNamese">VietNamese</string>-->
+    <!--    <string name="tvEnglish">English</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - FragmentLyricsPlayer - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvLyrics">Và giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nTrái tim mình nói không nên lời\\nĐắng cay từng tiếng yêu xa vời\\nThế là...\\nVà hôm nay em đến\\nNhưng nắng đâu còn thiết tha gọi mời\\nGió âm thầm lướt qua muôn đời\\nVì ai vì ai\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nĐóa hoa hồng trước kia trở về\\nNhánh hương tình thoảng trên câu thề\\nAnh ước rằng...\\nRằng một mai anh đến\\nAnh đón em vào sớm mai trong lành\\nNhưng đó mãi là giấc mơ không thành\\nVì ai vì ai\\nVà giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nNước mắt em rơi\\nDòng lệ tràn đầy cầu kì\\nVì em vì em\\n</string>-->
+
+    <!--    <string name="tvTitleComment">Bình luận</string>-->
+    <!--    <string name="etHintComment">Nhập bình luận</string>-->
+    <!--    <string name="tvUserCommentName">User</string>-->
+    <!--    <string name="tvTimeComment">00/00/0000</string>-->
+    <!--    <string name="tvContentComment">Nội dung bình luận</string>-->
+    <!--    <string name="tvEmptyComment">Chưa có bình luận nào. \nHãy là người bình luận đầu tiên</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - FragmentFullPlayer - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvTimeStart">00:00</string>-->
+    <!--    <string name="tvTimeEnd">00:00</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - SearchActivity - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvSearchHint">Kết quả tìm kiếm sẽ hiển thị ở đây.</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - FragmentPlaylist - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvPlaylist">Playlist Hot</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - FragmentTheme - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvThemeFragment">Chủ đề Hot</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - FragmentAlbum - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvAlbum">Album Hot</string>-->
+    <!--    <string name="tvAlbumName">Tên Album</string>-->
+    <!--    <string name="tvAlbumSinger">Ca sĩ</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - FragmentChart - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvChart">Bảng xếp hạng</string>-->
+    <!--    <string name="tvChartNumber">0</string>-->
+    <!--    <string name="tvChartSongName">Tên bài hát</string>-->
+    <!--    <string name="tvChartSongSinger">Tên ca sĩ</string>-->
+    <!--    <string name="tvLikeNumber">100</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - PersonalActivity - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvPersonalTitle">Thông tin cá nhân</string>-->
+    <!--    <string name="tvPersonalName">Tên người dùng</string>-->
+    <!--    <string name="tvInfoName">Tên hiển thị: </string>-->
+    <!--    <string name="tvYourInfoName">Tên người dùng</string>-->
+    <!--    <string name="tvInfoGender">Giới tính</string>-->
+    <!--    <string name="tvInfoEmail">Email: </string>-->
+    <!--    <string name="tvYourInfoEmail">Email người dùng</string>-->
+    <!--    <string name="btnLogout">Đăng xuất</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - LayoutDialogTextView - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvDialogTitle">Title</string>-->
+    <!--    <string name="tvDialogContent">Content</string>-->
+    <!--    <string name="btnDialog1">Cancel</string>-->
+    <!--    <string name="btnDialog2">Action</string>-->
+
+    <!--    <string name="tvDialogTitle1">Đăng xuất</string>-->
+    <!--    <string name="tvDialogContent1">Bạn có muốn đăng xuất?</string>-->
+    <!--    <string name="btnDialogCancel1">Hủy</string>-->
+    <!--    <string name="btnDialogAction1">Đăng xuất</string>-->
+
+    <!--    <string name="tvDialogTitle2">Xóa playlist</string>-->
+    <!--    <string name="tvDialogContent2">Bạn có chắc muốn xóa playlist này?</string>-->
+    <!--    <string name="btnDialogCancel2">Hủy</string>-->
+    <!--    <string name="btnDialogAction2">Xóa</string>-->
+
+    <!--    <string name="tvDialogTitle3">Xóa tất cả playlist</string>-->
+    <!--    <string name="tvDialogContent3">Bạn có chắc muốn xóa tất cả playlist?</string>-->
+    <!--    <string name="btnDialogCancel3">Hủy</string>-->
+    <!--    <string name="btnDialogAction3">Xóa</string>-->
+
+    <!--    <string name="tvDialogTitle4">Xóa bài hát</string>-->
+    <!--    <string name="tvDialogContent4">Bạn có chắc muốn xóa bài hát này?</string>-->
+    <!--    <string name="btnDialogCancel4">Hủy</string>-->
+    <!--    <string name="btnDialogAction4">Xóa</string>-->
+
+    <!--    <string name="tvDialogTitle5">Xóa tất cả bài hát</string>-->
+    <!--    <string name="tvDialogContent5">Bạn có chắc muốn xóa tất cả bài hát?</string>-->
+    <!--    <string name="btnDialogCancel5">Hủy</string>-->
+    <!--    <string name="btnDialogAction5">Xóa</string>-->
+
+    <!--    <string name="tvDialogTitle6">Xóa comment</string>-->
+    <!--    <string name="tvDialogContent6">Bạn có chắc muốn xóa comment này?</string>-->
+    <!--    <string name="btnDialogCancel6">Hủy</string>-->
+    <!--    <string name="btnDialogAction6">Xóa</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - PersonalPlaylistFragment - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvYourPlaylist">Playlist: </string>-->
+    <!--    <string name="tvNumberPlaylist">0</string>-->
+    <!--    <string name="tvTitleDownloadSong">Bài hát trên thiết bị</string>-->
+    <!--    <string name="tvTitleLoveSong">Bài hát yêu thích</string>-->
+    <!--    <string name="tvNumberSongLove"> </string>-->
+    <!--    <string name="tvEmptyPlaylist">Chưa có playlist nào</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - ItemUserPlaylist - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvPlaylistName">Tên Playlist</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - layout_dialog_editText - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvDialogTitlePlaylist">Tạo playlist</string>-->
+    <!--    <string name="etDialogContentPlaylist">Tên playlist</string>-->
+    <!--    <string name="btnDialogCancelPlaylist">Hủy</string>-->
+    <!--    <string name="btnDialogActionPlaylist">Tạo playlist</string>-->
+
+    <!--    <string name="tvDialogTitlePlaylist1">Sửa tên playlist</string>-->
+    <!--    <string name="etDialogContentPlaylist1">Nhập tên playlist mới</string>-->
+    <!--    <string name="btnDialogCancelPlaylist1">Hủy</string>-->
+    <!--    <string name="btnDialogActionPlaylist1">Lưu</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - PersonalPlaylistActivity - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvPersonalPlaylistTitle">Tên Playlist</string>-->
+    <!--    <string name="btnPersonalPlayAll">Phát tất cả</string>-->
+    <!--    <string name="tvEmptySong">Chưa có bài hát nào</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - Layout_loading_dialog - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvLoading">Chờ xíu nha, hihi....😁</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - Layout_userplaylist_more - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvAddPlaylist">Tạo mới playlist</string>-->
+    <!--    <string name="tvEditPlaylist">Sửa tên playlist hiện tại</string>-->
+    <!--    <string name="tvDeletePlaylist">Xóa playlist hiện tại</string>-->
+    <!--    <string name="tvDeleteAllPlaylist">Xóa toàn bộ playlist</string>-->
+    <!--    <string name="tvCloseInfoPlaylist">Thoát</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - Layout_song_more - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvPlaySong">Phát nhạc</string>-->
+    <!--    <string name="tvAddSongToPlaylist">Thêm bài hát vào playlist</string>-->
+    <!--    <string name="tvDeleteSongToPlaylist">Xóa bài hát khỏi playlist hiện tại</string>-->
+    <!--    <string name="tvDeleteAllSongToPlaylist">Xóa tất cả bài hát khỏi playlist hiện tại</string>-->
+    <!--    <string name="tvDownLoadSong">Tải nhạc về</string>-->
+    <!--    <string name="tvDeleteDownLoadSong">Xóa nhạc tải về</string>-->
+    <!--    <string name="tvCloseInfoSong">Thoát</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - Layout_add_song_to_playlist_dialog - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvSelectPlaylist">Chọn playlist</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - item_genre - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvGenreName">Tên thể loại</string>-->
+
+    <!--    <string name="tvTitle">Tiêu đề</string>-->
+
+    <!--    <string name="hours">h trước</string>-->
+    <!--    <string name="minutes">phút trước</string>-->
+    <!--    <string name="days">ngày trước</string>-->
+    <!--    <string name="today">Hôm nay</string>-->
+
+    <!--    &lt;!&ndash; - - - - - - - - - - fragment radio - - - - - - - - - - &ndash;&gt;-->
+    <!--    <string name="tvRadio">Chức năng đang phát triển</string>-->
 </resources>

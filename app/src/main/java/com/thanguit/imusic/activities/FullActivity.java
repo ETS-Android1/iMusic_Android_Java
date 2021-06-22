@@ -59,6 +59,8 @@ public class FullActivity extends AppCompatActivity {
 
     private MyBroadcastReceiver myBroadcastReceiver;
 
+    private SettingLanguage settingLanguage;
+
     private ScaleAnimation scaleAnimation;
     private LoadingDialog loadingDialog;
 
@@ -95,7 +97,6 @@ public class FullActivity extends AppCompatActivity {
 //        Toast.makeText(this, "User_ID: " + DataLocalManager.getUserID(), Toast.LENGTH_SHORT).show();
 
         Mapping();
-        Update_Language();
         Event();
     }
 
@@ -121,8 +122,6 @@ public class FullActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        Update_Language();
 
         if (FullPlayerManagerService.listCurrentSong != null) {
             loadFragmentMiniPlayer();
@@ -157,7 +156,8 @@ public class FullActivity extends AppCompatActivity {
     private void Check_Login() {
         if (AccessToken.getCurrentAccessToken() == null) {
             LoginManager.getInstance().logOut();
-            DataLocalManager.deleteAllData();
+            DataLocalManager.deleteUserID();
+            DataLocalManager.deleteUserAvatar();
             finish();
             Intent intent = new Intent(FullActivity.this, MainActivity.class);
             startActivity(intent);
@@ -165,6 +165,9 @@ public class FullActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
+        settingLanguage = SettingLanguage.getInstance(this);
+        settingLanguage.Update_Language();
+
         this.loadingDialog = new LoadingDialog(this);
         this.loadingDialog.Start_Loading();
 
@@ -302,14 +305,6 @@ public class FullActivity extends AppCompatActivity {
                 .withDoublePressDuration(TIME_DURATION)
                 .withFirstBackPressAction(this.firstBackPressAction)
                 .withDoubleBackPressAction(this.doubleBackPressAction);
-    }
-
-    private void Update_Language() {
-        if (DataLocalManager.getLanguage()) {
-            this.editText.setHint(getString(R.string.enetHint1));
-        } else {
-            this.editText.setHint(getString(R.string.etHint1));
-        }
     }
 
     private void loadFragment(Fragment fragment) {

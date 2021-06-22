@@ -13,17 +13,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
-import com.thanguit.imusic.adapters.ChartAdapter;
 import com.thanguit.imusic.adapters.SongAdapter;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
+import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +31,8 @@ import retrofit2.Response;
 
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
+
+    private SettingLanguage settingLanguage;
 
     private EditText etSearchBox;
     private ImageView ivBack;
@@ -56,6 +55,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
+        settingLanguage = SettingLanguage.getInstance(this);
+        settingLanguage.Update_Language();
+
         this.etSearchBox = findViewById(R.id.etSearchBox);
         this.etSearchBox.requestFocus(); // When Activity show, Searchbox will be focused
 

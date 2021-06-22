@@ -1,5 +1,8 @@
 package com.thanguit.imusic.fragments;
 
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,24 +13,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
+import com.thanguit.imusic.activities.FullActivity;
+import com.thanguit.imusic.services.SettingLanguage;
 
+import java.util.Locale;
 
 public class SettingFragment extends Fragment {
+    private static final String TAG = "SettingFragment";
+
+    private SettingLanguage settingLanguage;
+
     private LottieAnimationView btnSwitchTheme;
     private TextView tvVietNamese;
     private TextView tvEnglish;
 
-    private TextView tvTheme;
-    private TextView tvLanguage;
-
-//    private SettingLanguage settingLanguage;
-//
-//    private final String VIETNAMESE = "vi";
-//    private final String ENGLISH = "en";
+    private final String VIETNAMESE = "vi";
+    private final String ENGLISH = "en";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,15 +58,15 @@ public class SettingFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Update_Language();
     }
 
     public void Mapping(View view) {
+        settingLanguage = SettingLanguage.getInstance(getContext());
+        settingLanguage.Update_Language();
+
         this.btnSwitchTheme = view.findViewById(R.id.btnSwitchTheme);
         this.tvVietNamese = view.findViewById(R.id.tvVietNamese);
         this.tvEnglish = view.findViewById(R.id.tvEnglish);
-        this.tvTheme = view.findViewById(R.id.tvTheme);
-        this.tvLanguage = view.findViewById(R.id.tvLanguage);
 
         if (DataLocalManager.getTheme()) {
             this.btnSwitchTheme.setMinAndMaxProgress(0.5f, 1.0f); // Tối
@@ -69,14 +75,12 @@ public class SettingFragment extends Fragment {
         }
 
         if (DataLocalManager.getLanguage()) {
-            this.tvEnglish.setTextColor(getResources().getColor(R.color.colorMain3));
-            this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorLight7));
-        } else {
             this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorMain3));
             this.tvEnglish.setTextColor(getResources().getColor(R.color.colorLight7));
+        } else {
+            this.tvEnglish.setTextColor(getResources().getColor(R.color.colorMain3));
+            this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorLight7));
         }
-
-        Update_Language();
     }
 
     private void Event() {
@@ -93,50 +97,41 @@ public class SettingFragment extends Fragment {
         });
 
         this.tvVietNamese.setOnClickListener(v -> {
-            DataLocalManager.setLanguage(false);
+            DataLocalManager.setLanguage(true);
             this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorMain3));
             this.tvEnglish.setTextColor(getResources().getColor(R.color.colorLight7));
 
-            Update_Language();
+            settingLanguage.Update_Language();
+
+            Intent intent = new Intent(getContext(), FullActivity.class);
+            startActivity(intent);
         });
 
         this.tvEnglish.setOnClickListener(v -> {
-            DataLocalManager.setLanguage(true);
+            DataLocalManager.setLanguage(false);
             this.tvEnglish.setTextColor(getResources().getColor(R.color.colorMain3));
             this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorLight7));
 
-            Update_Language();
+            settingLanguage.Update_Language();
+
+            Intent intent = new Intent(getContext(), FullActivity.class);
+            startActivity(intent);
         });
     }
 
-    private void Update_Language() {
-        if (DataLocalManager.getLanguage()) {
-            this.tvTheme.setText(getString(R.string.entvTheme));
-            this.tvLanguage.setText(getString(R.string.entvLanguage));
-        } else {
-            this.tvTheme.setText(getString(R.string.tvTheme));
-            this.tvLanguage.setText(getString(R.string.tvLanguage));
-        }
-    }
-
-//    private void SettingLanguage() {
+//    private void Update_Language() {
 //        Locale locale;
-//
 //        if (DataLocalManager.getLanguage()) {
-//            locale = new Locale(ENGLISH);
+//            locale = new Locale(VIETNAMESE); // true: Tiếng Việt
 //            Locale.setDefault(locale);
 //        } else {
-//            locale = new Locale(VIETNAMESE);
+//            locale = new Locale(ENGLISH); // false: Tiếng Anh
 //            Locale.setDefault(locale);
 //        }
-//
 //        Resources resources = getActivity().getResources();
 //        Configuration configuration = resources.getConfiguration();
 //        configuration.setLocale(locale);
 //        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
-//
-////        configuration.locale = locale; // Cấu hình lại ngôn ngữ hệ thống
-////        getContext().getResources().updateConfiguration(configuration, getContext().getResources().getDisplayMetrics()); // Cập nhật lại strings.xml
 //
 //        Intent intent = new Intent(getContext(), FullActivity.class);
 //        startActivity(intent);

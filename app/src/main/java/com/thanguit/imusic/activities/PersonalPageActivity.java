@@ -25,6 +25,7 @@ import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.User;
+import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PersonalPageActivity extends AppCompatActivity {
+    private static final String TAG = "PersonalPageActivity";
+
+    private SettingLanguage settingLanguage;
+
     private ImageView ivBack;
     private ImageView civAvatarFrame;
     private TextView tvPersonalName;
@@ -45,8 +50,6 @@ public class PersonalPageActivity extends AppCompatActivity {
     private LoadingDialog loadingDialog;
 
     private ArrayList<User> userArrayList;
-
-    private static final String TAG = "PersonalPageActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,9 @@ public class PersonalPageActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
+        settingLanguage = SettingLanguage.getInstance(this);
+        settingLanguage.Update_Language();
+
         this.loadingDialog = new LoadingDialog(this);
         this.loadingDialog.Start_Loading();
 
@@ -135,7 +141,8 @@ public class PersonalPageActivity extends AppCompatActivity {
         btnDialogAction.setOnClickListener(v -> {
             dialog.dismiss();
             LoginManager.getInstance().logOut();
-            DataLocalManager.deleteAllData();
+            DataLocalManager.deleteUserID();
+            DataLocalManager.deleteUserAvatar();
             finish();
             moveTaskToBack(true);
 

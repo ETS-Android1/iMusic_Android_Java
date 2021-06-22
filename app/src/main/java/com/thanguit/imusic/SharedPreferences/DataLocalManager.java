@@ -39,6 +39,13 @@ public class DataLocalManager {
         DataLocalManager.getInstance().sharedPreferencesManager.deleteAllData();
     }
 
+    public static void deleteUserID() {
+        DataLocalManager.getInstance().sharedPreferencesManager.deleteUserID(USER_ID);
+    }
+
+    public static void deleteUserAvatar() {
+        DataLocalManager.getInstance().sharedPreferencesManager.deleteUserAvatar(USER_AVATAR);
+    }
 
     public static void setUserID(String userID) {
         DataLocalManager.getInstance().sharedPreferencesManager.putStringValue(USER_ID, userID);

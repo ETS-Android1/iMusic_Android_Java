@@ -30,25 +30,21 @@ public class SettingLanguage {
         return instance;
     }
 
-    public void UpdateLanguage() {
+    public void Update_Language() {
         Locale locale;
-
         if (DataLocalManager.getLanguage()) {
-            locale = new Locale("en");
+            locale = new Locale("vi"); // true: Tiếng Việt
             Locale.setDefault(locale);
         } else {
-            locale = new Locale("vn");
+            locale = new Locale("en"); // false: Tiếng Anh
             Locale.setDefault(locale);
         }
+        Resources resources = context.getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
 
-        Configuration configuration = new Configuration();
-        configuration.locale = locale;
-        context.getResources().updateConfiguration(configuration, context.getResources().getDisplayMetrics());
-
-//        configuration.locale = locale; // Cấu hình lại ngôn ngữ hệ thống
-//        getContext().getResources().updateConfiguration(configuration, getContext().getResources().getDisplayMetrics()); // Cập nhật lại strings.xml
-
-//        Intent intent = new Intent(context, FullActivity.class);
-//        context.startActivity(intent);
+//        Intent intent = new Intent(getContext(), FullActivity.class);
+//        startActivity(intent);
     }
 }
