@@ -6,7 +6,7 @@
     <string name="channel_description">iMusic Play</string>
 
     <string name="facebook_app_id">1179700782483492</string>
-<!--    <string name="fb_login_protocol_scheme">fb1179700782483492</string>-->
+    <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
     <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
     <string name="toast1">Đăng nhập thành công!</string>
@@ -37,6 +37,8 @@
     <string name="toast28">Đã bình luận</string>
     <string name="toast29">Đã xóa bình luận</string>
     <string name="toast30">Xóa bình luận thất bại</string>
+    <string name="toast31">Bạn cần tải YouTube để có thể sử dụng chức năng này</string>
+    <string name="toast32">Bài hát này chưa có MV</string>
     <string name="btnLoginZL">Đăng nhập với Zalo</string>
     <string name="toast6">Mã lỗi:</string>
     <string name="toast7">Nhấn BACK lần nữa để thoát</string>

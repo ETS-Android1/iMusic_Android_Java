@@ -37,8 +37,6 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 public class RadioActivity extends AppCompatActivity {
-    private SettingLanguage settingLanguage;
-
     YouTubePlayerView youTubePlayerView;
     YouTubePlayer.OnInitializedListener onInitializedListener;
     Button btn;
@@ -72,9 +70,6 @@ public class RadioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
-
-        this.settingLanguage = SettingLanguage.getInstance(this);
-        this.settingLanguage.Update_Language();
 
         room = getIntent().getIntExtra("room", 1);
         mSocket.connect();

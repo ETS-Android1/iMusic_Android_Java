@@ -35,8 +35,6 @@ import retrofit2.Response;
 public class PersonalPlaylistActivity extends AppCompatActivity {
     private static final String TAG = "PPActivity";
 
-    private SettingLanguage settingLanguage;
-
     private ImageView ivPersonalPlaylistBack;
     private TextView tvPersonalPlaylistTitle;
     private ImageView ivPersonalPlaylistMore;
@@ -64,9 +62,6 @@ public class PersonalPlaylistActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        this.settingLanguage = SettingLanguage.getInstance(this);
-        this.settingLanguage.Update_Language();
-        
         this.ivPersonalPlaylistBack = findViewById(R.id.ivPersonalPlaylistBack);
 
         this.tvPersonalPlaylistTitle = findViewById(R.id.tvPersonalPlaylistTitle);

@@ -1,14 +1,7 @@
 package com.thanguit.imusic.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,27 +11,14 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.services.FullPlayerManagerService;
-import com.thanguit.imusic.services.SettingLanguage;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
 
 public class YoutubeActivity extends YouTubeBaseActivity {
-    private SettingLanguage settingLanguage;
-
     YouTubePlayerView youTubePlayerView;
     YouTubePlayer.OnInitializedListener onInitializedListener;
     //ImageView back;
-    Button back;
-    TextView tvSongName;
-    TextView tvArtist;
+    private Button back;
+    private TextView tvSongName;
+    private TextView tvArtist;
     private String MvCode;
     boolean error = false;
 
@@ -47,24 +27,25 @@ public class YoutubeActivity extends YouTubeBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube);
 
-        this.settingLanguage = SettingLanguage.getInstance(this);
-        this.settingLanguage.Update_Language();
+        this.back = findViewById(R.id.ivBack);
+        this.back.setOnClickListener(v -> finish());
 
-        MvCode = getIntent().getStringExtra("MvCode");
+        this.youTubePlayerView = findViewById(R.id.youtubeView2);
 
-        youTubePlayerView = findViewById(R.id.youtubeView2);
-        back = findViewById(R.id.ivBack);
-        tvSongName = findViewById(R.id.tvSongName);
-        tvArtist = findViewById(R.id.tvArtist);
-        tvSongName.setText(getIntent().getStringExtra("SongName"));
-        tvArtist.setText(getIntent().getStringExtra("Artist"));
-        back.setOnClickListener(v -> finish());
+        this.tvSongName = findViewById(R.id.tvSongName);
+        this.tvSongName.setSelected(true); // Text will be moved
+        this.tvSongName.setText(getIntent().getStringExtra("SongName").trim());
+
+        this.tvArtist = findViewById(R.id.tvArtist);
+        this.tvArtist.setSelected(true); // Text will be
+        this.tvArtist.setText(getIntent().getStringExtra("Artist").trim());
+
+        this.MvCode = getIntent().getStringExtra("MvCode");
         if (MvCode != null) {
             onInitializedListener = new YouTubePlayer.OnInitializedListener() {
                 @Override
                 public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                    //youTubePlayer.loadVideo(MvCode);
-                    youTubePlayer.loadVideo(MvCode);
+                    youTubePlayer.loadVideo(MvCode); // Hiển thị Video của Youtube
                     try {
                         if (FullPlayerManagerService.mediaPlayer != null)
                             FullPlayerManagerService.mediaPlayer.pause();
@@ -82,12 +63,11 @@ public class YoutubeActivity extends YouTubeBaseActivity {
         }
 
         if (error) {
-            Toast.makeText(this, "Chức năng này cần bạn down Youtube về để sử dụng!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast31, Toast.LENGTH_SHORT).show();
         }
         ///btn = findViewById(R.id.btnPlay);
         //btn.setOnClickListener(v->{
         youTubePlayerView.initialize("AIzaSyCUyAkQaYLAsYcimtKB3nyCo3ow-pyuElM", onInitializedListener);
         //});
     }
-
 }

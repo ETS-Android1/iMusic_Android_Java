@@ -34,8 +34,6 @@ import retrofit2.Response;
 public class GenreActivity extends AppCompatActivity {
     private static final String TAG = "GenreActivity";
 
-    private SettingLanguage settingLanguage;
-
     private ScaleAnimation scaleAnimation;
     private LoadingDialog loadingDialog;
 
@@ -62,9 +60,6 @@ public class GenreActivity extends AppCompatActivity {
     private void Mapping() {
         this.loadingDialog = new LoadingDialog(this);
         this.loadingDialog.Start_Loading();
-
-        this.settingLanguage = SettingLanguage.getInstance(this);
-        this.settingLanguage.Update_Language();
 
         this.ivBack = findViewById(R.id.ivBack);
         this.tvTitle = findViewById(R.id.tvTitle);

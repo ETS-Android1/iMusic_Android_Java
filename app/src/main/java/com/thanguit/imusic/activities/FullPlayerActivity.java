@@ -26,7 +26,7 @@ import com.thanguit.imusic.services.SettingLanguage;
 import java.util.ArrayList;
 
 public class FullPlayerActivity extends AppCompatActivity implements FullPlayerFragment.ISendPositionListener {
-    private SettingLanguage settingLanguage;
+    private static final String TAG = "FullPlayerActivity";
 
     private ViewPager viewpager;
     public static FullPlayerAdapter fullPlayerAdapter;
@@ -47,8 +47,6 @@ public class FullPlayerActivity extends AppCompatActivity implements FullPlayerF
     public static TextView tvSongName;
     public static TextView tvArtist;
 
-    private static final String TAG = "FullPlayerActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,9 +58,6 @@ public class FullPlayerActivity extends AppCompatActivity implements FullPlayerF
     }
 
     private void Mapping() {
-        this.settingLanguage = SettingLanguage.getInstance(this);
-        this.settingLanguage.Update_Language();
-
         this.viewpager = findViewById(R.id.vpFullPlayer);
         fullPlayerAdapter = new FullPlayerAdapter(getSupportFragmentManager(), 1);
         this.pageIndicatorView = findViewById(R.id.pageIndicatorView);

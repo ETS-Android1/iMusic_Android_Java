@@ -38,7 +38,6 @@ public class Song implements Parcelable {
     @SerializedName("lyric")
     @Expose
     private String lyric;
-
     @SerializedName("mvcode")
     @Expose
     private String mvcode;

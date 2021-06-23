@@ -32,8 +32,6 @@ import retrofit2.Response;
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
 
-    private SettingLanguage settingLanguage;
-
     private EditText etSearchBox;
     private ImageView ivBack;
     private TextView tvSearchHint;
@@ -55,9 +53,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        this.settingLanguage = SettingLanguage.getInstance(this);
-        this.settingLanguage.Update_Language();
-
         this.etSearchBox = findViewById(R.id.etSearchBox);
         this.etSearchBox.requestFocus(); // When Activity show, Searchbox will be focused
 

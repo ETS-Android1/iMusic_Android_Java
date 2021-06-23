@@ -74,12 +74,12 @@ public class DataLocalManager {
     }
 
 
-    public static void setLanguage(boolean language) {
-        DataLocalManager.getInstance().sharedPreferencesManager.putBooleanValue(LANGUAGE, language);
+    public static void setLanguage(String language) {
+        DataLocalManager.getInstance().sharedPreferencesManager.putStringValue(LANGUAGE, language);
     }
 
-    public static boolean getLanguage() {
-        return DataLocalManager.getInstance().sharedPreferencesManager.getBooleanValue(LANGUAGE);
+    public static String getLanguage() {
+        return DataLocalManager.getInstance().sharedPreferencesManager.getStringValue(LANGUAGE);
     }
 
     public static void setListSongDownloaded(List<Song> song) {

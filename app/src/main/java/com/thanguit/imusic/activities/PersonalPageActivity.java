@@ -37,8 +37,6 @@ import retrofit2.Response;
 public class PersonalPageActivity extends AppCompatActivity {
     private static final String TAG = "PersonalPageActivity";
 
-    private SettingLanguage settingLanguage;
-
     private ImageView ivBack;
     private ImageView civAvatarFrame;
     private TextView tvPersonalName;
@@ -63,9 +61,6 @@ public class PersonalPageActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        this.settingLanguage = SettingLanguage.getInstance(this);
-        this.settingLanguage.Update_Language();
-
         this.loadingDialog = new LoadingDialog(this);
         this.loadingDialog.Start_Loading();
 

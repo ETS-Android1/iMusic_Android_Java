@@ -29,11 +29,14 @@ import java.util.Locale;
 public class SettingFragment extends Fragment {
     private static final String TAG = "SettingFragment";
 
-    private SettingLanguage settingLanguage = SettingLanguage.getInstance(getContext());
+    private SettingLanguage settingLanguage;
 
     private LottieAnimationView btnSwitchTheme;
     private TextView tvVietNamese;
     private TextView tvEnglish;
+
+    private final String VIETNAMESE = "vi";
+    private final String ENGLISH = "en";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,17 +64,16 @@ public class SettingFragment extends Fragment {
     }
 
     public void Mapping(View view) {
-        settingLanguage.Update_Language();
+        this.settingLanguage = new SettingLanguage(getContext());
 
         this.btnSwitchTheme = view.findViewById(R.id.btnSwitchTheme);
         this.tvVietNamese = view.findViewById(R.id.tvVietNamese);
         this.tvEnglish = view.findViewById(R.id.tvEnglish);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            this.tvVietNamese.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "Can't change another language, because the device is out of date!", Toast.LENGTH_LONG).show();
-        }
-
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+//            this.tvVietNamese.setVisibility(View.GONE);
+//            Toast.makeText(getContext(), "Can't change another language, because the device is out of date!", Toast.LENGTH_LONG).show();
+//        }
 
         if (DataLocalManager.getTheme()) {
             this.btnSwitchTheme.setMinAndMaxProgress(0.5f, 1.0f); // Tối
@@ -79,7 +81,7 @@ public class SettingFragment extends Fragment {
             this.btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Sáng
         }
 
-        if (DataLocalManager.getLanguage()) {
+        if (DataLocalManager.getLanguage().equals(VIETNAMESE)) {
             this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorMain3));
             this.tvEnglish.setTextColor(getResources().getColor(R.color.colorLight7));
         } else {
@@ -106,31 +108,27 @@ public class SettingFragment extends Fragment {
         });
 
         this.tvVietNamese.setOnClickListener(v -> {
-            DataLocalManager.setLanguage(true);
-
             this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorMain3));
             this.tvEnglish.setTextColor(getResources().getColor(R.color.colorLight7));
 
+            settingLanguage.Update_Language(VIETNAMESE);
+
+            Intent intent = new Intent(getContext(), FullActivity.class);
+            startActivity(intent);
+
             Log.d(TAG, "VietNam: " + DataLocalManager.getLanguage());
-
-            settingLanguage.Update_Language();
-
-            getActivity().recreate();
         });
 
         this.tvEnglish.setOnClickListener(v -> {
-            DataLocalManager.setLanguage(false);
             this.tvEnglish.setTextColor(getResources().getColor(R.color.colorMain3));
             this.tvVietNamese.setTextColor(getResources().getColor(R.color.colorLight7));
 
+            settingLanguage.Update_Language(ENGLISH);
+
+            Intent intent = new Intent(getContext(), FullActivity.class);
+            startActivity(intent);
+
             Log.d(TAG, "English: " + DataLocalManager.getLanguage());
-
-            settingLanguage.Update_Language();
-
-            getActivity().recreate();
-
-//            Intent intent = new Intent(getContext(), FullActivity.class);
-//            startActivity(intent);
         });
     }
 }

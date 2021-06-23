@@ -36,6 +36,8 @@
     <string name="toast28">Commented</string>
     <string name="toast29">Comment removed</string>
     <string name="toast30">Delete comment failed</string>
+    <string name="toast31">You need the Youtube app to use it!</string>
+    <string name="toast32">This song has no MV</string>
     <string name="btnLoginZL">Login with Zalo</string>
     <string name="toast6">Error code:</string>
     <string name="toast7">Press BACK again to exit</string>

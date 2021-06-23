@@ -1,16 +1,12 @@
 package com.thanguit.imusic.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -20,18 +16,13 @@ import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
 import com.facebook.login.LoginManager;
-import com.google.android.material.snackbar.Snackbar;
 import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
 import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
 import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
 import com.squareup.picasso.Picasso;
-import com.thanguit.imusic.API.APIService;
-import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
-import com.thanguit.imusic.adapters.AlbumHomeAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.fragments.ChartFragment;
@@ -40,27 +31,15 @@ import com.thanguit.imusic.fragments.MiniPlayerFragment;
 import com.thanguit.imusic.fragments.PersonalPlaylistFragment;
 import com.thanguit.imusic.fragments.RadioFragment;
 import com.thanguit.imusic.fragments.SettingFragment;
-import com.thanguit.imusic.models.Album;
-import com.thanguit.imusic.models.Song;
-import com.thanguit.imusic.models.User;
 import com.thanguit.imusic.services.FullPlayerManagerService;
 import com.thanguit.imusic.services.MyBroadcastReceiver;
-import com.thanguit.imusic.services.SettingLanguage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class FullActivity extends AppCompatActivity {
+public class FullActivity extends AppCompat {
     private static final String TAG = "FullActivity";
 
     private MyBroadcastReceiver myBroadcastReceiver;
-
-    private SettingLanguage settingLanguage;
 
     private ScaleAnimation scaleAnimation;
     private LoadingDialog loadingDialog;
@@ -79,8 +58,6 @@ public class FullActivity extends AppCompatActivity {
 
     private CircleImageView circleImageView;
     private EditText editText;
-
-    private ArrayList<User> userArrayList;
 
     private static final int ID_PERSONAL = 1;
     private static final int ID_CHART = 2;
@@ -155,7 +132,7 @@ public class FullActivity extends AppCompatActivity {
     }
 
     private void Check_Login() {
-        if (AccessToken.getCurrentAccessToken() == null) {
+        if (AccessToken.getCurrentAccessToken() == null || DataLocalManager.getUserID().isEmpty()) {
             LoginManager.getInstance().logOut();
             DataLocalManager.deleteUserID();
             DataLocalManager.deleteUserAvatar();
@@ -171,11 +148,7 @@ public class FullActivity extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
-
-        this.settingLanguage = SettingLanguage.getInstance(this);
-        this.settingLanguage.Update_Language();
 //        Toast.makeText(this, "Language: " + DataLocalManager.getLanguage(), Toast.LENGTH_SHORT).show();
-
 
         this.loadingDialog = new LoadingDialog(this);
 //        this.loadingDialog.Start_Loading();

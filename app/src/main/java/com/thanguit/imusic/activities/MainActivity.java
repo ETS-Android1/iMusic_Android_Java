@@ -50,7 +50,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private SettingLanguage settingLanguage;
+    private static final String TAG = "MainActivity";
+    private static final String LOG_TAG_1 = "LOGIN WITH FACEBOOK";
+//    private static final String LOG_TAG_2 = "LOGIN WITH ZALO";
 
     private CallbackManager callbackManager;
 
@@ -71,10 +73,6 @@ public class MainActivity extends AppCompatActivity {
     private DoubleBackPressAction doubleBackPressAction;
     private DoubleBackPress doubleBackPress;
     private static final int TIME_DURATION = 2000;
-
-    private static final String TAG = "MainActivity";
-    private static final String LOG_TAG_1 = "LOGIN WITH FACEBOOK";
-//    private static final String LOG_TAG_2 = "LOGIN WITH ZALO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,10 +137,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Mapping() {
-        loadingDialog = new LoadingDialog(this);
-
-        this.settingLanguage = SettingLanguage.getInstance(this);
-        this.settingLanguage.Update_Language();
+        this.loadingDialog = new LoadingDialog(this);
 
         this.callbackManager = CallbackManager.Factory.create();
 

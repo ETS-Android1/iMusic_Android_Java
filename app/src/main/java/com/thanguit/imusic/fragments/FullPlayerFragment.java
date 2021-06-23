@@ -224,8 +224,8 @@ public class FullPlayerFragment extends Fragment {
             Open_Comment_Dialog(position);
         });
 
-//        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivShare);
-//        this.scaleAnimation.Event_ImageView();
+        this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivMv);
+        this.scaleAnimation.Event_ImageView();
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivShuffle);
         this.scaleAnimation.Event_ImageView();
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivPrev);
@@ -340,15 +340,12 @@ public class FullPlayerFragment extends Fragment {
         this.ivMv.setOnClickListener(v -> {
             if (FullPlayerActivity.dataSongArrayList.get(position).getMvcode() != null) {
                 Intent intent = new Intent(getActivity(), YoutubeActivity.class);
-                intent.putExtra("MvCode", FullPlayerActivity.dataSongArrayList.get(position).getMvcode());
+                intent.putExtra("MvCode", FullPlayerActivity.dataSongArrayList.get(position).getMvcode().trim());
                 intent.putExtra("Artist", FullPlayerActivity.dataSongArrayList.get(position).getSinger().trim());
                 intent.putExtra("SongName", FullPlayerActivity.dataSongArrayList.get(position).getName().trim());
                 startActivity(intent);
             } else {
-/*                Intent intent = new Intent(getActivity(), YoutubeActivity.class);
-                intent.putExtra("MvCode",FullPlayerActivity.dataSongArrayList.get(position).getMvcode());
-                startActivity(intent);*/
-                Toast.makeText(v.getContext(), "Bài này không có MV", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), R.string.toast32, Toast.LENGTH_SHORT).show();
             }
         });
     }
