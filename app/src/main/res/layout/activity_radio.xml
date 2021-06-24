@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.RadioActivity">
+
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/colorLight6"
-        android:id="@+id/header">
+        android:background="@color/colorLight6">
 
         <ImageView
             android:id="@+id/ivBack"
@@ -66,33 +67,36 @@
             android:layout_marginEnd="5dp"
             android:gravity="center"
             android:padding="10dp"
-            app:srcCompat="@drawable/shape_corner_10dp_border"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:srcCompat="@drawable/shape_corner_10dp_border" />
     </RelativeLayout>
+
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        android:layout_below="@+id/header"
         android:id="@+id/cardviewcover"
-        android:layout_above="@id/rlbottom">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rlbottom"
+        android:layout_below="@+id/header"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <ImageView
             android:id="@+id/ivCover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_logo" />
     </androidx.cardview.widget.CardView>
+
     <RelativeLayout
+        android:id="@+id/rlbottom"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/shape_corner_10dp_border"
         android:gravity="center"
-        android:padding="5dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/rlbottom">
+        android:padding="5dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cvListSongImage"
@@ -151,6 +155,7 @@
                 android:textSize="12sp"
                 android:textStyle="normal" />
         </LinearLayout>
+
         <ImageView
             android:id="@+id/ivRequest"
             android:layout_width="wrap_content"

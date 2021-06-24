@@ -71,12 +71,12 @@ public class RadioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
 
-        room = getIntent().getIntExtra("room", 1);
-        mSocket.connect();
-        mSocket.emit("joinroom", gs.toJson(new Room(room, userid)));
-        mSocket.on("currentsong", onNewMessage2);
+        room = getIntent().getIntExtra("room", 1); // Lấy thông tin phòng
+        mSocket.connect(); // Kết nối
+        mSocket.emit("joinroom", gs.toJson(new Room(room, userid))); // Gửi
+        mSocket.on("currentsong", onNewMessage2); // Lắng nghe
         mSocket.on(userid, onNewMessage);
-        Maping();
+        Mapping();
         Event();
     }
 
@@ -101,16 +101,16 @@ public class RadioActivity extends AppCompatActivity {
         }
     }
 
-    private void Maping() {
-        ivListItemSong = findViewById(R.id.ivListItemSong);
-        ivPlay = findViewById(R.id.ivPlayRadio);
-        ivListItemSongLove = findViewById(R.id.ivLove);
-        ivListItemSongLove.setVisibility(View.INVISIBLE);
-        tvListItemSongName = findViewById(R.id.tvListItemSongName);
-        tvListItemSongSinger = findViewById(R.id.tvListItemSongSinger);
-        ivRequest = findViewById(R.id.ivRequest);
-        ivRequest.setVisibility(View.INVISIBLE);
-        ivBack = findViewById(R.id.ivBack);
+    private void Mapping() {
+        this.ivListItemSong = findViewById(R.id.ivListItemSong);
+        this.ivPlay = findViewById(R.id.ivPlayRadio);
+        this.ivListItemSongLove = findViewById(R.id.ivLove);
+        this.ivListItemSongLove.setVisibility(View.INVISIBLE);
+        this.tvListItemSongName = findViewById(R.id.tvListItemSongName);
+        this.tvListItemSongSinger = findViewById(R.id.tvListItemSongSinger);
+        this.ivRequest = findViewById(R.id.ivRequest);
+        this.ivRequest.setVisibility(View.INVISIBLE);
+        this.ivBack = findViewById(R.id.ivBack);
     }
 
     private void Event() {

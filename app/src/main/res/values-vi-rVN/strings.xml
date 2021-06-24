@@ -33,7 +33,7 @@
     <string name="toast24">Lỗi! Thêm bài hát vào playlist thất bại. Vui lòng thử lại</string>
     <string name="toast25">Bài hát này đã tồn tại trong playlist</string>
     <string name="toast26">Không có kết nối</string>
-    <string name="toast27">Vui lòng không viết quá 200 kí tự</string>
+    <string name="toast27">Vui lòng không viết nhiều hơn 200 ký tự hoặc ký tự đặc biệt</string>
     <string name="toast28">Đã bình luận</string>
     <string name="toast29">Đã xóa bình luận</string>
     <string name="toast30">Xóa bình luận thất bại</string>
@@ -144,4 +144,6 @@
     <string name="days">ngày trước</string>
     <string name="today">Hôm nay</string>
     <string name="tvRadio">Chức năng đang phát triển</string>
+    <string name="tvRoom1">Top 10 bài hát từ bảng xếp hạng</string>
+    <string name="tvRoom2">20 bài hát ngẫu nhiên</string>
 </resources>

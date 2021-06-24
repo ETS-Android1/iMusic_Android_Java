@@ -32,7 +32,7 @@
     <string name="toast24">Error! Adding songs to playlist failed. Please try again</string>
     <string name="toast25">This song already exists in the playlist</string>
     <string name="toast26">No connection</string>
-    <string name="toast27">Please do not write more than 200 characters</string>
+    <string name="toast27">Please do not write more than 200 characters or special characters</string>
     <string name="toast28">Commented</string>
     <string name="toast29">Comment removed</string>
     <string name="toast30">Delete comment failed</string>
@@ -143,6 +143,8 @@
     <string name="today">Today</string>
     <string name="tvRadio">Functions in development</string>
     <string name="tvLyrics">Và giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nTrái tim mình nói không nên lời\\nĐắng cay từng tiếng yêu xa vời\\nThế là...\\nVà hôm nay em đến\\nNhưng nắng đâu còn thiết tha gọi mời\\nGió âm thầm lướt qua muôn đời\\nVì ai vì ai\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nNếu...\\nĐóa hoa hồng trước kia trở về\\nNhánh hương tình thoảng trên câu thề\\nAnh ước rằng...\\nRằng một mai anh đến\\nAnh đón em vào sớm mai trong lành\\nNhưng đó mãi là giấc mơ không thành\\nVì ai vì ai\\nVà giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nEm đã trao ai\\nDòng lệ tràn đầy cầu kì\\nNhững năm tháng phai nhòa\\nVì giờ anh biết\\nChuyện tình mình chẳng còn gì\\nKhi nắng xuân sang\\nLời mật ngọt còn thầm thì\\nEm bước sang ngang\\nĐợi chờ một điều diệu kì\\nNhư lúc ban đầu\\nVà giờ em khóc\\nThì cũng chẳng để làm gì\\nĐâu phải cho anh\\nChuyện tình mình mà là vì\\nNước mắt em rơi\\nDòng lệ tràn đầy cầu kì\\nVì em vì em\\n</string>
+    <string name="tvRoom1">Top 10 songs from the chart</string>
+    <string name="tvRoom2">20 songs random</string>
 
     <!--    <string name="app_name">iMusic</string>-->
 

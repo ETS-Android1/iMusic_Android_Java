@@ -150,7 +150,7 @@ public class FullActivity extends AppCompat {
         }
 //        Toast.makeText(this, "Language: " + DataLocalManager.getLanguage(), Toast.LENGTH_SHORT).show();
 
-        this.loadingDialog = new LoadingDialog(this);
+//        this.loadingDialog = new LoadingDialog(this);
 //        this.loadingDialog.Start_Loading();
 
         this.meowBottomNavigation = findViewById(R.id.bottomNavigation);
