@@ -153,14 +153,19 @@ public class FullPlayerFragment extends Fragment {
             getActivity().registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACkS"));
             FullPlayerManagerService.isRegister = true;
         }
-        CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+//        CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        getActivity().unregisterReceiver(broadcastReceiver);
-        FullPlayerManagerService.isRegister = true;
+
+        try {
+            getActivity().unregisterReceiver(broadcastReceiver);
+            FullPlayerManagerService.isRegister = true;
+        } catch (Exception e) {
+            Log.e(TAG, "unregisterReceiver");
+        }
     }
 
     private void Mapping(View view) {
@@ -204,10 +209,37 @@ public class FullPlayerFragment extends Fragment {
             } catch (Exception e) {
                 new PlayMP3().execute(FullPlayerActivity.dataSongArrayList.get(position).getLink());
             }
-            FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(position).getName());
-            FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(position).getSinger());
-            this.ivPlayPause.setImageResource(R.drawable.ic_pause);
+            FullPlayerActivity.tvSongName.setText(FullPlayerActivity.dataSongArrayList.get(position).getName().trim());
+            FullPlayerActivity.tvArtist.setText(FullPlayerActivity.dataSongArrayList.get(position).getSinger().trim());
 
+            if (FullPlayerManagerService.mediaPlayer != null && isCurrentSong()) {
+                if (FullPlayerManagerService.mediaPlayer.isPlaying()) {
+                    this.ivPlayPause.setImageResource(R.drawable.ic_pause);
+                    CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+                } else {
+                    this.ivPlayPause.setImageResource(R.drawable.ic_play_2);
+                    CreateNotification(MiniPlayerOnLockScreenService.ACTION_PAUSE);
+                }
+            } else {
+                this.ivPlayPause.setImageResource(R.drawable.ic_pause);
+                CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+            }
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (FullPlayerActivity.dataSongArrayList.size() > 0) {
+                        Picasso.get()
+                                .load(FullPlayerActivity.dataSongArrayList.get(position).getImg())
+                                .placeholder(R.drawable.ic_logo)
+                                .error(R.drawable.ic_logo)
+                                .into(ivCover);
+                    } else {
+                        handler.postDelayed(this, 1000);
+                    }
+                }
+            }, 1000);
 //            this.loadingDialog.Cancel_Loading();
         }
     }
@@ -236,24 +268,6 @@ public class FullPlayerFragment extends Fragment {
         this.scaleAnimation.Event_ImageView();
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivRepeat);
         this.scaleAnimation.Event_ImageView();
-
-
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (FullPlayerActivity.dataSongArrayList.size() > 0) {
-                    Picasso.get()
-                            .load(FullPlayerActivity.dataSongArrayList.get(0).getImg())
-                            .placeholder(R.drawable.ic_logo)
-                            .error(R.drawable.ic_logo)
-                            .into(ivCover);
-                } else {
-                    handler.postDelayed(this, 1000);
-                }
-            }
-        }, 1000);
-
 
         this.ivPlayPause.setOnClickListener(v -> {
             onSongPlay();
@@ -360,7 +374,6 @@ public class FullPlayerFragment extends Fragment {
     public void onSongPlay() {
         isEvent_Of_FullPlayerFragment = true;
         if (FullPlayerManagerService.mediaPlayer.isPlaying()) {
-
             FullPlayerManagerService.mediaPlayer.pause();
             this.ivPlayPause.setImageResource(R.drawable.ic_play_2);
             CreateNotification(MiniPlayerOnLockScreenService.ACTION_PAUSE);
@@ -490,7 +503,7 @@ public class FullPlayerFragment extends Fragment {
         if (window == null) {
             return;
         }
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); // Set màu mờ mờ cho background dialog, che đi activity chính, nhưng vẫn có thể thấy được một phần
 
         WindowManager.LayoutParams windowAttributes = window.getAttributes();
@@ -651,7 +664,6 @@ public class FullPlayerFragment extends Fragment {
         protected void onPostExecute(String song) {
             super.onPostExecute(song);
             try {
-
                 if (!isCurrentSong() || isEvent_Of_FullPlayerFragment) {
 
                     if (FullPlayerManagerService.mediaPlayer != null) {
@@ -659,7 +671,6 @@ public class FullPlayerFragment extends Fragment {
                             FullPlayerManagerService.mediaPlayer.stop();
                         } catch (Exception e) {
                             e.printStackTrace();
-
                         }
                     }
 

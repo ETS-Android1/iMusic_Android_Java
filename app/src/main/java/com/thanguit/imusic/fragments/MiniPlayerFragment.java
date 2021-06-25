@@ -66,7 +66,16 @@ public class MiniPlayerFragment extends Fragment {
                 FullPlayerManagerService.isRegister = true;
             }*/
             getActivity().registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACkS"));
-            CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+
+            if (FullPlayerManagerService.mediaPlayer != null) {
+                if (FullPlayerManagerService.mediaPlayer.isPlaying()) {
+                    CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
+                } else {
+                    CreateNotification(MiniPlayerOnLockScreenService.ACTION_PAUSE);
+                }
+            } else {
+                CreateNotification(MiniPlayerOnLockScreenService.ACTION_PAUSE);
+            }
         } catch (Exception e) {
             Log.d("Error", e.toString());
         }
@@ -91,7 +100,6 @@ public class MiniPlayerFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -108,6 +116,12 @@ public class MiniPlayerFragment extends Fragment {
         tvListItemSongSinger = view.findViewById(R.id.tvListItemSongSinger);
         miniplayer = view.findViewById(R.id.miniplayer);
         mediaPlayer = FullPlayerManagerService.mediaPlayer;
+
+        if (FullPlayerManagerService.mediaPlayer.isPlaying()) {
+            this.ivPlay.setImageResource(R.drawable.ic_pause);
+        } else {
+            this.ivPlay.setImageResource(R.drawable.ic_play_2);
+        }
     }
 
     private void Event() {

@@ -21,6 +21,7 @@ import com.thanguit.imusic.fragments.DetailPlayerFragment;
 import com.thanguit.imusic.fragments.FullPlayerFragment;
 import com.thanguit.imusic.fragments.LyricsPlayerFragment;
 import com.thanguit.imusic.models.Song;
+import com.thanguit.imusic.services.FullPlayerManagerService;
 import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
@@ -104,6 +105,9 @@ public class FullPlayerActivity extends AppCompatActivity implements FullPlayerF
     private void Get_Data_Intent() {
         Intent intent = getIntent();
         dataSongArrayList.clear(); // Xóa hết dữ liệu bài hát khi nhận đc một dữ liệu bài hát mới
+        if (FullPlayerManagerService.listCurrentSong != null) {
+            FullPlayerManagerService.listCurrentSong.clear();
+        }
 
         if (intent != null) {
             if (intent.hasExtra("SONG")) { // Khi chọn một bài hát

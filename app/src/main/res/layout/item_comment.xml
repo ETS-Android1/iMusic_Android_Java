@@ -62,6 +62,7 @@
             android:layout_alignStart="@+id/tvUserComment"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/comfortaa"
+            android:lineSpacingExtra="6dp"
             android:text="@string/tvContentComment"
             android:textColor="@color/colorLight7"
             android:textSize="14sp"

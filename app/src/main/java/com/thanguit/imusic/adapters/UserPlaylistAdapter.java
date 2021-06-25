@@ -364,8 +364,9 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
                             userPlaylistArrayList.remove(position);
                             notifyDataSetChanged();
-                            tvNumberPlaylist.setText(String.valueOf(userPlaylistArrayList.size()));
-
+                            if (tvNumberPlaylist != null) {
+                                tvNumberPlaylist.setText(String.valueOf(userPlaylistArrayList.size()));
+                            }
                             dialog_2.dismiss();
                             dialog_1.dismiss();
                             Toast.makeText(context, R.string.toast19, Toast.LENGTH_SHORT).show();
@@ -388,8 +389,9 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
                             userPlaylistArrayList.clear();
                             notifyDataSetChanged();
-                            tvNumberPlaylist.setText(String.valueOf(userPlaylistArrayList.size()));
-
+                            if (tvNumberPlaylist != null) {
+                                tvNumberPlaylist.setText(String.valueOf(userPlaylistArrayList.size()));
+                            }
                             dialog_2.dismiss();
                             dialog_1.dismiss();
                             Toast.makeText(context, R.string.toast19, Toast.LENGTH_SHORT).show();
