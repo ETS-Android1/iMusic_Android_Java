@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
@@ -51,6 +52,8 @@ public class RadioActivity extends AppCompatActivity {
     TextView roomName;
     private TextView tvListItemSongName;
     private TextView tvListItemSongSinger;
+    private TextView tvRoomName;
+
     private ImageView ivListItemSongLove;
     private ImageView ivRequest;
     private ImageView ivPlay;
@@ -97,7 +100,8 @@ public class RadioActivity extends AppCompatActivity {
         mSocket.on(userid, onNewMessage);
         mSocket.on("updaterequest", updateRequest);
         Log.d("Radio", userid + session);
-        Maping();
+
+        Mapping();
         Event();
     }
 
@@ -124,7 +128,7 @@ public class RadioActivity extends AppCompatActivity {
         }
     }
 
-    private void Maping() {
+    private void Mapping() {
         ivListItemSong = findViewById(R.id.ivListItemSong);
         ivPlay = findViewById(R.id.ivPlayRadio);
         ivListItemSongLove = findViewById(R.id.ivLove);
@@ -134,6 +138,19 @@ public class RadioActivity extends AppCompatActivity {
         ivRequest = findViewById(R.id.ivRequest);
         //ivRequest.setVisibility(View.INVISIBLE);
         ivBack = findViewById(R.id.ivBack);
+        this.tvRoomName = findViewById(R.id.tvRoomName);
+        this.tvRoomName.setSelected(true); // Text will be
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.hasExtra("ROOMNAME1")) {
+                String roomName1 = intent.getStringExtra("ROOMNAME1");
+                this.tvRoomName.setText(roomName1.trim());
+            } else if (intent.hasExtra("ROOMNAME2")) {
+                String roomName2 = intent.getStringExtra("ROOMNAME2");
+                this.tvRoomName.setText(roomName2.trim());
+            }
+        }
     }
 
     private void Event() {

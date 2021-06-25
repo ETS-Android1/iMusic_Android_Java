@@ -57,14 +57,20 @@ public class RadioFragment extends Fragment {
             startActivity(intent);
         });*/
 
+
+        String roomName1 = this.tvRoom1.getText().toString().trim();
         room1.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), RadioActivity.class);
             intent.putExtra("room", 1);
+            intent.putExtra("ROOMNAME1", roomName1);
             startActivity(intent);
         });
+
+        String roomName2 = this.tvRoom2.getText().toString().trim();
         room2.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), RadioActivity.class);
             intent.putExtra("room", 2);
+            intent.putExtra("ROOMNAME2", roomName2);
             startActivity(intent);
         });
 

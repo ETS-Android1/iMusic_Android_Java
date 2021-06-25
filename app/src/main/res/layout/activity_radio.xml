@@ -39,7 +39,7 @@
             android:scrollHorizontally="true"
             android:text="@string/tvRadio"
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/ivMore"

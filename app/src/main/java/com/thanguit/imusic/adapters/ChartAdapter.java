@@ -305,8 +305,7 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
 
     private void Handle_From_Radio(ViewHolder view, int position) {
         view.itemView.setEnabled(false);
-        //view.ivChartSongMore.setEnabled(false);
-        view.ivChartSongMore.setImageResource(R.drawable.ic_add);
+        view.ivChartSongMore.setImageResource(R.drawable.ic_add_1);
         view.ivChartSongMore.setOnClickListener(v -> {
             RadioActivity.RequestToServer(String.valueOf(songArrayList.get(position).getId()));
             int count = Integer.decode(view.tvChartNumber.getText().toString());
