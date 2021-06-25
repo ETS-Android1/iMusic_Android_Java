@@ -1,6 +1,7 @@
 package com.thanguit.imusic.fragments;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -49,6 +50,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PersonalPlaylistFragment extends Fragment {
+    private static final String TAG = "PPFragment";
+
     private LinearLayout llFrameLoveSong;
 
     private TextView tvNumberPlaylist;
@@ -57,7 +60,6 @@ public class PersonalPlaylistFragment extends Fragment {
     private TextView tvTitleLoveSong;
     private TextView tvEmptyPlaylist;
 
-    //Download
     private TextView tvNumberDownloadSong;
     private TextView tvTitleDownloadSong;
     private LinearLayout llFrameDownloadSong;
@@ -73,39 +75,45 @@ public class PersonalPlaylistFragment extends Fragment {
     private ArrayList<UserPlaylist> userPlaylistArrayList;
     private ArrayList<Status> statusArrayList;
 
-    private static final String TAG = "PPFragment";
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "onAttach");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
         return inflater.inflate(R.layout.fragment_personal_playlist, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         DataLocalManager.init(getContext());
 
+        Log.d(TAG, "onViewCreated");
+
         Mapping(view);
-        Handle_Number_Download_Song();
-        Handle_Number_Favorite_Song();
-        Handle_UserPlaylist();
+//        Handle_Number_Download_Song();
+//        Handle_Number_Favorite_Song();
+//        Handle_UserPlaylist();
         Event();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        Log.d(TAG, "onResume");
+
         Handle_Number_Download_Song();
         Handle_Number_Favorite_Song();
         Handle_UserPlaylist();
@@ -114,14 +122,32 @@ public class PersonalPlaylistFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        Log.d(TAG, "onPause");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-//        Handle_Number_Favorite_Song();
+        Log.d(TAG, "onStop");
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "onDetach");
+    }
 
     private void Mapping(View view) {
         this.loadingDialog = new LoadingDialog(getActivity());
@@ -139,7 +165,6 @@ public class PersonalPlaylistFragment extends Fragment {
         this.sflItemUserPlaylist = view.findViewById(R.id.sflItemUserPlaylist);
         this.rvYourPlaylist = view.findViewById(R.id.rvYourPlaylist);
 
-        //DownloadSong
         this.llFrameDownloadSong = view.findViewById(R.id.llFrameDownloadSong);
         this.tvNumberDownloadSong = view.findViewById(R.id.tvNumberSongDownload);
         this.tvTitleDownloadSong = view.findViewById(R.id.tvTitleDownloadSong);
@@ -168,7 +193,7 @@ public class PersonalPlaylistFragment extends Fragment {
     private void Open_Add_Playlist_Dialog(int gravity) {
         final Dialog dialog = new Dialog(getContext());
 
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // ẩn thanh tiêu đề
         dialog.setContentView(R.layout.layout_edittext_dialog);
 
         Window window = dialog.getWindow();
@@ -298,7 +323,7 @@ public class PersonalPlaylistFragment extends Fragment {
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvYourPlaylist.setLayoutManager(layoutManager);
 
-                    userPlaylistAdapter = new UserPlaylistAdapter(getContext(), userPlaylistArrayList);
+                    userPlaylistAdapter = new UserPlaylistAdapter(getContext(), userPlaylistArrayList, tvNumberPlaylist);
                     rvYourPlaylist.setAdapter(userPlaylistAdapter);
 
                     sflItemUserPlaylist.setVisibility(View.GONE);

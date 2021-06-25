@@ -23,7 +23,7 @@ public class FullPlayerManagerService {
     public static MediaPlayer mediaPlayer;
     public static Song currentSong;
     public static List<Song> listCurrentSong;
-    public static int position;
+    public static int position = 0;
 
 
     public static class PlayMP3 extends AsyncTask<String, Void, String> {

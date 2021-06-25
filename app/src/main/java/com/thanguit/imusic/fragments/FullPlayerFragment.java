@@ -185,7 +185,7 @@ public class FullPlayerFragment extends Fragment {
         StrictMode.setThreadPolicy(policy);
 
         if (FullPlayerManagerService.listCurrentSong != null && FullPlayerActivity.dataSongArrayList.size() <= 0) {
-            FullPlayerActivity.dataSongArrayList = new ArrayList<Song>(FullPlayerManagerService.listCurrentSong);
+            FullPlayerActivity.dataSongArrayList = new ArrayList<>(FullPlayerManagerService.listCurrentSong);
             position = FullPlayerManagerService.position;
         } else {
             FullPlayerManagerService.position = 0;

@@ -52,6 +52,8 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
     private ArrayList<UserPlaylist> userPlaylistArrayList;
     private int songID = -1;
 
+    private TextView tvNumberPlaylist;
+
     private ScaleAnimation scaleAnimation;
     private AlertDialog alertDialog;
 
@@ -63,9 +65,10 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
     private final String ACTION_INSERT_SONG_PLAYLIST = "insert";
 
-    public UserPlaylistAdapter(Context context, ArrayList<UserPlaylist> userPlaylistArrayList) {
+    public UserPlaylistAdapter(Context context, ArrayList<UserPlaylist> userPlaylistArrayList, TextView tvNumberPlaylist) {
         this.context = context;
         this.userPlaylistArrayList = userPlaylistArrayList;
+        this.tvNumberPlaylist = tvNumberPlaylist;
     }
 
     public UserPlaylistAdapter(Context context, ArrayList<UserPlaylist> userPlaylistArrayList, int songID) {
@@ -361,6 +364,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
                             userPlaylistArrayList.remove(position);
                             notifyDataSetChanged();
+                            tvNumberPlaylist.setText(String.valueOf(userPlaylistArrayList.size()));
 
                             dialog_2.dismiss();
                             dialog_1.dismiss();
@@ -384,6 +388,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
                             userPlaylistArrayList.clear();
                             notifyDataSetChanged();
+                            tvNumberPlaylist.setText(String.valueOf(userPlaylistArrayList.size()));
 
                             dialog_2.dismiss();
                             dialog_1.dismiss();
