@@ -105,7 +105,7 @@ public class FullPlayerActivity extends AppCompatActivity implements FullPlayerF
     private void Get_Data_Intent() {
         Intent intent = getIntent();
         dataSongArrayList.clear(); // Xóa hết dữ liệu bài hát khi nhận đc một dữ liệu bài hát mới
-        if (FullPlayerManagerService.listCurrentSong != null) {
+        if (FullPlayerManagerService.listCurrentSong != null && !intent.hasExtra("MINI_PLAYER_CLICK") ) {
             FullPlayerManagerService.listCurrentSong.clear();
         }
 

@@ -32,6 +32,7 @@ import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.FullPlayerActivity;
+import com.thanguit.imusic.activities.RadioActivity;
 import com.thanguit.imusic.activities.YoutubeActivity;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
@@ -61,9 +62,22 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
     private Context context;
     private ArrayList<Song> songArrayList;
 
+    private boolean isFromRadio = false;
+    private List<Integer> listRequest;
+    private Dialog dialogRequestFromRadio;
+    public static List<Integer> listSongRequested = new ArrayList<>();
+
     public ChartAdapter(Context context, ArrayList<Song> songArrayList) {
         this.context = context;
         this.songArrayList = songArrayList;
+    }
+
+    public ChartAdapter(Context context, ArrayList<Song> songArrayList, boolean o, List<Integer> requests, Dialog dialog) {
+        isFromRadio = true;
+        this.context = context;
+        this.songArrayList = songArrayList;
+        listRequest = requests;
+        dialogRequestFromRadio = dialog;
     }
 
     @NonNull
@@ -97,6 +111,10 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
             intent.putExtra("SONGCHART", songArrayList.get(position));
             v.getContext().startActivity(intent);
         });
+
+        if (isFromRadio) {
+            Handle_From_Radio(holder, position);
+        }
     }
 
     private void Open_Info_Song_Dialog(int gravity, int position) {
@@ -282,6 +300,28 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
             tvPosition.setTextColor(context.getResources().getColor(R.color.colorMain8));
         } else { // Ko biết tại sao, khí nào quay lại tìm hiểu sau
             tvPosition.setTextColor(context.getResources().getColor(R.color.colorLight7));
+        }
+    }
+
+    private void Handle_From_Radio(ViewHolder view, int position) {
+        view.itemView.setEnabled(false);
+        //view.ivChartSongMore.setEnabled(false);
+        view.ivChartSongMore.setOnClickListener(v -> {
+            RadioActivity.RequestToServer(String.valueOf(songArrayList.get(position).getId()));
+            int count = Integer.decode(view.tvChartNumber.getText().toString());
+            count++;
+            view.tvChartNumber.setText(String.valueOf(count));
+            view.ivChartSongMore.setEnabled(false);
+            dialogRequestFromRadio.dismiss();
+            listSongRequested.add(position);
+        });
+        if (listRequest.size() <= 0) {
+            view.tvChartNumber.setText("0");
+        } else {
+            view.tvChartNumber.setText(String.valueOf(listRequest.get(position)));
+            if (listSongRequested.contains(position)) {
+                view.ivChartSongMore.setEnabled(false);
+            }
         }
     }
 
