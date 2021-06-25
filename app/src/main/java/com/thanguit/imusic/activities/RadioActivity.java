@@ -92,9 +92,7 @@ public class RadioActivity extends AppCompatActivity {
 
     {
         try {
-            mSocket = IO.socket("http://192.168.1.13:3000/");
-            //mSocket = IO.socket("http://192.168.1.3:8000");
-            //mSocket = IO.socket("http://localhost:8000");
+            mSocket = IO.socket("https://radio-server-uit.herokuapp.com/");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -104,6 +102,7 @@ public class RadioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
+
         room = getIntent().getIntExtra("room", 1);
         mSocket.connect();
         mSocket.emit("joinroom", gs.toJson(new Room(room, userid)));
@@ -143,7 +142,7 @@ public class RadioActivity extends AppCompatActivity {
         ivListItemSong = findViewById(R.id.ivListItemSong);
         ivPlay = findViewById(R.id.ivPlayRadio);
         ivListItemSongLove = findViewById(R.id.ivLove);
-        ivListItemSongLove.setVisibility(View.INVISIBLE);
+        ivListItemSongLove.setVisibility(View.GONE);
         tvListItemSongName = findViewById(R.id.tvListItemSongName);
         tvListItemSongSinger = findViewById(R.id.tvListItemSongSinger);
         ivRequest = findViewById(R.id.ivRequest);
@@ -172,7 +171,7 @@ public class RadioActivity extends AppCompatActivity {
     private void onSongPlay() {
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.pause();
-            this.ivPlay.setImageResource(R.drawable.ic_play_1);
+            this.ivPlay.setImageResource(R.drawable.ic_play_2);
             //CreateNotification(MiniPlayerOnLockScreenService.ACTION_PAUSE);
         } else {
             mSocket.emit("joinroom", gs.toJson(new Room(room, userid)));
