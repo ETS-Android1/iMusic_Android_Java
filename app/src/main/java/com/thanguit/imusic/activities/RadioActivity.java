@@ -23,22 +23,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-import com.thanguit.imusic.API.APIService;
-import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.adapters.ChartAdapter;
-import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.models.Song;
-import com.thanguit.imusic.models.UserPlaylist;
-import com.thanguit.imusic.services.FullPlayerManagerService;
-import com.thanguit.imusic.services.MiniPlayerOnLockScreenService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,13 +45,8 @@ import java.util.Random;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RadioActivity extends AppCompatActivity {
-    YouTubePlayerView youTubePlayerView;
-    YouTubePlayer.OnInitializedListener onInitializedListener;
     Button btn;
     TextView roomName;
     private TextView tvListItemSongName;
@@ -77,7 +64,6 @@ public class RadioActivity extends AppCompatActivity {
     private static MediaPlayer mediaPlayer;
     private static final String CHAR_LIST = "0123456789";
     int session = new Random().nextInt(100) + 1;
-    ;
 
     private static final int RANDOM_STRING_LENGTH = 15;
     public static Socket mSocket;
@@ -153,12 +139,13 @@ public class RadioActivity extends AppCompatActivity {
     private void Event() {
         ivPlay.setOnClickListener(v -> {
             onSongPlay();
-
         });
+
         ivBack.setOnClickListener(v -> {
             room = -1;
             finish();
         });
+
         ivRequest.setOnClickListener(v -> {
             Open_Request_Dialog();
         });

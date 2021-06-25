@@ -143,7 +143,7 @@
     <string name="minutes">phút trước</string>
     <string name="days">ngày trước</string>
     <string name="today">Hôm nay</string>
-    <string name="tvRadio">Chức năng đang phát triển</string>
+    <string name="tvRadio">Radio</string>
     <string name="tvRoom1">Top 10 bài hát từ bảng xếp hạng</string>
     <string name="tvRoom2">20 bài hát ngẫu nhiên</string>
 </resources>
