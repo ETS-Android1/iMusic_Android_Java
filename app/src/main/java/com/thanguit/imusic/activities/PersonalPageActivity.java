@@ -25,7 +25,6 @@ import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.User;
-import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 import java.util.List;

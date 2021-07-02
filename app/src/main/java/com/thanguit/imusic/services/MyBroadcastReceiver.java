@@ -10,10 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.thanguit.imusic.R;
-import com.thanguit.imusic.activities.FullActivity;
-import com.thanguit.imusic.activities.SongActivity;
 
 public class MyBroadcastReceiver extends BroadcastReceiver {
     private static final String KEY = "INTERNET";

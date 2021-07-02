@@ -1,13 +1,10 @@
 package com.thanguit.imusic.services;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
-import com.thanguit.imusic.activities.FullActivity;
 
 import java.util.Locale;
 

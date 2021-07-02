@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,14 +13,12 @@ import android.widget.Toast;
 import com.rd.PageIndicatorView;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.adapters.FullPlayerAdapter;
-import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.fragments.DetailPlayerFragment;
 import com.thanguit.imusic.fragments.FullPlayerFragment;
 import com.thanguit.imusic.fragments.LyricsPlayerFragment;
 import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.services.FullPlayerManagerService;
-import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 

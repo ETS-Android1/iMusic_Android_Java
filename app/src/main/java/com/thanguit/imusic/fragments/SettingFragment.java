@@ -2,8 +2,6 @@ package com.thanguit.imusic.fragments;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -13,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.Gravity;
@@ -30,18 +26,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.activities.FullActivity;
-import com.thanguit.imusic.adapters.UserPlaylistAdapter;
+import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
-import com.thanguit.imusic.models.UserPlaylist;
+import com.thanguit.imusic.models.Status;
 import com.thanguit.imusic.services.SettingLanguage;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,6 +58,9 @@ public class SettingFragment extends Fragment {
     private Button btnRating;
 
     private ScaleAnimation scaleAnimation;
+    private LoadingDialog loadingDialog;
+
+    private ArrayList<Status> statusArrayList;
 
     private final String VIETNAMESE = "vi";
     private final String ENGLISH = "en";
@@ -91,6 +92,7 @@ public class SettingFragment extends Fragment {
 
     public void Mapping(View view) {
         this.settingLanguage = new SettingLanguage(getContext());
+        this.loadingDialog = new LoadingDialog(getActivity());
 
         this.btnSwitchTheme = view.findViewById(R.id.btnSwitchTheme);
         this.tvVietNamese = view.findViewById(R.id.tvVietNamese);
@@ -188,15 +190,17 @@ public class SettingFragment extends Fragment {
         TextView tvFeedbackTitle = dialog.findViewById(R.id.tvFeedbackTitle);
         tvFeedbackTitle.setSelected(true);
         RatingBar rbRating = dialog.findViewById(R.id.rbRating);
+
+        TextView tvShowStar = dialog.findViewById(R.id.tvShowStar);
+        tvShowStar.setSelected(true);
+        tvShowStar.setText(String.valueOf(rbRating.getRating()));
+
         EditText etFeedbackContent = dialog.findViewById(R.id.etFeedbackContent);
         Button btnFeedbackCancel = dialog.findViewById(R.id.btnFeedbackCancel);
         Button btnSendFeedback = dialog.findViewById(R.id.btnSendFeedback);
 
-        rbRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Toast.makeText(getActivity(), "Rating: " + rating, Toast.LENGTH_SHORT).show();
-            }
+        rbRating.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            tvShowStar.setText(String.valueOf(rating));
         });
 
         this.scaleAnimation = new ScaleAnimation(getContext(), btnFeedbackCancel);
@@ -205,15 +209,53 @@ public class SettingFragment extends Fragment {
 
         this.scaleAnimation = new ScaleAnimation(getContext(), btnSendFeedback);
         this.scaleAnimation.Event_Button();
-        btnSendFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSendFeedback.setOnClickListener(v -> {
+            float star = rbRating.getRating();
+            String content = !etFeedbackContent.getText().toString().trim().isEmpty() ? etFeedbackContent.getText().toString().trim() : "Null";
+            Date date = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            String time = dateFormat.format(date);
 
+            if (content.length() > 500) {
+                Toast.makeText(v.getContext(), R.string.toast34, Toast.LENGTH_LONG).show();
+            } else {
+                loadingDialog.Start_Loading();
+
+                DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
+                Call<List<Status>> callBack = dataService.addFeedback(DataLocalManager.getUserID(), star, content, time);
+                callBack.enqueue(new Callback<List<Status>>() {
+                    @Override
+                    public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
+                        statusArrayList = new ArrayList<>();
+                        statusArrayList = (ArrayList<Status>) response.body();
+
+                        if (statusArrayList != null) {
+                            if (statusArrayList.get(0).getStatus() == 1) {
+                                loadingDialog.Cancel_Loading();
+
+                                Toast.makeText(v.getContext(), R.string.toast35, Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            } else if (statusArrayList.get(0).getStatus() == 2) {
+                                loadingDialog.Cancel_Loading();
+
+                                Toast.makeText(v.getContext(), R.string.toast34, Toast.LENGTH_SHORT).show();
+                            } else {
+                                loadingDialog.Cancel_Loading();
+
+                                Toast.makeText(v.getContext(), R.string.toast11, Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        }
+                        loadingDialog.Cancel_Loading();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Status>> call, Throwable t) {
+                        Log.d(TAG, "Handle_Add_Feedback(Error): " + t.getMessage());
+                    }
+                });
             }
         });
-
-        DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
-
 
         dialog.show();
     }

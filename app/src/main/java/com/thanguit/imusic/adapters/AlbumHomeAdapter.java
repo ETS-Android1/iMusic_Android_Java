@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +18,6 @@ import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.SongActivity;
 import com.thanguit.imusic.models.Album;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AlbumHomeAdapter extends RecyclerView.Adapter<AlbumHomeAdapter.ViewHolder> {

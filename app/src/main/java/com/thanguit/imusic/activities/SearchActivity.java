@@ -20,7 +20,6 @@ import com.thanguit.imusic.R;
 import com.thanguit.imusic.adapters.SongAdapter;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
-import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -39,6 +39,8 @@
     <string name="toast31">You need the Youtube app to use it!</string>
     <string name="toast32">This song has no MV</string>
     <string name="toast33">Can not change another language, because the device is out of date!</string>
+    <string name="toast34">Please do not write more than 500 characters or special characters</string>
+    <string name="toast35">Thanks for your feedback!</string>
 
     <string name="btnLoginZL">Login with Zalo</string>
     <string name="toast6">Error code:</string>
@@ -149,6 +151,7 @@
     <string name="tvRoom2">20 songs random</string>
     <string name="btnRating">Feedback this app</string>
     <string name="tvFeedbackTitle">Feedback</string>
+    <string name="tvShowStar">3.0</string>
     <string name="etFeedbackContent">Enter feedback</string>
     <string name="btnSendFeedback">Send</string>
     <!--    <string name="app_name">iMusic</string>-->

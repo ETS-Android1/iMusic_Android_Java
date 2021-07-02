@@ -26,5 +26,4 @@ public class NotificationActionService extends BroadcastReceiver {
         }*/
         context.sendBroadcast(new Intent("TRACKS_TRACkS").putExtra("actionname", action));
     }
-
 }

@@ -1,11 +1,9 @@
 package com.thanguit.imusic.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
-import com.thanguit.imusic.activities.SongActivity;
 import com.thanguit.imusic.adapters.PlaylistHomeAdapter;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Playlist;

@@ -1,6 +1,5 @@
 package com.thanguit.imusic.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,9 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -22,7 +19,6 @@ import com.smarteist.autoimageslider.SliderView;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
-import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.adapters.SliderAdapter;
 import com.thanguit.imusic.models.Slider;
 

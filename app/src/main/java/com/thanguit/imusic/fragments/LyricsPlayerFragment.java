@@ -32,7 +32,6 @@ public class LyricsPlayerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_lyrics_player, container, false);
     }
 
@@ -77,17 +76,6 @@ public class LyricsPlayerFragment extends Fragment {
             Log.d(TAG, "Lỗi! Không có dữ liệu");
         }
     }
-
-//    private void Display_Lyric() {
-//        if (FullPlayerActivity.dataSongArrayList.size() > 0) {
-//            String lyric = FullPlayerActivity.dataSongArrayList.get(position).getLyric().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator")));
-//            this.tvLyric.setText(lyric);
-//
-//            Log.d(TAG, lyric);
-//        } else {
-//            Log.d(TAG, "Lỗi! Không có dữ liệu");
-//        }
-//    }
 
     public void Get_Position(int index) {
         this.position = index;

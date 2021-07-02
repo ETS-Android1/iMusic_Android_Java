@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.thanguit.imusic.API.APIService;
@@ -19,10 +17,7 @@ import com.thanguit.imusic.adapters.GenreAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Genre;
-import com.thanguit.imusic.models.Playlist;
-import com.thanguit.imusic.models.Song;
 import com.thanguit.imusic.models.Theme;
-import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -23,7 +23,6 @@ import com.thanguit.imusic.models.Album;
 import com.thanguit.imusic.models.Genre;
 import com.thanguit.imusic.models.Playlist;
 import com.thanguit.imusic.models.Song;
-import com.thanguit.imusic.services.SettingLanguage;
 
 import java.util.ArrayList;
 import java.util.List;

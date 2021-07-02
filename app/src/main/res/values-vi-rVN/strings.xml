@@ -40,6 +40,8 @@
     <string name="toast31">Bạn cần tải YouTube để có thể sử dụng chức năng này</string>
     <string name="toast32">Bài hát này chưa có MV</string>
     <string name="toast33">Không thể thay đổi ngôn ngữ do thiết bị đã lỗi thời</string>
+    <string name="toast34">Vui lòng không viết nhiều hơn 500 ký tự hoặc ký tự đặc biệt</string>
+    <string name="toast35">Cảm ơn phản hồi của bạn!</string>
 
     <string name="btnLoginZL">Đăng nhập với Zalo</string>
     <string name="toast6">Mã lỗi:</string>
@@ -150,6 +152,7 @@
     <string name="tvRoom2">20 bài hát ngẫu nhiên</string>
     <string name="btnRating">Phản hồi</string>
     <string name="tvFeedbackTitle">Phản hồi</string>
+    <string name="tvShowStar">3.0</string>
     <string name="etFeedbackContent">Nhập đánh giá</string>
     <string name="btnSendFeedback">Gửi</string>
 </resources>

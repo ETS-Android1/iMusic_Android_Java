@@ -10,15 +10,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.SongActivity;
 import com.thanguit.imusic.models.Genre;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GenreAdapter extends BaseAdapter {

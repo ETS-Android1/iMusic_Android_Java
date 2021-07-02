@@ -1,17 +1,14 @@
 package com.thanguit.imusic.fragments;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -31,7 +28,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -40,17 +36,14 @@ import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
-import com.thanguit.imusic.activities.FullActivity;
 import com.thanguit.imusic.activities.FullPlayerActivity;
 import com.thanguit.imusic.activities.PersonalPageActivity;
 import com.thanguit.imusic.activities.YoutubeActivity;
 import com.thanguit.imusic.adapters.CommentSongAdapter;
-import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Comment;
@@ -73,7 +66,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Field;
 
 public class FullPlayerFragment extends Fragment {
     private static final String TAG = "FullPlayerFragment";
@@ -635,7 +627,6 @@ public class FullPlayerFragment extends Fragment {
                         loadingDialog.Cancel_Loading();
 
                         Toast.makeText(getContext(), R.string.toast27, Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
                     } else {
                         loadingDialog.Cancel_Loading();
 

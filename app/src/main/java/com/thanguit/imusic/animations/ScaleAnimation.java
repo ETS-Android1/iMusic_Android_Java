@@ -1,9 +1,7 @@
 package com.thanguit.imusic.animations;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -13,7 +11,6 @@ import android.widget.RelativeLayout;
 import androidx.cardview.widget.CardView;
 
 import com.thanguit.imusic.R;
-import com.thanguit.imusic.activities.MainActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
