@@ -25,7 +25,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="20dp"
                 android:fontFamily="@font/comfortaa"
                 android:maxLines="1"
                 android:text="@string/tvTheme"
@@ -49,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvTheme"
                 android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/comfortaa"
                 android:maxLines="1"
                 android:text="@string/tvLanguage"
@@ -84,6 +84,24 @@
                 android:text="@string/tvVietNamese"
                 android:textColor="@color/colorLight7"
                 android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLanguage"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_corner_gradient1_10dp"
+                android:fontFamily="@font/comfortaa"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/btnRating"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorMain1"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

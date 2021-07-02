@@ -39,6 +39,8 @@
     <string name="toast30">Xóa bình luận thất bại</string>
     <string name="toast31">Bạn cần tải YouTube để có thể sử dụng chức năng này</string>
     <string name="toast32">Bài hát này chưa có MV</string>
+    <string name="toast33">Không thể thay đổi ngôn ngữ do thiết bị đã lỗi thời</string>
+
     <string name="btnLoginZL">Đăng nhập với Zalo</string>
     <string name="toast6">Mã lỗi:</string>
     <string name="toast7">Nhấn BACK lần nữa để thoát</string>
@@ -146,4 +148,8 @@
     <string name="tvRadio">Radio</string>
     <string name="tvRoom1">Top 10 bài hát từ bảng xếp hạng</string>
     <string name="tvRoom2">20 bài hát ngẫu nhiên</string>
+    <string name="btnRating">Phản hồi</string>
+    <string name="tvFeedbackTitle">Phản hồi</string>
+    <string name="etFeedbackContent">Nhập đánh giá</string>
+    <string name="btnSendFeedback">Gửi</string>
 </resources>
