@@ -143,11 +143,6 @@ public class FullActivity extends AppCompat {
     }
 
     private void Mapping() {
-        if (DataLocalManager.getTheme()) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
 //        Toast.makeText(this, "Language: " + DataLocalManager.getLanguage(), Toast.LENGTH_SHORT).show();
 
 //        this.loadingDialog = new LoadingDialog(this);

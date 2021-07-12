@@ -150,9 +150,9 @@
     <string name="tvRadio">Radio</string>
     <string name="tvRoom1">Top 10 bài hát từ bảng xếp hạng</string>
     <string name="tvRoom2">20 bài hát ngẫu nhiên</string>
-    <string name="btnRating">Phản hồi</string>
-    <string name="tvFeedbackTitle">Phản hồi</string>
-    <string name="tvShowStar">3.0</string>
+    <string name="btnRating">Đánh giá ứng dụng</string>
+    <string name="tvFeedbackTitle">Đánh giá</string>
+    <string name="tvShowStar">4.0</string>
     <string name="etFeedbackContent">Nhập đánh giá</string>
     <string name="btnSendFeedback">Gửi</string>
 </resources>

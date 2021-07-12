@@ -22,7 +22,7 @@
 
     <!-- - - - - - - - - - Light Mode - - - - - - - - - -->
     <color name="colorLight1">#FFFFFF</color>
-    <color name="colorLight2">#1E1E1E</color>
+    <color name="colorLight2">#1C1E21</color>
     <color name="colorLight3">#F475C2</color>
     <color name="colorLight4">#1E1E1E</color> // màu chủ đạo tối
     <color name="colorLight5">#5C6163</color>

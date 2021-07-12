@@ -33,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PersonalPageActivity extends AppCompatActivity {
+public class PersonalPageActivity extends AppCompat {
     private static final String TAG = "PersonalPageActivity";
 
     private ImageView ivBack;

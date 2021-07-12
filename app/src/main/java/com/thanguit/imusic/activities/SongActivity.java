@@ -32,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SongActivity extends AppCompatActivity {
+public class SongActivity extends AppCompat {
     private CoordinatorLayout coordinatorlayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;

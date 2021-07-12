@@ -28,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompat {
     private static final String TAG = "SearchActivity";
 
     private EditText etSearchBox;

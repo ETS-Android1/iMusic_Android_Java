@@ -26,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GenreActivity extends AppCompatActivity {
+public class GenreActivity extends AppCompat {
     private static final String TAG = "GenreActivity";
 
     private ScaleAnimation scaleAnimation;

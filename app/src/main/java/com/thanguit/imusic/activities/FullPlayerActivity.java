@@ -22,7 +22,7 @@ import com.thanguit.imusic.services.FullPlayerManagerService;
 
 import java.util.ArrayList;
 
-public class FullPlayerActivity extends AppCompatActivity implements FullPlayerFragment.ISendPositionListener {
+public class FullPlayerActivity extends AppCompat implements FullPlayerFragment.ISendPositionListener {
     private static final String TAG = "FullPlayerActivity";
 
     private ViewPager viewpager;

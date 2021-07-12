@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PersonalPlaylistActivity extends AppCompatActivity {
+public class PersonalPlaylistActivity extends AppCompat {
     private static final String TAG = "PPActivity";
 
     private ImageView ivPersonalPlaylistBack;

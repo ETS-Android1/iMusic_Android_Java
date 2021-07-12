@@ -1,7 +1,5 @@
 package com.thanguit.imusic.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompat {
     private static final String TAG = "MainActivity";
     private static final String LOG_TAG_1 = "LOGIN WITH FACEBOOK";
 //    private static final String LOG_TAG_2 = "LOGIN WITH ZALO";
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 //                MessageDigest md = MessageDigest.getInstance("SHA");
 //                md.update(signature.toByteArray());
 //                String hashKey = new String(Base64.encode(md.digest(), 0));
-//                Log.i("Key", "printHashKey() Hash Key: " + hashKey);
+//                Log.d("KEY", "printHashKey() Hash Key: " + hashKey);
 //            }
 //        } catch (NoSuchAlgorithmException e) {
 //            Log.e("Key", "printHashKey()", e);

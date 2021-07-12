@@ -12,7 +12,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.services.FullPlayerManagerService;
 
-public class YoutubeActivity extends YouTubeBaseActivity {
+public class YoutubeActivity extends AppCompat {
     YouTubePlayerView youTubePlayerView;
     YouTubePlayer.OnInitializedListener onInitializedListener;
     //ImageView back;

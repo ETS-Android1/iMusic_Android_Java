@@ -357,7 +357,7 @@ public class FullPlayerFragment extends Fragment {
     }
 
     private void CreateNotification(String action) {
-        Intent intent = new Intent(getActivity(), MiniPlayerOnLockScreenService.class);
+        Intent intent = new Intent(getContext(), MiniPlayerOnLockScreenService.class);
         intent.setAction(action);
         getActivity().startService(intent);
         //NotificationService.NotificationService(getContext(),FullPlayerActivity.dataSongArrayList.get(position),R.drawable.ic_pause,position,FullPlayerActivity.dataSongArrayList.size());
