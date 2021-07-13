@@ -7,7 +7,8 @@
     <string name="facebook_app_id">1179700782483492</string>
     <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
-    <string name="btnLoginFB">Login with Facebook</string>
+    <string name="btnLoginFacebook">Login with Facebook</string>
+    <string name="btnLoginGoogle">Login with Google</string>
     <string name="toast1">Logged in successfully!</string>
     <string name="toast2">Canceled login</string>
     <string name="toast3">Login failed! Let\'s try again</string>

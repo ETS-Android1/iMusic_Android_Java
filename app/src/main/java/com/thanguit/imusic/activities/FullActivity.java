@@ -1,6 +1,5 @@
 package com.thanguit.imusic.activities;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -17,6 +16,8 @@ import android.widget.Toast;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
 import com.kaushikthedeveloper.doublebackpress.helper.DoubleBackPressAction;
 import com.kaushikthedeveloper.doublebackpress.helper.FirstBackPressAction;
@@ -38,6 +39,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FullActivity extends AppCompat {
     private static final String TAG = "FullActivity";
+
+    private FirebaseAuth firebaseAuth;
 
     private MyBroadcastReceiver myBroadcastReceiver;
 
@@ -69,9 +72,9 @@ public class FullActivity extends AppCompat {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full);
-        myBroadcastReceiver = new MyBroadcastReceiver();
 
         DataLocalManager.init(this);
+        myBroadcastReceiver = new MyBroadcastReceiver();
 //        Toast.makeText(this, "User_ID: " + DataLocalManager.getUserID(), Toast.LENGTH_SHORT).show();
 
         Mapping();
@@ -132,7 +135,9 @@ public class FullActivity extends AppCompat {
     }
 
     private void Check_Login() {
-        if (AccessToken.getCurrentAccessToken() == null || DataLocalManager.getUserID().isEmpty()) {
+        FirebaseUser currentUser = this.firebaseAuth.getCurrentUser();
+        if (currentUser == null || DataLocalManager.getUserID().isEmpty()) {
+            this.firebaseAuth.signOut();
             LoginManager.getInstance().logOut();
             DataLocalManager.deleteUserID();
             DataLocalManager.deleteUserAvatar();
@@ -147,6 +152,7 @@ public class FullActivity extends AppCompat {
 
 //        this.loadingDialog = new LoadingDialog(this);
 //        this.loadingDialog.Start_Loading();
+        this.firebaseAuth = FirebaseAuth.getInstance();
 
         this.meowBottomNavigation = findViewById(R.id.bottomNavigation);
 

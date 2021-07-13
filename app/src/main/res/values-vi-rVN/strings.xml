@@ -8,7 +8,8 @@
     <string name="facebook_app_id">1179700782483492</string>
     <string name="fb_login_protocol_scheme">fb1179700782483492</string>
 
-    <string name="btnLoginFB">Đăng nhập bằng Facebook</string>
+    <string name="btnLoginFacebook">Đăng nhập với Facebook</string>
+    <string name="btnLoginGoogle">Đăng nhập với Google</string>
     <string name="toast1">Đăng nhập thành công!</string>
     <string name="toast2">Đã hủy đăng nhập</string>
     <string name="toast3">Đăng nhập thất bại! Hãy thử lại lần nữa</string>
@@ -54,7 +55,7 @@
     <string name="tvTitleComment">Bình luận</string>
     <string name="etHintComment">Nhập bình luận</string>
     <string name="tvContentComment">Nội dung bình luận</string>
-    <string name="tvEmptyComment">Chưa có bình luận nào. \\nHãy là người bình luận đầu tiên</string>
+    <string name="tvEmptyComment">Chưa có bình luận nào. \nHãy là người bình luận đầu tiên</string>
     <string name="tvTimeStart">00:00</string>
     <string name="tvVietNamese">VietNamese</string>
     <string name="tvEnglish">English</string>

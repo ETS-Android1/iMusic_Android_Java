@@ -5,6 +5,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -12,7 +14,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.services.FullPlayerManagerService;
 
-public class YoutubeActivity extends AppCompat {
+public class YoutubeActivity extends YouTubeBaseActivity {
     YouTubePlayerView youTubePlayerView;
     YouTubePlayer.OnInitializedListener onInitializedListener;
     //ImageView back;

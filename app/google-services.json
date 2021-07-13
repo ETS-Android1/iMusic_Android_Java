@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "792556654460-s64bqnppukjocvnhh7pba7tgphs24lb5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thanguit.imusic",
+            "certificate_hash": "eaa275a3701eeec4c7f37999bf63bbebfef755c5"
+          }
+        },
+        {
           "client_id": "792556654460-9um4rpsgko2v3rq2ub5188tn0cbv9qj9.apps.googleusercontent.com",
           "client_type": 3
         }
