@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
@@ -35,6 +36,8 @@ import retrofit2.Response;
 
 public class PersonalPageActivity extends AppCompat {
     private static final String TAG = "PersonalPageActivity";
+
+    private FirebaseAuth firebaseAuth;
 
     private ImageView ivBack;
     private ImageView civAvatarFrame;
@@ -60,6 +63,8 @@ public class PersonalPageActivity extends AppCompat {
     }
 
     private void Mapping() {
+        this.firebaseAuth = FirebaseAuth.getInstance();
+
         this.loadingDialog = new LoadingDialog(this);
         this.loadingDialog.Start_Loading();
 
@@ -134,6 +139,7 @@ public class PersonalPageActivity extends AppCompat {
         this.scaleAnimation.Event_Button();
         btnDialogAction.setOnClickListener(v -> {
             dialog.dismiss();
+            this.firebaseAuth.signOut();
             LoginManager.getInstance().logOut();
             DataLocalManager.deleteUserID();
             DataLocalManager.deleteUserAvatar();
