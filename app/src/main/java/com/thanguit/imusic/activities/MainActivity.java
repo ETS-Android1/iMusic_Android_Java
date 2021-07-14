@@ -174,7 +174,6 @@ public class MainActivity extends AppCompat {
         this.scaleAnimation.Event_Button();
         this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginGoogle);
         this.scaleAnimation.Event_Button();
-
 //        this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginZL);
 //        this.scaleAnimation.Event_Button();
 
@@ -189,7 +188,6 @@ public class MainActivity extends AppCompat {
                 .withFirstBackPressAction(this.firstBackPressAction)
                 .withDoubleBackPressAction(this.doubleBackPressAction);
     }
-
 
     private void Login_Facebook() {
         this.btnLoginFacebook.setOnClickListener(v -> {
@@ -392,6 +390,7 @@ public class MainActivity extends AppCompat {
 
                     Log.d(TAG, "User_ID: " + userArrayList.get(0).getId());
                 } else {
+                    loadingDialog.Cancel_Loading();
                     Toast.makeText(MainActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
                 }
             }
