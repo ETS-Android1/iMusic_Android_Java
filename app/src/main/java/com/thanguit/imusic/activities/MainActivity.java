@@ -294,7 +294,7 @@ public class MainActivity extends AppCompat {
                     if (account != null) {
                         Log.d(TAG_2, "firebaseAuthWithGoogle:" + account.getId());
 
-                        AuthCredential credential = GoogleAuthProvider.getCredential(account.getId(), null);
+                        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
                         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -309,14 +309,13 @@ public class MainActivity extends AppCompat {
                                         String id = user.getUid();
                                         String name = user.getDisplayName();
                                         String email = !Objects.requireNonNull(user.getEmail()).isEmpty() ? user.getEmail() : "Null";
-                                        String avatarGoogle = Objects.requireNonNull(user.getPhotoUrl()).getPath();
+                                        String avatarGoogle = !Objects.requireNonNull(user.getPhotoUrl()).toString().isEmpty() ? user.getPhotoUrl().toString().replace("s96-c", "s500-c") : "Null";
                                         String isDark = "0";
                                         String isEnglish = "0";
 
                                         loadingDialog.Start_Loading();
                                         Handle_User(id, name, email, avatarGoogle, isDark, isEnglish);
                                     }
-
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG_2, "signInWithCredential:failure", task.getException());
@@ -381,7 +380,6 @@ public class MainActivity extends AppCompat {
                 userArrayList = (ArrayList<User>) response.body();
 
                 if (userArrayList != null && userArrayList.size() > 0) {
-
                     DataLocalManager.setUserID(id);
                     DataLocalManager.setUserAvatar(img);
 
