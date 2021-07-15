@@ -71,6 +71,25 @@
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_angle_right" />
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/sflItemAlbum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvAlbum"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/item_shimmer_album" />
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vpg2Album"
                     android:layout_width="match_parent"
@@ -79,7 +98,8 @@
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal"
                     android:paddingStart="70dp"
-                    android:paddingEnd="70dp" />
+                    android:paddingEnd="70dp"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -114,12 +134,36 @@
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_angle_right" />
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/sflItemPlaylist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvPlaylist"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/item_shimmer_playlist" />
+
+                        <include layout="@layout/item_shimmer_playlist" />
+
+                        <include layout="@layout/item_shimmer_playlist" />
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvPlaylist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/tvPlaylist"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -154,12 +198,32 @@
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_angle_right" />
 
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/sflItemTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTheme"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/item_shimmer_theme" />
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvTheme"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/tvTheme"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

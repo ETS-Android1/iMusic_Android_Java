@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -54,18 +55,21 @@ public class HomeFragment extends Fragment {
 
     // Album
     private List<Album> albumArrayList;
+    private ShimmerFrameLayout sflItemAlbum;
     private ViewPager2 vpg2Album;
     private ImageView ivAlbumMore;
     private TextView tvAlbum;
 
     // Playlist
     private ArrayList<Playlist> playlistArrayList;
+    private ShimmerFrameLayout sflItemPlaylist;
     private RecyclerView rvPlaylist;
     private ImageView ivPlaylistMore;
     private TextView tvPlaylist;
 
     // Theme
     private List<Theme> themeArrayList;
+    private ShimmerFrameLayout sflItemTheme;
     private RecyclerView rvTheme;
     private ImageView ivThemeMore;
     private TextView tvTheme;
@@ -95,7 +99,8 @@ public class HomeFragment extends Fragment {
         this.sliderView = view.findViewById(R.id.isvSlider);
 
         // Album
-        this.vpg2Album = (ViewPager2) view.findViewById(R.id.vpg2Album);
+        this.sflItemAlbum = view.findViewById(R.id.sflItemAlbum);
+        this.vpg2Album = view.findViewById(R.id.vpg2Album);
 
         this.ivAlbumMore = view.findViewById(R.id.ivAlbumMore);
         this.scaleAnimation = new ScaleAnimation(getActivity(), this.ivAlbumMore);
@@ -104,8 +109,8 @@ public class HomeFragment extends Fragment {
         this.tvAlbum = view.findViewById(R.id.tvAlbum);
         this.tvAlbum.setSelected(true); // Text will be moved
 
-
         // Playlist
+        this.sflItemPlaylist = view.findViewById(R.id.sflItemPlaylist);
         this.rvPlaylist = view.findViewById(R.id.rvPlaylist);
 
         this.ivPlaylistMore = view.findViewById(R.id.ivPlaylistMore);
@@ -116,6 +121,7 @@ public class HomeFragment extends Fragment {
         this.tvPlaylist.setSelected(true); // Text will be moved
 
         // Theme
+        this.sflItemTheme = view.findViewById(R.id.sflItemTheme);
         this.rvTheme = view.findViewById(R.id.rvTheme);
 
         this.ivThemeMore = view.findViewById(R.id.ivThemeMore);
@@ -158,7 +164,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Album>> call, Response<List<Album>> response) {
                 albumArrayList = new ArrayList<>();
-                albumArrayList = (ArrayList<Album>) response.body();
+                albumArrayList = response.body();
 
                 if (albumArrayList != null) {
 //                    rvAlbum.setHasFixedSize(true);
@@ -183,6 +189,9 @@ public class HomeFragment extends Fragment {
                     });
 
                     vpg2Album.setPageTransformer(compositePageTransformer);
+
+                    sflItemAlbum.setVisibility(View.GONE); // Load biến mất
+                    vpg2Album.setVisibility(View.VISIBLE); // Hiện thông tin
 
                     Log.d(TAG_1, albumArrayList.get(0).getImg());
                 }
@@ -211,6 +220,9 @@ public class HomeFragment extends Fragment {
                     rvPlaylist.setLayoutManager(layoutManager);
                     rvPlaylist.setAdapter(new PlaylistHomeAdapter(getContext(), playlistArrayList));
 
+                    sflItemPlaylist.setVisibility(View.GONE); // Load biến mất
+                    rvPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin
+
                     Log.d(TAG_2, playlistArrayList.get(0).getImg());
                 }
             }
@@ -236,8 +248,10 @@ public class HomeFragment extends Fragment {
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                     layoutManager.setOrientation(RecyclerView.HORIZONTAL); // Chiều ngang
                     rvTheme.setLayoutManager(layoutManager);
-
                     rvTheme.setAdapter(new ThemeHomeAdapter(getContext(), themeArrayList));
+
+                    sflItemTheme.setVisibility(View.GONE); // Load biến mất
+                    rvTheme.setVisibility(View.VISIBLE); // Hiện thông tin
 
                     Log.d(TAG_3, themeArrayList.get(0).getImg());
                 }
