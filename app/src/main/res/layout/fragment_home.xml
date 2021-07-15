@@ -40,24 +40,127 @@
                 </com.smarteist.autoimageslider.SliderView>
             </androidx.cardview.widget.CardView>
 
-            <FrameLayout
-                android:id="@+id/flFragmentAlbum"
+            <RelativeLayout
+                android:id="@+id/rlAlbum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" />
+                android:layout_margin="15dp">
 
-            <FrameLayout
-                android:id="@+id/flFragmentPlaylist"
+                <TextView
+                    android:id="@+id/tvAlbum"
+                    style="@style/tvStyle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/tvAlbum"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivAlbumMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tvAlbum"
+                    android:layout_alignBottom="@+id/tvAlbum"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_angle_right" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vpg2Album"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvAlbum"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="70dp"
+                    android:paddingEnd="70dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlPlaylist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" />
+                android:layout_margin="15dp">
 
-            <FrameLayout
-                android:id="@+id/flFragmentTheme"
+                <TextView
+                    android:id="@+id/tvPlaylist"
+                    style="@style/tvStyle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:fontFamily="@font/comfortaa"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/tvPlaylist"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivPlaylistMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tvPlaylist"
+                    android:layout_alignBottom="@+id/tvPlaylist"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_angle_right" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvPlaylist"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tvPlaylist"
+                    android:layout_marginTop="5dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp" />
+                android:layout_margin="15dp">
 
+                <TextView
+                    android:id="@+id/tvTheme"
+                    style="@style/tvStyle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center"
+                    android:ellipsize="marquee"
+                    android:fontFamily="@font/comfortaa"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/tvThemeFragment"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivThemeMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tvTheme"
+                    android:layout_alignBottom="@+id/tvTheme"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_angle_right" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tvTheme"
+                    android:layout_marginTop="5dp" />
+            </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

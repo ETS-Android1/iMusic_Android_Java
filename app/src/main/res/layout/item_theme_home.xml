@@ -13,5 +13,6 @@
         android:id="@+id/ivTheme"
         android:layout_width="300dp"
         android:layout_height="110dp"
+        android:adjustViewBounds="true"
         android:scaleType="fitXY" />
 </androidx.cardview.widget.CardView>

@@ -16,6 +16,7 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:adjustViewBounds="true"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_playlist_cover" />
     </androidx.cardview.widget.CardView>
