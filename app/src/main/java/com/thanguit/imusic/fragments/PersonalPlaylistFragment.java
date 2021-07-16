@@ -116,7 +116,7 @@ public class PersonalPlaylistFragment extends Fragment {
 
         Handle_Number_Download_Song();
         Handle_Number_Favorite_Song();
-        Handle_UserPlaylist("");
+        Handle_UserPlaylist();
     }
 
     @Override
@@ -211,6 +211,9 @@ public class PersonalPlaylistFragment extends Fragment {
         dialog.setCancelable(true); // Bấm ra chỗ khác sẽ thoát dialog
 
         EditText etDialogContentPlaylist = dialog.findViewById(R.id.etDialogContentPlaylist);
+        etDialogContentPlaylist.requestFocus();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         Button btnDialogCancelPlaylist = dialog.findViewById(R.id.btnDialogCancelPlaylist);
         Button btnDialogActionPlaylist = dialog.findViewById(R.id.btnDialogActionPlaylist);
 
@@ -239,7 +242,7 @@ public class PersonalPlaylistFragment extends Fragment {
 
                         if (statusArrayList != null) {
                             if (statusArrayList.get(0).getStatus() == 1) {
-                                Handle_UserPlaylist(ACTION_INSERT_PLAYLIST);
+                                Handle_UserPlaylist();
 
                                 loadingDialog.Cancel_Loading();
                                 Toast.makeText(v.getContext(), R.string.toast13, Toast.LENGTH_SHORT).show();
@@ -308,7 +311,7 @@ public class PersonalPlaylistFragment extends Fragment {
         });
     }
 
-    private void Handle_UserPlaylist(String action) {
+    private void Handle_UserPlaylist() {
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
         Call<List<UserPlaylist>> callBack = dataService.getUserPlaylist(DataLocalManager.getUserID());
         callBack.enqueue(new Callback<List<UserPlaylist>>() {
@@ -325,9 +328,9 @@ public class PersonalPlaylistFragment extends Fragment {
 
                     userPlaylistAdapter = new UserPlaylistAdapter(getContext(), userPlaylistArrayList, tvNumberPlaylist);
                     rvYourPlaylist.setAdapter(userPlaylistAdapter);
-                    if (action.equals(ACTION_INSERT_PLAYLIST)) {
-                        userPlaylistAdapter.Update_Data(userPlaylistArrayList);
-                    }
+//                    if (action.equals(ACTION_INSERT_PLAYLIST)) {
+//                        userPlaylistAdapter.Update_Data(userPlaylistArrayList);
+//                    }
 
                     sflItemUserPlaylist.setVisibility(View.GONE);
                     tvNumberPlaylist.setText(String.valueOf(userPlaylistAdapter.getItemCount())); // Hiển thị số lượng Playlist

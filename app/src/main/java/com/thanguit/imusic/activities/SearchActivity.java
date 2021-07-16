@@ -1,6 +1,5 @@
 package com.thanguit.imusic.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,7 +39,6 @@ public class SearchActivity extends AppCompat {
     private ScaleAnimation scaleAnimation;
 
     private ArrayList<Song> songArrayList = new ArrayList<>();
-    private SongAdapter songAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

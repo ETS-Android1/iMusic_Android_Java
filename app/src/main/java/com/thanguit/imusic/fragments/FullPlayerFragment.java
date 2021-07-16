@@ -537,6 +537,9 @@ public class FullPlayerFragment extends Fragment {
                 .into(civYourAvatarComment);
 
         EditText etInputComment = dialog.findViewById(R.id.etInputComment);
+        etInputComment.requestFocus();
+        this.dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
         ImageView ivSend = dialog.findViewById(R.id.ivSend);
 
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
@@ -631,7 +634,6 @@ public class FullPlayerFragment extends Fragment {
                         loadingDialog.Cancel_Loading();
 
                         Toast.makeText(getContext(), R.string.toast11, Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
                     }
                 }
                 loadingDialog.Cancel_Loading();

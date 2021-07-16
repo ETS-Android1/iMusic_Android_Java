@@ -76,7 +76,6 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
     }
 
     public void Update_Data(ArrayList<UserPlaylist> userPlaylistArrayList) {
-        this.userPlaylistArrayList.clear();
         this.userPlaylistArrayList.addAll(userPlaylistArrayList);
         notifyDataSetChanged();
     }
@@ -224,6 +223,8 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         EditText etDialogContentPlaylist = dialog_2.findViewById(R.id.etDialogContentPlaylist);
         etDialogContentPlaylist.setHint(R.string.etDialogContentPlaylist1);
         etDialogContentPlaylist.setText(playlistName);
+        etDialogContentPlaylist.requestFocus();
+        this.dialog_2.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         Button btnDialogCancelPlaylist = dialog_2.findViewById(R.id.btnDialogCancelPlaylist);
         btnDialogCancelPlaylist.setText(R.string.btnDialogCancelPlaylist1);
