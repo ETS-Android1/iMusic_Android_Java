@@ -53,6 +53,7 @@ public class SettingFragment extends Fragment {
     private SettingLanguage settingLanguage;
 
     private LottieAnimationView btnSwitchTheme;
+    private TextView tvLanguage;
     private TextView tvVietNamese;
     private TextView tvEnglish;
     private Button btnRating;
@@ -95,12 +96,15 @@ public class SettingFragment extends Fragment {
         this.loadingDialog = new LoadingDialog(getActivity());
 
         this.btnSwitchTheme = view.findViewById(R.id.btnSwitchTheme);
+        this.tvLanguage = view.findViewById(R.id.tvLanguage);
         this.tvVietNamese = view.findViewById(R.id.tvVietNamese);
         this.tvEnglish = view.findViewById(R.id.tvEnglish);
         this.btnRating = view.findViewById(R.id.btnRating);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            this.tvLanguage.setVisibility(View.GONE);
             this.tvVietNamese.setVisibility(View.GONE);
+            this.tvEnglish.setVisibility(View.GONE);
 //            Toast.makeText(getContext(), "Can't change another language, because the device is out of date!", Toast.LENGTH_LONG).show();
         }
 
@@ -196,6 +200,9 @@ public class SettingFragment extends Fragment {
         tvShowStar.setText(String.valueOf(rbRating.getRating()));
 
         EditText etFeedbackContent = dialog.findViewById(R.id.etFeedbackContent);
+        etFeedbackContent.requestFocus();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         Button btnFeedbackCancel = dialog.findViewById(R.id.btnFeedbackCancel);
         Button btnSendFeedback = dialog.findViewById(R.id.btnSendFeedback);
 
