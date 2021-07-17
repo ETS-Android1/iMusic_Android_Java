@@ -75,8 +75,9 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         this.songID = songID;
     }
 
-    public void Update_Data(ArrayList<UserPlaylist> userPlaylistArrayList) {
-        this.userPlaylistArrayList.addAll(userPlaylistArrayList);
+    public void Update_Data(ArrayList<UserPlaylist> userPlaylistArrayLists) {
+        this.userPlaylistArrayList.clear();
+        this.userPlaylistArrayList.addAll(userPlaylistArrayLists);
         notifyDataSetChanged();
     }
 

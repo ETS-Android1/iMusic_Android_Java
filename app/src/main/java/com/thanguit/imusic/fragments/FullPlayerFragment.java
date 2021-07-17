@@ -114,6 +114,7 @@ public class FullPlayerFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        Log.d(TAG, "onAttach");
 
         if (context instanceof ISendPositionListener) {
             iSendPositionListener = (ISendPositionListener) context;
@@ -126,16 +127,20 @@ public class FullPlayerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
         return inflater.inflate(R.layout.fragment_full_player, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated");
+
         DataLocalManager.init(getContext());
 
         Mapping(view);
@@ -149,8 +154,27 @@ public class FullPlayerFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.d(TAG, "onDestroyView");
 
         try {
             getActivity().unregisterReceiver(broadcastReceiver);
@@ -159,6 +183,21 @@ public class FullPlayerFragment extends Fragment {
             Log.e(TAG, "unregisterReceiver");
         }
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "onDetach");
+    }
+
+
+
 
     private void Mapping(View view) {
         this.loadingDialog = new LoadingDialog(getActivity());
