@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -127,16 +128,32 @@ public class SettingFragment extends Fragment {
         this.btnSwitchTheme.setOnClickListener(v -> {
             if (DataLocalManager.getTheme()) {
                 DataLocalManager.setTheme(false);
+                btnSwitchTheme.setClickable(false); // Ngăn người dùng bấm nhiều lần, bấm kiểu triệt hạ vler
                 btnSwitchTheme.setMinAndMaxProgress(0.65f, 1.0f); // Sáng
                 btnSwitchTheme.playAnimation();
 
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        btnSwitchTheme.setClickable(true);
+                    }
+                }, 1800);
             } else {
                 DataLocalManager.setTheme(true);
+                btnSwitchTheme.setClickable(false); // Ngăn người dùng bấm nhiều lần, bấm kiểu triệt hạ vler
                 btnSwitchTheme.setMinAndMaxProgress(0.1f, 0.5f); // Tối
                 btnSwitchTheme.playAnimation();
 
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        btnSwitchTheme.setClickable(true);
+                    }
+                }, 1800);
             }
         });
 
