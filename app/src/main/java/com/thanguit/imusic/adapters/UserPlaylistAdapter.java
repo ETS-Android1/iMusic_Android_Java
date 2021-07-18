@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,12 +51,15 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
     private ArrayList<UserPlaylist> userPlaylistArrayList;
     private int songID = -1;
 
+    private ArrayList<UserPlaylist> userPlaylistArrayLists; // Dữ liệu API trả về
+    private ArrayList<Status> statusArrayList;
+
     private TextView tvNumberPlaylist;
 
     private ScaleAnimation scaleAnimation;
     private AlertDialog alertDialog;
 
-    private ArrayList<Status> statusArrayList;
+//    private ArrayList<Status> statusArrayList;
 
     private final String ACTION_UPDATE_PLAYLIST = "update";
     private final String ACTION_DELETE_PLAYLIST = "delete";
@@ -324,33 +328,34 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
     private void Handle_Add_Update_Delete_DeleteAll_UserPlaylist(String action, int playlistID, String userID, String playlistName, int position) {
         DataService dataService = APIService.getService();
-        Call<List<Status>> callBack = dataService.addUpdateDeleteUserPlaylist(action, playlistID, userID, playlistName);
-        callBack.enqueue(new Callback<List<Status>>() {
+        Call<List<UserPlaylist>> callBack = dataService.addUpdateDeleteUserPlaylist(action, playlistID, userID, playlistName);
+        callBack.enqueue(new Callback<List<UserPlaylist>>() {
             @Override
-            public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
-                statusArrayList = new ArrayList<>();
-                statusArrayList = (ArrayList<Status>) response.body();
+            public void onResponse(Call<List<UserPlaylist>> call, Response<List<UserPlaylist>> response) {
+                userPlaylistArrayLists = new ArrayList<>();
+                userPlaylistArrayLists = (ArrayList<UserPlaylist>) response.body();
 
-                if (statusArrayList != null) {
+                if (userPlaylistArrayLists != null) {
                     if (action.equals(ACTION_UPDATE_PLAYLIST)) { // Chỉnh sửa tên một playlist
-                        if (statusArrayList.get(0).getStatus() == 1) {
+                        if (userPlaylistArrayLists.get(0).getStatus() == 1) {
                             alertDialog.dismiss();
 
-                            notifyDataSetChanged();
+                            userPlaylistArrayList = new ArrayList<>(userPlaylistArrayLists);
+                            notifyItemChanged(position);
+//                            userPlaylistArrayList.addAll(userPlaylistArrayLists);
+//                            notifyDataSetChanged();
 
                             dialog_2.dismiss();
                             dialog_1.dismiss();
                             Toast.makeText(context, R.string.toast16, Toast.LENGTH_SHORT).show();
-                        } else if (statusArrayList.get(0).getStatus() == 2) {
+                        } else if (userPlaylistArrayLists.get(0).getStatus() == 2) {
                             alertDialog.dismiss();
 
                             dialog_2.dismiss();
                             dialog_1.dismiss();
                             Toast.makeText(context, R.string.toast17, Toast.LENGTH_SHORT).show();
-                        } else if (statusArrayList.get(0).getStatus() == 3) {
+                        } else if (userPlaylistArrayLists.get(0).getStatus() == 3) {
                             alertDialog.dismiss();
-
-                            notifyDataSetChanged();
 
                             Toast.makeText(context, R.string.toast18, Toast.LENGTH_SHORT).show();
                         } else {
@@ -361,18 +366,20 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                             Toast.makeText(context, R.string.toast11, Toast.LENGTH_SHORT).show();
                         }
                     } else if (action.equals(ACTION_DELETE_PLAYLIST)) { // Xóa một playlist
-                        if (statusArrayList.get(0).getStatus() == 1) {
+                        if (userPlaylistArrayLists.get(0).getStatus() == 1) {
                             alertDialog.dismiss();
 
                             userPlaylistArrayList.remove(position);
+                            notifyItemRemoved(position);
                             notifyDataSetChanged();
+
                             if (tvNumberPlaylist != null) {
                                 tvNumberPlaylist.setText(String.valueOf(userPlaylistArrayList.size()));
                             }
                             dialog_2.dismiss();
                             dialog_1.dismiss();
                             Toast.makeText(context, R.string.toast19, Toast.LENGTH_SHORT).show();
-                        } else if (statusArrayList.get(0).getStatus() == 2) {
+                        } else if (userPlaylistArrayLists.get(0).getStatus() == 2) {
                             alertDialog.dismiss();
 
                             dialog_2.dismiss();
@@ -386,7 +393,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                             Toast.makeText(context, R.string.toast11, Toast.LENGTH_SHORT).show();
                         }
                     } else if (action.equals(ACTION_DELETEALL_PLAYLIST)) { // Xóa toàn bộ playlist
-                        if (statusArrayList.get(0).getStatus() == 1) {
+                        if (userPlaylistArrayLists.get(0).getStatus() == 1) {
                             alertDialog.dismiss();
 
                             userPlaylistArrayList.clear();
@@ -397,7 +404,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                             dialog_2.dismiss();
                             dialog_1.dismiss();
                             Toast.makeText(context, R.string.toast19, Toast.LENGTH_SHORT).show();
-                        } else if (statusArrayList.get(0).getStatus() == 2) {
+                        } else if (userPlaylistArrayLists.get(0).getStatus() == 2) {
                             alertDialog.dismiss();
 
                             dialog_2.dismiss();
@@ -416,7 +423,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
             }
 
             @Override
-            public void onFailure(Call<List<Status>> call, Throwable t) {
+            public void onFailure(Call<List<UserPlaylist>> call, Throwable t) {
                 alertDialog.dismiss();
 
                 dialog_2.dismiss();

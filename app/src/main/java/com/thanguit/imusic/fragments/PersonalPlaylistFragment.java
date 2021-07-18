@@ -71,6 +71,7 @@ public class PersonalPlaylistFragment extends Fragment {
 
     private ArrayList<Song> songArrayList;
     private ArrayList<UserPlaylist> userPlaylistArrayList;
+    private ArrayList<UserPlaylist> userPlaylistArrayLists;
     private ArrayList<Status> statusArrayList;
 
     private final String ACTION_INSERT_PLAYLIST = "insert";
@@ -116,7 +117,7 @@ public class PersonalPlaylistFragment extends Fragment {
 
         Handle_Number_Download_Song();
         Handle_Number_Favorite_Song();
-        Handle_UserPlaylist();
+        Handle_UserPlaylist(null);
     }
 
     @Override
@@ -233,25 +234,25 @@ public class PersonalPlaylistFragment extends Fragment {
                 this.loadingDialog.Start_Loading();
 
                 DataService dataService = APIService.getService();
-                Call<List<Status>> callBack = dataService.addUpdateDeleteUserPlaylist("insert", 0, DataLocalManager.getUserID(), playlistName);
-                callBack.enqueue(new Callback<List<Status>>() {
+                Call<List<UserPlaylist>> callBack = dataService.addUpdateDeleteUserPlaylist("insert", 0, DataLocalManager.getUserID(), playlistName);
+                callBack.enqueue(new Callback<List<UserPlaylist>>() {
                     @Override
-                    public void onResponse(Call<List<Status>> call, Response<List<Status>> response) {
-                        statusArrayList = new ArrayList<>();
-                        statusArrayList = (ArrayList<Status>) response.body();
+                    public void onResponse(Call<List<UserPlaylist>> call, Response<List<UserPlaylist>> response) {
+                        userPlaylistArrayLists = new ArrayList<>();
+                        userPlaylistArrayLists = (ArrayList<UserPlaylist>) response.body();
 
-                        if (statusArrayList != null) {
-                            if (statusArrayList.get(0).getStatus() == 1) {
-                                Handle_UserPlaylist();
+                        if (userPlaylistArrayLists != null) {
+                            if (userPlaylistArrayLists.get(0).getStatus() == 1) {
+                                Handle_UserPlaylist(userPlaylistArrayLists);
 
                                 loadingDialog.Cancel_Loading();
                                 Toast.makeText(v.getContext(), R.string.toast13, Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
-                            } else if (statusArrayList.get(0).getStatus() == 2) {
+                            } else if (userPlaylistArrayLists.get(0).getStatus() == 2) {
                                 loadingDialog.Cancel_Loading();
                                 Toast.makeText(v.getContext(), R.string.toast14, Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
-                            } else if (statusArrayList.get(0).getStatus() == 3) {
+                            } else if (userPlaylistArrayLists.get(0).getStatus() == 3) {
                                 loadingDialog.Cancel_Loading();
                                 Toast.makeText(v.getContext(), R.string.toast15, Toast.LENGTH_SHORT).show();
                             } else {
@@ -263,7 +264,7 @@ public class PersonalPlaylistFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<List<Status>> call, Throwable t) {
+                    public void onFailure(Call<List<UserPlaylist>> call, Throwable t) {
                         loadingDialog.Cancel_Loading();
                         dialog.dismiss();
                         Log.d(TAG, "Handle_Add_Update_Delete_DeleteAll_UserPlaylist(Error): " + t.getMessage());
@@ -311,7 +312,7 @@ public class PersonalPlaylistFragment extends Fragment {
         });
     }
 
-    private void Handle_UserPlaylist() {
+    private void Handle_UserPlaylist(ArrayList<UserPlaylist> userPlaylistArrayLists) {
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
         Call<List<UserPlaylist>> callBack = dataService.getUserPlaylist(DataLocalManager.getUserID());
         callBack.enqueue(new Callback<List<UserPlaylist>>() {
@@ -328,9 +329,10 @@ public class PersonalPlaylistFragment extends Fragment {
 
                     userPlaylistAdapter = new UserPlaylistAdapter(getContext(), userPlaylistArrayList, tvNumberPlaylist);
                     rvYourPlaylist.setAdapter(userPlaylistAdapter);
-//                    if (action.equals(ACTION_INSERT_PLAYLIST)) {
-//                        userPlaylistAdapter.Update_Data(userPlaylistArrayList);
-//                    }
+
+                    if (userPlaylistArrayLists != null) {
+                        userPlaylistAdapter.Update_Data(userPlaylistArrayLists);
+                    }
 
                     sflItemUserPlaylist.setVisibility(View.GONE);
                     tvNumberPlaylist.setText(String.valueOf(userPlaylistAdapter.getItemCount())); // Hiển thị số lượng Playlist

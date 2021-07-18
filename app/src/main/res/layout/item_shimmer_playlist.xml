@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/ivPlaylistImageShimmer"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="170dp"
         android:adjustViewBounds="true"
         android:background="@color/colorLight12"
         android:scaleType="fitXY" />
