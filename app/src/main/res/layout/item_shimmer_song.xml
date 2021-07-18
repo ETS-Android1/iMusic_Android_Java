@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/ivItemSong"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:adjustViewBounds="true"
             android:background="@color/colorLight12"
             android:scaleType="fitXY" />
@@ -37,20 +37,20 @@
             style="@style/tvStyle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_marginStart="10dp"
             android:background="@color/colorLight12"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvItemSongSinger"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
             android:background="@color/colorLight12"
@@ -60,7 +60,7 @@
             android:scrollHorizontally="true"
             android:singleLine="true"
             android:textColor="@color/colorLight9"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="normal" />
     </LinearLayout>
 </RelativeLayout>

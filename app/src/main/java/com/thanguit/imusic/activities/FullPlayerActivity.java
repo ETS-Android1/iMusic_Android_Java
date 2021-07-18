@@ -2,6 +2,7 @@ package com.thanguit.imusic.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class FullPlayerActivity extends AppCompat implements FullPlayerFragment.ISendPositionListener {
     private static final String TAG = "FullPlayerActivity";
 
-    private ViewPager viewpager;
+    private ViewPager vpFullPlayer;
     public static FullPlayerAdapter fullPlayerAdapter;
     private PageIndicatorView pageIndicatorView;
 
@@ -55,8 +56,7 @@ public class FullPlayerActivity extends AppCompat implements FullPlayerFragment.
     }
 
     private void Mapping() {
-        this.viewpager = findViewById(R.id.vpFullPlayer);
-        fullPlayerAdapter = new FullPlayerAdapter(getSupportFragmentManager(), 1);
+        this.vpFullPlayer = findViewById(R.id.vpFullPlayer);
         this.pageIndicatorView = findViewById(R.id.pageIndicatorView);
         this.ivBack = findViewById(R.id.ivBack);
 
@@ -69,16 +69,18 @@ public class FullPlayerActivity extends AppCompat implements FullPlayerFragment.
         this.detailPlayerFragment = new DetailPlayerFragment();
         this.lyricsPlayerFragment = new LyricsPlayerFragment();
 
+        fullPlayerAdapter = new FullPlayerAdapter(getSupportFragmentManager());
         fullPlayerAdapter.Add_Fragment(this.detailPlayerFragment); // 0
         fullPlayerAdapter.Add_Fragment(this.fullPlayerFragment); // 1
         fullPlayerAdapter.Add_Fragment(this.lyricsPlayerFragment); // 2
 
-        this.viewpager.setAdapter(fullPlayerAdapter);
-        this.viewpager.setCurrentItem(1); // Set default Fragment
+        this.vpFullPlayer.setAdapter(fullPlayerAdapter);
+        this.vpFullPlayer.setCurrentItem(1); // Set default Fragment
+        this.vpFullPlayer.setOffscreenPageLimit(2); // Load trước 2 trang (theo cơ chế hoạt động của ViewPager)
     }
 
     private void Event() {
-        this.viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        this.vpFullPlayer.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -101,7 +103,7 @@ public class FullPlayerActivity extends AppCompat implements FullPlayerFragment.
     private void Get_Data_Intent() {
         Intent intent = getIntent();
         dataSongArrayList.clear(); // Xóa hết dữ liệu bài hát khi nhận đc một dữ liệu bài hát mới
-        if (FullPlayerManagerService.listCurrentSong != null && !intent.hasExtra("MINI_PLAYER_CLICK") ) {
+        if (FullPlayerManagerService.listCurrentSong != null && !intent.hasExtra("MINI_PLAYER_CLICK")) {
             FullPlayerManagerService.listCurrentSong.clear();
         }
 

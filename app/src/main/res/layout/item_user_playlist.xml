@@ -14,8 +14,8 @@
         app:cardElevation="0dp">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/ic_playlist_cover" />
@@ -42,7 +42,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:text="@string/tvPlaylistName"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -71,7 +71,7 @@
                 android:text="@string/tvNumberSongLove"
                 android:textAlignment="center"
                 android:textColor="@color/colorLight9"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="normal" />
         </RelativeLayout>
     </LinearLayout>

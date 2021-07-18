@@ -11,8 +11,8 @@ import java.util.List;
 public class FullPlayerAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> fragmentList = new ArrayList<>();
 
-    public FullPlayerAdapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
+    public FullPlayerAdapter(@NonNull FragmentManager fm) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
     @NonNull

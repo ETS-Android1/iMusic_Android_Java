@@ -23,10 +23,9 @@ public class LoadingDialog {
 
         TextView tvLoading = view.findViewById(R.id.tvLoading);
         tvLoading.setSelected(true);
-
-        alertBuilder.setCancelable(true);
-
+        alertBuilder.setCancelable(false);
         this.alertDialog = alertBuilder.create();
+
         this.alertDialog.show();
     }
 

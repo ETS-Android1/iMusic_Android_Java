@@ -58,6 +58,13 @@ public class PersonalPlaylistActivity extends AppCompat {
         Event();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Get_Data_Intent();
+    }
+
     private void Mapping() {
         this.ivPersonalPlaylistBack = findViewById(R.id.ivPersonalPlaylistBack);
 
