@@ -10,9 +10,11 @@ public class Playlist implements Parcelable {
     @SerializedName("id")
     @Expose
     private int id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("img")
     @Expose
     private String img;

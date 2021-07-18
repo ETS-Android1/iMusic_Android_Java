@@ -10,17 +10,29 @@ public class UserPlaylist implements Parcelable {
     @SerializedName("youID")
     @Expose
     private int youID;
+
     @SerializedName("useID")
     @Expose
     private String useID;
+
     @SerializedName("name")
     @Expose
     private String name;
+
+    @SerializedName("totalSong")
+    @Expose
+    private int totalSong;
+
+    @SerializedName("status")
+    @Expose
+    private int status;
 
     protected UserPlaylist(Parcel in) {
         youID = in.readInt();
         useID = in.readString();
         name = in.readString();
+        totalSong = in.readInt();
+        status = in.readInt();
     }
 
     public static final Creator<UserPlaylist> CREATOR = new Creator<UserPlaylist>() {
@@ -59,6 +71,22 @@ public class UserPlaylist implements Parcelable {
         this.name = name;
     }
 
+    public int getTotalSong() {
+        return totalSong;
+    }
+
+    public void setTotalSong(int totalSong) {
+        this.totalSong = totalSong;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -69,5 +97,7 @@ public class UserPlaylist implements Parcelable {
         dest.writeInt(youID);
         dest.writeString(useID);
         dest.writeString(name);
+        dest.writeInt(totalSong);
+        dest.writeInt(status);
     }
 }

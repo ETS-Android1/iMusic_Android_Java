@@ -20,24 +20,31 @@ public class Song implements Parcelable {
     @SerializedName("id")
     @Expose
     private int id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("img")
     @Expose
     private String img;
+
     @SerializedName("singer")
     @Expose
     private String singer;
+
     @SerializedName("link")
     @Expose
     private String link;
+
     @SerializedName("like")
     @Expose
     private String like;
+
     @SerializedName("lyric")
     @Expose
     private String lyric;
+
     @SerializedName("mvcode")
     @Expose
     private String mvcode;

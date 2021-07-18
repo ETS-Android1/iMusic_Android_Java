@@ -299,6 +299,8 @@ public class FullActivity extends AppCompat {
 
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commitAllowingStateLoss();
+
+
     }
 
     public void loadFragmentMiniPlayer() {

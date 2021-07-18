@@ -10,9 +10,11 @@ public class Theme implements Parcelable {
     @SerializedName("idTheme")
     @Expose
     private int idTheme;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("img")
     @Expose
     private String img;

@@ -7,21 +7,27 @@ public class Comment {
     @SerializedName("idComment")
     @Expose
     private int idComment;
+
     @SerializedName("idSong")
     @Expose
     private int idSong;
+
     @SerializedName("idUser")
     @Expose
     private String idUser;
+
     @SerializedName("content")
     @Expose
     private String content;
+
     @SerializedName("date")
     @Expose
     private String date;
+
     @SerializedName("userName")
     @Expose
     private String userName;
+
     @SerializedName("userImage")
     @Expose
     private String userImage;

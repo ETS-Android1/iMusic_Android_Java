@@ -10,12 +10,15 @@ public class Genre implements Parcelable {
     @SerializedName("idGenre")
     @Expose
     private int idGenre;
+
     @SerializedName("idTheme")
     @Expose
     private int idTheme;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("img")
     @Expose
     private String img;

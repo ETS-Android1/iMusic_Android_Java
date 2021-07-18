@@ -10,12 +10,15 @@ public class Album implements Parcelable {
     @SerializedName("id")
     @Expose
     private int id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("singer")
     @Expose
     private String singer;
+
     @SerializedName("img")
     @Expose
     private String img;

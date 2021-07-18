@@ -136,8 +136,8 @@
     <string name="tvCloseInfoPlaylist">Thoát</string>
     <string name="tvPlaySong">Phát nhạc</string>
     <string name="tvAddSongToPlaylist">Thêm bài hát vào playlist</string>
-    <string name="tvDeleteSongToPlaylist">Xóa bài hát khỏi playlist hiện tại</string>
-    <string name="tvDeleteAllSongToPlaylist">Xóa tất cả bài hát khỏi playlist hiện tại</string>
+    <string name="tvDeleteSongToPlaylist">Xóa bài hát này</string>
+    <string name="tvDeleteAllSongToPlaylist">Xóa tất cả bài hát</string>
     <string name="tvDownLoadSong">Tải nhạc về</string>
     <string name="tvDeleteDownLoadSong">Xóa nhạc tải về</string>
     <string name="tvCloseInfoSong">Thoát</string>

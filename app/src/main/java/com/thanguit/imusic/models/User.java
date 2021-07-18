@@ -7,18 +7,23 @@ public class User {
     @SerializedName("id")
     @Expose
     private String id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("email")
     @Expose
     private String email;
+
     @SerializedName("img")
     @Expose
     private String img;
+
     @SerializedName("isDark")
     @Expose
     private String isDark;
+
     @SerializedName("isEnglish")
     @Expose
     private String isEnglish;

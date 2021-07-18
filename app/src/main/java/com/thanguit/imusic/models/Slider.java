@@ -7,9 +7,11 @@ public class Slider {
     @SerializedName("sliderID")
     @Expose
     private int sliderID;
+
     @SerializedName("image")
     @Expose
     private String image;
+
     @SerializedName("songID")
     @Expose
     private int songID;

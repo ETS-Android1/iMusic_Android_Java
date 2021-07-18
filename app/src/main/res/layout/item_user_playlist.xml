@@ -56,12 +56,12 @@
                 android:id="@+id/ivNumberPlaylist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/tvNumberPlaylist"
-                android:layout_alignBottom="@+id/tvNumberPlaylist"
+                android:layout_alignTop="@+id/tvNumberSongPlaylist"
+                android:layout_alignBottom="@+id/tvNumberSongPlaylist"
                 app:srcCompat="@drawable/ic_music_alt" />
 
             <TextView
-                android:id="@+id/tvNumberPlaylist"
+                android:id="@+id/tvNumberSongPlaylist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"

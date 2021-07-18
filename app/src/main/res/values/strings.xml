@@ -134,8 +134,8 @@
     <string name="tvCloseInfoPlaylist">Exit</string>
     <string name="tvPlaySong">Play music</string>
     <string name="tvAddSongToPlaylist">Add songs to playlist</string>
-    <string name="tvDeleteSongToPlaylist">Remove song from current playlist</string>
-    <string name="tvDeleteAllSongToPlaylist">Remove all songs from current playlist playlist</string>
+    <string name="tvDeleteSongToPlaylist">Remove this song</string>
+    <string name="tvDeleteAllSongToPlaylist">Remove all songs</string>
     <string name="tvDownLoadSong">Download music</string>
     <string name="tvDeleteDownLoadSong">Delete downloaded music</string>
     <string name="tvCloseInfoSong">Exit</string>

@@ -92,8 +92,8 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
     public void onBindViewHolder(@NonNull UserPlaylistAdapter.ViewHolder holder, int position) {
         DataLocalManager.init(context);
 
-        holder.tvPlaylistName.setText(userPlaylistArrayList.get(position).getName().trim());
-
+        holder.tvPlaylistName.setText(this.userPlaylistArrayList.get(position).getName().trim());
+        holder.tvNumberSongPlaylist.setText(String.valueOf(this.userPlaylistArrayList.get(position).getTotalSong()));
         holder.ivPlaylistMore.setOnClickListener(v -> Open_Info_Playlist_Dialog(Gravity.BOTTOM, position));
 
         if (this.songID > -1) {
@@ -105,12 +105,12 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                 alertDialog = alertBuilder.create();
                 alertDialog.show();
 
-                Handle_Add_Song_Playlist(ACTION_INSERT_SONG_PLAYLIST, DataLocalManager.getUserID(), userPlaylistArrayList.get(position).getYouID(), songID);
+                Handle_Add_Song_Playlist(ACTION_INSERT_SONG_PLAYLIST, DataLocalManager.getUserID(), this.userPlaylistArrayList.get(position).getYouID(), songID);
             });
         } else {
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PersonalPlaylistActivity.class);
-                intent.putExtra("SONGPLAYLIST", userPlaylistArrayList.get(position));
+                intent.putExtra("SONGPLAYLIST", this.userPlaylistArrayList.get(position));
                 context.startActivity(intent);
             });
 
@@ -470,13 +470,16 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
     @Override
     public int getItemCount() {
-        return this.userPlaylistArrayList.size();
+        if (this.userPlaylistArrayList != null) {
+            return this.userPlaylistArrayList.size();
+        }
+        return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private CardView cvPlaylistCover;
         private TextView tvPlaylistName;
-        private TextView tvNumberPlaylist;
+        private TextView tvNumberSongPlaylist;
         private ImageView ivPlaylistMore;
 
         private ScaleAnimation scaleAnimation;
@@ -489,7 +492,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
             this.tvPlaylistName = itemView.findViewById(R.id.tvPlaylistName);
             this.tvPlaylistName.setSelected(true);
 
-            this.tvNumberPlaylist = itemView.findViewById(R.id.tvNumberPlaylist);
+            this.tvNumberSongPlaylist = itemView.findViewById(R.id.tvNumberSongPlaylist);
 
             this.ivPlaylistMore = itemView.findViewById(R.id.ivPlaylistMore);
             this.scaleAnimation = new ScaleAnimation(itemView.getContext(), this.ivPlaylistMore);
