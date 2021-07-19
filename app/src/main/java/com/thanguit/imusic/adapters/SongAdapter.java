@@ -134,7 +134,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             return false;
         });
 
-//        GetID_FavoriteSong();
         holder.ivItemSongLove.setOnClickListener(v -> {
             AlertDialog.Builder alertBuilder_1 = new AlertDialog.Builder(v.getContext());
             View view_1 = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_loading_dialog, null);

@@ -248,7 +248,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
             View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder.setView(view);
-            alertBuilder.setCancelable(true);
+            alertBuilder.setCancelable(false);
             this.alertDialog = alertBuilder.create();
             this.alertDialog.show();
 
