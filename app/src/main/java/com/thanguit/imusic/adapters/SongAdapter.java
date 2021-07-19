@@ -97,10 +97,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         this.layout = layout;
     }
 
-    public void Update_Data() {
-        notifyDataSetChanged();
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -112,7 +108,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull SongAdapter.ViewHolder holder, int position) {
         DataLocalManager.init(context);
 
-        Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yêu thích của người dùng
+        Handle_Favourite_Icon_Color(holder.ivItemSongLove, holder.getLayoutPosition()); // Load những bài hát yêu thích của người dùng
 
         Picasso.get()
                 .load(this.songArrayList.get(position).getImg())
@@ -126,15 +122,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         if (!this.layout.equals(LIST_SONG)) {
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(v.getContext(), FullPlayerActivity.class);
-                intent.putExtra("SONG", songArrayList.get(position));
+                intent.putExtra("SONG", songArrayList.get(holder.getLayoutPosition()));
                 v.getContext().startActivity(intent);
             });
         }
 
-        holder.ivItemSongMore.setOnClickListener(v -> Open_Info_Song_Dialog(Gravity.BOTTOM, position));
+        holder.ivItemSongMore.setOnClickListener(v -> Open_Info_Song_Dialog(Gravity.BOTTOM, holder.getLayoutPosition()));
 
         holder.itemView.setOnLongClickListener(v -> {
-            Open_Info_Song_Dialog(Gravity.BOTTOM, position);
+            Open_Info_Song_Dialog(Gravity.BOTTOM, holder.getLayoutPosition());
             return false;
         });
 
@@ -143,11 +139,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             AlertDialog.Builder alertBuilder_1 = new AlertDialog.Builder(v.getContext());
             View view_1 = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder_1.setView(view_1);
-            alertBuilder_1.setCancelable(true);
+            alertBuilder_1.setCancelable(false);
             this.alertDialog = alertBuilder_1.create();
             this.alertDialog.show();
 
-            Handle_Add_Delete_Favorite_Song(holder.ivItemSongLove, position);
+            Handle_Add_Delete_Favorite_Song(holder.ivItemSongLove, holder.getLayoutPosition());
         });
     }
 
@@ -352,7 +348,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                 Toast.makeText(context, "Đã xóa \"" + songArrayList.get(position).getName(), Toast.LENGTH_SHORT).show();
 
                 songArrayList.remove(position);
-                notifyDataSetChanged();
+                notifyItemRemoved(position);
+//                notifyDataSetChanged();
 
                 dialog_4.dismiss();
             });
@@ -389,7 +386,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         TextView tvEmptyPlaylist = dialog_3.findViewById(R.id.tvEmptyPlaylist);
         tvEmptyPlaylist.setSelected(true);
         RecyclerView rvYourPlaylist = dialog_3.findViewById(R.id.rvYourPlaylist);
-
 
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
         Call<List<UserPlaylist>> callBack = dataService.getUserPlaylist(userID);
@@ -480,7 +476,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
             View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder.setView(view);
-            alertBuilder.setCancelable(true);
+            alertBuilder.setCancelable(false);
             this.alertDialog = alertBuilder.create();
             this.alertDialog.show();
 
@@ -505,7 +501,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                             alertDialog.dismiss();
 
                             songArrayList.remove(position);
-                            notifyDataSetChanged();
+                            notifyItemRemoved(position);
+//                            notifyDataSetChanged();
 
                             dialog_2.dismiss();
                             dialog_1.dismiss();
@@ -612,7 +609,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                         if (layout.equals(FAVORITE_SONG)) {
                             songArrayList.remove(position);
                             notifyItemRemoved(position);
-                            notifyDataSetChanged();
+//                            notifyDataSetChanged();
                         } else {
                             imageView.setImageResource(R.drawable.ic_not_favorite);
                         }

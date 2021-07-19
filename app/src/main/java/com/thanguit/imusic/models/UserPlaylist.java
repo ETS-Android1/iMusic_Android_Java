@@ -27,7 +27,15 @@ public class UserPlaylist implements Parcelable {
     @Expose
     private int status;
 
-    protected UserPlaylist(Parcel in) {
+    public UserPlaylist(int youID, String useID, String name, int totalSong, int status) {
+        this.youID = youID;
+        this.useID = useID;
+        this.name = name;
+        this.totalSong = totalSong;
+        this.status = status;
+    }
+
+    public UserPlaylist(Parcel in) {
         youID = in.readInt();
         useID = in.readString();
         name = in.readString();

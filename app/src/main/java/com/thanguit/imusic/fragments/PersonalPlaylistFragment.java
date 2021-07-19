@@ -331,6 +331,15 @@ public class PersonalPlaylistFragment extends Fragment {
                     rvYourPlaylist.setAdapter(userPlaylistAdapter);
 
                     if (userPlaylistArrayLists != null) {
+//                        for (int i = 0; i < userPlaylistArrayLists.size(); i++) {
+//                            int youID = userPlaylistArrayLists.get(i).getYouID();
+//                            String useID = userPlaylistArrayLists.get(i).getUseID();
+//                            String name = userPlaylistArrayLists.get(i).getName();
+//                            int totalSong = userPlaylistArrayLists.get(i).getTotalSong();
+//                            int status = userPlaylistArrayLists.get(i).getStatus();
+//
+//                            userPlaylistArrayLists.add(new UserPlaylist(youID, useID, name, totalSong, status));
+//                        }
                         userPlaylistAdapter.Update_Data(userPlaylistArrayLists);
                     }
 

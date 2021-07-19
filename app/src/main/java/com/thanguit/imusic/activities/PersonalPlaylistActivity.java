@@ -1,6 +1,7 @@
 package com.thanguit.imusic.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -135,8 +136,9 @@ public class PersonalPlaylistActivity extends AppCompat {
             LinearLayoutManager layoutManager = new LinearLayoutManager(PersonalPlaylistActivity.this);
             layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
             rvPersonalPlaylist.setLayoutManager(layoutManager);
-
             rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList, "DOWNLOADSONG"));
+            //set ItemAnimator for RecyclerView
+            rvPersonalPlaylist.setItemAnimator(new DefaultItemAnimator());
 
             sflItemSong.setVisibility(View.GONE); // Load biến mất
             rvPersonalPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin
@@ -164,6 +166,8 @@ public class PersonalPlaylistActivity extends AppCompat {
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvPersonalPlaylist.setLayoutManager(layoutManager);
                     rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList, playlistID, "PLAYLISTSONG"));
+                    //set ItemAnimator for RecyclerView
+                    rvPersonalPlaylist.setItemAnimator(new DefaultItemAnimator());
 
                     sflItemSong.setVisibility(View.GONE); // Load biến mất
                     rvPersonalPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin
@@ -198,6 +202,8 @@ public class PersonalPlaylistActivity extends AppCompat {
                     layoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
                     rvPersonalPlaylist.setLayoutManager(layoutManager);
                     rvPersonalPlaylist.setAdapter(new SongAdapter(PersonalPlaylistActivity.this, songArrayList, "FAVORITESONG"));
+                    //set ItemAnimator for RecyclerView
+                    rvPersonalPlaylist.setItemAnimator(new DefaultItemAnimator());
 
                     sflItemSong.setVisibility(View.GONE); // Load biến mất
                     rvPersonalPlaylist.setVisibility(View.VISIBLE); // Hiện thông tin

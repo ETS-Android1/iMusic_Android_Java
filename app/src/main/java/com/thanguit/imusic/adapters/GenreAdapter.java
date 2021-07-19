@@ -1,14 +1,15 @@
 package com.thanguit.imusic.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
@@ -17,10 +18,8 @@ import com.thanguit.imusic.models.Genre;
 
 import java.util.List;
 
-public class GenreAdapter extends BaseAdapter {
+public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> {
     private static final String TAG = "GenreAdapter";
-
-    private AlertDialog alertDialog;
 
     private Context context;
     private List<Genre> genreList;
@@ -30,59 +29,46 @@ public class GenreAdapter extends BaseAdapter {
         this.genreList = genreList;
     }
 
+    @NonNull
     @Override
-    public int getCount() {
-        return genreList.size();
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_genre, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public Object getItem(int position) {
-        return genreList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-
-        if (convertView == null) { // Ánh xạ lần đầu tiên
-            holder = new ViewHolder();
-
-            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_genre, null);
-
-            holder.ivGenreImage = convertView.findViewById(R.id.ivGenreImage);
-            holder.tvGenreName = convertView.findViewById(R.id.tvGenreName);
-            holder.tvGenreName.setSelected(true);
-
-            convertView.setTag(holder); // Xét trạng thái đã ánh xạ
-        } else {
-            holder = (ViewHolder) convertView.getTag(); // Lấy trạng thái đã ánh xạ lần đầu để lần sau không phải ánh xạ nữa
-        }
-
+    public void onBindViewHolder(@NonNull GenreAdapter.ViewHolder holder, int position) {
         Picasso.get()
-                .load(this.genreList.get(position).getImg())
+                .load(this.genreList.get(position).getImg().trim())
                 .placeholder(R.drawable.ic_logo)
                 .error(R.drawable.ic_logo)
                 .into(holder.ivGenreImage);
 
-        holder.tvGenreName.setText(this.genreList.get(position).getName());
+        holder.tvGenreName.setText(this.genreList.get(position).getName().trim());
 
         holder.ivGenreImage.setOnClickListener(v -> {
             Intent intent = new Intent(context, SongActivity.class);
             intent.putExtra("GENRE", genreList.get(position));
             context.startActivity(intent);
         });
-
-        return convertView;
     }
 
-    private class ViewHolder {
-        ImageView ivGenreImage;
-        TextView tvGenreName;
+    @Override
+    public int getItemCount() {
+        return this.genreList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView ivGenreImage;
+        private TextView tvGenreName;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            this.ivGenreImage = itemView.findViewById(R.id.ivGenreImage);
+
+            this.tvGenreName = itemView.findViewById(R.id.tvGenreName);
+            this.tvGenreName.setSelected(true);
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.thanguit.imusic.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -14,6 +16,8 @@ import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.adapters.GenreAdapter;
+import com.thanguit.imusic.adapters.SongAdapter;
+import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Genre;
@@ -35,8 +39,7 @@ public class GenreActivity extends AppCompat {
     private ImageView ivBack;
     private TextView tvTitle;
 
-    private GridView gvGridView;
-    private RecyclerView rvRecyclerView;
+    private RecyclerView rvGenre;
 
     private Theme theme;
 
@@ -59,8 +62,7 @@ public class GenreActivity extends AppCompat {
         this.ivBack = findViewById(R.id.ivBack);
         this.tvTitle = findViewById(R.id.tvTitle);
 
-        this.gvGridView = findViewById(R.id.gvGridView);
-        this.rvRecyclerView = findViewById(R.id.rvRecyclerView);
+        this.rvGenre = findViewById(R.id.rvGenre);
     }
 
     private void Event() {
@@ -94,7 +96,12 @@ public class GenreActivity extends AppCompat {
                 genreList = response.body();
 
                 if (genreList != null) {
-                    gvGridView.setAdapter(new GenreAdapter(GenreActivity.this, genreList));
+                    rvGenre.setHasFixedSize(true);
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(GenreActivity.this, 3);
+                    gridLayoutManager.setOrientation(RecyclerView.VERTICAL); // Chiều dọc
+                    rvGenre.setLayoutManager(gridLayoutManager);
+
+                    rvGenre.setAdapter(new GenreAdapter(GenreActivity.this, genreList));
                     loadingDialog.Cancel_Loading();
                 }
             }

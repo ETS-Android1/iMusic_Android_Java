@@ -80,13 +80,13 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
 
         if (this.commentList.get(position).getIdUser().trim().equals(DataLocalManager.getUserID())) {
             holder.itemView.setOnLongClickListener(v -> {
-                Open_Delele_Comment_Dialog(Gravity.CENTER, position);
+                Open_Delete_Comment_Dialog(Gravity.CENTER, holder.getLayoutPosition());
                 return false;
             });
         }
     }
 
-    private void Open_Delele_Comment_Dialog(int gravity, int position) {
+    private void Open_Delete_Comment_Dialog(int gravity, int position) {
         this.dialog_1 = new Dialog(this.context);
 
         dialog_1.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -130,7 +130,7 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
             View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder.setView(view);
-            alertBuilder.setCancelable(true);
+            alertBuilder.setCancelable(false);
             this.alertDialog = alertBuilder.create();
             this.alertDialog.show();
 
@@ -152,7 +152,8 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
                 if (statusArrayList != null) {
                     if (statusArrayList.get(0).getStatus() == 1) {
                         commentList.remove(position);
-                        notifyDataSetChanged();
+                        notifyItemRemoved(position);
+//                        notifyDataSetChanged();
 
                         alertDialog.dismiss();
                         dialog_1.dismiss();

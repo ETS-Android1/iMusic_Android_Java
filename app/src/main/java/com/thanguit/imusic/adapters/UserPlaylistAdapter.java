@@ -98,32 +98,31 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
         holder.tvPlaylistName.setText(this.userPlaylistArrayList.get(position).getName().trim());
         holder.tvNumberSongPlaylist.setText(String.valueOf(this.userPlaylistArrayList.get(position).getTotalSong()));
-        holder.ivPlaylistMore.setOnClickListener(v -> Open_Info_Playlist_Dialog(Gravity.BOTTOM, position));
+        holder.ivPlaylistMore.setOnClickListener(v -> Open_Info_Playlist_Dialog(Gravity.BOTTOM, holder.getLayoutPosition()));
 
         if (this.songID > -1) {
             holder.itemView.setOnClickListener(v -> {
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
                 View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
                 alertBuilder.setView(view);
-                alertBuilder.setCancelable(true);
+                alertBuilder.setCancelable(false);
                 alertDialog = alertBuilder.create();
                 alertDialog.show();
 
-                Handle_Add_Song_Playlist(ACTION_INSERT_SONG_PLAYLIST, DataLocalManager.getUserID(), this.userPlaylistArrayList.get(position).getYouID(), songID);
+                Handle_Add_Song_Playlist(ACTION_INSERT_SONG_PLAYLIST, DataLocalManager.getUserID(), this.userPlaylistArrayList.get(holder.getLayoutPosition()).getYouID(), songID);
             });
         } else {
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PersonalPlaylistActivity.class);
-                intent.putExtra("SONGPLAYLIST", this.userPlaylistArrayList.get(position));
+                intent.putExtra("SONGPLAYLIST", this.userPlaylistArrayList.get(holder.getLayoutPosition()));
                 context.startActivity(intent);
             });
 
             holder.itemView.setOnLongClickListener(v -> {
-                Open_Info_Playlist_Dialog(Gravity.BOTTOM, position);
+                Open_Info_Playlist_Dialog(Gravity.BOTTOM, holder.getLayoutPosition());
                 return false;
             });
         }
-
     }
 
     private void Open_Info_Playlist_Dialog(int gravity, int position) {
@@ -316,7 +315,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
             View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder.setView(view);
-            alertBuilder.setCancelable(true);
+            alertBuilder.setCancelable(false);
             this.alertDialog = alertBuilder.create();
             this.alertDialog.show();
 
@@ -343,7 +342,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                             userPlaylistArrayList = new ArrayList<>(userPlaylistArrayLists);
                             notifyItemChanged(position);
 //                            userPlaylistArrayList.addAll(userPlaylistArrayLists);
-//                            notifyDataSetChanged();
+                            notifyDataSetChanged();
 
                             dialog_2.dismiss();
                             dialog_1.dismiss();
@@ -371,7 +370,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
 
                             userPlaylistArrayList.remove(position);
                             notifyItemRemoved(position);
-                            notifyDataSetChanged();
+//                            notifyDataSetChanged();
 
                             if (tvNumberPlaylist != null) {
                                 tvNumberPlaylist.setText(String.valueOf(userPlaylistArrayList.size()));
