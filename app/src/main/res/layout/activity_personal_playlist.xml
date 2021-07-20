@@ -140,6 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="25dp"
+                android:layoutAnimation="@anim/layout_slide_right"
                 android:visibility="gone" />
         </FrameLayout>
     </RelativeLayout>

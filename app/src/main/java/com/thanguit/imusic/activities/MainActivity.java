@@ -212,8 +212,19 @@ public class MainActivity extends AppCompat {
 
                                             String id = user.getUid();
                                             String name = user.getDisplayName();
-                                            String email = !Objects.requireNonNull(user.getEmail()).isEmpty() ? user.getEmail() : "Null";
-                                            String avatarFacebook = user.getPhotoUrl() + "?height=500&access_token=" + loginResult.getAccessToken().getToken();
+                                            String email;
+                                            if (user.getEmail() != null) {
+                                                email = user.getEmail();
+                                            } else {
+                                                email = "Null";
+                                            }
+
+                                            String avatarFacebook;
+                                            if (user.getPhotoUrl() != null) {
+                                                avatarFacebook = user.getPhotoUrl() + "?height=500&access_token=" + loginResult.getAccessToken().getToken();
+                                            } else {
+                                                avatarFacebook = "Null";
+                                            }
                                             String isDark = "0";
                                             String isEnglish = "0";
 

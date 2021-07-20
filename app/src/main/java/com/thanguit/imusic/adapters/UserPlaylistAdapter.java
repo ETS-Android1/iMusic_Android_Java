@@ -60,9 +60,6 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
     private ScaleAnimation scaleAnimation;
     private AlertDialog alertDialog;
 
-//    private ArrayList<Status> statusArrayList;
-
-    //    private final String ACTION_UPDATE_PLAYLIST = "update";
     private final String ACTION_DELETE_PLAYLIST = "delete";
     private final String ACTION_DELETEALL_PLAYLIST = "deleteall";
 
@@ -78,13 +75,6 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         this.context = context;
         this.userPlaylistArrayList = userPlaylistArrayList;
         this.songID = songID;
-    }
-
-    public void Update_Data(ArrayList<UserPlaylist> userPlaylistArrayLists, TextView tvNumberPlaylist) {
-        this.userPlaylistArrayList = new ArrayList<>(userPlaylistArrayLists);
-        if (tvNumberPlaylist != null) {
-            tvNumberPlaylist.setText(String.valueOf(this.userPlaylistArrayList.size()));
-        }
     }
 
     @NonNull
@@ -111,7 +101,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                 alertDialog = alertBuilder.create();
                 alertDialog.show();
 
-                Handle_Add_Song_Playlist(ACTION_INSERT_SONG_PLAYLIST, DataLocalManager.getUserID(), this.userPlaylistArrayList.get(holder.getLayoutPosition()).getYouID(), songID);
+                Handle_Add_Song_Playlist(ACTION_INSERT_SONG_PLAYLIST, DataLocalManager.getUserID(), this.userPlaylistArrayList.get(holder.getLayoutPosition()).getYouID(), songID, holder.getLayoutPosition());
             });
         } else {
             holder.itemView.setOnClickListener(v -> {
@@ -346,7 +336,7 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
         });
     }
 
-    private void Handle_Add_Song_Playlist(String action, String userID, int playlistID, int songID) {
+    private void Handle_Add_Song_Playlist(String action, String userID, int playlistID, int songID, int position) {
         DataService dataService = APIService.getService();
         Call<List<Status>> callBack = dataService.addDeleteUserPlayListSong(action, userID, playlistID, songID);
         callBack.enqueue(new Callback<List<Status>>() {
@@ -359,6 +349,10 @@ public class UserPlaylistAdapter extends RecyclerView.Adapter<UserPlaylistAdapte
                     if (action.equals(ACTION_INSERT_SONG_PLAYLIST)) {
                         if (statusArrayList.get(0).getStatus() == 1) {
                             alertDialog.dismiss();
+
+                            userPlaylistArrayList.remove(position);
+                            notifyItemRemoved(position);
+
                             Toast.makeText(context, R.string.toast23, Toast.LENGTH_SHORT).show();
                         } else if (statusArrayList.get(0).getStatus() == 2) {
                             alertDialog.dismiss();

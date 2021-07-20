@@ -274,6 +274,7 @@
                     android:id="@+id/rvYourPlaylist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layoutAnimation="@anim/layout_slide_right"
                     android:visibility="gone" />
             </FrameLayout>
         </LinearLayout>
