@@ -73,6 +73,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private int playlistID;
     private String layout;
 
+    private final String GIF_URL = "https://i.stack.imgur.com/h6viz.gif";
+
     private static final String SONG = "SONG";
     private static final String FAVORITE_SONG = "FAVORITESONG";
     private static final String PLAYLIST_SONG = "PLAYLISTSONG";
@@ -108,6 +110,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull SongAdapter.ViewHolder holder, int position) {
         DataLocalManager.init(context);
 
+        holder.ivItemSongLove.setEnabled(false);
         Handle_Favourite_Icon_Color(holder.ivItemSongLove, holder.getLayoutPosition()); // Load những bài hát yêu thích của người dùng
 
         Picasso.get()
@@ -576,10 +579,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                         }
                     }
                 }
+                imageView.setEnabled(true);
             }
 
             @Override
             public void onFailure(Call<List<Song>> call, Throwable t) {
+                imageView.setEnabled(true);
                 Log.d(TAG, "Handle_Favourite_Icon_Color(Error): " + t.getMessage());
             }
         });

@@ -41,6 +41,11 @@ public class DetailPlayerFragment extends Fragment {
         Event();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void Mapping(View view) {
         this.rvDataListSong = view.findViewById(R.id.rvDataListSong);
 

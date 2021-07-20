@@ -59,6 +59,12 @@ public class SongActivity extends AppCompat {
         Event();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Get_Data_Intent();
+    }
+
     private void Mapping() {
         this.coordinatorlayout = findViewById(R.id.cdlListSong);
         this.collapsingToolbarLayout = findViewById(R.id.ctlImage);

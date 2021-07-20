@@ -122,6 +122,7 @@ public class MiniPlayerOnLockScreenService extends Service {
             mChannel.setLightColor(Color.RED);
             mChannel.enableVibration(true);
             mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            mChannel.setSound(null, null);
             mChannel.setShowBadge(false);
             notificationManager.createNotificationChannel(mChannel);
         }

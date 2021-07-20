@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,19 +24,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.SharedPreferences.DataLocalManager;
+import com.thanguit.imusic.activities.AddUpdateActivity;
 import com.thanguit.imusic.activities.PersonalPlaylistActivity;
 import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Song;
-import com.thanguit.imusic.models.Status;
 import com.thanguit.imusic.models.UserPlaylist;
 
 import java.util.ArrayList;
@@ -71,11 +69,6 @@ public class PersonalPlaylistFragment extends Fragment {
 
     private ArrayList<Song> songArrayList;
     private ArrayList<UserPlaylist> userPlaylistArrayList;
-    private ArrayList<UserPlaylist> userPlaylistArrayLists;
-    private ArrayList<Status> statusArrayList;
-
-    private final String ACTION_INSERT_PLAYLIST = "insert";
-
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -117,7 +110,7 @@ public class PersonalPlaylistFragment extends Fragment {
 
         Handle_Number_Download_Song();
         Handle_Number_Favorite_Song();
-        Handle_UserPlaylist(null);
+        Handle_UserPlaylist();
     }
 
     @Override
@@ -175,7 +168,9 @@ public class PersonalPlaylistFragment extends Fragment {
         this.scaleAnimation = new ScaleAnimation(getContext(), this.ivAddPlaylist);
         this.scaleAnimation.Event_ImageView();
         this.ivAddPlaylist.setOnClickListener(v -> {
-            Open_Add_Playlist_Dialog(Gravity.CENTER);
+            Intent intent = new Intent(v.getContext(), AddUpdateActivity.class);
+            intent.putExtra("ADDPLAYLIST", "ADDPLAYLIST");
+            startActivity(intent);
         });
 
         this.llFrameDownloadSong.setOnClickListener(v -> {
@@ -227,50 +222,6 @@ public class PersonalPlaylistFragment extends Fragment {
         this.scaleAnimation = new ScaleAnimation(getContext(), btnDialogActionPlaylist);
         this.scaleAnimation.Event_Button();
         btnDialogActionPlaylist.setOnClickListener(v -> {
-            String playlistName = etDialogContentPlaylist.getText().toString().trim();
-            if (playlistName.isEmpty()) {
-                Toast.makeText(v.getContext(), R.string.toast12, Toast.LENGTH_SHORT).show();
-            } else {
-                this.loadingDialog.Start_Loading();
-
-                DataService dataService = APIService.getService();
-                Call<List<UserPlaylist>> callBack = dataService.addUpdateDeleteUserPlaylist("insert", 0, DataLocalManager.getUserID(), playlistName);
-                callBack.enqueue(new Callback<List<UserPlaylist>>() {
-                    @Override
-                    public void onResponse(Call<List<UserPlaylist>> call, Response<List<UserPlaylist>> response) {
-                        userPlaylistArrayLists = new ArrayList<>();
-                        userPlaylistArrayLists = (ArrayList<UserPlaylist>) response.body();
-
-                        if (userPlaylistArrayLists != null) {
-                            if (userPlaylistArrayLists.get(0).getStatus() == 1) {
-                                Handle_UserPlaylist(userPlaylistArrayLists);
-
-                                loadingDialog.Cancel_Loading();
-                                Toast.makeText(v.getContext(), R.string.toast13, Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            } else if (userPlaylistArrayLists.get(0).getStatus() == 2) {
-                                loadingDialog.Cancel_Loading();
-                                Toast.makeText(v.getContext(), R.string.toast14, Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            } else if (userPlaylistArrayLists.get(0).getStatus() == 3) {
-                                loadingDialog.Cancel_Loading();
-                                Toast.makeText(v.getContext(), R.string.toast15, Toast.LENGTH_SHORT).show();
-                            } else {
-                                loadingDialog.Cancel_Loading();
-                                Toast.makeText(v.getContext(), R.string.toast11, Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<UserPlaylist>> call, Throwable t) {
-                        loadingDialog.Cancel_Loading();
-                        dialog.dismiss();
-                        Log.d(TAG, "Handle_Add_Update_Delete_DeleteAll_UserPlaylist(Error): " + t.getMessage());
-                    }
-                });
-            }
         });
 
         dialog.show(); // câu lệnh này sẽ hiển thị Dialog lên
@@ -312,7 +263,7 @@ public class PersonalPlaylistFragment extends Fragment {
         });
     }
 
-    private void Handle_UserPlaylist(ArrayList<UserPlaylist> userPlaylistArrayLists) {
+    private void Handle_UserPlaylist() {
         DataService dataService = APIService.getService(); // Khởi tạo Phương thức để đẩy lên
         Call<List<UserPlaylist>> callBack = dataService.getUserPlaylist(DataLocalManager.getUserID());
         callBack.enqueue(new Callback<List<UserPlaylist>>() {
@@ -329,19 +280,6 @@ public class PersonalPlaylistFragment extends Fragment {
 
                     userPlaylistAdapter = new UserPlaylistAdapter(getContext(), userPlaylistArrayList, tvNumberPlaylist);
                     rvYourPlaylist.setAdapter(userPlaylistAdapter);
-
-                    if (userPlaylistArrayLists != null) {
-//                        for (int i = 0; i < userPlaylistArrayLists.size(); i++) {
-//                            int youID = userPlaylistArrayLists.get(i).getYouID();
-//                            String useID = userPlaylistArrayLists.get(i).getUseID();
-//                            String name = userPlaylistArrayLists.get(i).getName();
-//                            int totalSong = userPlaylistArrayLists.get(i).getTotalSong();
-//                            int status = userPlaylistArrayLists.get(i).getStatus();
-//
-//                            userPlaylistArrayLists.add(new UserPlaylist(youID, useID, name, totalSong, status));
-//                        }
-                        userPlaylistAdapter.Update_Data(userPlaylistArrayLists);
-                    }
 
                     sflItemUserPlaylist.setVisibility(View.GONE);
                     tvNumberPlaylist.setText(String.valueOf(userPlaylistAdapter.getItemCount())); // Hiển thị số lượng Playlist

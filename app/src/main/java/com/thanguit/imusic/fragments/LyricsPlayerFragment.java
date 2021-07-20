@@ -19,11 +19,11 @@ import com.thanguit.imusic.activities.FullPlayerActivity;
 import java.util.Objects;
 
 public class LyricsPlayerFragment extends Fragment {
-    private TextView tvLyric;
+    private static final String TAG = "LyricsPlayerFragment";
 
     private int position = 0;
 
-    private static final String TAG = "LyricsPlayerFragment";
+    private TextView tvLyric;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,6 @@ public class LyricsPlayerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Mapping(view);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override
