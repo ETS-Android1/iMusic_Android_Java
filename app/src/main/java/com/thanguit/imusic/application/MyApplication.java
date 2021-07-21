@@ -5,16 +5,31 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.thanguit.imusic.R;
 
 public class MyApplication extends Application {
     public static final String CHANNEL_ID = "CHANNEL iMusic MEDIA";
+
+    private static AppOpenManager appOpenManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
 //        ZaloSDKApplication.wrap(this);
 //        createNotificationChannel();
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+            }
+        });
+
+        appOpenManager = new AppOpenManager(this);
     }
 
     private void createNotificationChannel() {

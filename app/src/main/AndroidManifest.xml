@@ -17,7 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IMusic"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.AddUpdateActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3419835294" />
+
+        <activity
+            android:name=".activities.AddUpdateActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.YoutubeActivity"
             android:screenOrientation="portrait" />

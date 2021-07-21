@@ -1,5 +1,6 @@
 package com.thanguit.imusic.activities;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.kaushikthedeveloper.doublebackpress.DoubleBackPress;
@@ -78,6 +82,12 @@ public class FullActivity extends AppCompat {
 
         Mapping();
         Event();
+
+//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+//            }
+//        });
     }
 
     @Override
