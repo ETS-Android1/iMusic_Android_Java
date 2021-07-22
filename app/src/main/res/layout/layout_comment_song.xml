@@ -175,9 +175,9 @@
             android:id="@+id/rvComment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layoutAnimation="@anim/layout_down_to_up"
             android:visibility="gone" />
     </LinearLayout>
-
 
     <RelativeLayout
         android:id="@+id/rlBottom"
