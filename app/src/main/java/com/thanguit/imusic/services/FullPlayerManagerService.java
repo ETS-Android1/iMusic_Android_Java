@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FullPlayerManagerService {
-    private static final String TAG = "UserPlaylistManager";
+    private static final String TAG = "FullPlayerManagerService";
     private static FullPlayerManagerService instance;
 
     public static boolean repeat = false;

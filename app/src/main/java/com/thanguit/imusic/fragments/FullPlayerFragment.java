@@ -197,8 +197,6 @@ public class FullPlayerFragment extends Fragment {
     }
 
 
-
-
     private void Mapping(View view) {
         this.loadingDialog = new LoadingDialog(getActivity());
 //        this.loadingDialog.Start_Loading();
@@ -561,6 +559,8 @@ public class FullPlayerFragment extends Fragment {
         tvInfoSongSingerComment.setSelected(true); // Text will be moved
         tvInfoSongSingerComment.setText(String.valueOf(FullPlayerActivity.dataSongArrayList.get(position).getSinger()));
 
+        ImageView ivIconComment = dialog.findViewById(R.id.ivIconComment);
+
         TextView tvNullComment = dialog.findViewById(R.id.tvNullComment);
         tvNullComment.setSelected(true);
 
@@ -604,6 +604,7 @@ public class FullPlayerFragment extends Fragment {
                     Log.d(TAG, "User Playlist: " + commentList.get(0).getContent());
                 } else {
                     sflItemComment.setVisibility(View.GONE);
+                    ivIconComment.setVisibility(View.VISIBLE);
                     tvNullComment.setVisibility(View.VISIBLE);
                 }
             }

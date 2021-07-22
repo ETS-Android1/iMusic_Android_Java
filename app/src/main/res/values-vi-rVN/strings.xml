@@ -104,8 +104,8 @@
     <string name="tvDialogContent5">Bạn có chắc muốn xóa tất cả bài hát?</string>
     <string name="btnDialogCancel5">Hủy</string>
     <string name="btnDialogAction5">Xóa</string>
-    <string name="tvDialogTitle6">Xóa comment</string>
-    <string name="tvDialogContent6">Bạn có chắc muốn xóa comment này?</string>
+    <string name="tvDialogTitle6">Xóa bình luận</string>
+    <string name="tvDialogContent6">Bạn có chắc muốn xóa bình luận này?</string>
     <string name="btnDialogCancel6">Hủy</string>
     <string name="btnDialogAction6">Xóa</string>
     <string name="tvYourPlaylist">"Playlist: "</string>

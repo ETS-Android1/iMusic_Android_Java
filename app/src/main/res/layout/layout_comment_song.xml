@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/shape_corner_white_20dp_topleft_topright"
     android:paddingLeft="10dp"
-    android:paddingTop="20dp"
+    android:paddingTop="15dp"
     android:paddingRight="10dp"
     android:paddingBottom="5dp">
 
@@ -31,10 +31,12 @@
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
+            android:id="@+id/llSongInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/cvInfoSongImageComment"
             android:layout_alignBottom="@+id/cvInfoSongImageComment"
+            android:layout_toStartOf="@+id/ivClose"
             android:layout_toEndOf="@+id/cvInfoSongImageComment"
             android:gravity="center"
             android:orientation="vertical">
@@ -70,6 +72,17 @@
                 android:textSize="12sp"
                 android:textStyle="normal" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/llSongInfo"
+            android:layout_alignBottom="@+id/llSongInfo"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            app:srcCompat="@drawable/ic_close_1" />
     </RelativeLayout>
 
     <View
@@ -80,43 +93,13 @@
         android:layout_marginTop="5dp"
         android:background="@color/colorMain6" />
 
-    <RelativeLayout
-        android:id="@+id/rlTool"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/vDivider"
-        android:layout_marginTop="5dp">
-
-        <TextView
-            android:id="@+id/tvTitleComment"
-            style="@style/tvStyle1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:gravity="center"
-            android:text="@string/tvTitleComment"
-            android:textAlignment="center"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/ivClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tvTitleComment"
-            android:layout_alignBottom="@+id/tvTitleComment"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            app:srcCompat="@drawable/ic_close_1" />
-    </RelativeLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/rlBottom"
-        android:layout_below="@+id/rlTool"
-        android:layout_marginTop="5dp"
+        android:layout_below="@+id/vDivider"
         android:layout_marginBottom="5dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -154,12 +137,20 @@
             </LinearLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
 
+        <ImageView
+            android:id="@+id/ivIconComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_comment_1" />
+
         <TextView
             android:id="@+id/tvNullComment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:ellipsize="marquee"
             android:fontFamily="@font/comfortaa"
             android:lineSpacingExtra="5dp"
