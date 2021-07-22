@@ -26,7 +26,7 @@ import static androidx.lifecycle.Lifecycle.Event.ON_START;
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
     private static final String LOG_TAG = "AppOpenManager";
 
-    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";
+    private static final String AD_UNIT_ID = "ca-app-pub-8151267593746824/1584325352";
     private AppOpenAd appOpenAd = null;
 
     private AppOpenAd.AppOpenAdLoadCallback loadCallback;
@@ -76,7 +76,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
             @Override
             public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                Toast.makeText(myApplication, R.string.toast11, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(myApplication, R.string.toast11, Toast.LENGTH_SHORT).show();
             }
         };
         AdRequest request = getAdRequest();

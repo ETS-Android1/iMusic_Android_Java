@@ -8,20 +8,35 @@
     tools:context=".fragments.FullPlayerFragment">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp">
 
-        <ImageView
-            android:id="@+id/ivCover"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_logo" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivCover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_logo" />
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:adSize="MEDIUM_RECTANGLE"
+                app:adUnitId="ca-app-pub-8151267593746824/7080194612" />
+        </FrameLayout>
     </androidx.cardview.widget.CardView>
 
     <SeekBar
