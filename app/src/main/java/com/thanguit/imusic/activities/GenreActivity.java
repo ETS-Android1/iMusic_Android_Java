@@ -1,14 +1,11 @@
 package com.thanguit.imusic.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +13,6 @@ import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.adapters.GenreAdapter;
-import com.thanguit.imusic.adapters.SongAdapter;
-import com.thanguit.imusic.adapters.UserPlaylistAdapter;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Genre;

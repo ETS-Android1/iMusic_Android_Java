@@ -45,7 +45,7 @@ public class PlaylistHomeAdapter extends RecyclerView.Adapter<PlaylistHomeAdapte
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, SongActivity.class);
-            intent.putExtra("PLAYLIST", playlistArrayList.get(position));
+            intent.putExtra("PLAYLIST", playlistArrayList.get(holder.getLayoutPosition()));
             context.startActivity(intent);
         });
     }
@@ -62,8 +62,8 @@ public class PlaylistHomeAdapter extends RecyclerView.Adapter<PlaylistHomeAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.cvPlaylist = (CardView) itemView.findViewById(R.id.cvPlaylist);
-            this.ivPlaylist = (ImageView) itemView.findViewById(R.id.ivPlaylistImage);
+            this.cvPlaylist = itemView.findViewById(R.id.cvPlaylist);
+            this.ivPlaylist = itemView.findViewById(R.id.ivPlaylistImage);
         }
     }
 }

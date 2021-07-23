@@ -60,21 +60,12 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/avSongActivity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="5dp"
-                ads:adSize="SMART_BANNER"
-                ads:adUnitId="ca-app-pub-8151267593746824/7080194612" />
-
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/sflItemSong"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,7 +98,23 @@
                 android:id="@+id/rvListSong"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="10dp"
                 android:visibility="gone" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/avSongActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="ca-app-pub-8151267593746824/7080194612" />
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

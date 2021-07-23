@@ -8,36 +8,22 @@
     tools:context=".fragments.FullPlayerFragment">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/ivCover"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/ic_logo" />
-
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/avFullPlayerFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                app:adSize="MEDIUM_RECTANGLE"
-                app:adUnitId="ca-app-pub-8151267593746824/7080194612" />
-        </FrameLayout>
+        <ImageView
+            android:id="@+id/ivCover"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_logo" />
     </androidx.cardview.widget.CardView>
 
     <SeekBar
@@ -136,7 +122,6 @@
             <!--                android:layout_height="25dp"-->
             <!--                android:gravity="center"-->
             <!--                app:srcCompat="@drawable/ic_not_favorite" />-->
-
 
             <ImageView
                 android:id="@+id/ivMv"

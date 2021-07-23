@@ -98,15 +98,15 @@ public class ChartAdapter extends RecyclerView.Adapter<ChartAdapter.ViewHolder> 
         holder.tvChartSongSinger.setText(this.songArrayList.get(position).getSinger().trim());
         holder.tvChartLikeNumber.setText(this.songArrayList.get(position).getLike().trim());
 
-        holder.ivChartSongMore.setOnClickListener(v -> Open_Info_Song_Dialog(Gravity.BOTTOM, position));
+        holder.ivChartSongMore.setOnClickListener(v -> Open_Info_Song_Dialog(Gravity.BOTTOM, holder.getLayoutPosition()));
         holder.itemView.setOnLongClickListener(v -> {
-            Open_Info_Song_Dialog(Gravity.BOTTOM, position);
+            Open_Info_Song_Dialog(Gravity.BOTTOM, holder.getLayoutPosition());
             return false;
         });
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), FullPlayerActivity.class);
-            intent.putExtra("SONGCHART", songArrayList.get(position));
+            intent.putExtra("SONGCHART", songArrayList.get(holder.getLayoutPosition()));
             v.getContext().startActivity(intent);
         });
 

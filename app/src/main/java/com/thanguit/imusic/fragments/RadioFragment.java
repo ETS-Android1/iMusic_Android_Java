@@ -21,8 +21,6 @@ public class RadioFragment extends Fragment {
     private TextView tvRoom2;
     private ImageView room1;
     private ImageView room2;
-    private ImageView room3;
-    private ImageView room4;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,17 +71,5 @@ public class RadioFragment extends Fragment {
             intent.putExtra("ROOMNAME2", roomName2);
             startActivity(intent);
         });
-
-
-//        room3.setOnClickListener(v -> {
-//            Intent intent = new Intent(getActivity(), RadioActivity.class);
-//            intent.putExtra("room", 3);
-//            startActivity(intent);
-//        });
-//        room4.setOnClickListener(v -> {
-//            Intent intent = new Intent(getActivity(), RadioActivity.class);
-//            intent.putExtra("room", 4);
-//            startActivity(intent);
-//        });
     }
 }

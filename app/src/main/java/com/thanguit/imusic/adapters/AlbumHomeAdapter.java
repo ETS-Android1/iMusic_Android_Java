@@ -53,7 +53,7 @@ public class AlbumHomeAdapter extends RecyclerView.Adapter<AlbumHomeAdapter.View
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, SongActivity.class);
-            intent.putExtra("ALBUM", albumArrayList.get(position));
+            intent.putExtra("ALBUM", albumArrayList.get(holder.getLayoutPosition()));
             context.startActivity(intent);
         });
     }

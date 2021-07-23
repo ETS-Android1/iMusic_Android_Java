@@ -48,7 +48,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
 
         holder.ivGenreImage.setOnClickListener(v -> {
             Intent intent = new Intent(context, SongActivity.class);
-            intent.putExtra("GENRE", genreList.get(position));
+            intent.putExtra("GENRE", genreList.get(holder.getLayoutPosition()));
             context.startActivity(intent);
         });
     }

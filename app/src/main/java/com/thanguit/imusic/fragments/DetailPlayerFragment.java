@@ -38,7 +38,6 @@ public class DetailPlayerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Mapping(view);
-        Event();
     }
 
     @Override
@@ -64,8 +63,5 @@ public class DetailPlayerFragment extends Fragment {
         } else {
             Log.d(TAG, "Lỗi! Không có dữ liệu");
         }
-    }
-
-    private void Event() {
     }
 }

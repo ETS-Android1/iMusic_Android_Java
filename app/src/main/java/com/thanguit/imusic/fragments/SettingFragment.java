@@ -27,6 +27,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
 import com.thanguit.imusic.R;
@@ -50,6 +57,8 @@ import retrofit2.Response;
 
 public class SettingFragment extends Fragment {
     private static final String TAG = "SettingFragment";
+
+    private AdView avSettingFragment;
 
     private SettingLanguage settingLanguage;
 
@@ -85,11 +94,48 @@ public class SettingFragment extends Fragment {
 
         Mapping(view);
         Event();
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+            }
+        });
+        this.avSettingFragment = view.findViewById(R.id.avSettingFragment);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        this.avSettingFragment.loadAd(adRequest);
+
+        this.avSettingFragment.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+//                Toast.makeText(getContext(), R.string.toast11, Toast.LENGTH_SHORT).show();
+//                Log.d("AD", loadAdError.getMessage());
+            }
+
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+            }
+
+            @Override
+            public void onAdClicked() {
+                super.onAdClicked();
+            }
+
+            @Override
+            public void onAdImpression() {
+                super.onAdImpression();
+            }
+        });
     }
 
     public void Mapping(View view) {

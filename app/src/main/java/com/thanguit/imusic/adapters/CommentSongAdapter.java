@@ -68,7 +68,6 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull CommentSongAdapter.ViewHolder holder, int position) {
-        Log.d(TAG, "User avatar:" + this.commentList.get(position).getUserImage());
         Picasso.get()
                 .load(this.commentList.get(position).getUserImage())
                 .placeholder(R.drawable.ic_logo)
@@ -78,7 +77,7 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
         holder.tvTimeComment.setText(Handle_Date(this.commentList.get(position).getDate()).trim());
         holder.tvContentComment.setText(this.commentList.get(position).getContent().trim());
 
-        if (this.commentList.get(position).getIdUser().trim().equals(DataLocalManager.getUserID())) {
+        if (this.commentList.get(holder.getLayoutPosition()).getIdUser().trim().equals(DataLocalManager.getUserID())) {
             holder.itemView.setOnLongClickListener(v -> {
                 Open_Delete_Comment_Dialog(Gravity.CENTER, holder.getLayoutPosition());
                 return false;

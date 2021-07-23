@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.GenreActivity;
-import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.Theme;
 
 import java.util.List;
@@ -45,7 +44,7 @@ public class ThemeHomeAdapter extends RecyclerView.Adapter<ThemeHomeAdapter.View
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, GenreActivity.class);
-            intent.putExtra("THEME", themeList.get(position));
+            intent.putExtra("THEME", themeList.get(holder.getLayoutPosition()));
             context.startActivity(intent);
         });
     }
@@ -58,8 +57,6 @@ public class ThemeHomeAdapter extends RecyclerView.Adapter<ThemeHomeAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivTheme;
         private CardView cvTheme;
-
-        private ScaleAnimation scaleAnimation;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -35,13 +35,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
 import com.thanguit.imusic.API.DataService;
@@ -76,8 +69,6 @@ import retrofit2.Response;
 
 public class FullPlayerFragment extends Fragment {
     private static final String TAG = "FullPlayerFragment";
-
-    private AdView avFullPlayerFragment;
 
     private MediaPlayer mediaPlayer;
 
@@ -160,49 +151,6 @@ public class FullPlayerFragment extends Fragment {
             FullPlayerManagerService.isRegister = true;
         }
 //        CreateNotification(MiniPlayerOnLockScreenService.ACTION_PLAY);
-
-        MobileAds.initialize(getActivity(), new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
-            }
-        });
-
-        this.avFullPlayerFragment = view.findViewById(R.id.avFullPlayerFragment);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        this.avFullPlayerFragment.loadAd(adRequest);
-
-        this.avFullPlayerFragment.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-            }
-
-            @Override
-            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-//                Toast.makeText(getContext(), R.string.toast11, Toast.LENGTH_SHORT).show();
-//                Log.d("AD", loadAdError.getMessage());
-            }
-
-            @Override
-            public void onAdOpened() {
-                super.onAdOpened();
-            }
-
-            @Override
-            public void onAdLoaded() {
-                super.onAdLoaded();
-            }
-
-            @Override
-            public void onAdClicked() {
-                super.onAdClicked();
-            }
-
-            @Override
-            public void onAdImpression() {
-                super.onAdImpression();
-            }
-        });
     }
 
     @Override

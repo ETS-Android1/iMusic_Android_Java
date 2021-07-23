@@ -58,7 +58,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder>
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(v.getContext());
             View view = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder.setView(view);
-            alertBuilder.setCancelable(true);
+            alertBuilder.setCancelable(false);
             this.alertDialog = alertBuilder.create();
             this.alertDialog.show();
 

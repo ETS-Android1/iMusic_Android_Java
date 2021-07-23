@@ -111,7 +111,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         DataLocalManager.init(context);
 
         holder.ivItemSongLove.setEnabled(false);
-        Handle_Favourite_Icon_Color(holder.ivItemSongLove, holder.getLayoutPosition()); // Load những bài hát yêu thích của người dùng
+        Handle_Favourite_Icon_Color(holder.ivItemSongLove, position); // Load những bài hát yêu thích của người dùng
 
         Picasso.get()
                 .load(this.songArrayList.get(position).getImg())
