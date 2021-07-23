@@ -24,6 +24,7 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
+        android:id="@+id/llSongInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/cvSongImage"
@@ -69,6 +70,8 @@
         android:id="@+id/ivItemSongMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/llSongInfo"
+        android:layout_alignBottom="@+id/llSongInfo"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
         android:padding="2dp"
@@ -78,6 +81,8 @@
         android:id="@+id/ivItemSongLove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/llSongInfo"
+        android:layout_alignBottom="@+id/llSongInfo"
         android:layout_centerInParent="true"
         android:layout_marginEnd="10dp"
         android:layout_toStartOf="@+id/ivItemSongMore"

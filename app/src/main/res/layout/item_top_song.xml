@@ -36,6 +36,7 @@
     </androidx.cardview.widget.CardView>
 
     <RelativeLayout
+        android:id="@+id/rlTopSongInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/cvSongImage"
@@ -100,6 +101,8 @@
         android:id="@+id/ivChartSongMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/rlTopSongInfo"
+        android:layout_alignBottom="@+id/rlTopSongInfo"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
         android:padding="2dp"

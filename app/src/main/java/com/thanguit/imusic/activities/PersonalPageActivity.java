@@ -1,5 +1,6 @@
 package com.thanguit.imusic.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -17,6 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 import com.thanguit.imusic.API.APIService;
@@ -26,6 +36,7 @@ import com.thanguit.imusic.SharedPreferences.DataLocalManager;
 import com.thanguit.imusic.animations.LoadingDialog;
 import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.User;
+import com.thanguit.imusic.services.FullPlayerManagerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +47,8 @@ import retrofit2.Response;
 
 public class PersonalPageActivity extends AppCompat {
     private static final String TAG = "PersonalPageActivity";
+
+    private InterstitialAd interstitialAd;
 
     private FirebaseAuth firebaseAuth;
 
@@ -60,6 +73,74 @@ public class PersonalPageActivity extends AppCompat {
 
         Mapping();
         Event();
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+                Load_Ad();
+            }
+        });
+    }
+
+    private void Load_Ad() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this, "ca-app-pub-8151267593746824/2227269288", adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd minterstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                interstitialAd = minterstitialAd;
+                Log.i(TAG, "onAdLoaded");
+
+                interstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                    @Override
+                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                        // Called when fullscreen content failed to show.
+                        Log.d(TAG, "The ad failed to show.");
+                    }
+
+                    @Override
+                    public void onAdShowedFullScreenContent() {
+                        // Called when fullscreen content is shown.
+                        // Make sure to set your reference to null so you don't
+                        // show it a second time.
+                        interstitialAd = null;
+                        Log.d(TAG, "The ad was shown.");
+                    }
+
+                    @Override
+                    public void onAdDismissedFullScreenContent() {
+                        // Called when fullscreen content is dismissed.
+                        Log.d(TAG, "The ad was dismissed.");
+                        finish();
+                    }
+                });
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.d(TAG, loadAdError.getMessage());
+                interstitialAd = null;
+            }
+        });
+    }
+
+    @Override
+    public void finish() {
+        if (interstitialAd != null) {
+            interstitialAd.show(this);
+            try {
+                if (FullPlayerManagerService.mediaPlayer != null)
+                    FullPlayerManagerService.mediaPlayer.pause();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.d(TAG, "The interstitial ad wasn't ready yet.");
+            super.finish();
+        }
     }
 
     private void Mapping() {

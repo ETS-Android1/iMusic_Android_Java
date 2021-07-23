@@ -1,5 +1,6 @@
 package com.thanguit.imusic.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -13,6 +14,11 @@ import android.util.Log;
 import android.view.View;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.thanguit.imusic.API.APIService;
@@ -33,6 +39,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SongActivity extends AppCompat {
+    private static final String TAG = "SongActivity";
+
+    private AdView avSongActivity;
+
     private CoordinatorLayout coordinatorlayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;
@@ -46,8 +56,6 @@ public class SongActivity extends AppCompat {
     private Playlist playlist;
     private Album album;
     private Genre genre;
-
-    private static final String TAG = "SongActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,10 +223,19 @@ public class SongActivity extends AppCompat {
                 Log.d(TAG, "Display_Song_Album(Error)" + t.getMessage());
             }
         });
-
     }
 
     private void Play_All_Song() { // Hàm này sẽ đảm bảo khi các bài hát load xong về giao diện thì button này mới hoạt động
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+            }
+        });
+        this.avSongActivity = findViewById(R.id.avSongActivity);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        this.avSongActivity.loadAd(adRequest);
+
+
         this.floatingActionButton.setEnabled(true);
         this.floatingActionButton.setOnClickListener(v -> {
             Intent intent = new Intent(SongActivity.this, FullPlayerActivity.class);
@@ -227,4 +244,3 @@ public class SongActivity extends AppCompat {
         });
     }
 }
-

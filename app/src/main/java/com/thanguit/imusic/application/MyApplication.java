@@ -24,13 +24,13 @@ public class MyApplication extends Application {
 //        ZaloSDKApplication.wrap(this);
 //        createNotificationChannel();
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
-            }
-        });
-
-        appOpenManager = new AppOpenManager(this);
+//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(@NonNull InitializationStatus initializationStatus) {
+//            }
+//        });
+//
+//        appOpenManager = new AppOpenManager(this);
     }
 
     private void createNotificationChannel() {

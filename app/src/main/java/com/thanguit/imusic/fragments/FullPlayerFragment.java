@@ -77,7 +77,7 @@ import retrofit2.Response;
 public class FullPlayerFragment extends Fragment {
     private static final String TAG = "FullPlayerFragment";
 
-    private AdView adView;
+    private AdView avFullPlayerFragment;
 
     private MediaPlayer mediaPlayer;
 
@@ -167,11 +167,11 @@ public class FullPlayerFragment extends Fragment {
             }
         });
 
-        this.adView = view.findViewById(R.id.adView);
+        this.avFullPlayerFragment = view.findViewById(R.id.avFullPlayerFragment);
         AdRequest adRequest = new AdRequest.Builder().build();
-        this.adView.loadAd(adRequest);
+        this.avFullPlayerFragment.loadAd(adRequest);
 
-        this.adView.setAdListener(new AdListener() {
+        this.avFullPlayerFragment.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
                 super.onAdClosed();
