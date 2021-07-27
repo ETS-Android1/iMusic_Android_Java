@@ -31,7 +31,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
             return false;
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // M: Android 23 or Android 6
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // M: Android 23 or Android 6.0
             Network network = connectivityManager.getActiveNetwork();
             if (network == null) {
                 return false;

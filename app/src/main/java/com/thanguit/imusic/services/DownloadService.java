@@ -29,7 +29,6 @@ public class DownloadService {
     }
 
     public static void setListSongDownloaded(List<Song> song) {
-
         DataLocalManager.setListSongDownloaded(song);
     }
 
@@ -107,7 +106,6 @@ public class DownloadService {
                 if (newFile.delete()) {
                     Toast.makeText(context, "Đã xoá file nhạc!", Toast.LENGTH_SHORT).show();
                 }
-                ;
             } catch (Exception e) {
                 Log.d("CheckError", "Xoá file thất bại!");
             }
