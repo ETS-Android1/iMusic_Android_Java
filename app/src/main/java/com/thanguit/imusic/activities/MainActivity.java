@@ -138,7 +138,6 @@ public class MainActivity extends AppCompat {
         if (currentUser != null && !DataLocalManager.getUserID().isEmpty()) {
             Update_UI();
         }
-
 //        if (!ZaloSDK.Instance.getOAuthCode().isEmpty()) {
 //        }
     }
