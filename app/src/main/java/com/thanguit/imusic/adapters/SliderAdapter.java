@@ -55,7 +55,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.MyViewHolder>
                 .into(viewHolder.ivSliderImage);
 
         viewHolder.itemView.setOnClickListener(v -> {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(v.getContext());
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(v.getContext(), R.style.WrapContentDialog);
             View view = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder.setView(view);
             alertBuilder.setCancelable(false);

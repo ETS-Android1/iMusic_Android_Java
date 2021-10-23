@@ -128,7 +128,7 @@
     <string name="tvInfoGender">Giới tính</string>
     <string name="btnPersonalPlayAll">Phát tất cả</string>
     <string name="tvEmptySong">Chưa có bài hát nào</string>
-    <string name="tvLoading">Chờ xíu nha, hihi....😁</string>
+    <string name="tvLoading">Chờ xíu nha....😁</string>
     <string name="tvAddPlaylist">Tạo mới playlist</string>
     <string name="tvEditPlaylist">Sửa tên playlist hiện tại</string>
     <string name="tvDeletePlaylist">Xóa playlist hiện tại</string>
@@ -156,4 +156,6 @@
     <string name="tvShowStar">4.0</string>
     <string name="etFeedbackContent">Nhập đánh giá</string>
     <string name="btnSendFeedback">Gửi</string>
+
+    <string name="tvStop">Chức năng này đã tạm thời ngừng hoạt động.</string>
 </resources>

@@ -17,10 +17,10 @@ import com.thanguit.imusic.R;
 import com.thanguit.imusic.activities.RadioActivity;
 
 public class RadioFragment extends Fragment {
-    private TextView tvRoom1;
-    private TextView tvRoom2;
-    private ImageView room1;
-    private ImageView room2;
+//    private TextView tvRoom1;
+//    private TextView tvRoom2;
+//    private ImageView room1;
+//    private ImageView room2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,40 +36,29 @@ public class RadioFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //this.tvRadio = view.findViewById(R.id.tvRadio);
-        //this.tvRadio.setSelected(true);
-        // btn = view.findViewById(R.id.btnJoin);
-
-        this.tvRoom1 = view.findViewById(R.id.tvRoom1);
-        this.tvRoom1.setSelected(true); // Text will be moved
-
-        this.tvRoom2 = view.findViewById(R.id.tvRoom2);
-        this.tvRoom2.setSelected(true); // Text will be moved
-
-        this.room1 = view.findViewById(R.id.ivRoom1);
-        this.room2 = view.findViewById(R.id.ivRoom2);
-//        room3 = view.findViewById(R.id.ivRoom3);
-//        room4 = view.findViewById(R.id.ivRoom4);
-/*        btn.setOnClickListener(v->{
-            Intent intent = new Intent(getActivity(), RadioActivity.class);
-            startActivity(intent);
-        });*/
-
-
-        String roomName1 = this.tvRoom1.getText().toString().trim();
-        room1.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), RadioActivity.class);
-            intent.putExtra("room", 1);
-            intent.putExtra("ROOMNAME1", roomName1);
-            startActivity(intent);
-        });
-
-        String roomName2 = this.tvRoom2.getText().toString().trim();
-        room2.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), RadioActivity.class);
-            intent.putExtra("room", 2);
-            intent.putExtra("ROOMNAME2", roomName2);
-            startActivity(intent);
-        });
+//        this.tvRoom1 = view.findViewById(R.id.tvRoom1);
+//        this.tvRoom1.setSelected(true); // Text will be moved
+//
+//        this.tvRoom2 = view.findViewById(R.id.tvRoom2);
+//        this.tvRoom2.setSelected(true); // Text will be moved
+//
+//        this.room1 = view.findViewById(R.id.ivRoom1);
+//        this.room2 = view.findViewById(R.id.ivRoom2);
+//
+//        String roomName1 = this.tvRoom1.getText().toString().trim();
+//        room1.setOnClickListener(v -> {
+//            Intent intent = new Intent(getActivity(), RadioActivity.class);
+//            intent.putExtra("room", 1);
+//            intent.putExtra("ROOMNAME1", roomName1);
+//            startActivity(intent);
+//        });
+//
+//        String roomName2 = this.tvRoom2.getText().toString().trim();
+//        room2.setOnClickListener(v -> {
+//            Intent intent = new Intent(getActivity(), RadioActivity.class);
+//            intent.putExtra("room", 2);
+//            intent.putExtra("ROOMNAME2", roomName2);
+//            startActivity(intent);
+//        });
     }
 }

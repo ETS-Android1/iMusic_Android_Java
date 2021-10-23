@@ -17,7 +17,7 @@ public class LoadingDialog {
     }
 
     public void Start_Loading() {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this.activity);
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this.activity, R.style.WrapContentDialog);
         View view = LayoutInflater.from(activity).inflate(R.layout.layout_loading_dialog, null);
         alertBuilder.setView(view);
 

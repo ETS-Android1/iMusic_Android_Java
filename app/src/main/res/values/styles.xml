@@ -36,6 +36,11 @@
         <item name="android:windowExitAnimation">@anim/slide_down</item>
     </style>
 
+    <style name="WrapContentDialog" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="windowMinWidthMajor">0%</item>
+        <item name="windowMinWidthMinor">0%</item>
+    </style>
+
     <!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
     <!--        <item name="colorPrimary">@color/purple_500</item>-->
     <!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->

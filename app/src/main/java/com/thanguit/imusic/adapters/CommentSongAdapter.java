@@ -126,7 +126,7 @@ public class CommentSongAdapter extends RecyclerView.Adapter<CommentSongAdapter.
         this.scaleAnimation = new ScaleAnimation(context, btnDialogAction);
         this.scaleAnimation.Event_Button();
         btnDialogAction.setOnClickListener(v -> {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context, R.style.WrapContentDialog);
             View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder.setView(view);
             alertBuilder.setCancelable(false);

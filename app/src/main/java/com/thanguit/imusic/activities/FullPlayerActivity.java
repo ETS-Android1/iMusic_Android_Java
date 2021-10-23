@@ -74,7 +74,7 @@ public class FullPlayerActivity extends AppCompat implements FullPlayerFragment.
 
         this.vpFullPlayer.setAdapter(fullPlayerAdapter);
         this.vpFullPlayer.setCurrentItem(1); // Set default Fragment
-        this.vpFullPlayer.setOffscreenPageLimit(2); // Load trước 2 trang (theo cơ chế hoạt động của ViewPager)
+//        this.vpFullPlayer.setOffscreenPageLimit(2); // Load trước 2 trang (theo cơ chế hoạt động của ViewPager)
     }
 
     private void Event() {

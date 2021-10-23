@@ -73,8 +73,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private int playlistID;
     private String layout;
 
-    private final String GIF_URL = "https://i.stack.imgur.com/h6viz.gif";
-
     private static final String SONG = "SONG";
     private static final String FAVORITE_SONG = "FAVORITESONG";
     private static final String PLAYLIST_SONG = "PLAYLISTSONG";
@@ -138,7 +136,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         });
 
         holder.ivItemSongLove.setOnClickListener(v -> {
-            AlertDialog.Builder alertBuilder_1 = new AlertDialog.Builder(v.getContext());
+            AlertDialog.Builder alertBuilder_1 = new AlertDialog.Builder(v.getContext(), R.style.WrapContentDialog);
             View view_1 = LayoutInflater.from(v.getContext()).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder_1.setView(view_1);
             alertBuilder_1.setCancelable(false);
@@ -475,7 +473,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         this.scaleAnimation = new ScaleAnimation(context, btnDialogAction);
         this.scaleAnimation.Event_Button();
         btnDialogAction.setOnClickListener(v -> {
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context, R.style.WrapContentDialog);
             View view = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
             alertBuilder.setView(view);
             alertBuilder.setCancelable(false);
