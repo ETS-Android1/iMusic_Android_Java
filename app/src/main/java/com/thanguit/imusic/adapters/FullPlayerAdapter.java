@@ -3,12 +3,12 @@ package com.thanguit.imusic.adapters;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FullPlayerAdapter extends FragmentStatePagerAdapter {
+public class FullPlayerAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragmentList = new ArrayList<>();
 
     public FullPlayerAdapter(@NonNull FragmentManager fm) {

@@ -3,6 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/drawable/logo_facebook.xml" value="0.154" />
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/drawable/logo_google.xml" value="0.154" />
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/activity_main.xml" value="0.24094202898550723" />
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/activity_song.xml" value="0.23278985507246377" />
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/fragment_lyrics_player.xml" value="0.24864130434782608" />
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/fragment_personal_playlist.xml" value="0.24547101449275363" />
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/item_song.xml" value="0.12310030395136778" />
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/item_top_song.xml" value="0.25416666666666665" />
         <entry key="..\:/mobile/iMusic_Android_Java/app/src/main/res/drawable/btn_loginfb.xml" value="0.2703125" />
         <entry key="..\:/mobile/iMusic_Android_Java/app/src/main/res/drawable/btn_logingg.xml" value="0.2703125" />
         <entry key="..\:/mobile/iMusic_Android_Java/app/src/main/res/drawable/ic_copy.xml" value="0.2703125" />

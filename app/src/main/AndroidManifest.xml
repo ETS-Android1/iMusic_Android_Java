@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.thanguit.imusic">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -7,6 +8,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove"/>
 
     <application
         android:name=".application.MyApplication"
@@ -21,40 +23,51 @@
 
         <activity
             android:name=".activities.AddUpdateActivity"
+            android:configChanges="locale"
             android:hardwareAccelerated="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.YoutubeActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.RadioActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.GenreActivity"
+            android:configChanges="locale"
             android:hardwareAccelerated="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PersonalPlaylistActivity"
+            android:configChanges="locale"
             android:hardwareAccelerated="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PersonalPageActivity"
+            android:configChanges="locale"
             android:hardwareAccelerated="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SongActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SearchActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FullPlayerActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.FullActivity"
+            android:configChanges="locale"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.MainActivity"
+            android:configChanges="locale"
             android:hardwareAccelerated="false"
             android:screenOrientation="portrait">
             <intent-filter>
