@@ -1,6 +1,7 @@
 package com.thanguit.imusic.activities;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,6 @@ public class YoutubeActivity extends YouTubeBaseActivity {
     private TextView tvSongName;
     private TextView tvArtist;
     private String MvCode;
-    boolean error = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +41,17 @@ public class YoutubeActivity extends YouTubeBaseActivity {
         this.tvArtist.setText(getIntent().getStringExtra("Artist").trim());
 
         this.MvCode = getIntent().getStringExtra("MvCode");
-        if (MvCode != null) {
+        if (!TextUtils.isEmpty(this.MvCode)) {
             onInitializedListener = new YouTubePlayer.OnInitializedListener() {
                 @Override
                 public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                     youTubePlayer.loadVideo(MvCode); // Hiển thị Video của Youtube
                     try {
-                        if (FullPlayerManagerService.mediaPlayer != null)
+                        if (FullPlayerManagerService.mediaPlayer != null) {
                             FullPlayerManagerService.mediaPlayer.pause();
+                        } else {
+                            youTubePlayer.play();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -57,17 +60,11 @@ public class YoutubeActivity extends YouTubeBaseActivity {
 
                 @Override
                 public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-                    error = true;
+                    Toast.makeText(YoutubeActivity.this, R.string.toast31, Toast.LENGTH_SHORT).show();
                 }
             };
         }
 
-        if (error) {
-            Toast.makeText(this, R.string.toast31, Toast.LENGTH_SHORT).show();
-        }
-        ///btn = findViewById(R.id.btnPlay);
-        //btn.setOnClickListener(v->{
-        youTubePlayerView.initialize("AIzaSyCUyAkQaYLAsYcimtKB3nyCo3ow-pyuElM", onInitializedListener);
-        //});
+        youTubePlayerView.initialize("AIzaSyCxmDstUZ507tv0OvMhJ67Dc3Jyi_1tTyU", onInitializedListener);
     }
 }
