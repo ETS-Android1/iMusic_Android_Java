@@ -16,7 +16,7 @@ import com.thanguit.imusic.services.FullPlayerManagerService;
 public class YoutubeActivity extends YouTubeBaseActivity {
     YouTubePlayerView youTubePlayerView;
     YouTubePlayer.OnInitializedListener onInitializedListener;
-    //ImageView back;
+    private static final String API_KEY = "AIzaSyCxmDstUZ507tv0OvMhJ67Dc3Jyi_1tTyU";
     private Button back;
     private TextView tvSongName;
     private TextView tvArtist;
@@ -65,6 +65,6 @@ public class YoutubeActivity extends YouTubeBaseActivity {
             };
         }
 
-        youTubePlayerView.initialize("AIzaSyCxmDstUZ507tv0OvMhJ67Dc3Jyi_1tTyU", onInitializedListener);
+        youTubePlayerView.initialize(API_KEY, onInitializedListener);
     }
 }
