@@ -36,14 +36,14 @@
 <!--        android:textSize="30sp"-->
 <!--        android:textStyle="bold" />-->
 
-<!--    <Button-->
-<!--        android:id="@+id/btnLoginFacebook"-->
-<!--        style="@style/btnLogin"-->
-<!--        android:layout_above="@+id/btnLoginGoogle"-->
-<!--        android:layout_marginBottom="20dp"-->
-<!--        android:background="@drawable/btn_loginfb"-->
-<!--        android:drawableStart="@drawable/logo_facebook"-->
-<!--        android:text="@string/btnLoginFacebook" />-->
+    <Button
+        android:id="@+id/btnLoginFacebook"
+        style="@style/btnLogin"
+        android:layout_above="@+id/btnLoginGoogle"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/btn_loginfb"
+        android:drawableStart="@drawable/logo_facebook"
+        android:text="@string/btnLoginFacebook" />
 
     <Button
         android:id="@+id/btnLoginGoogle"

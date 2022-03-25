@@ -17,6 +17,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,6 +31,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -43,6 +49,7 @@ import com.thanguit.imusic.animations.ScaleAnimation;
 import com.thanguit.imusic.models.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,12 +59,12 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompat {
     private static final String TAG = "MainActivity";
-    //    private static final String TAG_1 = "LOGIN WITH FACEBOOK";
+    private static final String TAG_1 = "LOGIN WITH FACEBOOK";
     private static final String TAG_2 = "LOGIN WITH GOOGLE";
 //    private static final String LOG_TAG_3 = "LOGIN WITH ZALO";
 
     private FirebaseAuth firebaseAuth;
-    //    private CallbackManager callbackManager;
+    private CallbackManager callbackManager;
     private GoogleSignInClient googleSignInClient;
 
     private ScaleAnimation scaleAnimation;
@@ -66,7 +73,7 @@ public class MainActivity extends AppCompat {
     private LoadingDialog loadingDialog;
 
     private ImageView imvLogo;
-    //    private Button btnLoginFacebook;
+    private Button btnLoginFacebook;
     private Button btnLoginGoogle;
 
     private ArrayList<User> userArrayList;
@@ -119,7 +126,7 @@ public class MainActivity extends AppCompat {
 
         Mapping();
         Event();
-//        Login_Facebook();
+        Login_Facebook();
         Login_Google();
 //        Login_Zalo();
     }
@@ -144,10 +151,10 @@ public class MainActivity extends AppCompat {
         this.loadingDialog = new LoadingDialog(this);
 
         this.firebaseAuth = FirebaseAuth.getInstance();
-//        this.callbackManager = CallbackManager.Factory.create();
+        this.callbackManager = CallbackManager.Factory.create();
 
         this.imvLogo = findViewById(R.id.imvLogo);
-//        this.btnLoginFacebook = findViewById(R.id.btnLoginFacebook);
+        this.btnLoginFacebook = findViewById(R.id.btnLoginFacebook);
         this.btnLoginGoogle = findViewById(R.id.btnLoginGoogle);
 //        this.btnLoginZL = findViewById(R.id.btnLoginZL);
 
@@ -157,12 +164,12 @@ public class MainActivity extends AppCompat {
 
     private void Event() {
         this.imvLogo.setAnimation(this.topAnimation);
-//        this.btnLoginFacebook.setAnimation(this.bottomAnimation);
+        this.btnLoginFacebook.setAnimation(this.bottomAnimation);
         this.btnLoginGoogle.setAnimation(this.bottomAnimation);
 //        this.btnLoginZL.setAnimation(this.bottomAnimation);
 
-//        this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginFacebook);
-//        this.scaleAnimation.Event_Button();
+        this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginFacebook);
+        this.scaleAnimation.Event_Button();
         this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginGoogle);
         this.scaleAnimation.Event_Button();
 //        this.scaleAnimation = new ScaleAnimation(MainActivity.this, this.btnLoginZL);
@@ -180,93 +187,99 @@ public class MainActivity extends AppCompat {
                 .withDoubleBackPressAction(this.doubleBackPressAction);
     }
 
-//    private void Login_Facebook() {
-//        this.btnLoginFacebook.setOnClickListener(v -> {
-//            LoginManager.getInstance().logInWithReadPermissions(MainActivity.this, Arrays.asList("public_profile", "email"));
-//            LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//                @Override
-//                public void onSuccess(LoginResult loginResult) {
-//                    Log.d(TAG_1, "facebook: onSuccess: " + loginResult.getAccessToken());
+    private void Login_Facebook() {
+        this.btnLoginFacebook.setOnClickListener(v -> {
+            LoginManager.getInstance().logInWithReadPermissions(MainActivity.this, Arrays.asList("public_profile", "email")); // Get public profile and email of user
+            LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    Log.d(TAG_1, "facebook: onSuccess: " + loginResult.getAccessToken());
+
+                    AuthCredential credential = FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken());
+                    firebaseAuth.signInWithCredential(credential)
+                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d(TAG_1, "signInWithCredential:success");
+                                        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                                        if (user != null) {
+                                            Log.d(TAG_1, "User Information: " + user.toString());
+
+
+                                            String id = user.getUid();
+                                            String name = user.getDisplayName();
+
+                                            /*
+                                                If the user has email, we get the user's email.
+                                                Some user signup with facebook by phone number, they no have email. So, We set email = "Null"
+                                            */
+                                            String email;
+                                            if (user.getEmail() != null) {
+                                                email = user.getEmail();
+                                            } else {
+                                                email = "Null";
+                                            }
+
+                                            String avatarFacebook;
+                                            if (user.getPhotoUrl() != null) {
+                                                avatarFacebook = user.getPhotoUrl() + "?height=500&access_token=" + loginResult.getAccessToken().getToken();
+                                            } else {
+                                                avatarFacebook = "Null";
+                                            }
+                                            String isDark = "0";
+                                            String isEnglish = "0";
+
+                                            loadingDialog.Start_Loading();
+                                            Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
+                                        }
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w(TAG_1, "signInWithCredential:failure", task.getException());
+                                        Toast.makeText(MainActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+//                    GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
+//                        try {
+//                            Log.d(LOG_TAG_1, "User information (FACEBOOK): " + object);
 //
-//                    AuthCredential credential = FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken());
-//                    firebaseAuth.signInWithCredential(credential)
-//                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<AuthResult> task) {
-//                                    if (task.isSuccessful()) {
-//                                        // Sign in success, update UI with the signed-in user's information
-//                                        Log.d(TAG_1, "signInWithCredential:success");
-//                                        FirebaseUser user = firebaseAuth.getCurrentUser();
+//                            String id = object.getString("id");
+//                            String name = object.getString("name");
+//                            String email = !object.getString("email").isEmpty() ? object.getString("email") : "Null";
+//                            String avatarFacebook = !object.getJSONObject("picture").getJSONObject("data").getString("url").isEmpty() ? object.getJSONObject("picture").getJSONObject("data").getString("url") : "Null";
+//                            String isDark = "0";
+//                            String isEnglish = "0";
 //
-//                                        if (user != null) {
-//                                            Log.d(TAG_1, "User Information: " + user.toString());
-//
-//                                            String id = user.getUid();
-//                                            String name = user.getDisplayName();
-//                                            String email;
-//                                            if (user.getEmail() != null) {
-//                                                email = user.getEmail();
-//                                            } else {
-//                                                email = "Null";
-//                                            }
-//
-//                                            String avatarFacebook;
-//                                            if (user.getPhotoUrl() != null) {
-//                                                avatarFacebook = user.getPhotoUrl() + "?height=500&access_token=" + loginResult.getAccessToken().getToken();
-//                                            } else {
-//                                                avatarFacebook = "Null";
-//                                            }
-//                                            String isDark = "0";
-//                                            String isEnglish = "0";
-//
-//                                            loadingDialog.Start_Loading();
-//                                            Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
-//                                        }
-//                                    } else {
-//                                        // If sign in fails, display a message to the user.
-//                                        Log.w(TAG_1, "signInWithCredential:failure", task.getException());
-//                                        Toast.makeText(MainActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            });
-////                    GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), (object, response) -> {
-////                        try {
-////                            Log.d(LOG_TAG_1, "User information (FACEBOOK): " + object);
-////
-////                            String id = object.getString("id");
-////                            String name = object.getString("name");
-////                            String email = !object.getString("email").isEmpty() ? object.getString("email") : "Null";
-////                            String avatarFacebook = !object.getJSONObject("picture").getJSONObject("data").getString("url").isEmpty() ? object.getJSONObject("picture").getJSONObject("data").getString("url") : "Null";
-////                            String isDark = "0";
-////                            String isEnglish = "0";
-////
-////                            loadingDialog.Start_Loading();
-////                            Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
-////                        } catch (Exception e) {
-////                            Log.d(LOG_TAG_1, "Get_User_Information(Error):" + e.getMessage());
-////                            Toast.makeText(MainActivity.this, R.string.toast10, Toast.LENGTH_SHORT).show();
-////                        }
-////                    });
-////                    Bundle bundle = new Bundle();
-////                    bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
-////                    graphRequest.setParameters(bundle);
-////                    graphRequest.executeAsync(); // Thực thi không đồng bộ
-//                }
-//
-//                @Override
-//                public void onCancel() {
-//                    Log.d(TAG_1, "facebook: onCancel");
-//                    Toast.makeText(MainActivity.this, R.string.toast2, Toast.LENGTH_SHORT).show();
-//                }
-//
-//                @Override
-//                public void onError(FacebookException error) {
-//                    Log.d(TAG_1, "facebook: onError ", error);
-//                    Toast.makeText(MainActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        });
-//    }
+//                            loadingDialog.Start_Loading();
+//                            Handle_User(id, name, email, avatarFacebook, isDark, isEnglish);
+//                        } catch (Exception e) {
+//                            Log.d(LOG_TAG_1, "Get_User_Information(Error):" + e.getMessage());
+//                            Toast.makeText(MainActivity.this, R.string.toast10, Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("fields", "id, name, email, picture.width(1000).height(1000)");
+//                    graphRequest.setParameters(bundle);
+//                    graphRequest.executeAsync(); // Thực thi không đồng bộ
+                }
+
+                @Override
+                public void onCancel() {
+                    Log.d(TAG_1, "facebook: onCancel");
+                    Toast.makeText(MainActivity.this, R.string.toast2, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onError(FacebookException error) {
+                    Log.d(TAG_1, "facebook: onError ", error);
+                    Toast.makeText(MainActivity.this, R.string.toast3, Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+    }
 
     private void Login_Google() {
         // Configure Google Sign In
@@ -365,7 +378,7 @@ public class MainActivity extends AppCompat {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        callbackManager.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 //        ZaloSDK.Instance.onActivityResult(this, requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
