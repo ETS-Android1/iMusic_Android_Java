@@ -4,8 +4,9 @@
     <string name="channel_name">iMusic 1</string>
     <string name="channel_description">iMusic Play</string>
 
-    <string name="facebook_app_id" translatable="false">1179700782483492</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb1179700782483492</string>
+    <string name="facebook_app_id" translatable="false">299909212275628</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb299909212275628</string>
+    <string name="facebook_client_token" translatable="false">b95e379b5a745e5ca99f7bb8ad5b66b1</string>
 
     <string name="btnLoginFacebook">Login with Facebook</string>
     <string name="btnLoginGoogle">Login with Google</string>

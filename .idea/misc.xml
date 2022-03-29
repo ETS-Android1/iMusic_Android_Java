@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/drawable/logo_facebook.xml" value="0.154" />
         <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/drawable/logo_google.xml" value="0.154" />
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/activity_genre.xml" value="0.2509057971014493" />
         <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/activity_main.xml" value="0.24094202898550723" />
+        <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/activity_search.xml" value="0.2509057971014493" />
         <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/activity_song.xml" value="0.23278985507246377" />
         <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/activity_youtube.xml" value="0.2028985507246377" />
         <entry key="..\:/mobile/Java/iMusic_Android_Java/app/src/main/res/layout/fragment_lyrics_player.xml" value="0.24864130434782608" />
