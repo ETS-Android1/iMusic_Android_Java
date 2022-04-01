@@ -18,6 +18,10 @@
         </intent>
     </queries>
 
+    <queries>
+        <package android:name="com.facebook.katana" />
+    </queries>
+
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
